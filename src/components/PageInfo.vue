@@ -1,8 +1,8 @@
 <template>
 <div class="page">
   <page-header
-    :title="$t('siteStats.title')"
-    :subtitle="$t('siteStats.subtitle')"
+    :title="$t('siteInfo.title')"
+    :subtitle="$t('siteInfo.subtitle')"
     type="center">
   </page-header>
 </div>
@@ -11,12 +11,12 @@
 <script>
 import PageHeader from './PageHeader'
 export default {
-  name: 'page-stats',
+  name: 'page-info',
   components: {
     PageHeader
   },
   mounted () {
-    document.title = 'Stats - Cosmos Fundraising'
+    document.title = 'Information - Cosmos Fundraising'
   }
 }
 </script>

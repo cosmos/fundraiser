@@ -1,21 +1,24 @@
 <template>
   <section class="section-call-to-action">
     <div class="section-container">
-      <h1>{{ $t('sectionCallToAction.title') }}</h1>
+      <h1>
+        <img src="../assets/images/cosmos_logo_m.png" alt="Cosmos">
+        Fundraising
+      </h1>
       <div class="description">
-        <p>{{ $t('sectionCallToAction.description') }}</p>
+        <p>Fundraising for <strong><a href="https://cosmos.network">Cosmos, Internet of Blockchains</a></strong> starts Feb 17th, 2017.</p>
       </div>
+      <form-email-signup></form-email-signup>
     </div>
-    <btn @click="goToFund">Fund Cosmos</btn>
   </section> 
 </template>
 
 <script>
-import Btn from './Btn'
+import FormEmailSignup from './FormEmailSignup'
 export default {
   name: 'page-index',
   components: {
-    Btn
+    FormEmailSignup
   },
   head: {
     title () {
@@ -28,6 +31,7 @@ export default {
   },
   methods: {
     goToFund () {
+      console.log('going to fund page!')
       this.$router.push('/fund')
     }
   }
@@ -38,39 +42,40 @@ export default {
 @import '../styles/variables.styl'
 
 .section-call-to-action
-  background c-app-fg
-  background hsl(0,0,10%)
-  height 100vh
-  padding-top 3rem
-
-  display flex
-  justify-content center
-  align-items center
-  flex-flow column
-
   .section-container
+    padding 6rem 0 3rem
     text-align center
-    width 80vw
-    height 80vw
-    border 2px solid hsl(0,0,30%)
-    border-radius 40vw
+    min-height 80vh
 
     display flex
-    flex-flow column nowrap
-    align-items center
+    flex-flow column
     justify-content center
+    align-items center
+    align-content center
 
-    padding 0 1rem
-    margin-bottom 3rem
+    width 75vw
+    margin 0 auto
 
     h1
-      font-size 1.5rem
-      margin-bottom 0.5rem
-      line-height 1.25
-
-      color #fff
+      font-size 1.25rem
+      color dim
+      margin-bottom 2rem
+      text-transform uppercase
+      letter-spacing 0.1em
+      img
+        height 2rem
+        display block
+        margin 0 auto 0.5rem
 
     .description
-      color light
-      color hsl(0,0,50%)
+      color txt
+      margin-bottom 2rem
+      border-bottom 1px dotted bc
+      padding-bottom 1rem
+      p
+        margin-bottom 1rem
+
+    .btn, .input
+      width 100%
+      max-width 20rem
 </style>

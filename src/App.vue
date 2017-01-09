@@ -14,7 +14,7 @@ import AppFooter from './components/AppFooter.vue'
 import store from './store/index.js'
 // import getLang from './scripts/getLang.js'
 // import Vue from 'vue'
-import firebase from 'firebase'
+import firebase from './scripts/firebase.js'
 
 export default {
   components: {

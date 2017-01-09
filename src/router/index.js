@@ -3,8 +3,9 @@ function r (filename) { return require('../components/Page' + filename) }
 
 const routes = [
   { path: '/', component: r('Index') },
-  { path: '/fund', component: r('Fund') },
-  { path: '/stats', component: r('Stats') }
+  { path: '/info', component: r('Info') },
+  { path: '/stats', component: r('Stats') },
+  { path: '/fund', component: r('Fund') }
 
   // wildcards
   // { path: '/404', component: r('404') },

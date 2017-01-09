@@ -1,3 +1,22 @@
+<template>
+  <input
+    class="input"
+    :type="iptType"
+    :placeholder="iptPlaceholder"
+    :value="iptValue"
+  >
+</template>
+
+<script>
+export default {
+  name: 'input',
+  props: ['ipt-placeholder', 'ipt-value', 'ipt-type']
+}
+</script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
 /*==============================================================================*/
 // Inputs
 
@@ -91,3 +110,4 @@ textarea
 /* Standard (https//drafts.csswg.org/selectors-4/#placeholder) */
 :placeholder-shown
   color placeholder-color
+</style>

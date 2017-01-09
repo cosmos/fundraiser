@@ -1,5 +1,6 @@
 <template>
   <footer class="app-footer">
+    <section-social-media></section-social-media>
     <div class="app-bottom">
       <div class="copyright">
         &copy; 2016 Cosmos Network Foundation
@@ -9,8 +10,12 @@
 </template>
 
 <script>
+import SectionSocialMedia from './SectionSocialMedia.vue'
 export default {
-  name: 'app-footer'
+  name: 'app-footer',
+  components: {
+    SectionSocialMedia
+  }
 }
 </script>
 
@@ -29,7 +34,7 @@ export default {
 
   .copyright
     padding 0 1rem
-    color txt
+    color light
     text-align center
     line-height 2.25rem
 

@@ -3,11 +3,11 @@
   <header class="app-header">
     <router-link to="/" class="nav-home" exact>
       <img src="../assets/images/cosmos_logo_m.png" alt="Cosmos Logo">
-      Fundraising
     </router-link>
     <nav class="app-nav">
-      <router-link to="/fund">{{ $t('siteHeader.fund') }}</router-link>
+      <router-link to="/info">{{ $t('siteHeader.info') }}</router-link>
       <router-link to="/stats" exact>{{ $t('siteHeader.stats') }}</router-link>
+      <router-link to="/fund">{{ $t('siteHeader.fund') }}</router-link>
       <a class="nav-github" href="https://cosmos.network">
         <i class="fa fa-home"></i>
         <span class="label">Main Site</span>
@@ -45,7 +45,7 @@ export default {
     align-items center
 
     color light
-    font-weight 500
+    font-weight 400
 
     img
       display block
