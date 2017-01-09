@@ -76,6 +76,6 @@ export default {
         margin-bottom 1rem
 
     .btn, .input
-      width 100%
+      width 100vw
       max-width 20rem
 </style>
