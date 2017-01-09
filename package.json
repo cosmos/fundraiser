@@ -13,7 +13,16 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "firebase": "^3.6.4",
+    "nib": "^1.1.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",
+    "vue": "^2.1.0",
+    "vue-head": "^2.0.10",
+    "vue-i18n": "^4.10.0",
+    "vue-router": "^2.1.1",
+    "vue-ua": "^1.2.2",
+    "vuex-router-sync": "^4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
