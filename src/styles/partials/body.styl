@@ -1,0 +1,43 @@
+global-reset()
+reset-html5()
+
+*
+  box-sizing border-box
+
+body
+  df()
+  display flex
+  flex-flow column
+  background c-app-bg
+  min-height 100vh
+  -webkit-text-size-adjust none
+
+  font-size x
+  font-family sans
+  line-height 1.5
+  font-weight 300
+
+a
+  text-decoration none
+
+em
+  font-style italic
+
+strong
+  font-weight bold
+
+#site-content
+  flex 1
+  min-height 80vh
+
+.desktop-only
+.mobile-only
+  display none !important
+
+@media screen and (max-width: 959px)
+  .mobile-only
+    display block !important
+
+@media screen and (min-width: 960px)
+  .desktop-only
+    display block !important

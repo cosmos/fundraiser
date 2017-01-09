@@ -1,0 +1,40 @@
+.split-page
+  margin-top 4.5rem
+  &.split-page-no-user
+    margin-top 3rem
+
+  .page-content
+    min-height 50vh
+
+@media screen and (min-width: 960px)
+  .split-page
+    display flex
+    flex-flow row nowrap
+    align-items stretch
+    min-height 70vh
+
+    .page-header
+      flex 0 0 33.3vw
+      margin-bottom 0
+      border-right dbd
+      border-bottom none
+      .text
+        padding-left 3rem
+        padding-right 3rem
+
+    .page-content
+      flex 0 0 66.7vw
+      border none
+      padding 1.5*x 0
+      .section-container
+        padding 3*x !important
+        .section-content
+          padding 0
+
+@media screen and (min-width: 1200px)
+  .split-page
+    .page-header
+      flex 0 0 25vw
+
+    .page-content
+      flex 0 0 75vw

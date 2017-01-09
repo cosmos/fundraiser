@@ -95,5 +95,9 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
+  },
+  stylus: {
+    use: [require('nib')()],
+    import: ['~nib/lib/nib/index.styl']
+  },
 }

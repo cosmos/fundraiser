@@ -1,0 +1,83 @@
+.form-narrow
+  max-width 32rem
+  margin 0 auto
+  margin-top -1px
+
+.form
+  margin-bottom 1rem
+  border-top 1px solid bc
+  border-bottom 1px solid bc
+  background #fff
+
+  .form-header, .form-footer
+    padding 1rem
+
+  .form-header
+    border-bottom 1px dotted bc
+    margin-bottom 0.5rem
+
+    .title
+      font-weight 500
+
+    .subtitle
+      color dim
+      margin-top 0.25rem
+      &:first-of-type
+        margin-top 0
+
+    .subtitle-error
+      color #f00
+
+  .form-group
+    padding 0.5rem 1rem
+
+  .form-footer
+    margin-top 1rem
+    border-top 1px dotted bc
+
+    display flex
+    justify-content space-between
+    align-items center
+
+  .form-group
+    label
+      display block
+      margin-bottom 0.5rem
+      font-weight 400
+      overflow hidden
+      height 0
+
+    .input-group
+      display flex
+      input, .btn, textarea, .input
+        width 100%
+
+@media screen and (min-width: 360px)
+  .form
+    .form-header, .form-footer
+      padding 1.25rem
+    .form-group
+      padding 0.625rem 1.25rem
+    .form-header
+      .title
+        font-size 1.125rem
+
+@media screen and (min-width: 360px)
+  .form
+    .form-header, .form-footer
+      padding 1.5rem
+    .form-group
+      padding 0.725rem 1.5rem
+    .form-header
+      .title
+        font-size 1.25rem
+
+@media screen and (min-width: 512px)
+  .form
+    border 1px solid bc
+
+@media screen and (min-width: 720px)
+  .form
+    margin-bottom 3rem
+  .form-narrow
+    margin 2rem auto
