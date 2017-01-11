@@ -1,5 +1,5 @@
 <template>
-<div class="page page-narrow">
+<div class="page page-narrow page-fund">
   <page-header :title="$t('siteFund.title')" type="center"></page-header>
   <div class="fund-wrapper">
     <page-fund-nav :step="step"></page-fund-nav>
@@ -17,9 +17,7 @@
               type="text"
               v-model.trim="user.name"
               :placeholder="$t('siteFund.stepOne.name')"
-              required
-
-            >
+              required>
           </div>
         </div>
         <div class="form-group">
@@ -30,23 +28,25 @@
               type="email"
               v-model.trim="user.email"
               :placeholder="$t('siteFund.stepOne.email')"
-              required
-            >
+              required>
           </div>
         </div>
         <div class="form-group">
-          <label for="cf-nationality">{{ $t('siteFund.stepOne.nationality') }}</label>
+          <label for="cf-nationality">
+            {{ $t('siteFund.stepOne.nationality') }}
+          </label>
           <div class="input-group">
             <form-select
               class="cf-nationality"
               :options="allCountries"
               :empty="true"
-              :model="user.nationality"
-            >
+              :model="user.nationality">
           </div>
         </div>
         <div class="form-footer">
-          <input type="submit" class="btn" :value="$t('siteFund.btnContinue')">
+          <div></div>
+          <pz-button btn-type="submit" :btn-value="$t('siteFund.btnContinue')">
+          </pz-button>
         </div>
       </form>
       <form class="form" v-if="step === 2" v-on:submit.prevent="goTo(3, $event)">
@@ -57,10 +57,10 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepTwo.generatePublicKey') }}</label>
           <div class="input-group">
-            <a class="btn" target="_blank" href="https://google.com">
-              <i class="fa fa-key"></i>
-              <span class="text">{{ $t('siteFund.stepTwo.launchKeygen') }}</span>
-            </a>
+            <div></div>
+            <pz-button btn-type="submit" btn-icon="key"
+              :btn-value="$t('siteFund.stepTwo.launchKeygen')">
+            </pz-button>
           </div>
         </div>
         <div class="form-group">
@@ -70,7 +70,9 @@
           </div>
         </div>
         <div class="form-footer">
-          <input type="submit" class="btn" :value="$t('siteFund.btnContinue')">
+          <div></div>
+          <pz-button btn-type="submit" :btn-value="$t('siteFund.btnContinue')">
+          </pz-button>
         </div>
       </form>
       <form class="form" v-if="step === 3" v-on:submit.prevent="goTo(4, $event)">
@@ -88,12 +90,15 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepThree.btcPrice') }}</label>
           <div class="input-group">
-            <input class="highlight-on-focus" type="number" disabled :value="bitcoinPrice">
+            <input class="highlight-on-focus" type="number"
+              disabled :value="bitcoinPrice">
             <div class="input-group-addon">BTC</div>
           </div>
         </div>
         <div class="form-footer">
-          <input type="submit" class="btn" :value="$t('siteFund.btnContinue')">
+          <div></div>
+          <pz-button btn-type="submit" :btn-value="$t('siteFund.btnContinue')">
+          </pz-button>
         </div>
       </form>
       <form class="form" v-if="step === 4" v-on:submit.prevent="goHome">
@@ -110,12 +115,15 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepFour.totalPrice') }}</label>
           <div class="input-group">
-            <input class="highlight-on-focus" type="number" disabled :value="bitcoinPrice">
+            <input class="highlight-on-focus"
+              type="number" disabled :value="bitcoinPrice">
             <div class="input-group-addon">BTC</div>
           </div>
         </div>
         <div class="form-footer">
-          <input type="submit" class="btn" :value="$t('siteFund.btnFinished')">
+          <div></div>
+          <pz-button btn-type="submit" :btn-value="$t('siteFund.btnFinished')">
+          </pz-button>
         </div>
       </form>
     </div>
@@ -128,12 +136,14 @@ import PageHeader from './PageHeader'
 import PageFundNav from './PageFundNav'
 import FormSelect from './FormSelect'
 import { mapGetters } from 'vuex'
+import PzButton from './PzButton'
 export default {
   name: 'page-fund',
   components: {
     PageHeader,
     PageFundNav,
-    FormSelect
+    FormSelect,
+    PzButton
   },
   computed: {
     bitcoinPrice () {
@@ -213,9 +223,8 @@ export default {
 @import '../styles/variables.styl'
 
 .page-fund
-  .fund-wrapper
-    max-width 32rem
-    margin 0 auto
+  .page-header
+    border-bottom none
 
 .fund-steps
   position relative
