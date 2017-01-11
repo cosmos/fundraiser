@@ -52,8 +52,8 @@ export default {
 
     &:hover
       text-decoration none
-      img
-        opacity 1
+      i
+        color txt
       .label
         color txt
 

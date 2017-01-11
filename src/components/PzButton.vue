@@ -1,7 +1,7 @@
 <template>
-  <button class="btn" :type="btnType">
-    <i :class="'fa fa-' + btnIcon" v-if="btnIcon"></i>
-    <span class="value">{{ btnValue }}</span>
+  <button class="pz-button" :type="btnType">
+    <i v-if="btnIcon" :class="'fa fa-' + btnIcon" aria-hidden="true"></i>
+    <span class="value" v-if="btnValue">{{ btnValue }}</span>
   </button> 
 </template>
 <script>
@@ -24,7 +24,7 @@ btn()
   border 1px solid ibc
   box-shadow inset hsla(0,0,100%,0.5) 0 0 0.5rem
 
-  padding 0 1rem
+  padding 0 0.75rem
   margin 0
 
   df()
@@ -48,10 +48,6 @@ btn()
     color #000
     text-decoration none
 
-  &:active
-    padding-top 0.5rem
-    padding-bottom 0.5*x - 2px
-
   &.disabled
   &[disabled]
     opacity 0.333
@@ -68,39 +64,32 @@ btn()
   i.fa + .value
     padding-left 0.5rem
 
-.btn
+.pz-button
   btn()
 
-  &.btn-link
+  &.pz-button-link
     border-color transparent
     background transparent
     box-shadow none
     color link
     padding 0 0.5rem
     &:hover
-      border-color transparent
       background transparent
       box-shadow none
 
-  &.btn-small
-    height x*1.5
-    font-size 0.75*x
+  &.pz-button-small
+    height 1.5rem
+    font-size 0.75rem
     line-height 1rem
-    padding 0.375*x - 1px x
-    &:active
-      padding-top 0.375*x
-      padding-bottom 0.375*x - 2px
+    padding 0 1rem
 
     i.fa
       font-size 0.75rem
       line-height 1
 
-  &.btn-large
-    height x*3
-    font-size 1.25*x
+  &.pz-button-large
+    height 3rem
+    font-size 1.25rem
     font-weight normal
-    padding 0.875*x x
-    &:active
-      padding-top 0.875*x
-      padding-bottom 0.875*x - 2px
+    padding 0 1rem
 </style>

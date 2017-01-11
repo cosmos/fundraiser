@@ -1,33 +1,47 @@
 <template>
   <form action="//network.us14.list-manage.com/subscribe/post?u=1b8aeaa81ca615914eb2eb7fc&amp;id=64c73f9f5f" method="post" name="mc-embedded-subscribe-form" class="form-email-signup validate form" target="_blank" novalidate>
 
-    <ipt ipt-type="email" :ipt-placeholder="$t('emailSignupForm.emailAddress')" id="mce-EMAIL"></ipt>
-
-    <btn btn-type="submit" :btn-value="$t('emailSignupForm.notifyMe')" id="mc-embedded-subscribe"></btn>
+    <div class="input-group">
+      <pz-input
+        input-type="email"
+        :input-placeholder="$t('emailSignupForm.emailAddress')"
+        id="mce-EMAIL">
+      </pz-input>
+      <pz-button
+        btn-type="submit"
+        :btn-value="$t('emailSignupForm.notifyMe')"
+        id="mc-embedded-subscribe">
+      </pz-button>
+    </div>
 
     <!-- anti-bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1b8aeaa81ca615914eb2eb7fc_64c73f9f5f" tabindex="-1" value=""></div>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+      <input type="text" name="b_1b8aeaa81ca615914eb2eb7fc_64c73f9f5f" tabindex="-1" value="">
+    </div>
   </form>
 </template>
 
 <script>
-import Btn from './FormBtn'
-import Ipt from './FormInput'
+import PzButton from './PzButton'
+import PzInput from './PzInput'
 export default {
   components: {
-    Btn,
-    Ipt
+    PzButton,
+    PzInput
   }
 }
 </script>
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.form.form-email-signup
+.form-email-signup
   margin 0
   background transparent
   border none
 
-  input[type="email"]
-    margin 0 0 0.5rem
+  .input-group
+    display flex
+    .pz-input
+      flex 1
+      border-right none
 </style>

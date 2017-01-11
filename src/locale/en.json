@@ -19,7 +19,7 @@
   },
   "emailSignupForm": {
     "emailAddress": "name@email.com",
-    "notifyMe": "Notify Me"
+    "notifyMe": "Notify"
   },
   "sectionCallToAction": {
     "title": "Fundraising Event",

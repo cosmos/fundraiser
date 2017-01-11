@@ -5,11 +5,16 @@ const routes = [
   { path: '/', component: r('Index') },
   { path: '/info', component: r('Info') },
   { path: '/stats', component: r('Stats') },
-  { path: '/fund', component: r('Fund') }
+  { path: '/fund', component: r('Fund') },
+
+  { path: '/signup', name: 'signup', component: r('UserSignUp') },
+  { path: '/signin', name: 'signin', component: r('UserSignIn') },
+  { path: '/reset', name: 'reset', component: r('UserReset') },
+  { path: '/settings', name: 'settings', component: r('UserSettings') },
 
   // wildcards
-  // { path: '/404', component: r('404') },
-  // { path: '*', component: r('404') }
+  { path: '/404', component: r('404') },
+  { path: '*', component: r('404') }
 ]
 
 const router = new VueRouter({

@@ -1,24 +1,23 @@
 <template>
-  <section class="section-call-to-action">
-    <div class="section-container">
-      <h1>
-        <img src="../assets/images/cosmos_logo_m.png" alt="Cosmos">
-        Fundraising
+  <div class="page-index">
+    <div class="container">
+      <h1 class="title">
+        Fundraising for <a href="https://cosmos.network">Cosmos, Internet of Blockchains</a> starts on February 22, 2017.
       </h1>
-      <div class="description">
-        <p>Fundraising for <strong><a href="https://cosmos.network">Cosmos, Internet of Blockchains</a></strong> starts Feb 17th, 2017.</p>
-      </div>
+      <pz-countdown date="February 22, 2017"></pz-countdown>
       <form-email-signup></form-email-signup>
-    </div>
-  </section> 
+    </div> 
+  </div> 
 </template>
 
 <script>
 import FormEmailSignup from './FormEmailSignup'
+import PzCountdown from './PzCountdown'
 export default {
   name: 'page-index',
   components: {
-    FormEmailSignup
+    FormEmailSignup,
+    PzCountdown
   },
   head: {
     title () {
@@ -41,41 +40,48 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.section-call-to-action
-  .section-container
-    padding 6rem 0 3rem
-    text-align center
-    min-height 80vh
+.page-index
+  border-bottom 0.25rem solid c-app-fg
+
+  .container
+    width 80vw
+    max-width 30rem
+    height 85vh
+    margin 0 auto
+    padding-top 4.5rem
 
     display flex
     flex-flow column
     justify-content center
     align-items center
-    align-content center
 
-    width 75vw
-    margin 0 auto
+    .title, .pz-countdown
+      margin-bottom 2rem
 
-    h1
+    .title
       font-size 1.25rem
-      color dim
-      margin-bottom 2rem
-      text-transform uppercase
-      letter-spacing 0.1em
-      img
-        height 2rem
-        display block
-        margin 0 auto 0.5rem
+      line-height 1.75
+      text-align center
+      a
+        color txt
+        font-weight 600
+        &:hover
+          color link
+ 
+@media screen and (min-width: 360px)
+  .page-index .container
+    height 80vh
+    .title
+      font-size 1.375rem
 
-    .description
-      color txt
-      margin-bottom 2rem
-      border-bottom 1px dotted bc
-      padding-bottom 1rem
-      p
-        margin-bottom 1rem
+    .title, .pz-countdown
+      margin-bottom 2.5rem
 
-    .btn, .input
-      width 100vw
-      max-width 20rem
+@media screen and (min-width: 400px)
+  .page-index .container
+    .title
+      font-size 1.5rem
+
+    .title, .pz-countdown
+      margin-bottom 3rem
 </style>
