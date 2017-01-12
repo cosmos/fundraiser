@@ -8,6 +8,7 @@
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepOne.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepOne.subtitle') }}</div>
+          <form-error :error="stepOneError"></form-error>
         </div>
         <div class="form-group">
           <label for="cf-name">{{ $t('siteFund.stepOne.name') }}</label>
@@ -53,6 +54,7 @@
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepTwo.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepTwo.subtitle') }}</div>
+          <form-error :error="stepTwoError"></form-error>
         </div>
         <div class="form-group">
           <label>{{ $t('siteFund.stepTwo.generatePublicKey') }}</label>
@@ -79,6 +81,7 @@
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepThree.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepThree.subtitle') }}</div>
+          <form-error :error="stepThreeError"></form-error>
         </div>
         <div class="form-group">
           <label>{{ $t('siteFund.stepThree.atomCount') }}</label>
@@ -105,6 +108,7 @@
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepFour.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepFour.subtitle') }}</div>
+          <form-error error="stepFourError"></form-error>
         </div>
         <div class="form-group">
           <label>{{ $t('siteFund.stepFour.depositAddress') }}</label>
@@ -134,6 +138,7 @@
 <script>
 import PageHeader from './PageHeader'
 import PageFundNav from './PageFundNav'
+import FormError from './FormError'
 import FormSelect from './FormSelect'
 import { mapGetters } from 'vuex'
 import PzButton from './PzButton'
@@ -143,6 +148,7 @@ export default {
     PageHeader,
     PageFundNav,
     FormSelect,
+    FormError,
     PzButton
   },
   computed: {
@@ -162,51 +168,74 @@ export default {
         email: '',
         nationality: '',
         publicKey: '',
-        atoms: 1000
+        atoms: 0
+      },
+      stepOneError: {
+        active: false,
+        code: 'Error',
+        message: ''
+      },
+      stepTwoError: {
+        active: false,
+        code: 'Error',
+        message: ''
+      },
+      stepThreeError: {
+        active: false,
+        code: 'Error',
+        message: ''
       }
     }
   },
   methods: {
     goTo (step, event) {
+      // if browser is an older version of Safari
       if (!event.target.checkValidity()) {
-        // console.log('I am Safari!')
         event.preventDefault()
-
-        let inputs = document.querySelectorAll('input[required], select[required], textarea[required]')
-        // console.log('inputs[required]', inputs)
-
-        for (let i = 0; i < inputs.length; i++) {
-          let input = inputs[i]
-
-          if (!input.validity.valid) {
-            let ph
-            if (input.classList.contains('cf-name')) {
-              ph = this.$t('siteFund.stepOne.nameInvalid')
-            }
-            if (input.classList.contains('cf-email')) {
-              ph = this.$t('siteFund.stepOne.emailInvalid')
-            }
-            if (input.classList.contains('cf-pubkey')) {
-              ph = this.$t('siteFund.stepTwo.pastePublicKeyInvalid')
-            }
-            if (input.classList.contains('cf-atoms')) {
-              ph = this.$t('siteFund.stepThree.atomCountInvalid')
-            }
-
-            // console.log(input.className, 'is invalid')
-
-            input.focus()
-            input.placeholder = ph
-            input.value = ''
-            return false
-          }
-        }
+        this.captureSafariValidation()
         return
       }
       this.step = step
     },
     goHome () {
       this.$router.push('/')
+    },
+    captureSafariValidation () {
+      let stepOneError = this.stepOneError
+      let stepTwoError = this.stepTwoError
+      let stepThreeError = this.stepThreeError
+      let inputs = document.querySelectorAll(
+        'input[required], select[required], textarea[required]')
+
+      for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].validity.valid) {
+          if (inputs[i].classList.contains('cf-name')) {
+            stepOneError.active = true
+            stepOneError.message =
+              this.$t('siteFund.stepOne.nameInvalid')
+          }
+          if (inputs[i].classList.contains('cf-email')) {
+            stepOneError.active = true
+            stepOneError.message =
+              this.$t('siteFund.stepOne.emailInvalid')
+          }
+          if (inputs[i].classList.contains('cf-pubkey')) {
+            stepTwoError.active = true
+            stepTwoError.message =
+              this.$t('siteFund.stepTwo.pastePublicKeyInvalid')
+          }
+          if (inputs[i].classList.contains('cf-atoms')) {
+            stepThreeError.active = true
+            stepThreeError.message =
+              this.$t('siteFund.stepThree.atomCountInvalid')
+          }
+
+          // console.log(input.className, 'is invalid')
+
+          inputs[i].focus()
+          return false
+        }
+      }
     }
   },
   mounted () {
@@ -220,17 +249,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../styles/variables.styl'
-
-.page-fund
-  .page-header
-    border-bottom none
-
-.fund-steps
-  position relative
-
-  .form-nav-progress
-    position absolute
-    top -1px
-    right -1px
+.page-fund .page-header
+  border-bottom none
 </style>
