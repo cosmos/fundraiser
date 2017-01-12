@@ -1,7 +1,7 @@
 <template>
   <div class="form-custom-select">
-    <select :id="id" :value="value" required>
-      <option value="" v-if="empty">{{ $t('siteFund.stepOne.select') }}</option>
+    <select :id="id" :value="options[value]" required>
+      <option value="" v-if="empty">{{ placeholder }}</option>
       <option v-for="option in orderedOptions" v-bind:value="option.value">
         {{ option.text }}
       </option>
@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'form-select',
   computed: {
     orderedOptions () {
       return this.options.sort()
@@ -20,6 +21,7 @@ export default {
     id: String,
     value: String,
     options: Array,
+    placeholder: String,
     empty: Boolean
   }
 }

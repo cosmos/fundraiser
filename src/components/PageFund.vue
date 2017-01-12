@@ -2,9 +2,9 @@
 <div class="page page-narrow page-fund">
   <page-header :title="$t('siteFund.title')" type="center"></page-header>
   <div class="fund-wrapper">
-    <page-fund-nav :step="step"></page-fund-nav>
+    <page-fund-nav :step="fund.progress"></page-fund-nav>
     <div class="fund-steps">
-      <form class="form" v-show="step === 1" v-on:submit.prevent="goTo(2, $event)">
+      <form class="form" v-show="fund.progress === 1" v-on:submit.prevent="goTo(2, $event)">
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepOne.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepOne.subtitle') }}</div>
@@ -16,7 +16,7 @@
             <input
               class="cf-name"
               type="text"
-              v-model.trim="user.name"
+              v-model.trim="fund.user.name"
               :placeholder="$t('siteFund.stepOne.name')"
               required>
           </div>
@@ -27,7 +27,7 @@
             <input
               class="cf-email"
               type="email"
-              v-model.trim="user.email"
+              v-model.trim="fund.user.email"
               :placeholder="$t('siteFund.stepOne.email')"
               required>
           </div>
@@ -41,7 +41,8 @@
               class="cf-nationality"
               :options="allCountries"
               :empty="true"
-              :model="user.nationality">
+              :placeholder="$t('siteFund.stepOne.selectCountry')"
+              model="fund.user.nationality">
           </div>
         </div>
         <div class="form-footer">
@@ -50,7 +51,7 @@
           </pz-button>
         </div>
       </form>
-      <form class="form" v-if="step === 2" v-on:submit.prevent="goTo(3, $event)">
+      <form class="form" v-if="fund.progress === 2" v-on:submit.prevent="goTo(3, $event)">
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepTwo.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepTwo.subtitle') }}</div>
@@ -68,7 +69,11 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepTwo.pastePublicKey') }}</label>
           <div class="input-group">
-            <textarea class="cf-pubkey" required></textarea>
+            <textarea
+              class="cf-pubkey"
+              v-model="fund.user.pubkey"
+              required>
+            </textarea>
           </div>
         </div>
         <div class="form-footer">
@@ -77,7 +82,7 @@
           </pz-button>
         </div>
       </form>
-      <form class="form" v-if="step === 3" v-on:submit.prevent="goTo(4, $event)">
+      <form class="form" v-if="fund.progress === 3" v-on:submit.prevent="goTo(4, $event)">
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepThree.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepThree.subtitle') }}</div>
@@ -86,7 +91,12 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepThree.atomCount') }}</label>
           <div class="input-group">
-            <input class="highlight-on-focus cf-atoms" type="number" v-model="user.atoms" required min="1" max="1000000">
+            <input
+              class="highlight-on-focus cf-atoms"
+              type="number"
+              v-model="fund.atoms"
+              required min="1"
+              max="1000000">
             <div class="input-group-addon">Atoms</div>
           </div>
         </div>
@@ -94,7 +104,7 @@
           <label>{{ $t('siteFund.stepThree.btcPrice') }}</label>
           <div class="input-group">
             <input class="highlight-on-focus" type="number"
-              disabled :value="bitcoinPrice">
+              disabled :value="fund.atoms * fund.btcCost">
             <div class="input-group-addon">BTC</div>
           </div>
         </div>
@@ -104,7 +114,7 @@
           </pz-button>
         </div>
       </form>
-      <form class="form" v-if="step === 4" v-on:submit.prevent="goHome">
+      <form class="form" v-if="fund.progress === 4" v-on:submit.prevent="goHome">
         <div class="form-header">
           <div class="title">{{ $t('siteFund.stepFour.title') }}</div>
           <div class="subtitle">{{ $t('siteFund.stepFour.subtitle') }}</div>
@@ -113,14 +123,14 @@
         <div class="form-group">
           <label>{{ $t('siteFund.stepFour.depositAddress') }}</label>
           <div class="input-group">
-            <input class="highlight-on-focus" type="text" :value="bitcoinAddress">
+            <input class="highlight-on-focus" type="text" :value="fund.btcAddress">
           </div>
         </div>
         <div class="form-group">
           <label>{{ $t('siteFund.stepFour.totalPrice') }}</label>
           <div class="input-group">
             <input class="highlight-on-focus"
-              type="number" disabled :value="bitcoinPrice">
+              type="number" disabled :value="fund.atoms * fund.btcCost">
             <div class="input-group-addon">BTC</div>
           </div>
         </div>
@@ -142,6 +152,7 @@ import FormError from './FormError'
 import FormSelect from './FormSelect'
 import { mapGetters } from 'vuex'
 import PzButton from './PzButton'
+import captureSafariValidation from '../scripts/captureSafariValidation'
 export default {
   name: 'page-fund',
   components: {
@@ -152,91 +163,44 @@ export default {
     PzButton
   },
   computed: {
-    bitcoinPrice () {
-      return this.user.atoms / 27394
-    },
-    ...mapGetters([
-      'allCountries'
-    ])
+    ...mapGetters(['allCountries', 'fund'])
   },
   data () {
     return {
-      step: 1,
-      bitcoinAddress: '1NAfx5GEZHR8t69LjxTeShPP4XXaxeUqQw',
-      user: {
-        name: '',
-        email: '',
-        nationality: '',
-        publicKey: '',
-        atoms: 0
-      },
       stepOneError: {
         active: false,
-        code: 'Error',
+        code: 'Error:',
         message: ''
       },
       stepTwoError: {
         active: false,
-        code: 'Error',
+        code: 'Error:',
         message: ''
       },
       stepThreeError: {
         active: false,
-        code: 'Error',
+        code: 'Error:',
         message: ''
       }
     }
   },
   methods: {
     goTo (step, event) {
-      // if browser is an older version of Safari
       if (!event.target.checkValidity()) {
+        // console.log('browser is an older version of Safari')
+
         event.preventDefault()
-        this.captureSafariValidation()
-        return
+        let inputs = document.querySelectorAll(
+          'input[required], select[required], textarea[required]')
+
+        let errorObj = this.stepOneError
+
+        captureSafariValidation(inputs, errorObj)
+        return false
       }
-      this.step = step
+      this.fund.progress = step
     },
-    goHome () {
-      this.$router.push('/')
-    },
-    captureSafariValidation () {
-      let stepOneError = this.stepOneError
-      let stepTwoError = this.stepTwoError
-      let stepThreeError = this.stepThreeError
-      let inputs = document.querySelectorAll(
-        'input[required], select[required], textarea[required]')
-
-      for (let i = 0; i < inputs.length; i++) {
-        if (!inputs[i].validity.valid) {
-          if (inputs[i].classList.contains('cf-name')) {
-            stepOneError.active = true
-            stepOneError.message =
-              this.$t('siteFund.stepOne.nameInvalid')
-          }
-          if (inputs[i].classList.contains('cf-email')) {
-            stepOneError.active = true
-            stepOneError.message =
-              this.$t('siteFund.stepOne.emailInvalid')
-          }
-          if (inputs[i].classList.contains('cf-pubkey')) {
-            stepTwoError.active = true
-            stepTwoError.message =
-              this.$t('siteFund.stepTwo.pastePublicKeyInvalid')
-          }
-          if (inputs[i].classList.contains('cf-atoms')) {
-            stepThreeError.active = true
-            stepThreeError.message =
-              this.$t('siteFund.stepThree.atomCountInvalid')
-          }
-
-          // console.log(input.className, 'is invalid')
-
-          inputs[i].focus()
-          return false
-        }
-      }
-    }
+    goHome () { this.$router.push('/') }
   },
   mounted () {
     document.title = 'Purchase Atoms - Cosmos'
