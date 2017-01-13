@@ -2,11 +2,12 @@
   <form action="//network.us14.list-manage.com/subscribe/post?u=1b8aeaa81ca615914eb2eb7fc&amp;id=64c73f9f5f" method="post" name="mc-embedded-subscribe-form" class="form-email-signup validate form" target="_blank" novalidate>
 
     <div class="input-group">
-      <pz-input
-        input-type="email"
-        :input-placeholder="$t('emailSignupForm.emailAddress')"
+      <input
+        class="input"
+        type="email"
+        :placeholder="$t('emailSignupForm.emailAddress')"
         id="mce-EMAIL">
-      </pz-input>
+      </input>
       <pz-button
         btn-type="submit"
         :btn-value="$t('emailSignupForm.notifyMe')"
@@ -23,11 +24,9 @@
 
 <script>
 import PzButton from './PzButton'
-import PzInput from './PzInput'
 export default {
   components: {
-    PzButton,
-    PzInput
+    PzButton
   }
 }
 </script>
@@ -41,7 +40,7 @@ export default {
 
   .input-group
     display flex
-    .pz-input
+    input
       flex 1
       border-right none
 </style>

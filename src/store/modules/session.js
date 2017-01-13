@@ -21,7 +21,7 @@ const mutations = {
   },
   setSessionUserDisplayName (state, value) {
     state.user.displayName = value
-    console.log('seting vuex user.displayName', value)
+    // console.log('seting vuex user.displayName', value)
   },
   setSessionUserEmail (state, value) {
     state.user.email = value

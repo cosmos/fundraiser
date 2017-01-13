@@ -5,7 +5,7 @@
   <form class="form form-narrow" v-on:submit.prevent.default="updateUser">
     <div class="form-header">
       <div class="subtitle">Edit your user settings here.</div>
-      <form-error :form-error="formError"></form-error>
+      <form-error :error="errorObj"></form-error>
     </div>
     <div class="form-group">
       <label for="user-signup-email">Email</label>
@@ -71,7 +71,7 @@ export default {
   data () {
     return {
       newPassword: '',
-      formError: {
+      errorObj: {
         active: false,
         code: '',
         message: ''
@@ -82,7 +82,7 @@ export default {
     setError (code, msg) {
       if (code === 'auth/requires-recent-login') { this.$router.push('/signin') }
 
-      this.formError = {
+      this.errorObj = {
         active: true,
         code: code,
         message: msg

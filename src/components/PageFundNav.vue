@@ -15,14 +15,15 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    stepOneActive () { if (this.step === 1) { return true } },
-    stepTwoActive () { if (this.step === 2) { return true } },
-    stepThreeActive () { if (this.step === 3) { return true } },
-    stepFourActive () { if (this.step === 4) { return true } }
-  },
-  props: ['step']
+    stepOneActive () { if (this.fund.step === 1) { return true } },
+    stepTwoActive () { if (this.fund.step === 2) { return true } },
+    stepThreeActive () { if (this.fund.step === 3) { return true } },
+    stepFourActive () { if (this.fund.step === 4) { return true } },
+    ...mapGetters(['fund'])
+  }
 }
 </script>
 

@@ -17,12 +17,6 @@
     "title": "Statistics",
     "subtitle": "Live status of the fundraising effort."
   },
-  "formErrors": {
-    "nameInvaid": "Name is required",
-    "emailInvalid": "Email is required and must be valid",
-    "pubkeyInvaid": "Public Key is required - create one first",
-    "atomsInvalid": "Atom count must be more than zero"
-  },
   "emailSignupForm": {
     "emailAddress": "name@email.com",
     "notifyMe": "Notify"
