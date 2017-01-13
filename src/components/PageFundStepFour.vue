@@ -3,7 +3,7 @@
   <div class="form-header">
     <div class="title">{{ $t('siteFund.stepFour.title') }}</div>
     <div class="subtitle">{{ $t('siteFund.stepFour.subtitle') }}</div>
-    <form-error error="stepFourError"></form-error>
+    <vue-input-error :error="errorObj"></vue-input-error>
   </div>
   <div class="form-group">
     <label>{{ $t('siteFund.stepFour.depositAddress') }}</label>
@@ -28,13 +28,13 @@
 </template>
 
 <script>
-import FormError from './FormError'
 import { mapGetters } from 'vuex'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-fund',
   components: {
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {

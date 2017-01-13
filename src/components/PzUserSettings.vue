@@ -2,7 +2,7 @@
 <form class="form form-narrow" v-on:submit.prevent.default="updateUser">
   <div class="form-header">
     <div class="subtitle">Edit your user settings here.</div>
-    <form-error :error="errorObj"></form-error>
+    <vue-input-error :error="errorObj"></vue-input-error>
   </div>
   <div class="form-group">
     <label for="user-signup-email">Email</label>
@@ -32,13 +32,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import FormError from './FormError'
 import firebase from 'firebase'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'pz-user-settings',
   components: {
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {

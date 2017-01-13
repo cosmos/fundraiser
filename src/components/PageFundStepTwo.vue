@@ -3,14 +3,14 @@
   <div class="form-header">
     <div class="title">{{ $t('siteFund.stepTwo.title') }}</div>
     <div class="subtitle">{{ $t('siteFund.stepTwo.subtitle') }}</div>
-    <form-error :error="errorObj"></form-error>
+    <vue-input-error :error="errorObj"></vue-input-error>
   </div>
   <div class="form-group">
     <label>{{ $t('siteFund.stepTwo.generatePublicKey') }}</label>
     <div class="input-group">
-      <pz-button type="button" @click.native="generatePubkey" btn-icon="key"
+      <vue-button type="button" @click.native="generatePubkey" btn-icon="key"
         :btn-value="$t('siteFund.stepTwo.launchKeygen')">
-      </pz-button>
+      </vue-button>
     </div>
   </div>
   <div class="form-group">
@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import FormError from './FormError'
 import { mapGetters } from 'vuex'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 import captureSafariValidation from '../scripts/captureSafariValidation'
 export default {
   name: 'page-fund',
   components: {
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {

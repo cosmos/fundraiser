@@ -3,7 +3,7 @@
   <div class="form-header">
     <div class="title">{{ $t('siteFund.stepThree.title') }}</div>
     <div class="subtitle">{{ $t('siteFund.stepThree.subtitle') }}</div>
-    <form-error :error="errorObj"></form-error>
+    <vue-input-error :error="errorObj"></vue-input-error>
   </div>
   <div class="form-group">
     <label>{{ $t('siteFund.stepThree.atomCount') }}</label>
@@ -34,14 +34,14 @@
 </template>
 
 <script>
-import FormError from './FormError'
 import { mapGetters } from 'vuex'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 import captureSafariValidation from '../scripts/captureSafariValidation'
 export default {
   name: 'page-fund',
   components: {
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {

@@ -5,7 +5,7 @@
   <form class="form form-narrow" v-on:submit.prevent.default="signUp">
     <div class="form-header">
       <div class="subtitle">Signing up enables commenting and gives you a head start on the fundraising event.</div>
-      <form-error :error="errorObj"></form-error>
+      <vue-input-error :error="errorObj"></vue-input-error>
     </div>
     <div class="form-group">
       <label for="user-signup-name">Name</label>
@@ -47,15 +47,15 @@
 
 <script>
 import PageHeader from './PageHeader'
-import FormError from './FormError'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
     PageHeader,
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {

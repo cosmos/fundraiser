@@ -4,7 +4,7 @@
   <form class="form form-narrow" v-on:submit.prevent.default="signIn">
     <div class="form-header">
       <div class="subtitle">Sign in to your account now.</div>
-      <form-error :form-error="formError"></form-error>
+      <vue-input-error :error="errorObj"></vue-input-error>
     </div>
     <div class="form-group">
       <label for="user-signin-email">Email</label>
@@ -37,14 +37,14 @@
 <script>
 import PageHeader from './PageHeader'
 import firebase from 'firebase'
-import FormError from './FormError'
 import { mapGetters } from 'vuex'
+import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
     PageHeader,
-    FormError,
+    VueInputError,
     VueButton
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
     return {
       email: '',
       password: '',
-      formError: {
+      errorObj: {
         active: false,
         code: '',
         message: ''
@@ -72,9 +72,9 @@ export default {
           var errorMessage = error.message
           console.log(errorCode, errorMessage)
 
-          self.formError.active = true
-          self.formError.code = errorCode
-          self.formError.message = errorMessage
+          self.errorObj.active = true
+          self.errorObj.code = errorCode
+          self.errorObj.message = errorMessage
         })
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
