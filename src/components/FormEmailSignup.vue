@@ -8,11 +8,11 @@
         :placeholder="$t('emailSignupForm.emailAddress')"
         id="mce-EMAIL">
       </input>
-      <pz-button
+      <vue-button
         btn-type="submit"
         :btn-value="$t('emailSignupForm.notifyMe')"
         id="mc-embedded-subscribe">
-      </pz-button>
+      </vue-button>
     </div>
 
     <!-- anti-bot signups-->
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import PzButton from './PzButton'
+import VueButton from '@nylira/vue-button'
 export default {
   components: {
-    PzButton
+    VueButton
   }
 }
 </script>

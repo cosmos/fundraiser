@@ -27,8 +27,8 @@
   </div>
   <div class="form-footer">
     <div></div>
-    <pz-button btn-type="submit" :btn-value="$t('siteFund.btnContinue')">
-    </pz-button>
+    <vue-button btn-type="submit" :btn-value="$t('siteFund.btnContinue')">
+    </vue-button>
   </div>
 </form>
 </template>
@@ -36,13 +36,13 @@
 <script>
 import FormError from './FormError'
 import { mapGetters } from 'vuex'
-import PzButton from './PzButton'
+import VueButton from '@nylira/vue-button'
 import captureSafariValidation from '../scripts/captureSafariValidation'
 export default {
   name: 'page-fund',
   components: {
     FormError,
-    PzButton
+    VueButton
   },
   computed: {
     ...mapGetters(['fund'])

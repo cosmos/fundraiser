@@ -28,7 +28,7 @@
     </div>
     <div class="form-footer">
       <router-link to="/reset">Forgot password?</router-link>
-      <pz-button btn-type="submit" btn-value="Sign In"></pz-button>
+      <vue-button btn-type="submit" btn-value="Sign In"></vue-button>
     </div>
   </form>
 </div>
@@ -39,13 +39,13 @@ import PageHeader from './PageHeader'
 import firebase from 'firebase'
 import FormError from './FormError'
 import { mapGetters } from 'vuex'
-import PzButton from './PzButton'
+import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
     PageHeader,
     FormError,
-    PzButton
+    VueButton
   },
   computed: {
     ...mapGetters(['sessionRequest'])
@@ -76,7 +76,6 @@ export default {
           self.formError.code = errorCode
           self.formError.message = errorMessage
         })
-
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           self.signInSuccess()
@@ -102,7 +101,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-</style>

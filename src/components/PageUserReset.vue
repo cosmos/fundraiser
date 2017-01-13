@@ -17,7 +17,7 @@
     </div>
     <div class="form-footer">
       <div></div>
-      <pz-button btn-type="submit" btn-value="Reset Password"></pz-button>
+      <vue-button btn-type="submit" btn-value="Reset Password"></vue-button>
     </div>
   </form>
 </div>
@@ -26,12 +26,12 @@
 <script>
 import PageHeader from './PageHeader'
 import firebase from '../scripts/firebase'
-import PzButton from './PzButton'
+import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
     PageHeader,
-    PzButton
+    VueButton
   },
   data () {
     return {
@@ -50,7 +50,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-</style>

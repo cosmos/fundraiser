@@ -5,7 +5,7 @@
   <form class="form form-narrow" v-on:submit.prevent.default="signUp">
     <div class="form-header">
       <div class="subtitle">Signing up enables commenting and gives you a head start on the fundraising event.</div>
-      <form-error :form-error="formError"></form-error>
+      <form-error :error="errorObj"></form-error>
     </div>
     <div class="form-group">
       <label for="user-signup-name">Name</label>
@@ -39,7 +39,7 @@
     </div>
     <div class="form-footer">
       <router-link to="/signin">Have an account?</router-link>
-      <pz-button btn-type="submit" btn-value="Sign Up"></pz-button>
+      <vue-button btn-type="submit" btn-value="Sign Up"></vue-button>
     </div>
   </form>
 </div>
@@ -50,13 +50,13 @@ import PageHeader from './PageHeader'
 import FormError from './FormError'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
-import PzButton from './PzButton'
+import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
     PageHeader,
     FormError,
-    PzButton
+    VueButton
   },
   computed: {
     ...mapGetters(['sessionRequest'])
@@ -68,7 +68,7 @@ export default {
         email: '',
         password: ''
       },
-      formError: {
+      errorObj: {
         active: false,
         code: '',
         message: ''
@@ -121,9 +121,9 @@ export default {
           let errorCode = error.code
           let errorMessage = error.message
           console.log(errorCode, errorMessage)
-          self.formError.active = true
-          self.formError.code = errorCode
-          self.formError.message = errorMessage
+          self.errorObj.active = true
+          self.errorObj.code = errorCode
+          self.errorObj.message = errorMessage
         })
 
       firebase.auth().onAuthStateChanged(function (user) {
@@ -165,7 +165,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-</style>
