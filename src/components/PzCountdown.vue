@@ -59,41 +59,39 @@ export default {
 
 </script>
 <style lang="stylus">
-@import '../styles/variables.styl'
-
 .pz-countdown
   display flex
   width 100%
-  max-width 25rem
+  max-width 25em
 
   .block
     flex 1
-    padding 0.5rem 0 1rem
+    padding 0.5em 0 1em
     text-align center
 
   .value
-    margin-bottom 0.5rem
+    margin-bottom 0.5em
 
-    font-size 2rem
+    font-size 2em
     font-weight 200
-    color txt
+    color #000
 
   .unit
-    font-size 0.75rem
+    font-size 0.75em
     font-weight 400
-    color light
+    color #999
 
 @media screen and (min-width: 360px)
   .pz-countdown
     .value
-      font-size 2.25rem
+      font-size 2.25em
     .unit
-      font-size 0.85rem
+      font-size 0.85em
 
 @media screen and (min-width: 360px)
   .pz-countdown
     .value
-      font-size 2.5rem
+      font-size 2.5em
     .unit
-      font-size 0.9375rem
+      font-size 0.9375em
 </style>
