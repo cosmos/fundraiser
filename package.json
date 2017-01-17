@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@nylira/vue-button": "^1.1.6",
+    "@nylira/vue-countdown": "^1.0.0",
     "@nylira/vue-input-error": "^1.0.0",
     "autoprefixer": "^6.6.1",
     "babel-core": "^6.21.0",

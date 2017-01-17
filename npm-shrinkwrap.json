@@ -7,6 +7,11 @@
       "from": "@nylira/vue-button@>=1.1.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/@nylira/vue-button/-/vue-button-1.1.6.tgz"
     },
+    "@nylira/vue-countdown": {
+      "version": "1.0.0",
+      "from": "@nylira/vue-countdown@latest",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.0.0.tgz"
+    },
     "@nylira/vue-input-error": {
       "version": "1.0.0",
       "from": "@nylira/vue-input-error@>=1.0.0 <2.0.0",

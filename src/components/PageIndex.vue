@@ -4,7 +4,7 @@
       <h1 class="title">
         Fundraising for <a href="https://cosmos.network">Cosmos, Internet of Blockchains</a> starts on February 22, 2017.
       </h1>
-      <pz-countdown date="February 22, 2017"></pz-countdown>
+      <vue-countdown date="February 22, 2017"></vue-countdown>
       <form-email-signup></form-email-signup>
     </div> 
   </div> 
@@ -12,12 +12,12 @@
 
 <script>
 import FormEmailSignup from './FormEmailSignup'
-import PzCountdown from './PzCountdown'
+import VueCountdown from '@nylira/vue-countdown'
 export default {
   name: 'page-index',
   components: {
     FormEmailSignup,
-    PzCountdown
+    VueCountdown
   },
   head: {
     title () {
