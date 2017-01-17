@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import firebase from 'firebase'
 import VueInputError from '@nylira/vue-input-error'
 import VueButton from '@nylira/vue-button'
 export default {
@@ -42,25 +40,14 @@ export default {
     VueButton
   },
   computed: {
-    newName: {
-      get () {
-        return this.$store.state.session.user.displayName
-      },
-      set (value) {
-        this.$store.commit('setSessionUserDisplayName', value)
-      }
-    },
     newEmail: {
       get () {
-        return this.$store.state.session.user.email
+        return this.session.user.email
       },
       set (value) {
         this.$store.commit('setSessionUserEmail', value)
       }
-    },
-    ...mapGetters([
-      'sessionUser'
-    ])
+    }
   },
   data () {
     return {
@@ -87,7 +74,7 @@ export default {
       let newEmail = this.newEmail
       let newPassword = this.newPassword
 
-      let user = firebase.auth().currentUser
+      let user = this.user
       // let oldName = user.displayName
       let oldEmail = user.email
 
@@ -96,7 +83,7 @@ export default {
       if (newPassword) { this.updatePassword(newPassword) }
     },
     updatePassword (password) {
-      let user = firebase.auth().currentUser
+      let user = this.user
       let setError = this.setError
       user.updatePassword(password).then(function () {
         console.log('update password successful', password)
@@ -106,7 +93,7 @@ export default {
       })
     },
     updateEmail (email) {
-      let user = firebase.auth().currentUser
+      let user = this.user
       let setError = this.setError
       user.updateEmail(email).then(function () {
         console.log('update email successful', email)
@@ -116,14 +103,6 @@ export default {
       })
     }
   },
-  mounted () {
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) {
-        self.$store.commit('setSessionRequest', '/settings')
-        self.$router.push('/signin')
-      }
-    })
-  }
+  props: ['user', 'session']
 }
 </script>

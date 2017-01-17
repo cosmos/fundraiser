@@ -1,19 +1,29 @@
 <template>
 <div class="page page-user-settings">
-  <vue-page-header :title="newName" type="center"></vue-page-header>
-  <pz-user-settings></pz-user-settings>
+  <vue-page-header :title="session.user.displayName" type="center"></vue-page-header>
+  <vue-user-settings :user="user" :session="session"></vue-user-settings>
 </div>
 </template>
 
 <script>
 import VuePageHeader from '@nylira/vue-page-header'
-import PzUserSettings from './PzUserSettings'
+import VueUserSettings from './VueUserSettings'
 import firebase from 'firebase'
 export default {
-  name: 'page-blog-index',
+  name: 'page-user-settings',
   components: {
     VuePageHeader,
-    PzUserSettings
+    VueUserSettings
+  },
+  computed: {
+    session () {
+      return this.$store.state.session
+    }
+  },
+  data () {
+    return {
+      user: firebase.auth().currentUser
+    }
   },
   mounted () {
     let self = this
@@ -22,6 +32,8 @@ export default {
         self.$store.commit('setSessionRequest', '/settings')
         self.$router.push('/signin')
       }
+      self.user = user
+      console.log(self.user)
     })
   }
 }
