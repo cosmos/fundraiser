@@ -1,18 +1,18 @@
 <template>
 <div class="page page-user-settings">
-  <page-header :title="newName" type="center"></page-header>
+  <vue-page-header :title="newName" type="center"></vue-page-header>
   <pz-user-settings></pz-user-settings>
 </div>
 </template>
 
 <script>
-import PageHeader from './PageHeader'
+import VuePageHeader from '@nylira/vue-page-header'
 import PzUserSettings from './PzUserSettings'
 import firebase from 'firebase'
 export default {
   name: 'page-blog-index',
   components: {
-    PageHeader,
+    VuePageHeader,
     PzUserSettings
   },
   mounted () {

@@ -1,6 +1,6 @@
 <template>
 <div class="page">
-  <page-header title="Reset Password"></page-header></page-header>
+  <vue-page-header title="Reset Password"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="resetPassword">
     <div class="form-header">
       <div class="subtitle">Enter your email and we'll send you a password reset link.</div>
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import PageHeader from './PageHeader'
+import VuePageHeader from '@nylira/vue-page-header'
 import firebase from '../scripts/firebase'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
-    PageHeader,
+    VuePageHeader,
     VueButton
   },
   data () {

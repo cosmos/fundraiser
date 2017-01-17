@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "dependencies": {
     "@nylira/vue-button": {
-      "version": "1.1.6",
-      "from": "@nylira/vue-button@>=1.1.6 <2.0.0",
-      "resolved": "https://registry.npmjs.org/@nylira/vue-button/-/vue-button-1.1.6.tgz"
+      "version": "1.1.8",
+      "from": "@nylira/vue-button@1.1.8",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-button/-/vue-button-1.1.8.tgz"
     },
     "@nylira/vue-countdown": {
-      "version": "1.0.0",
-      "from": "@nylira/vue-countdown@latest",
-      "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.0.0.tgz"
+      "version": "1.0.1",
+      "from": "@nylira/vue-countdown@1.0.1",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.0.1.tgz"
     },
     "@nylira/vue-input-error": {
       "version": "1.0.0",
       "from": "@nylira/vue-input-error@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/@nylira/vue-input-error/-/vue-input-error-1.0.0.tgz"
+    },
+    "@nylira/vue-page-header": {
+      "version": "1.0.2",
+      "from": "@nylira/vue-page-header@1.0.2",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-page-header/-/vue-page-header-1.0.2.tgz"
     },
     "abbrev": {
       "version": "1.0.9",

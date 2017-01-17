@@ -1,6 +1,6 @@
 <template>
 <div class="page page-narrow page-fund">
-  <page-header :title="$t('siteFund.title')" type="center"></page-header>
+  <vue-page-header :title="$t('siteFund.title')" type="center"></vue-page-header>
   <div class="fund-wrapper">
     <page-fund-nav></page-fund-nav>
     <page-fund-step-one></page-fund-step-one>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import PageHeader from './PageHeader'
+import VuePageHeader from '@nylira/vue-page-header'
 import PageFundNav from './PageFundNav'
 import PageFundStepOne from './PageFundStepOne'
 import PageFundStepTwo from './PageFundStepTwo'
@@ -21,7 +21,7 @@ import PageFundStepFour from './PageFundStepFour'
 export default {
   name: 'page-fund',
   components: {
-    PageHeader,
+    VuePageHeader,
     PageFundNav,
     PageFundStepOne,
     PageFundStepTwo,
@@ -39,6 +39,6 @@ export default {
 </script>
 
 <style lang="stylus">
-.page-fund .page-header
+.page-fund .pz-page-header
   border-bottom none
 </style>

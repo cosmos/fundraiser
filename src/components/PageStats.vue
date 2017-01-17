@@ -1,19 +1,19 @@
 <template>
 <div class="page">
-  <page-header
+  <vue-page-header
     :title="$t('siteStats.title')"
     :subtitle="$t('siteStats.subtitle')"
     type="center">
-  </page-header>
+  </vue-page-header>
 </div>
 </template>
 
 <script>
-import PageHeader from './PageHeader'
+import VuePageHeader from '@nylira/vue-page-header'
 export default {
   name: 'page-stats',
   components: {
-    PageHeader
+    VuePageHeader
   },
   mounted () {
     document.title = 'Stats - Cosmos Fundraising'

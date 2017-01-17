@@ -1,7 +1,6 @@
 <template>
 <div class="page">
-  <page-header title="Sign Up" type="center">
-  </page-header>
+  <vue-page-header title="Sign Up" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="signUp">
     <div class="form-header">
       <div class="subtitle">Signing up enables commenting and gives you a head start on the fundraising event.</div>
@@ -46,7 +45,7 @@
 </template>
 
 <script>
-import PageHeader from './PageHeader'
+import VuePageHeader from '@nylira/vue-page-header'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import VueInputError from '@nylira/vue-input-error'
@@ -54,7 +53,7 @@ import VueButton from '@nylira/vue-button'
 export default {
   name: 'page-blog-index',
   components: {
-    PageHeader,
+    VuePageHeader,
     VueInputError,
     VueButton
   },
