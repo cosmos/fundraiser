@@ -4,18 +4,11 @@
   },
   "siteHeader": {
     "info": "Info",
-    "fund": "Fund",
+    "fundBtc": "Fund BTC",
+    "fundEth": "Fund ETH",
     "stats": "Stats",
     "signin": "Sign In",
     "signup": "Sign Up"
-  },
-  "siteInfo": {
-    "title": "Information",
-    "subtitle": "Details about this fundraising."
-  },
-  "siteStats": {
-    "title": "Statistics",
-    "subtitle": "Live status of the fundraising effort."
   },
   "emailSignupForm": {
     "emailAddress": "name@email.com",
@@ -26,7 +19,8 @@
     "description": "Cosmos fundraising event starts Feb 2017."
   },
   "siteFund": {
-    "title": "Fundraising",
+    "titleBtc": "BTC Fundraising",
+    "titleEth": "ETH Fundraising",
     "btnContinue": "Continue",
     "btnFinished": "Finished",
     "stepOne": {

@@ -5,9 +5,8 @@
         <img src="../assets/images/cosmos_logo_m.png" alt="Cosmos Logo">
       </router-link>
       <nav class="app-nav">
-        <router-link to="/info">{{ $t('siteHeader.info') }}</router-link>
-        <router-link to="/stats" exact>{{ $t('siteHeader.stats') }}</router-link>
-        <router-link to="/fund">{{ $t('siteHeader.fund') }}</router-link>
+        <router-link to="/btc">{{ $t('siteHeader.fundBtc') }}</router-link>
+        <router-link to="/eth">{{ $t('siteHeader.fundEth') }}</router-link>
         <a class="nav-home" href="https://cosmos.network">
           <i class="fa fa-home"></i>
           <span class="label">Main Site</span>

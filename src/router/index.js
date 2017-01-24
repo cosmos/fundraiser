@@ -3,9 +3,8 @@ function r (filename) { return require('../components/Page' + filename) }
 
 const routes = [
   { path: '/', component: r('Index') },
-  { path: '/info', component: r('Info') },
-  { path: '/stats', component: r('Stats') },
-  { path: '/fund', component: r('Fund') },
+  { path: '/btc', component: r('FundBtc') },
+  { path: '/eth', component: r('FundEth') },
 
   { path: '/signup', name: 'signup', component: r('UserSignUp') },
   { path: '/signin', name: 'signin', component: r('UserSignIn') },

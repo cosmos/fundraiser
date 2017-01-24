@@ -2,9 +2,9 @@
   <div class="page-index">
     <div class="container">
       <h1 class="title">
-        Fundraising for <a href="https://cosmos.network">Cosmos, Internet of Blockchains</a> starts on February 22, 2017.
+        Fundraising for <a href="https://cosmos.network">Cosmos, Internet of Blockchains</a> starts on February 28, 2017.
       </h1>
-      <vue-countdown date="February 22, 2017"></vue-countdown>
+      <vue-countdown date="February 28, 2017"></vue-countdown>
       <form-email-signup></form-email-signup>
     </div> 
   </div> 
@@ -26,12 +26,6 @@ export default {
         separator: '-',
         complement: this.$t('site.internetOfBlockchains')
       }
-    }
-  },
-  methods: {
-    goToFund () {
-      console.log('going to fund page!')
-      this.$router.push('/fund')
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
 <div class="page page-narrow page-fund">
-  <vue-page-header :title="$t('siteFund.title')" type="center"></vue-page-header>
+  <vue-page-header :title="$t('siteFund.titleEth')" type="center"></vue-page-header>
   <div class="fund-wrapper">
     <page-fund-nav></page-fund-nav>
     <page-fund-step-one></page-fund-step-one>
@@ -29,7 +29,7 @@ export default {
     PageFundStepFour
   },
   mounted () {
-    document.title = 'Purchase Atoms - Cosmos'
+    document.title = this.$t('siteFund.titleEth') + ' - Cosmos'
     let highlights = document.querySelectorAll('.highlight-on-focus')
     Array.from(highlights).map(function (el) {
       el.addEventListener('click', function () { this.select() })
