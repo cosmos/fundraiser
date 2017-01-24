@@ -2,15 +2,16 @@
   <form action="//network.us14.list-manage.com/subscribe/post?u=1b8aeaa81ca615914eb2eb7fc&amp;id=64c73f9f5f" method="post" name="mc-embedded-subscribe-form" class="form-email-signup validate form" target="_blank" novalidate>
 
     <div class="input-group">
-      <input
-        class="input"
-        type="email"
-        :placeholder="$t('emailSignupForm.emailAddress')"
+      <vue-input
+        input-type="email"
+        input-size="large"
+        :input-placeholder="$t('emailSignupForm.emailAddress')"
         id="mce-EMAIL">
-      </input>
+      </vue-input>
       <vue-button
         btn-type="submit"
         :btn-value="$t('emailSignupForm.notifyMe')"
+        btn-size="large"
         id="mc-embedded-subscribe">
       </vue-button>
     </div>
@@ -24,9 +25,11 @@
 
 <script>
 import VueButton from '@nylira/vue-button'
+import VueInput from '@nylira/vue-input'
 export default {
   components: {
-    VueButton
+    VueButton,
+    VueInput
   }
 }
 </script>

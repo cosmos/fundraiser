@@ -8,9 +8,14 @@
       "resolved": "https://registry.npmjs.org/@nylira/vue-button/-/vue-button-1.4.1.tgz"
     },
     "@nylira/vue-countdown": {
-      "version": "1.0.1",
-      "from": "@nylira/vue-countdown@1.0.1",
-      "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.0.1.tgz"
+      "version": "1.1.1",
+      "from": "@nylira/vue-countdown@1.1.1",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.1.1.tgz"
+    },
+    "@nylira/vue-input": {
+      "version": "1.2.5",
+      "from": "@nylira/vue-input@latest",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-input/-/vue-input-1.2.5.tgz"
     },
     "@nylira/vue-input-error": {
       "version": "1.0.0",
