@@ -21,7 +21,8 @@
       <vue-button
         btn-value="Buy Atoms"
         btn-size="large">
-      <vue-button>
+      </vue-button>
+      <sale-warning></sale-warning>
     </section>
   </div> 
 </template>
@@ -29,11 +30,13 @@
 <script>
 import VueCountdown from '@nylira/vue-countdown'
 import VueButton from '@nylira/vue-button'
+import SaleWarning from './SaleWarning'
 export default {
   name: 'page-index',
   components: {
     VueCountdown,
-    VueButton
+    VueButton,
+    SaleWarning
   },
   head: {
     title () {
@@ -76,5 +79,5 @@ export default {
         font-weight 300
 
     .pz-button
-      margin 0 auto
+      margin 0 auto 1.5rem
 </style>
