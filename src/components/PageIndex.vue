@@ -1,23 +1,29 @@
 <template>
-  <div class="page-index">
-    <div class="container">
-      <h1 class="title">
-        Fundraising for <a href="https://cosmos.network">Cosmos, Internet of Blockchains</a> starts on February 28, 2017.
-      </h1>
-      <vue-countdown date="February 28, 2017"></vue-countdown>
-      <form-email-signup></form-email-signup>
-    </div> 
+  <div class="page-index page">
+    <cover-presale v-if="!saleBegun"></cover-presale>
+    <cover-sale v-if="saleBegun"></cover-sale>
   </div> 
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import FormEmailSignup from './FormEmailSignup'
 import VueCountdown from '@nylira/vue-countdown'
+import CoverPresale from './CoverPresale'
+import CoverSale from './CoverSale'
 export default {
   name: 'page-index',
   components: {
     FormEmailSignup,
-    VueCountdown
+    VueCountdown,
+    CoverPresale,
+    CoverSale
+  },
+  computed: {
+    saleBegun () {
+      return this.config.SALE_BEGUN
+    },
+    ...mapGetters(['config'])
   },
   head: {
     title () {
@@ -36,46 +42,4 @@ export default {
 
 .page-index
   border-bottom 0.25rem solid c-app-fg
-
-  .container
-    width 80vw
-    max-width 30rem
-    height 85vh
-    margin 0 auto
-    padding-top 4.5rem
-
-    display flex
-    flex-flow column
-    justify-content center
-    align-items center
-
-    .title, .pz-countdown
-      margin-bottom 2rem
-
-    .title
-      font-size 1.25rem
-      line-height 1.75
-      text-align center
-      a
-        color txt
-        font-weight 600
-        &:hover
-          color link
- 
-@media screen and (min-width: 360px)
-  .page-index .container
-    height 80vh
-    .title
-      font-size 1.375rem
-
-    .title, .pz-countdown
-      margin-bottom 2.5rem
-
-@media screen and (min-width: 400px)
-  .page-index .container
-    .title
-      font-size 1.5rem
-
-    .title, .pz-countdown
-      margin-bottom 3rem
 </style>

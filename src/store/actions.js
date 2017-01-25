@@ -27,3 +27,6 @@ export const setFundUserNationality =
   ({ commit }, value) => commit('setFundUserNationality')
 export const setFundUserPubkey =
   ({ commit }, value) => commit('setFundUserPubkey')
+
+export const setSaleBegun =
+  ({ commit }, value) => commit('setSaleBegun')

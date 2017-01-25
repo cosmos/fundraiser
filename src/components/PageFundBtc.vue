@@ -1,32 +1,22 @@
 <template>
 <div class="page page-narrow page-fund">
   <vue-page-header :title="$t('siteFund.titleBtc')" type="center"></vue-page-header>
-  <div class="fund-wrapper">
-    <page-fund-nav></page-fund-nav>
-    <page-fund-step-one></page-fund-step-one>
-    <page-fund-step-two></page-fund-step-two>
-    <page-fund-step-three></page-fund-step-three>
-    <page-fund-step-four></page-fund-step-four>
-  </div>
+  <form>
+    <div class="form-group">
+      <div class="form-group-header">Step 1</header>
+      <div class="form-group-content">
+        <label>Enter amount to purchase in either Bitcoin or Atoms.
+      </div>
+    </div>
 </div>
 </template>
 
 <script>
 import VuePageHeader from '@nylira/vue-page-header'
-import PageFundNav from './PageFundNav'
-import PageFundStepOne from './PageFundStepOne'
-import PageFundStepTwo from './PageFundStepTwo'
-import PageFundStepThree from './PageFundStepThree'
-import PageFundStepFour from './PageFundStepFour'
 export default {
   name: 'page-fund',
   components: {
-    VuePageHeader,
-    PageFundNav,
-    PageFundStepOne,
-    PageFundStepTwo,
-    PageFundStepThree,
-    PageFundStepFour
+    VuePageHeader
   },
   mounted () {
     document.title = this.$t('siteFund.titleBtc') + ' - Cosmos'

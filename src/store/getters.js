@@ -1,7 +1,7 @@
-export const allComments = state => state.comments.all
 export const allPosts = state => state.posts.all
 export const allCountries = state => state.countries.all
 export const fund = state => state.fund
 export const sessionRequest = state => state.session.request
 export const sessionUser = state => state.session.user
 export const sessionVotes = state => state.session.votes
+export const config = state => state.config
