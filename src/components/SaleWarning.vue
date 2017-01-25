@@ -2,8 +2,8 @@
   <div class="sale-warning">
     <div class="title">Notice</div>
     <ul>
-      <li>To purchase Atoms, your browser must have full javascript capabilities. Please disable any plugins (like NoScript) that restrict JavaScript functionality.</li>
-      <li>Please do not attempt to purchase Atoms using iOS. This process requires the download of a file, which is best done from a different kind of computer.</li>
+      <li>To purchase Atoms, your web browser must have JavaScript enabled. Please turn off any plugins (e.g. NoScript) that disable JavaScript.</li>
+      <li>Please do not attempt to purchase Atoms using iOS. The purchase process requires the download of a file, which is best done from Windows, macOS, or Linux.</li>
       <li>(Also, please note that the website makes requests to subdomains and other domains.)</li>
     </ul>
   </div>
