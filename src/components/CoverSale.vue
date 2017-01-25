@@ -57,10 +57,10 @@ export default {
   },
   methods: {
     gotoBtc () {
-      return this.$router.commit('/btc')
+      this.$router.push('/btc')
     },
     gotoEth () {
-      return this.$router.commit('/eth')
+      this.$router.push('/eth')
     }
   }
 }
@@ -80,7 +80,7 @@ export default {
     h1
       font-size 2rem
       line-height 1.05
-      font-weight 600
+      font-weight 700
       text-align center
 
     .key
@@ -89,7 +89,7 @@ export default {
       margin-bottom 0.75rem
 
     .pz-countdown
-      width 80vw
+      width 75vw
       margin 0 auto
       max-width 20rem
 

@@ -19,8 +19,8 @@
     "description": "Cosmos fundraising event starts Feb 2017."
   },
   "siteFund": {
-    "titleBtc": "BTC Fundraising",
-    "titleEth": "ETH Fundraising",
+    "titleBtc": "Buy Atoms with BTC",
+    "titleEth": "Buy Atoms with ETH",
     "btnContinue": "Continue",
     "btnFinished": "Finished",
     "stepOne": {
