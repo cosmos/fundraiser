@@ -13,7 +13,7 @@
     </section>
     <section>
       <div class="key">Current Price</div>
-      <div class="value">$1 USD = 45 atoms</div>
+      <div class="value">$1 USD = 2.222 atoms</div>
     </section>
     <section>
       <div class="buttons">
