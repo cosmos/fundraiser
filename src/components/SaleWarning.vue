@@ -1,6 +1,6 @@
 <template>
   <div class="sale-warning">
-    <div class="title">WARNING</div>
+    <div class="title">Notice</div>
     <ul>
       <li>To purchase Atoms, your browser must have full javascript capabilities. Please disable any plugins (like NoScript) that restrict JavaScript functionality.</li>
       <li>Please do not attempt to purchase Atoms using iOS. This process requires the download of a file, which is best done from a different kind of computer.</li>
@@ -13,6 +13,9 @@
 @import '../styles/variables.styl'
 
 .sale-warning
+  max-width 30rem
+  margin 0 auto
+
   border 1px solid hsl(60,100%,40%)
   background hsl(60,100%,95%)
   padding 0.5rem 0.75rem

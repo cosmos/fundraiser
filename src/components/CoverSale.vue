@@ -5,9 +5,7 @@
     </section>
     <section>
       <div class="key">Atom Sale Ends In</div>
-      <div class="section-value">
-        <vue-countdown date="April 28, 2017"></vue-countdown>
-      </div>
+      <vue-countdown date="April 28, 2017"></vue-countdown>
     </section>
     <section>
       <div class="key">Atoms Purchased</div>
@@ -18,10 +16,20 @@
       <div class="value">$1 USD = 45 atoms</div>
     </section>
     <section>
-      <vue-button
-        btn-value="Buy Atoms"
-        btn-size="large">
-      </vue-button>
+      <div class="buttons">
+        <vue-button
+          @click.native="gotoBtc"
+          class="btn-bitcoin"
+          btn-value="Buy Atoms with BTC"
+          btn-size="large">
+        </vue-button>
+        <vue-button
+          @click.native="gotoEth"
+          class="btn-ether"
+          btn-value="Buy Atoms with ETH"
+          btn-size="large">
+        </vue-button>
+      </div>
       <sale-warning></sale-warning>
     </section>
   </div> 
@@ -45,6 +53,14 @@ export default {
         separator: '-',
         complement: this.$t('site.internetOfBlockchains')
       }
+    }
+  },
+  methods: {
+    gotoBtc () {
+      return this.$router.commit('/btc')
+    },
+    gotoEth () {
+      return this.$router.commit('/eth')
     }
   }
 }
@@ -72,12 +88,25 @@ export default {
       color light
       margin-bottom 0.75rem
 
+    .pz-countdown
+      width 80vw
+      margin 0 auto
+      max-width 20rem
+
     .value
-      font-size 1.25rem
+      font-size 1.5rem
       font-weight 600
       span
         font-weight 300
 
-    .pz-button
-      margin 0 auto 1.5rem
+    .buttons
+      .pz-button
+        width 16rem
+        margin 0 auto
+        margin-bottom 1rem
+        &.btn-bitcoin
+          border-color #f90
+        &.btn-ether
+          border-color #ECF0F1
+          color #3C3C3D
 </style>
