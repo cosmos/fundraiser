@@ -13,9 +13,9 @@
       "resolved": "https://registry.npmjs.org/@nylira/vue-countdown/-/vue-countdown-1.1.3.tgz"
     },
     "@nylira/vue-input": {
-      "version": "1.2.5",
-      "from": "@nylira/vue-input@latest",
-      "resolved": "https://registry.npmjs.org/@nylira/vue-input/-/vue-input-1.2.5.tgz"
+      "version": "1.3.0",
+      "from": "@nylira/vue-input@1.3.0",
+      "resolved": "https://registry.npmjs.org/@nylira/vue-input/-/vue-input-1.3.0.tgz"
     },
     "@nylira/vue-input-error": {
       "version": "1.0.0",
@@ -5450,6 +5450,11 @@
       "version": "1.2.2",
       "from": "https://registry.npmjs.org/vue-ua/-/vue-ua-1.2.2.tgz",
       "resolved": "https://registry.npmjs.org/vue-ua/-/vue-ua-1.2.2.tgz"
+    },
+    "vuelidate": {
+      "version": "0.2.0",
+      "from": "vuelidate@latest",
+      "resolved": "https://registry.npmjs.org/vuelidate/-/vuelidate-0.2.0.tgz"
     },
     "vuex": {
       "version": "2.1.1",

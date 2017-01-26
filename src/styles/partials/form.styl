@@ -9,50 +9,74 @@
   border-bottom 1px solid bc
   background #fff
 
-  .form-header, .form-footer
-    padding 1rem
+.form-header, .form-footer
+  padding 1rem
 
-  .form-header
-    border-bottom 1px dotted bc
+.form-header
+  border-bottom 1px dotted bc
+  margin-bottom 0.5rem
+
+  .title
+    font-weight 500
+
+  .subtitle
+    color dim
+    margin-top 0.25rem
+    &:first-of-type
+      margin-top 0
+
+.form-group
+  padding 0.5rem 1rem
+
+.form-footer
+  margin-top 1rem
+  border-top 1px dotted bc
+
+  display flex
+  justify-content space-between
+  align-items center
+
+.form-group
+  label
+    display block
     margin-bottom 0.5rem
+    font-weight 400
+    overflow hidden
 
-    .title
-      font-weight 500
+.input-group
+  display flex
 
-    .subtitle
-      color dim
-      margin-top 0.25rem
-      &:first-of-type
-        margin-top 0
+  .pz-input
+    flex 5
 
-  .form-group
-    padding 0.5rem 1rem
+  &.input-group-error
+    .pz-input
+      border-color #f00
 
-  .form-footer
-    margin-top 1rem
-    border-top 1px dotted bc
+  .input-group-addon
+    flex 1
 
-    display flex
-    justify-content space-between
-    align-items center
+.form-desc, .form-error
+  font-size 0.75rem
+  margin 0 0 0.5rem
+  &:before
+    content ''
+    font-family FontAwesome
+    padding-right 0.35rem
 
-  .form-group
-    label
-      display block
-      margin-bottom 0.5rem
-      font-weight 400
-      overflow hidden
+.form-desc
+  color dim
+  display flex
+  &:before
+    content '\f059'
+    color hsl(45,100%,50%)
 
-    .input-group
-      display flex
-      input, .btn, textarea, .input
-        flex 5
-      .input-group-addon
-        flex 1
-
-    .desc
-      font-size 0.75rem
-      color light
+.form-error
+  color #f00
+  display flex
+  &:before
+    content '\f06a'
+    color #f00
 
 @media screen and (min-width: 360px)
   .form
