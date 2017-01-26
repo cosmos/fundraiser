@@ -43,19 +43,6 @@
     font-weight 400
     overflow hidden
 
-.input-group
-  display flex
-
-  .pz-input
-    flex 5
-
-  &.input-group-error
-    .pz-input
-      border-color #f00
-
-  .input-group-addon
-    flex 1
-
 .form-desc, .form-error
   font-size 0.75rem
   margin 0 0 0.5rem
@@ -77,6 +64,25 @@
   &:before
     content '\f06a'
     color #f00
+
+.input-group
+  display flex
+
+  .pz-input
+    flex 5
+
+  &.input-group-error
+    .pz-input
+      border-color #f00
+
+  .input-group-addon
+    flex 1
+
+.input-group + .form-error
+  display none
+
+.input-group-error + .form-error
+  display flex
 
 @media screen and (min-width: 360px)
   .form
