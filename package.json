@@ -13,7 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "@nylira/vue-button": "https://registry.npmjs.org/@nylira/vue-button/-/vue-button-1.4.1.tgz",
+    "@nylira/vue-button": "^1.5.0",
     "@nylira/vue-countdown": "^1.1.3",
     "@nylira/vue-input": "^1.3.0",
     "@nylira/vue-input-error": "^1.0.0",
@@ -27,6 +27,8 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.18.0",
+    "base-64": "^0.1.0",
+    "bcryptjs": "^2.4.0",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
     "chromedriver": "^2.27.2",
@@ -45,6 +47,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "file-saver": "^1.3.3",
     "firebase": "^3.6.5",
     "friendly-errors-webpack-plugin": "^1.1.3",
     "function-bind": "^1.1.0",

@@ -5,3 +5,5 @@ export const sessionRequest = state => state.session.request
 export const sessionUser = state => state.session.user
 export const sessionVotes = state => state.session.votes
 export const config = state => state.config
+
+export const fundBtc = state => state.fundBtc
