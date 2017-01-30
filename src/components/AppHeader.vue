@@ -148,8 +148,6 @@ export default {
     .app-nav
       a
         font-size x
-        .label
-          display inline
 
 @media screen and (min-width: 480px)
   .app-header
@@ -157,6 +155,8 @@ export default {
       padding-left 0.75*x
       a
         padding 0 0.75*x
+        .label
+          display inline
 
 @media screen and (min-width: 640px)
   .app-header

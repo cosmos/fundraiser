@@ -1,41 +1,46 @@
 <template>
 <div class="page">
   <vue-page-header title="Sign Up" type="center"></vue-page-header>
-  <form class="form form-narrow" v-on:submit.prevent.default="signUp">
-    <div class="form-header">
-      <div class="subtitle">Signing up enables commenting and gives you a head start on the fundraising event.</div>
-      <vue-input-error :error="errorObj"></vue-input-error>
-    </div>
-    <div class="form-group">
+  <form class="form form-narrow" v-on:submit.prevent.default="validateSignUp">
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-name">Name</label>
-      <input
-        v-model="user.displayName"
-        type="text"
+      <vue-input
+        v-model="fields.displayName"
+        input-type="text"
         id="user-signup-name"
-        placeholder="Display Name"
-        pattern=".{2,32}" required title="2 to 32 characters"
-        required>
-    </div>
-    <div class="form-group">
+        input-placeholder="Display Name"
+      >
+      </vue-input>
+      <form-msg name="Display Name" type="required" v-if="!$v.fields.displayName.required"></form-msg>
+      <form-msg name="Display Name" type="length" min="2" max="20" v-if="!$v.fields.displayName.menLength || !$v.fields.displayName.maxLength"></form-msg>
+    </div><!--form-group-->
+
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-email">Email</label>
-      <input
-        v-model="user.email"
-        type="email"
+      <vue-input
+        v-model="fields.email"
+        input-type="email"
         id="user-signup-email"
-        placeholder="name@example.com"
-        pattern=".{3,512}" required title="3 to 254 characters"
-        required>
-    </div>
-    <div class="form-group">
+        input-placeholder="name@example.com"
+      >
+      </vue-input>
+      <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
+      <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
+    </div><!--form-group-->
+
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-password">Password</label>
-      <input
-        v-model="user.password"
-        type="password"
+      <vue-input
+        v-model="fields.password"
+        input-type="password"
         id="user-signup-password"
-        placeholder="Password"
-        pattern=".{8,512}" required title="8 to 512 characters"
-        required>
-    </div>
+        input-placeholder="Password"
+      >
+      </vue-input>
+      <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
+      <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
+    </div><!--form-group-->
+
     <div class="form-footer">
       <router-link to="/signin">Have an account?</router-link>
       <vue-button btn-type="submit" btn-value="Sign Up"></vue-button>
@@ -45,77 +50,43 @@
 </template>
 
 <script>
-import VuePageHeader from '@nylira/vue-page-header'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
-import VueInputError from '@nylira/vue-input-error'
+import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
+import VuePageHeader from '@nylira/vue-page-header'
 import VueButton from '@nylira/vue-button'
+import VueInput from '@nylira/vue-input'
+import FormMsg from './FormMsg'
 export default {
   name: 'page-blog-index',
   components: {
     VuePageHeader,
-    VueInputError,
-    VueButton
+    VueButton,
+    VueInput,
+    FormMsg
   },
   computed: {
     ...mapGetters(['sessionRequest'])
   },
   data () {
     return {
-      user: {
+      fields: {
         displayName: '',
         email: '',
         password: ''
-      },
-      errorObj: {
-        active: false,
-        code: '',
-        message: ''
       }
     }
   },
   methods: {
-    signUp (event) {
-      if (!event.target.checkValidity()) {
-        this.validateFields(event)
-      } else {
-        this.createUser()
-      }
+    validateSignUp () {
+      this.$v.$touch()
+      if (this.$v.$error) return
+      else this.signUp()
     },
-    validateFields (event) {
-      // console.log('I am Safari!')
-      event.preventDefault()
-
-      let inputs = document.querySelectorAll(
-        'input[required],select[required], textarea[required]'
-      )
-
-      for (let i = 0; i < inputs.length; i++) {
-        let input = inputs[i]
-        if (!input.validity.valid) {
-          let msg
-          if (input.id === 'user-signup-name') {
-            msg = 'User name is required (2-32 characters)'
-          }
-          if (input.id === 'user-signup-email') {
-            msg = 'Email must be valid'
-          }
-          if (input.id === 'user-signup-password') {
-            msg = 'Password is required (8-512 characters)'
-          }
-          console.log(input.id, 'is invalid')
-
-          input.focus()
-          input.placeholder = msg
-          input.value = ''
-          return
-        }
-      }
-    },
-    createUser () {
+    signUp () {
       let self = this
       firebase.auth().createUserWithEmailAndPassword(
-      this.user.email, this.user.password)
+      this.fields.email, this.fields.password)
         .catch(function (error) {
           let errorCode = error.code
           let errorMessage = error.message
@@ -128,9 +99,9 @@ export default {
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           user.updateProfile({
-            displayName: self.user.displayName
+            displayName: self.fields.displayName
           }).then(function () {
-            self.$store.commit('setSessionUserDisplayName', self.user.displayName)
+            self.$store.commit('setSessionUserDisplayName', self.fields.displayName)
           }, function (error) {
             console.log('error', error)
           })
@@ -161,6 +132,24 @@ export default {
         console.log('signed out')
       }
     })
+  },
+  validations: {
+    fields: {
+      displayName: {
+        required,
+        minLength: minLength(2),
+        maxLength: maxLength(20)
+      },
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minLength: minLength(8),
+        maxLength: maxLength(1024)
+      }
+    }
   }
 }
 </script>

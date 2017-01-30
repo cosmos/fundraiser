@@ -30,7 +30,6 @@
 
 <script>
 import dummyWallet from '../store/json/dummyWallet.json'
-// import base64 from 'base-64'
 import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
 import VueButton from '@nylira/vue-button'
@@ -42,19 +41,11 @@ export default {
   computed: {
     ...mapGetters(['fundBtc'])
   },
-  data () {
-    return {
-      passwordEqualsHash: true,
-      formData: {
-        password: ''
-      }
-    }
-  },
   methods: {
     downloadWallet () {
       let walletString = JSON.stringify(dummyWallet)
       let walletArray = walletString.split('')
-      /* eslint-disable-next-line */
+      // eslint-disable-next-line
       let blob = new Blob(walletArray, {type: 'text/plain;charset=utf-8'})
       FileSaver.saveAs(blob, 'dummy-atom-wallet.json')
     },

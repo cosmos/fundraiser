@@ -20,10 +20,10 @@
       <div class="input-group-addon">BTC</div>
     </div>
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formData.atoms.$error }">
+      :class="{ 'input-group-error': $v.formFields.atoms.$error }">
       <vue-input
-        v-model="formData.atoms"
-        @input="$v.formData.atoms.$touch()"
+        v-model="formFields.atoms"
+        @input="$v.formFields.atoms.$touch()"
         min="20.00"
         max="1000000"
         step="10"
@@ -32,66 +32,67 @@
       </vue-input>
       <div class="input-group-addon">Atoms</div>
     </div>
+
     <div class="form-error" v-if="!$v.amountBtc.required">
       BTC amount is required
     </div>
     <div class="form-error" v-if="!$v.amountBtc.between">
       BTC amount must be between 0.01 and 500
     </div>
-    <div class="form-error" v-if="!$v.formData.atoms.required">
+    <div class="form-error" v-if="!$v.formFields.atoms.required">
       Atom amount is required
     </div>
-    <div class="form-error" v-if="!$v.formData.atoms.between">
+    <div class="form-error" v-if="!$v.formFields.atoms.between">
       Atom amount must be between 20 and 1,000,000
     </div>
     <div class="form-desc">
       Price: 1 BTC buys 2,000 Atoms.
     </div>
     <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
-    <vuelidate-debug name="atoms" :data="$v.formData.atoms"></vuelidate-debug>
+    <vuelidate-debug name="atoms" :data="$v.formFields.atoms"></vuelidate-debug>
   </div>
 
   <div class="form-group">
     <label>Enter a valid email address.</label>
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formData.email.$error }">
+      :class="{ 'input-group-error': $v.formFields.email.$error }">
       <vue-input
         input-type="email"
         input-placeholder="Enter your email"
-        v-model="formData.email"
-        @input="$v.formData.email.$touch()"
+        v-model="formFields.email"
+        @input="$v.formFields.email.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formData.email.required">
+    <div class="form-error" v-if="!$v.formFields.email.required">
       Email is required
     </div>
-    <div class="form-error" v-if="!$v.formData.email.email">
+    <div class="form-error" v-if="!$v.formFields.email.email">
       Email must be valid
     </div>
-    <vuelidate-debug name="formData.email" :data="$v.formData.email"></vuelidate-debug>
+    <vuelidate-debug name="formFields.email" :data="$v.formFields.email"></vuelidate-debug>
 
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formData.confirmEmail.$error }">
+      :class="{ 'input-group-error': $v.formFields.confirmEmail.$error }">
       <vue-input
         input-type="email"
         input-placeholder="Re-enter your email"
-        v-model="formData.confirmEmail"
-        @input="$v.formData.confirmEmail.$touch()"
+        v-model="formFields.confirmEmail"
+        @input="$v.formFields.confirmEmail.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formData.confirmEmail.required">
+    <div class="form-error" v-if="!$v.formFields.confirmEmail.required">
       Email confirmation is required
     </div>
-    <div class="form-error" v-if="!$v.formData.confirmEmail.sameAsEmail">
+    <div class="form-error" v-if="!$v.formFields.confirmEmail.sameAsEmail">
       Emails must be identical
     </div>
-    <vuelidate-debug name="formData.confirmEmail" :data="$v.formData.confirmEmail"></vuelidate-debug>
+    <vuelidate-debug name="formFields.confirmEmail" :data="$v.formFields.confirmEmail"></vuelidate-debug>
 
     <div class="form-desc">
       Your wallet backup will be emailed to this address.
@@ -100,49 +101,52 @@
   </div>
 
   <div class="form-group">
-    <label>Enter a password.</label>
+    <label>Create a wallet password.</label>
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formData.password.$error }">
+      :class="{ 'input-group-error': $v.formFields.password.$error }">
       <vue-input
         input-type="password"
         input-placeholder="Enter your password"
-        v-model="formData.password"
-        @input="$v.formData.password.$touch()"
+        v-model="formFields.password"
+        @input="$v.formFields.password.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formData.password.required">
+    <div class="form-error" v-if="!$v.formFields.password.required">
       Password is required
     </div>
-    <div class="form-error" v-if="!$v.formData.password.minLength">
+    <div class="form-error" v-if="!$v.formFields.password.minLength">
       Password must be at least 8 characters
     </div>
-    <vuelidate-debug name="formData.password" :data="$v.formData.password"></vuelidate-debug>
+    <vuelidate-debug name="formFields.password" :data="$v.formFields.password"></vuelidate-debug>
 
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formData.confirmPassword.$error }">
+      :class="{ 'input-group-error': $v.formFields.confirmPassword.$error }">
       <vue-input
         input-type="password"
         input-placeholder="Re-enter your password"
-        v-model="formData.confirmPassword"
-        @input="$v.formData.confirmPassword.$touch()"
+        v-model="formFields.confirmPassword"
+        @input="$v.formFields.confirmPassword.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formData.confirmPassword.required">
+    <div class="form-error" v-if="!$v.formFields.confirmPassword.required">
       Password confirmation is required
     </div>
-    <div class="form-error" v-if="!$v.formData.confirmPassword.sameAsPassword">
+    <div class="form-error" v-if="!$v.formFields.confirmPassword.sameAsPassword">
       Passwords must be identical
     </div>
-    <vuelidate-debug name="formData.confirmPassword" :data="$v.formData.confirmPassword"></vuelidate-debug>
+    <vuelidate-debug name="formFields.confirmPassword" :data="$v.formFields.confirmPassword"></vuelidate-debug>
 
     <div class="form-desc">
      This is required to encrypt and access your wallet.
+    </div>
+    <div class="form-desc">
+      This should NOT be the same as your account password.
     </div>
   </div>
 
@@ -160,6 +164,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import { required, between, sameAs, minLength, email } from 'vuelidate/lib/validators'
 import VueInput from '@nylira/vue-input'
@@ -175,13 +180,13 @@ export default {
   computed: {
     amountBtc: {
       get () {
-        return this.formData.atoms / 2000.00
+        return this.formFields.atoms / 2000.00
       },
       set (newValue) {
         if (newValue === '.' || newValue === '' || newValue === ' ') {
-          this.formData.atoms = 0
+          this.formFields.atoms = 0
         } else {
-          this.formData.atoms = newValue * 2000.00
+          this.formFields.atoms = newValue * 2000.00
         }
       }
     },
@@ -189,7 +194,7 @@ export default {
   },
   data () {
     return {
-      formData: {
+      formFields: {
         atoms: 0,
         // email: 'peng@nylira.com',
         // confirmEmail: 'peng@nylira.com',
@@ -205,7 +210,7 @@ export default {
   methods: {
     nextStep () {
       this.$v.$touch()
-      let data = this.formData
+      let data = this.formFields
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
@@ -216,12 +221,18 @@ export default {
       }
     }
   },
+  mounted () {
+    if (!firebase.auth().currentUser) {
+      this.$store.commit('setSessionRequest', '/btc')
+      this.$router.push('/signup')
+    }
+  },
   validations: {
     amountBtc: {
       required,
       between: between(0.01, 500)
     },
-    formData: {
+    formFields: {
       atoms: {
         required,
         between: between(20, 1000000)
@@ -246,7 +257,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-</style>

@@ -8,6 +8,7 @@
   border-top 1px solid bc
   border-bottom 1px solid bc
   background #fff
+  padding 0.5rem 0
 
 .form-header, .form-footer
   padding 1rem
@@ -46,27 +47,17 @@
     font-weight 400
     overflow hidden
 
-.form-desc, .form-error
-  font-size 0.75rem
-  margin 0 0 0.5rem
-  &:before
-    content ''
-    font-family FontAwesome
-    padding-right 0.35rem
+  .pz-input
+    margin-bottom 0.5rem
 
-.form-desc
-  color dim
-  display flex
-  &:before
-    content '\f059'
-    color hsl(45,100%,50%)
+  .pz-form-msg-error
+    display none
 
-.form-error
-  color #f00
-  display flex
-  &:before
-    content '\f06a'
-    color #f00
+  &.form-group-error
+    .pz-input
+      border-color #f00
+    .pz-form-msg-error
+      display flex
 
 .input-group
   display flex
@@ -75,18 +66,8 @@
   .pz-input
     flex 5
 
-  &.input-group-error
-    .pz-input
-      border-color #f00
-
   .input-group-addon
     flex 1
-
-.input-group + .form-error
-  display none
-
-.input-group-error + .form-error
-  display flex
 
 @media screen and (min-width: 360px)
   .form

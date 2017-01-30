@@ -9,14 +9,28 @@
   <div class="form-group">
     <label>Pay BTC To</label>
     <div class="input-group">
+      <canvas id="bitcoin-qr-code"></canvas>
       <vue-input
         input-type="text"
         v-model="btcAddress"
       >
       </vue-input>
-      <div class="input-group-addon"><i class="fa fa-copy"> Copy</i></div>
     </div>
+    <vue-button
+      @click="payBitcoin"
+      btn-value="Pay from Wallet">
+    </vue-button>
+    <vue-button
+      @click="copyBitcoin"
+      btn-icon="copy"
+      btn-value="Copy to Clipboard">
+    </vue-button>
+    <vue-button
+      @click="qrBitcoin"
+      btn-value="Get QR Code">
+    </vue-button>
   </div>
+
 
   <div class="form-group">
     <label>You Will Receive</label>

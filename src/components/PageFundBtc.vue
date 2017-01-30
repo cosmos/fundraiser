@@ -25,10 +25,16 @@ export default {
     FundBtc04
   },
   computed: {
-    ...mapGetters(['fundBtc'])
+    ...mapGetters(['fundBtc', 'sessionUser'])
   },
-  mounted () {
-    document.title = this.$t('siteFund.titleBtc') + ' - Cosmos'
+  head: {
+    title () {
+      return {
+        inner: this.$t('siteFund.titleBtc'),
+        separator: '-',
+        complement: this.$t('site.internetOfBlockchains')
+      }
+    }
   }
 }
 </script>

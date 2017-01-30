@@ -1,19 +1,18 @@
 <template>
 <div class="page">
-  <vue-page-header title="Reset Password"></vue-page-header>
-  <form class="form form-narrow" v-on:submit.prevent.default="resetPassword">
-    <div class="form-header">
-      <div class="subtitle">Enter your email and we'll send you a password reset link.</div>
-    </div>
-    <div class="form-group">
+  <vue-page-header title="Reset Password" type="center"></vue-page-header>
+  <form class="form form-narrow" v-on:submit.prevent.default="validateReset">
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-reset-email">Email</label>
-      <input
-        v-model="email"
-        type="email"
-        id="user-signup-email"
-        placeholder="name@example.com"
-        pattern=".{3,512}" required title="3 to 254 characters"
-        required>
+      <vue-input
+        v-model="fields.email"
+        input-type="email"
+        id="user-reset-email"
+        input-placeholder="name@example.com"
+      >
+      </vue-input>
+      <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
+      <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
     </div>
     <div class="form-footer">
       <div></div>
@@ -24,28 +23,48 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import { required, email } from 'vuelidate/lib/validators'
 import VuePageHeader from '@nylira/vue-page-header'
-import firebase from '../scripts/firebase'
 import VueButton from '@nylira/vue-button'
+import VueInput from '@nylira/vue-input'
+import FormMsg from './FormMsg'
 export default {
   name: 'page-blog-index',
   components: {
     VuePageHeader,
-    VueButton
+    VueButton,
+    VueInput,
+    FormMsg
   },
   data () {
     return {
-      email: ''
+      fields: {
+        email: ''
+      }
     }
   },
   methods: {
+    validateReset () {
+      this.$v.$touch()
+      if (this.$v.$error) return
+      else this.resetPassword()
+    },
     resetPassword () {
-      firebase.auth.sendPasswordResetEmail(this.email).then(function () {
+      firebase.auth().sendPasswordResetEmail(this.email).then(function () {
         console.log('email sent')
       }, function (error) {
         console.log(error)
       })
       this.$router.push('/')
+    }
+  },
+  validations: {
+    fields: {
+      email: {
+        required,
+        email
+      }
     }
   }
 }

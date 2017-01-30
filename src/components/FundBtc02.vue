@@ -9,23 +9,23 @@
   <div class="form-group">
     <label>Password</label>
     <div id="input-password-valid" class="input-group"
-      :class="{ 'input-group-error': $v.formData.password.$error }">
+      :class="{ 'input-group-error': $v.formFields.password.$error }">
       <vue-input
         input-type="password"
         input-placeholder="Enter your password"
-        v-model="formData.password"
-        @input="$v.formData.password.$touch()"
+        v-model="formFields.password"
+        @input="$v.formFields.password.$touch()"
         required
       >
       </vue-input>
     </div>
-    <div class="form-error" v-if="!$v.formData.password.required">
+    <div class="form-error" v-if="!$v.formFields.password.required">
       Password is required
     </div>
     <div class="form-error" v-if="!passwordEqualsHash">
       Password is incorrect
     </div>
-    <vuelidate-debug name="formData.password" :data="$v.formData.password"></vuelidate-debug>
+    <vuelidate-debug name="formFields.password" :data="$v.formFields.password"></vuelidate-debug>
   </div>
 
   <div class="form-footer">
@@ -66,7 +66,7 @@ export default {
   data () {
     return {
       passwordEqualsHash: true,
-      formData: {
+      formFields: {
         password: ''
       }
     }
@@ -82,7 +82,7 @@ export default {
     },
     nextStep () {
       this.$v.$touch()
-      let password = this.formData.password
+      let password = this.formFields.password
 
       if (this.$v.$error) {
         console.log('password is required')
@@ -105,7 +105,7 @@ export default {
     }
   },
   validations: {
-    formData: {
+    formFields: {
       password: {
         required
       }

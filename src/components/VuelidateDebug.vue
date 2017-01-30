@@ -12,7 +12,6 @@ export default {
 @import '../styles/variables.styl'
 
 pre.debug
-  display none
   font-size 0.75rem
   mono()
   padding 0.5rem

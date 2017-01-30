@@ -1,31 +1,33 @@
 <template>
 <div class="page">
-  <vue-page-header title="Sign In"></vue-page-header>
-  <form class="form form-narrow" v-on:submit.prevent.default="signIn">
-    <div class="form-header">
-      <div class="subtitle">Sign in to your account now.</div>
-      <vue-input-error :error="errorObj"></vue-input-error>
-    </div>
-    <div class="form-group">
+  <vue-page-header title="Sign In" type="center"></vue-page-header>
+  <form class="form form-narrow" v-on:submit.prevent.default="validateSignIn">
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signin-email">Email</label>
-      <input
-        v-model="email"
-        type="email"
+      <vue-input
+        v-model="fields.email"
+        input-type="email"
         id="user-signin-email"
-        placeholder="name@example.com"
-        pattern=".{3,512}" required title="3 to 254 characters"
-        required>
-    </div>
-    <div class="form-group">
+        input-placeholder="name@example.com"
+      >
+      </vue-input>
+      <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
+      <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
+    </div><!--form-group-->
+
+    <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">
       <label for="user-signin-password">Password</label>
-      <input
-        v-model="password"
-        type="password"
+      <vue-input
+        v-model="fields.password"
+        input-type="password"
         id="user-signin-password"
-        placeholder="Password"
-        pattern=".{8,512}" required title="8 to 512 characters"
-        required>
-    </div>
+        input-placeholder="Password"
+      >
+      </vue-input>
+      <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
+      <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
+    </div><!--form-group-->
+
     <div class="form-footer">
       <router-link to="/reset">Forgot password?</router-link>
       <vue-button btn-type="submit" btn-value="Sign In"></vue-button>
@@ -35,37 +37,42 @@
 </template>
 
 <script>
-import VuePageHeader from '@nylira/vue-page-header'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
-import VueInputError from '@nylira/vue-input-error'
+import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
+import VuePageHeader from '@nylira/vue-page-header'
 import VueButton from '@nylira/vue-button'
+import VueInput from '@nylira/vue-input'
+import FormMsg from './FormMsg'
 export default {
-  name: 'page-blog-index',
+  name: 'page-signin',
   components: {
     VuePageHeader,
-    VueInputError,
-    VueButton
+    VueButton,
+    VueInput,
+    FormMsg
   },
   computed: {
     ...mapGetters(['sessionRequest'])
   },
   data () {
     return {
-      email: '',
-      password: '',
-      errorObj: {
-        active: false,
-        code: '',
-        message: ''
+      fields: {
+        email: '',
+        password: ''
       }
     }
   },
   methods: {
+    validateSignIn () {
+      this.$v.$touch()
+      if (this.$v.$error) return
+      else this.signIn()
+    },
     signIn () {
       let self = this
-      let email = this.email
-      let password = this.password
+      let email = this.fields.email
+      let password = this.fields.password
       firebase.auth().signInWithEmailAndPassword(email, password)
         .catch(function (error) {
           var errorCode = error.code
@@ -98,6 +105,19 @@ export default {
         self.email = user.email
       }
     })
+  },
+  validations: {
+    fields: {
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minLength: minLength(8),
+        maxLength: maxLength(1024)
+      }
+    }
   }
 }
 </script>
