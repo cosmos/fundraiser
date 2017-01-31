@@ -5,12 +5,14 @@
       <router-view></router-view>
     </div>
     <app-footer></app-footer>
+    <notifications></notifications>
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import Notifications from './components/Notifications.vue'
 import store from './store/index.js'
 // import getLang from './scripts/getLang.js'
 // import Vue from 'vue'
@@ -19,7 +21,8 @@ import firebase from './scripts/firebase.js'
 export default {
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    Notifications
   },
   head: {
     meta: [

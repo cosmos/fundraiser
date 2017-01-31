@@ -1,14 +1,13 @@
-.form-narrow
-  max-width 32rem
-  margin 0 auto
-  margin-top -1px
-
 .form
   margin-bottom 1rem
   border-top 1px solid bc
   border-bottom 1px solid bc
   background #fff
   padding 0.5rem 0
+  &.form-narrow
+    max-width 32rem
+    margin 0 auto
+    margin-top -1px
 
 .form-header, .form-footer
   padding 1rem
@@ -28,9 +27,8 @@
     strong
       color txt
       font-weight bold
-
-.form-group
-  padding 0.5rem 1rem
+    &.subtitle-err
+      color #f00
 
 .form-footer
   margin-top 1rem
@@ -41,6 +39,7 @@
   align-items center
 
 .form-group
+  padding 0.5rem 1rem
   label
     display block
     margin-bottom 0.5rem

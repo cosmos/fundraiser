@@ -101,5 +101,4 @@ export default {
     margin 0 0.5rem
 
     align-items center
-
 </style>
