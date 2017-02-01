@@ -12,8 +12,13 @@ const state = {
 
 const mutations = {
   setSessionRequest (state, url) {
-    state.request = url
-    // console.log('setting session request', url)
+    if (['/signup', '/signin', '/settings'].includes(url)) {
+      state.request = '/'
+      console.log(`redirecting ${url} request to home`)
+    } else {
+      state.request = url
+      console.log('setting session request', url)
+    }
   },
   clearSessionUser (state) {
     state.user = JSON.parse(JSON.stringify(emptyUser))

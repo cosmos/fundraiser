@@ -5,10 +5,9 @@
     <div class="title">Step 1</div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
     <label>Enter amount to purchase in either Bitcoin or Atoms.</label>
-    <div class="input-group"
-      :class="{ 'input-group-error': $v.amountBtc.$error }">
+    <div class="input-group">
       <vue-input
         v-model="amountBtc"
         @input="$v.amountBtc.$touch()"
@@ -19,11 +18,10 @@
       </vue-input>
       <div class="input-group-addon">BTC</div>
     </div>
-    <div class="input-group"
-      :class="{ 'input-group-error': $v.formFields.atoms.$error }">
+    <div class="input-group">
       <vue-input
-        v-model="formFields.atoms"
-        @input="$v.formFields.atoms.$touch()"
+        v-model="fields.atoms"
+        @input="$v.fields.atoms.$touch()"
         min="20.00"
         max="1000000"
         step="10"
@@ -33,127 +31,93 @@
       <div class="input-group-addon">Atoms</div>
     </div>
 
-    <div class="form-error" v-if="!$v.amountBtc.required">
-      BTC amount is required
-    </div>
-    <div class="form-error" v-if="!$v.amountBtc.between">
-      BTC amount must be between 0.01 and 500
-    </div>
-    <div class="form-error" v-if="!$v.formFields.atoms.required">
-      Atom amount is required
-    </div>
-    <div class="form-error" v-if="!$v.formFields.atoms.between">
-      Atom amount must be between 20 and 1,000,000
-    </div>
-    <div class="form-desc">
-      Price: 1 BTC buys 2,000 Atoms.
-    </div>
+    <form-msg name="BTC amount" type="required" v-if="!$v.amountBtc.required"></form-msg>
+    <form-msg name="BTC amount" type="between" min="0.01" max="500" v-if="!$v.amountBtc.between"></form-msg>
+    <form-msg name="Atom amount" type="required" v-if="!$v.fields.atoms.required"></form-msg>
+    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.atoms.between"></form-msg>
+    <form-msg body="Price: 1 BTC buys 2,000 Atoms."></form-msg>
     <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
-    <vuelidate-debug name="atoms" :data="$v.formFields.atoms"></vuelidate-debug>
+    <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
     <label>Enter a valid email address.</label>
-    <div class="input-group"
-      :class="{ 'input-group-error': $v.formFields.email.$error }">
+    <div class="input-group">
       <vue-input
         input-type="email"
         input-placeholder="Enter your email"
-        v-model="formFields.email"
-        @input="$v.formFields.email.$touch()"
+        v-model="fields.email"
+        @input="$v.fields.email.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formFields.email.required">
-      Email is required
-    </div>
-    <div class="form-error" v-if="!$v.formFields.email.email">
-      Email must be valid
-    </div>
-    <vuelidate-debug name="formFields.email" :data="$v.formFields.email"></vuelidate-debug>
+    <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
+    <form-msg name="Email" v-if="!$v.fields.email.email"></form-msg>
+    <vuelidate-debug name="fields.email" :data="$v.fields.email"></vuelidate-debug>
 
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formFields.confirmEmail.$error }">
+      :class="{ 'input-group-error': $v.fields.confirmEmail.$error }">
       <vue-input
         input-type="email"
         input-placeholder="Re-enter your email"
-        v-model="formFields.confirmEmail"
-        @input="$v.formFields.confirmEmail.$touch()"
+        v-model="fields.confirmEmail"
+        @input="$v.fields.confirmEmail.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formFields.confirmEmail.required">
-      Email confirmation is required
-    </div>
-    <div class="form-error" v-if="!$v.formFields.confirmEmail.sameAsEmail">
-      Emails must be identical
-    </div>
-    <vuelidate-debug name="formFields.confirmEmail" :data="$v.formFields.confirmEmail"></vuelidate-debug>
-
-    <div class="form-desc">
-      Your wallet backup will be emailed to this address.
-    </div>
+    <form-msg name="Email confirmation" type="required" v-if="!$v.fields.confirmEmail.required"></form-msg>
+    <form-msg name="Emails" type="match" v-if="!$v.fields.confirmEmail.sameAsEmail"></form-msg>
+    <form-msg body="Your wallet backup will be emailed to this address."></form-msg>
+    <vuelidate-debug name="fields.confirmEmail" :data="$v.fields.confirmEmail"></vuelidate-debug>
 
   </div>
 
-  <div class="form-group">
+  <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">
     <label>Create a wallet password.</label>
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formFields.password.$error }">
+      :class="{ 'input-group-error': $v.fields.password.$error }">
       <vue-input
         input-type="password"
         input-placeholder="Enter your password"
-        v-model="formFields.password"
-        @input="$v.formFields.password.$touch()"
+        v-model="fields.password"
+        @input="$v.fields.password.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formFields.password.required">
-      Password is required
-    </div>
-    <div class="form-error" v-if="!$v.formFields.password.minLength">
-      Password must be at least 8 characters
-    </div>
-    <vuelidate-debug name="formFields.password" :data="$v.formFields.password"></vuelidate-debug>
+    <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
+    <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
+    <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
 
     <div class="input-group"
-      :class="{ 'input-group-error': $v.formFields.confirmPassword.$error }">
+      :class="{ 'input-group-error': $v.fields.confirmPassword.$error }">
       <vue-input
         input-type="password"
         input-placeholder="Re-enter your password"
-        v-model="formFields.confirmPassword"
-        @input="$v.formFields.confirmPassword.$touch()"
+        v-model="fields.confirmPassword"
+        @input="$v.fields.confirmPassword.$touch()"
         required
       >
       </vue-input>
     </div>
 
-    <div class="form-error" v-if="!$v.formFields.confirmPassword.required">
-      Password confirmation is required
-    </div>
-    <div class="form-error" v-if="!$v.formFields.confirmPassword.sameAsPassword">
-      Passwords must be identical
-    </div>
-    <vuelidate-debug name="formFields.confirmPassword" :data="$v.formFields.confirmPassword"></vuelidate-debug>
-
-    <div class="form-desc">
-     This is required to encrypt and access your wallet.
-    </div>
-    <div class="form-desc">
-      This should NOT be the same as your account password.
-    </div>
+    <form-msg name="Password confirmation" type="required" v-if="!$v.fields.confirmPassword.required"></form-msg>
+    <form-msg name="Passwords" type="match" v-if="!$v.fields.confirmPassword.sameAsPassword"></form-msg>
+    <vuelidate-debug name="fields.confirmPassword" :data="$v.fields.confirmPassword"></vuelidate-debug>
+    <form-msg body="This is required to encrypt and access your wallet."></form-msg>
+    <form-msg body="This should NOT be the same as your account password."></form-msg>
   </div>
 
   <div class="form-footer">
     <div></div>
     <vue-button
       btn-type="submit"
+      btn-size="large"
       btn-icon="angle-right"
       btn-icon-position="right"
       btn-value="Continue">
@@ -164,9 +128,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import { required, between, sameAs, minLength, email } from 'vuelidate/lib/validators'
+import FormMsg from './FormMsg'
 import VueInput from '@nylira/vue-input'
 import VueButton from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
@@ -175,18 +139,19 @@ export default {
   components: {
     VueInput,
     VueButton,
-    VuelidateDebug
+    VuelidateDebug,
+    FormMsg
   },
   computed: {
     amountBtc: {
       get () {
-        return this.formFields.atoms / 2000.00
+        return this.fields.atoms / 2000.00
       },
       set (newValue) {
         if (newValue === '.' || newValue === '' || newValue === ' ') {
-          this.formFields.atoms = 0
+          this.fields.atoms = 0
         } else {
-          this.formFields.atoms = newValue * 2000.00
+          this.fields.atoms = newValue * 2000.00
         }
       }
     },
@@ -194,7 +159,7 @@ export default {
   },
   data () {
     return {
-      formFields: {
+      fields: {
         atoms: 0,
         // email: 'peng@nylira.com',
         // confirmEmail: 'peng@nylira.com',
@@ -210,7 +175,7 @@ export default {
   methods: {
     nextStep () {
       this.$v.$touch()
-      let data = this.formFields
+      let data = this.fields
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
@@ -221,18 +186,12 @@ export default {
       }
     }
   },
-  mounted () {
-    if (!firebase.auth().currentUser) {
-      this.$store.commit('setSessionRequest', '/btc')
-      this.$router.push('/signup')
-    }
-  },
   validations: {
     amountBtc: {
       required,
       between: between(0.01, 500)
     },
-    formFields: {
+    fields: {
       atoms: {
         required,
         between: between(20, 1000000)

@@ -1,7 +1,7 @@
 <template>
   <div class="cover-sale">
     <section>
-      <h1>Cosmos Fundraising</h1>
+      <h1>Fundraise Event</h1>
     </section>
     <section>
       <div class="key">Atom Sale Ends In</div>
@@ -9,13 +9,13 @@
     </section>
     <section>
       <div class="key">Atoms Purchased</div>
-      <div class="value">~195,300</div>
+      <div class="value">~845,374</div>
     </section>
     <section>
       <div class="key">Current Price</div>
-      <div class="value">$1 USD = 2.222 atoms</div>
+      <div class="value">1 btc = 1,949 atoms</div>
     </section>
-    <section>
+    <section class="footer">
       <div class="buttons">
         <vue-button
           @click.native="gotoBtc"
@@ -71,7 +71,7 @@ export default {
 
 .cover-sale
   section
-    padding 1.5rem 1rem
+    padding 1rem
     border-bottom 1px dotted bc
     text-align center
     &:last-of-type
@@ -84,10 +84,11 @@ export default {
       text-align center
 
     .key
-      font-size 1.5rem
-      color txt
-      font-weight 400
-      margin-bottom 0.75rem
+      font-size 0.75rem
+      font-weight bold
+      color light
+      text-transform uppercase
+      margin-bottom 0.5rem
 
     .pz-countdown
       width 75vw
@@ -98,18 +99,30 @@ export default {
       font-size 1.25rem
       font-weight 400
 
-    .buttons
-      .pz-button
-        width 16rem
-        margin 0 auto
+    &.footer
+      .buttons
         margin-bottom 1rem
-        font-weight 600
-        &.btn-bitcoin
-          background #f90
-          color c-app-fg
-          border-color darken(#f90, 25%)
-        &.btn-ether
-          background #ECF0F1
-          border-color darken(#ECF0F1, 25%)
-          color #3C3C3D
+        display flex
+
+        .pz-button
+          width 16rem
+          margin 0 auto
+          font-weight 600
+          line-height 1.5rem
+          height auto
+          padding-top 0.5rem
+          padding-bottom 0.5rem
+          &:first-of-type
+            margin-right 0.5rem
+          &:last-of-type
+            margin-left 0.5rem
+
+          &.btn-bitcoin
+            background #f90
+            color c-app-fg
+            border-color darken(#f90, 25%)
+          &.btn-ether
+            background #ECF0F1
+            border-color darken(#ECF0F1, 25%)
+            color #3C3C3D
 </style>

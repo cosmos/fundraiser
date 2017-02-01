@@ -1,6 +1,6 @@
 <template>
   <div :class="cssClass">
-    <template v-if="type=='desc'">{{ msg-body }}</template>
+    <template v-if="body">{{ body }}</template>
     <template v-else>{{ name }} {{ error }}</template>
   </div>
 </template>
@@ -9,11 +9,11 @@
 export default {
   computed: {
     cssClass () {
-      let value = 'pz-form-msg '
-      if (this.type) {
-        value += 'pz-form-msg-error'
+      let value = 'pz-form-msg'
+      if (this.body) {
+        value += ' pz-form-msg-desc'
       } else {
-        value += 'pz-form-msg-desc'
+        value += ' pz-form-msg-error'
       }
       return value
     },
@@ -23,13 +23,15 @@ export default {
         case 'required':
           msg = 'is required'; break
         case 'match':
-          msg = 'must match'; break
+          msg = 'must be identical'; break
         case 'minLength':
           msg = `must be longer than ${this.min} characters`; break
         case 'maxLength':
           msg = `must be shorter than ${this.max} characters`; break
         case 'length':
           msg = `must be between ${this.min} and ${this.max} characters`; break
+        case 'between':
+          msg = `must be between ${this.min} and ${this.max}`; break
         default:
           msg = 'must be valid'; break
       }

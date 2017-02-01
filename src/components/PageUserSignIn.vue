@@ -2,6 +2,7 @@
 <div class="page">
   <vue-page-header title="Sign In" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateSignIn">
+
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signin-email">Email</label>
       <vue-input
@@ -32,6 +33,7 @@
       <router-link to="/reset">Forgot password?</router-link>
       <vue-button btn-type="submit" btn-value="Sign In"></vue-button>
     </div>
+
   </form>
 </div>
 </template>
@@ -75,13 +77,7 @@ export default {
       let password = this.fields.password
       firebase.auth().signInWithEmailAndPassword(email, password)
         .catch(function (error) {
-          var errorCode = error.code
-          var errorMessage = error.message
-          console.log(errorCode, errorMessage)
-
-          self.errorObj.active = true
-          self.errorObj.code = errorCode
-          self.errorObj.message = errorMessage
+          self.$store.commit('notifyError', { title: error.code, body: error.message })
         })
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -90,6 +86,7 @@ export default {
       })
     },
     signInSuccess () {
+      this.$store.commit('notifySignIn')
       if (this.sessionRequest) {
         this.$router.push(this.sessionRequest)
         this.$store.commit('setSessionRequest', '')
@@ -101,9 +98,7 @@ export default {
   mounted () {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        self.email = user.email
-      }
+      if (user) self.fields.email = user.email
     })
   },
   validations: {

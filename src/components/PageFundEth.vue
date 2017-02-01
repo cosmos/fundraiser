@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import VuePageHeader from '@nylira/vue-page-header'
 import VueButton from '@nylira/vue-button'
 export default {
@@ -46,8 +47,24 @@ export default {
     VuePageHeader,
     VueButton
   },
+  head: {
+    title () {
+      return {
+        inner: this.$t('siteFund.titleEth'),
+        separator: '-',
+        complement: this.$t('site.internetOfBlockchains')
+      }
+    }
+  },
   mounted () {
-    document.title = this.$t('siteFund.titleEth') + ' - Cosmos'
+    if (!firebase.auth().currentUser) {
+      this.$store.commit('setSessionRequest', this.$route.path)
+      this.$router.push('/signup')
+      this.$store.commit(
+        'notifyAuthRequired',
+        'You must sign up first before you may participate in the fundraise.'
+      )
+    }
   }
 }
 </script>

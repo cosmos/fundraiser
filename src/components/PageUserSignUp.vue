@@ -85,15 +85,9 @@ export default {
     },
     signUp () {
       let self = this
-      firebase.auth().createUserWithEmailAndPassword(
-      this.fields.email, this.fields.password)
+      firebase.auth().createUserWithEmailAndPassword(this.fields.email, this.fields.password)
         .catch(function (error) {
-          let errorCode = error.code
-          let errorMessage = error.message
-          console.log(errorCode, errorMessage)
-          self.errorObj.active = true
-          self.errorObj.code = errorCode
-          self.errorObj.message = errorMessage
+          self.$store.commit('notifyError', { title: error.code, body: error.message })
         })
 
       firebase.auth().onAuthStateChanged(function (user) {
@@ -110,6 +104,7 @@ export default {
       })
     },
     signInSuccess () {
+      this.$store.commit('notifySignUp')
       if (this.sessionRequest) {
         this.$router.push(this.sessionRequest)
         this.$store.commit('setSessionRequest', '')

@@ -51,10 +51,11 @@ export default {
       else this.resetPassword()
     },
     resetPassword () {
+      let self = this
       firebase.auth().sendPasswordResetEmail(this.email).then(function () {
-        console.log('email sent')
+        self.$store.commit('notifyCustom', { title: 'Password Reset', body: 'Check your email to reset and create a new password.' })
       }, function (error) {
-        console.log(error)
+        self.$store.commit('notifyError', { title: error.code, body: error.message })
       })
       this.$router.push('/')
     }

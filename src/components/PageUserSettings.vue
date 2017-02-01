@@ -4,9 +4,6 @@
   <form class="form form-narrow" v-on:submit.prevent.default="validateUpdateUser">
     <div class="form-header">
       <div class="subtitle">Edit your user settings here.</div>
-      <div class="subtitle subtitle-err" v-if="err.active">
-        {{ err.code }} - {{ err.msg }}
-      </div>
     </div>
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newDisplayName.$error }">
@@ -15,6 +12,7 @@
         v-model="fields.newDisplayName"
         input-type="text"
         id="user-settings-name"
+        input-placeholder="New Display Name"
       >
       </vue-input>
       <form-msg name="Display Name" type="required" v-if="!$v.fields.newDisplayName.required"></form-msg>
@@ -27,6 +25,7 @@
           v-model="fields.newEmail"
           input-type="email"
           id="user-settings-email"
+        input-placeholder="New Email"
         >
         </vue-input>
         <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
@@ -79,22 +78,13 @@ export default {
         newDisplayName: '',
         newEmail: '',
         newPassword: ''
-      },
-      err: {
-        active: false,
-        code: '',
-        msg: ''
       }
     }
   },
   methods: {
-    setError (code, msg) {
-      if (code === 'auth/requires-recent-login') { this.$router.push('/signin') }
-      this.err = {
-        active: true,
-        code: code,
-        msg: msg
-      }
+    catch (error) {
+      if (error.code === 'auth/requires-recent-login') this.$router.push('/signin')
+      this.$store.commit('notifyError', { title: error.code, body: error.message })
     },
     validateUpdateUser () {
       this.$v.$touch()
@@ -102,61 +92,77 @@ export default {
       else this.updateUser()
     },
     updateUser () {
+      let changes = 0
       let newDisplayName = this.fields.newDisplayName
       let newEmail = this.fields.newEmail
       let newPassword = this.fields.newPassword
 
       let user = firebase.auth().currentUser
-      let oldName = user.displayName
+      let oldDisplayName = user.displayName
       let oldEmail = user.email
 
-      if (newDisplayName !== oldName) { this.updateName(newDisplayName) }
-      if (newEmail !== oldEmail) { this.updateEmail(newEmail) }
-      if (newPassword) { this.updatePassword(newPassword) }
+      if (newDisplayName !== oldDisplayName) {
+        this.updateName(newDisplayName)
+        changes++
+      }
+      if (newEmail !== oldEmail) {
+        this.updateEmail(newEmail)
+        changes++
+      }
+      if (newPassword) {
+        this.updatePassword(newPassword)
+        changes++
+      }
+
+      if (changes === 0) {
+        this.$store.commit('notifyWarn', { title: 'Nothing Changed', body: `You made no changes to your user profile settings.` })
+      }
     },
     updateName (name) {
+      let self = this
       let user = firebase.auth().currentUser
-      let setError = this.setError
       user.updateProfile({
         displayName: name
       }).then(function () {
-        console.log('update username successful', name)
+        self.$store.commit('notifyCustom', { title: 'Display Name Updated', body: `Your display name has been succesfully changed to "${name}".` })
+        self.$store.commit('setSessionUserDisplayName', name)
       }, function (error) {
-        console.log('update username failed', error)
-        setError(error.code, error.message)
+        self.catch(error)
       })
     },
     updatePassword (password) {
+      let self = this
       let user = firebase.auth().currentUser
-      let setError = this.setError
       user.updatePassword(password).then(function () {
-        console.log('update password successful', password)
+        self.$store.commit('notifyCustom', { title: 'Password Updated', body: `Your password has been successfully updated.` })
       }, function (error) {
-        console.log('update password failed', error)
-        setError(error.code, error.message)
+        self.catch(error)
       })
     },
     updateEmail (email) {
+      let self = this
       let user = firebase.auth().currentUser
-      let setError = this.setError
       user.updateEmail(email).then(function () {
-        console.log('update email successful', email)
+        self.$store.commit('notifyCustom', { title: 'Email Updated', body: `Your email has been succesfully updated.` })
+        self.$store.commit('setSessionUserEmail', email)
       }, function (error) {
-        console.log('update email failed', error)
-        setError(error.code, error.message)
+        self.catch(error)
       })
     }
   },
   mounted () {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) {
-        self.$store.commit('setSessionRequest', '/settings')
-        self.$router.push('/signin')
+      if (user) {
+        document.querySelector('#user-settings-name').placeholder = ''
+        self.fields.newDisplayName = user.displayName
+        document.querySelector('#user-settings-email').placeholder = ''
+        self.fields.newEmail = user.email
+      } else {
+        self.$store.commit('setSessionRequest', self.$route.path)
+        self.$router.push('/signup')
+        self.$store.commit('notifyAuthRequired')
       }
-      console.log('auth state changed!', user)
-      self.fields.newDisplayName = user.displayName
-      self.fields.newEmail = user.email
     })
   },
   validations: {

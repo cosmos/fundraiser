@@ -28,18 +28,20 @@ export default {
   position fixed
   top 0
   right 0
-  padding 0.5rem
-  padding-top 3.5rem
   z-index 1000
-
-  width 100%
-  max-width 20rem
-  height 100vh
 
   display flex
   flex-flow column nowrap
   align-items stretch
 
+  width 100vw
+
 .pz-notification
   margin-bottom 0.5rem
+  &:last-of-type
+    margin-bottom 0
+
+@media screen and (min-width:720px)
+  .pz-notifications
+    max-width 24rem
 </style>

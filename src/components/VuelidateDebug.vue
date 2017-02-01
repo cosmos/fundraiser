@@ -18,4 +18,5 @@ pre.debug
   margin-bottom 0.5rem
   background c-app-bg
   line-height 1.25
+  display none
 </style>

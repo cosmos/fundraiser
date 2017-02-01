@@ -59,7 +59,7 @@ export default {
         console.log('signed in:', user.email)
       } else {
         self.$store.commit('clearSessionUser')
-        console.log('signed out')
+        // console.log('signed out')
       }
     })
   },

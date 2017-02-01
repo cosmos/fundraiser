@@ -39,9 +39,7 @@ export default {
         return 'Loading...'
       }
     },
-    ...mapGetters([
-      'sessionUser'
-    ])
+    ...mapGetters(['sessionUser'])
   },
   methods: {
     signUp () {
@@ -53,9 +51,12 @@ export default {
       this.$router.push('/signin')
     },
     signOut () {
+      let self = this
       firebase.auth().signOut().then(function () {
+        this.$router.push('/')
+        self.$store.commit('notifySignOut')
       }, function (error) {
-        console.error('Sign Out Error', error)
+        self.$store.commit('notifyCustom', { title: 'Error: Sign Out', body: error })
       })
     }
   }

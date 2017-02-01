@@ -1,5 +1,5 @@
 <template>
-  <div class="pz-notification" :class="cssClass" @click="destroySelf">
+  <div class="pz-notification" :class="cssClass" @click="deactivate" v-if="active">
     <header>
       <i :class="'icon fa fa-' + data.icon" v-if="data.icon"></i>
       <div class="title" v-if="data.title">{{ data.title }}</div>
@@ -21,27 +21,41 @@ export default {
       return moment(this.data.time).fromNow()
     },
     cssClass () {
-      let value = ''
-      switch (this.data.type) {
-        case 'error':
-          value += 'pz-notification-error'; break
-        case 'warning':
-          value += 'pz-notification-warning'; break
-        default:
-          break
-      }
-      return value
+      if (this.data.type) return `pz-notification-${this.data.type}`
+      else return 'pz-notification-default'
+    }
+  },
+  data () {
+    return {
+      duration: 3000,
+      active: true
     }
   },
   methods: {
-    destroySelf () {
-      console.log('destroying myself!')
+    deactivate () {
+      // console.log('destroying myself!')
+      this.active = false
+    },
+    setDeactivation () {
+      if (!this.data.layout || this.data.layout === 'banner') {
+        // notification active duration is 5 seconds - (time since creation)
+        let activeDuration = this.duration - (Date.now() - this.data.time)
+
+        // disable visibility if it's an old notification
+        if (activeDuration < 0) {
+          this.active = false
+          return
+        }
+
+        // otherwise self destruct after duration
+        setTimeout(this.deactivate, activeDuration)
+      }
     }
   },
   mounted () {
-    setTimeout(this.destroySelf, 5000)
+    this.setDeactivation()
   },
-  props: ['data', 'icon', 'title', 'time', 'body']
+  props: ['data']
 }
 </script>
 
@@ -55,6 +69,7 @@ export default {
 
   cursor pointer
   user-select none
+  margin 0.5rem 0.5rem 0
 
   header
     display flex
@@ -91,4 +106,36 @@ export default {
         display none
       .close
         display block
+
+  &.pz-notification-warn
+    header
+      background hsl(30,100%,50%)
+
+  &.pz-notification-error
+    header
+      background hsl(0,100%,50%)
+
+@media screen and (min-width: 360px)
+  .pz-notification
+    font-size 0.875rem
+    margin 0.625rem 0.625rem 0
+
+  header
+    padding 0 0.5rem
+  .body
+    padding 0 0.5rem
+
+@media screen and (min-width: 400px)
+  .pz-notification
+    font-size 1rem
+    margin 0.75rem 0.75rem 0
+
+    header
+      padding 0 0.75rem
+    .body
+      padding 0.75rem
+
+@media screen and (min-width: 720px)
+  .pz-notification
+    margin 1rem 1rem 0
 </style>

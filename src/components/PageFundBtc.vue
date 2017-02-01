@@ -10,6 +10,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import firebase from 'firebase'
 import VuePageHeader from '@nylira/vue-page-header'
 import FundBtc01 from './FundBtc01'
 import FundBtc02 from './FundBtc02'
@@ -35,6 +36,19 @@ export default {
         complement: this.$t('site.internetOfBlockchains')
       }
     }
+  },
+  mounted () {
+    let self = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        self.$store.commit('setSessionRequest', self.$route.path)
+        self.$router.push('/signup')
+        self.$store.commit(
+          'notifyAuthRequired',
+          'You must sign up first before you may participate in the fundraise.'
+        )
+      }
+    })
   }
 }
 </script>
