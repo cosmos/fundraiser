@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      duration: 3000,
+      duration: 5000,
       active: true
     }
   },
