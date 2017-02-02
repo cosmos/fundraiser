@@ -4,7 +4,7 @@ const empty = {
   atoms: 1000,
   email: '',
   hash: '',
-  progress: 4
+  progress: 1
 }
 
 const state = JSON.parse(JSON.stringify(empty))
