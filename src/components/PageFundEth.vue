@@ -56,15 +56,18 @@ export default {
       }
     }
   },
-  mounted () {
-    if (!firebase.auth().currentUser) {
-      this.$store.commit('setSessionRequest', this.$route.path)
-      this.$router.push('/signup')
-      this.$store.commit(
-        'notifyAuthRequired',
-        'You must sign up first before you may participate in the fundraise.'
-      )
-    }
+  beforeMount () {
+    let self = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        self.$store.commit('setSessionRequest', self.$route.path)
+        self.$router.replace('/signup')
+        self.$store.commit(
+          'notifyAuthRequired',
+          'You must sign up first before you may participate in the fundraise.'
+        )
+      }
+    })
   }
 }
 </script>

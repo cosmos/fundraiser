@@ -7,30 +7,35 @@
   </div>
 
   <div class="form-group">
-    <label>Pay BTC To</label>
+    <label for="fund-btc-payment-address">BTC Payment Address</label>
     <div class="input-group">
-      <canvas id="bitcoin-qr-code"></canvas>
       <vue-input
-        input-type="text"
+        id="fund-btc-payment-address"
+        type="text"
         v-model="btcAddress"
       >
       </vue-input>
     </div>
-    <vue-button
-      @click="payBitcoin"
-      btn-value="Pay from Wallet">
-    </vue-button>
-    <vue-button
-      @click="copyBitcoin"
-      btn-icon="copy"
-      btn-value="Copy to Clipboard">
-    </vue-button>
-    <vue-button
-      @click="qrBitcoin"
-      btn-value="Get QR Code">
-    </vue-button>
+
+    <label>BTC Payment QR Code</label>
+    <div class="input-group">
+      <img
+        id="fund-btc-payment-qr-code"
+        alt="Bitcoin Payment QR Code"
+        src="../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png">
+    </div>
   </div>
 
+  <div class="form-group">
+    <label>Optionally, Pay BTC From Wallet</label>
+    <div class="input-group">
+      <vue-button
+        @click="payBitcoin"
+        btn-icon="btc"
+        btn-value="Open Wallet">
+      </vue-button>
+    </div>
+  </div>
 
   <div class="form-group">
     <label>You Will Receive</label>
@@ -49,7 +54,7 @@
     <vue-button
       btn-type="submit"
       btn-icon="check"
-      btn-value="Complete Payment">
+      btn-value="Done!">
     </vue-button>
   </div>
 
@@ -80,10 +85,33 @@ export default {
     }
   },
   methods: {
+    payBitcoin () {
+      console.log('paid bitcoin')
+    },
+    copyBitcoin () {
+      console.log('copied to clipboard!')
+    },
     nextStep () {
-      console.log('todo: payment step')
       this.$store.commit('setFundBtcProgress', 4)
     }
+  },
+  mounted () {
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+
+    let el = document.querySelector('#fund-btc-payment-address')
+    el.addEventListener('focus', function () {
+      el.select()
+    })
   }
 }
 </script>
+
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+#fund-btc-payment-qr-code
+  width 242px
+  border 1px solid bc
+  display block
+</style>

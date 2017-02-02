@@ -37,12 +37,12 @@ export default {
       }
     }
   },
-  mounted () {
+  beforeMount () {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (!user) {
         self.$store.commit('setSessionRequest', self.$route.path)
-        self.$router.push('/signup')
+        self.$router.replace('/signup')
         self.$store.commit(
           'notifyAuthRequired',
           'You must sign up first before you may participate in the fundraise.'

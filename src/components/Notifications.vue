@@ -43,5 +43,5 @@ export default {
 
 @media screen and (min-width:720px)
   .pz-notifications
-    max-width 24rem
+    max-width 30rem
 </style>

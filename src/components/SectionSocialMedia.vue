@@ -18,12 +18,8 @@
 </template>
 
 <script>
-import FormEmailSignup from './FormEmailSignup'
 export default {
-  name: 'section-social-media',
-  components: {
-    FormEmailSignup
-  }
+  name: 'section-social-media'
 }
 </script>
 

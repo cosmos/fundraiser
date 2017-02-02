@@ -1,23 +1,21 @@
 .form
-  margin-bottom 1rem
   border-top 1px solid bc
   border-bottom 1px solid bc
-  background #fff
-  padding 0.5rem 0
+  margin-left auto
+  margin-right auto
+
   &.form-narrow
     max-width 32rem
-    margin 0 auto
-    margin-top -1px
 
 .form-header, .form-footer
   padding 1rem
 
 .form-header
   border-bottom 1px dotted bc
-  margin-bottom 0.5rem
 
   .title
-    font-weight 500
+    font-weight bold
+    text-transform uppercase
 
   .subtitle
     color dim
@@ -29,20 +27,22 @@
       font-weight bold
 
 .form-footer
-  margin-top 1rem
-  border-top 1px dotted bc
-
   display flex
   justify-content space-between
   align-items center
 
 .form-group
+  background c-app-fg
   padding 0.5rem 1rem
+  border-bottom 1px dotted bc
   label
     display block
-    margin-bottom 0.5rem
-    font-weight 400
-    overflow hidden
+    font-size 0.66666rem
+    text-transform uppercase
+    color light
+    font-weight bold
+    padding 0.667rem 0 0.333rem
+    line-height 1rem
 
   .pz-input
     margin-bottom 0.5rem
@@ -60,9 +60,12 @@
   display flex
   margin-bottom 0.5rem
 
-  .pz-input
+  .pz-input, .pz-button
     flex 5
     margin 0
+
+  .pz-button
+    max-width 15rem
 
   .input-group-addon
     flex 1

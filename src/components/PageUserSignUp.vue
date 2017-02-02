@@ -1,14 +1,14 @@
 <template>
-<div class="page">
+<div class="page-user-signup">
   <vue-page-header title="Sign Up" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateSignUp">
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-name">Name</label>
       <vue-input
-        v-model="fields.displayName"
-        input-type="text"
         id="user-signup-name"
-        input-placeholder="Display Name"
+        v-model="fields.displayName"
+        type="text"
+        placeholder="Display Name"
       >
       </vue-input>
       <form-msg name="Display Name" type="required" v-if="!$v.fields.displayName.required"></form-msg>
@@ -18,10 +18,10 @@
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-email">Email</label>
       <vue-input
-        v-model="fields.email"
-        input-type="email"
         id="user-signup-email"
-        input-placeholder="name@example.com"
+        v-model="fields.email"
+        type="email"
+        placeholder="name@example.com"
       >
       </vue-input>
       <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
@@ -31,10 +31,10 @@
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-password">Password</label>
       <vue-input
-        v-model="fields.password"
-        input-type="password"
         id="user-signup-password"
-        input-placeholder="Password"
+        v-model="fields.password"
+        type="password"
+        placeholder="Password"
       >
       </vue-input>
       <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
@@ -96,6 +96,9 @@ export default {
             displayName: self.fields.displayName
           }).then(function () {
             self.$store.commit('setSessionUserDisplayName', self.fields.displayName)
+            self.$store.commit('setSessionUserEmail', user.email)
+            self.$store.commit('setSessionUserPhotoUrl', user.photoUrl)
+            self.$store.commit('setSessionUserUid', user.uid)
           }, function (error) {
             console.log('error', error)
           })
@@ -113,20 +116,16 @@ export default {
       }
     }
   },
-  mounted () {
+  beforeMount () {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        self.$store.commit('setSessionUserDisplayName', user.displayName)
-        self.$store.commit('setSessionUserEmail', user.email)
-        self.$store.commit('setSessionUserPhotoUrl', user.photoUrl)
-        self.$store.commit('setSessionUserUid', user.uid)
-        console.log('signed in:', user.email)
-      } else {
-        self.$store.commit('clearSessionUser')
-        console.log('signed out')
+        self.$router.replace('/settings')
       }
     })
+  },
+  mounted () {
+    document.querySelector('#user-signup-name').focus()
   },
   validations: {
     fields: {
@@ -148,3 +147,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+.page-user-signup .pz-page-header
+  border-bottom none
+</style>

@@ -120,18 +120,19 @@ export default {
     font-size 0.875rem
     margin 0.625rem 0.625rem 0
 
-  header
-    padding 0 0.5rem
-  .body
-    padding 0 0.5rem
+    header
+      padding 0 0.5rem
+
+    .body
+      padding 0 0.5rem
 
 @media screen and (min-width: 400px)
   .pz-notification
-    font-size 1rem
     margin 0.75rem 0.75rem 0
 
     header
       padding 0 0.75rem
+
     .body
       padding 0.75rem
 

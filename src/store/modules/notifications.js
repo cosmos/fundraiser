@@ -19,7 +19,7 @@ let noteSignOut = {
 let noteAuthRequired = {
   icon: 'exclamation-circle',
   title: 'Authentication Required',
-  body: 'You must create an account or sign in to visit that page. before you may participate in the fundraise.',
+  body: 'You must sign up or sign in to view that page.',
   time: 0
 }
 

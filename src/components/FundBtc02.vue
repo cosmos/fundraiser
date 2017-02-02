@@ -6,26 +6,19 @@
     <div class="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
   </div>
 
-  <div class="form-group">
-    <label>Password</label>
-    <div id="input-password-valid" class="input-group"
-      :class="{ 'input-group-error': $v.formFields.password.$error }">
-      <vue-input
-        input-type="password"
-        input-placeholder="Enter your password"
-        v-model="formFields.password"
-        @input="$v.formFields.password.$touch()"
-        required
-      >
-      </vue-input>
-    </div>
-    <div class="form-error" v-if="!$v.formFields.password.required">
-      Password is required
-    </div>
-    <div class="form-error" v-if="!passwordEqualsHash">
-      Password is incorrect
-    </div>
-    <vuelidate-debug name="formFields.password" :data="$v.formFields.password"></vuelidate-debug>
+  <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">
+    <label for="fund-btc-recall-password">Password</label>
+    <vue-input
+      id="fund-btc-recall-password"
+      type="password"
+      placeholder="Enter your password"
+      v-model="passwordValue"
+      required
+    >
+    </vue-input>
+    <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
+    <form-msg name="Password" v-if="!$v.fields.password.matchesHash"></form-msg>
+    <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
   </div>
 
   <div class="form-footer">
@@ -49,24 +42,25 @@
 import bcrypt from 'bcryptjs'
 import { mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import FormMsg from './FormMsg'
 import VueInput from '@nylira/vue-input'
 import VueButton from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
-
 export default {
   name: 'fund-btc-02',
   components: {
     VueInput,
     VueButton,
-    VuelidateDebug
+    VuelidateDebug,
+    FormMsg
   },
   computed: {
     ...mapGetters(['fundBtc'])
   },
   data () {
     return {
-      passwordEqualsHash: true,
-      formFields: {
+      passwordValue: '',
+      fields: {
         password: ''
       }
     }
@@ -75,45 +69,31 @@ export default {
     startOver () {
       this.$store.commit('setFundBtcProgress', 1)
     },
-    equalsHash (plaintextPassword) {
-      const hash = this.fundBtc.hash
-      console.log('hash', this.fundBtc.hash)
-      return bcrypt.compareSync(plaintextPassword, hash)
-    },
     nextStep () {
+      this.fields.password = this.passwordValue
       this.$v.$touch()
-      let password = this.formFields.password
-
       if (this.$v.$error) {
-        console.log('password is required')
-        return
+        console.log('errors in the form, not going anywhere')
+      } else {
+        this.$store.commit('setFundBtcProgress', 3)
       }
-
-      if (!this.equalsHash(password)) {
-        this.passwordEqualsHash = false
-        document.querySelector('#input-password-valid')
-          .classList.add('input-group-error')
-        console.log('password doesnt match hash')
-        return
-      }
-
-      document.querySelector('#input-password-valid')
-        .classList.remove('input-group-error')
-      console.log('password matches hash! YAY ----->')
-
-      this.$store.commit('setFundBtcProgress', 3)
     }
   },
+  mounted () {
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    document.querySelector('#fund-btc-recall-password').focus()
+  },
   validations: {
-    formFields: {
+    fields: {
       password: {
-        required
+        required,
+        matchesHash (value) {
+          const hash = this.fundBtc.hash
+          console.log('hash', this.fundBtc.hash)
+          return bcrypt.compareSync(value, hash)
+        }
       }
     }
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-</style>

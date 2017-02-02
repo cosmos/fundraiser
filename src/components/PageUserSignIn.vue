@@ -1,15 +1,15 @@
 <template>
-<div class="page">
+<div class="page-user-signin">
   <vue-page-header title="Sign In" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateSignIn">
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signin-email">Email</label>
       <vue-input
-        v-model="fields.email"
-        input-type="email"
         id="user-signin-email"
-        input-placeholder="name@example.com"
+        v-model="fields.email"
+        type="email"
+        placeholder="name@example.com"
       >
       </vue-input>
       <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
@@ -19,10 +19,10 @@
     <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">
       <label for="user-signin-password">Password</label>
       <vue-input
-        v-model="fields.password"
-        input-type="password"
         id="user-signin-password"
-        input-placeholder="Password"
+        v-model="fields.password"
+        type="password"
+        placeholder="Password"
       >
       </vue-input>
       <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
@@ -96,9 +96,14 @@ export default {
     }
   },
   mounted () {
+    document.querySelector('#user-signin-email').focus()
+
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
-      if (user) self.fields.email = user.email
+      if (user) {
+        self.fields.email = user.email
+        document.querySelector('#user-signin-password').focus()
+      }
     })
   },
   validations: {
@@ -116,3 +121,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+.page-user-signin .pz-page-header
+  border-bottom none
+</style>

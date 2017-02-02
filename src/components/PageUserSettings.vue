@@ -1,18 +1,18 @@
 <template>
-<div class="page page-user-settings">
-  <vue-page-header :title="sessionUser.displayName" subtitle="User Profile Settings" type="center"></vue-page-header>
+<div class="page-user-settings">
+  <vue-page-header title="User Settings" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateUpdateUser">
     <div class="form-header">
-      <div class="subtitle">Edit your user settings here.</div>
+      <div class="subtitle">Edit your personal profile here.</div>
     </div>
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newDisplayName.$error }">
       <label for="user-settings-name">Change Display Name</label>
       <vue-input
         v-model="fields.newDisplayName"
-        input-type="text"
+        type="text"
         id="user-settings-name"
-        input-placeholder="New Display Name"
+        placeholder="New Display Name"
       >
       </vue-input>
       <form-msg name="Display Name" type="required" v-if="!$v.fields.newDisplayName.required"></form-msg>
@@ -21,24 +21,24 @@
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newEmail.$error }">
       <label for="user-settings-email">Change Email</label>
-        <vue-input
-          v-model="fields.newEmail"
-          input-type="email"
-          id="user-settings-email"
-        input-placeholder="New Email"
-        >
-        </vue-input>
-        <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
-        <form-msg name="Email" type="valid" v-if="!$v.fields.newEmail.email"></form-msg>
+      <vue-input
+        v-model="fields.newEmail"
+        type="email"
+        id="user-settings-email"
+        placeholder="New Email"
+      >
+      </vue-input>
+      <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
+      <form-msg name="Email" type="valid" v-if="!$v.fields.newEmail.email"></form-msg>
     </div>
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newPassword.$error }">
       <label for="user-settings-password">Change Password</label>
       <vue-input
         v-model="fields.newPassword"
-        input-type="password"
+        type="password"
         id="user-settings-password"
-        input-placeholder="New Password"
+        placeholder="New Password"
       >
       </vue-input>
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.newPassword.minLength || !$v.fields.newPassword.maxLength"></form-msg>
@@ -46,7 +46,7 @@
 
     <div class="form-footer">
       <div></div>
-      <vue-button btn-type="submit" btn-value="Update Settings"></vue-button>
+      <vue-button btn-type="submit" btn-value="Save Changes"></vue-button>
     </div>
 
   </form>
@@ -70,6 +70,12 @@ export default {
     FormMsg
   },
   computed: {
+    pageTitle () {
+      if (this.sessionUser.displayName) {
+        return this.sessionUser.displayName
+      }
+      return 'Loading...'
+    },
     ...mapGetters(['sessionUser'])
   },
   data () {
@@ -150,7 +156,7 @@ export default {
       })
     }
   },
-  mounted () {
+  beforeMount () {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -160,10 +166,13 @@ export default {
         self.fields.newEmail = user.email
       } else {
         self.$store.commit('setSessionRequest', self.$route.path)
-        self.$router.push('/signup')
+        self.$router.replace('/signup')
         self.$store.commit('notifyAuthRequired')
       }
     })
+  },
+  mounted () {
+    document.querySelector('#user-settings-name').focus()
   },
   validations: {
     fields: {
@@ -184,3 +193,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+.page-user-settings .pz-page-header
+  border-bottom none
+</style>

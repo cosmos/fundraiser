@@ -1,22 +1,17 @@
 <template>
   <div class="page-index page">
-    <cover-presale v-if="!saleBegun"></cover-presale>
-    <cover-sale v-if="saleBegun"></cover-sale>
+    <cover-sale></cover-sale>
   </div> 
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import FormEmailSignup from './FormEmailSignup'
 import VueCountdown from '@nylira/vue-countdown'
-import CoverPresale from './CoverPresale'
 import CoverSale from './CoverSale'
 export default {
   name: 'page-index',
   components: {
-    FormEmailSignup,
     VueCountdown,
-    CoverPresale,
     CoverSale
   },
   computed: {

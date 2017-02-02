@@ -7,12 +7,15 @@
   </div>
 
   <div class="form-group">
-    <vue-button
-      @click.native="downloadWallet"
-      btn-icon="download"
-      btn-value="Download Wallet"
-    >
-    </vue-button>
+    <div class="input-group">
+      <vue-button
+        @click.native="downloadWallet"
+        btn-icon="download"
+        btn-value="Download Wallet"
+      >
+      </vue-button>
+    </div>
+    <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
   </div>
 
   <div class="form-footer">
@@ -32,11 +35,13 @@
 import dummyWallet from '../store/json/dummyWallet.json'
 import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
+import FormMsg from './FormMsg'
 import VueButton from '@nylira/vue-button'
 export default {
   name: 'fund-btc-03',
   components: {
-    VueButton
+    VueButton,
+    FormMsg
   },
   computed: {
     ...mapGetters(['fundBtc'])
@@ -52,6 +57,9 @@ export default {
     nextStep () {
       this.$store.commit('setFundBtcProgress', 4)
     }
+  },
+  mounted () {
+    document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }
 </script>

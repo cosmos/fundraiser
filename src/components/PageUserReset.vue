@@ -1,14 +1,14 @@
 <template>
-<div class="page">
+<div class="page-user-reset">
   <vue-page-header title="Reset Password" type="center"></vue-page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateReset">
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-reset-email">Email</label>
       <vue-input
-        v-model="fields.email"
-        input-type="email"
         id="user-reset-email"
-        input-placeholder="name@example.com"
+        v-model="fields.email"
+        type="email"
+        placeholder="name@example.com"
       >
       </vue-input>
       <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
@@ -60,6 +60,9 @@ export default {
       this.$router.push('/')
     }
   },
+  mounted () {
+    document.querySelector('#user-reset-email').focus()
+  },
   validations: {
     fields: {
       email: {
@@ -70,3 +73,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+.page-user-reset .pz-page-header
+  border-bottom none
+</style>
