@@ -171,16 +171,16 @@ export default {
   data () {
     return {
       fields: {
-        atoms: 1000,
-        email: 'peng@nylira.com',
-        confirmEmail: 'peng@nylira.com',
-        password: 'blowfish',
-        confirmPassword: 'blowfish'
-        // atoms: 0,
-        // email: '',
-        // confirmEmail: '',
-        // password: '',
-        // confirmPassword: ''
+        // atoms: 1000,
+        // email: 'peng@nylira.com',
+        // confirmEmail: 'peng@nylira.com',
+        // password: 'blowfish',
+        // confirmPassword: 'blowfish'
+        atoms: 0,
+        email: '',
+        confirmEmail: '',
+        password: '',
+        confirmPassword: ''
       }
     }
   },
