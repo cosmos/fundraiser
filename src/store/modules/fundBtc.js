@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs'
 
 const empty = {
+  type: 'btc',
+  time: 0,
+  price: 0,
   atoms: 1000,
   email: '',
   hash: '',
@@ -10,8 +13,16 @@ const empty = {
 const state = JSON.parse(JSON.stringify(empty))
 
 const mutations = {
-  resetFund (state) {
+  resetFundBtc (state) {
     state = JSON.parse(JSON.stringify(empty))
+  },
+  setFundBtcTime (state, time) {
+    state.time = time
+    console.log('SET fundBtc.time', state.time)
+  },
+  setFundBtcPrice (state, price) {
+    state.price = price
+    console.log('SET fundBtc.price', state.price)
   },
   setFundBtcAtoms (state, value) {
     state.atoms = value

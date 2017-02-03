@@ -128,10 +128,10 @@
   <div class="form-footer">
     <div></div>
     <vue-button
-      btn-type="submit"
-      btn-icon="angle-right"
-      btn-icon-position="right"
-      btn-value="Continue">
+      type="submit"
+      icon="angle-right"
+      icon-pos="right"
+      value="Continue">
     </vue-button>
   </div>
 
@@ -191,6 +191,7 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
+        this.$store.commit('setFundBtcPrice', data.atoms / 2000.00)
         this.$store.commit('setFundBtcAtoms', data.atoms)
         this.$store.commit('setFundBtcEmail', data.email)
         this.$store.commit('setFundBtcHash', data.password)

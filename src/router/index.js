@@ -10,6 +10,7 @@ const routes = [
   { path: '/signin', name: 'signin', component: r('UserSignIn') },
   { path: '/reset', name: 'reset', component: r('UserReset') },
   { path: '/settings', name: 'settings', component: r('UserSettings') },
+  { path: '/transactions', name: 'transactions', component: r('UserTransactions') },
 
   // wildcards
   { path: '/404', component: r('404') },

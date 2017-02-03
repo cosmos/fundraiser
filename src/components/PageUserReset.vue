@@ -16,7 +16,7 @@
     </div>
     <div class="form-footer">
       <div></div>
-      <vue-button btn-type="submit" btn-value="Reset Password"></vue-button>
+      <vue-button type="submit" value="Reset Password"></vue-button>
     </div>
   </form>
 </div>

@@ -31,7 +31,7 @@
 
     <div class="form-footer">
       <router-link to="/reset">Forgot password?</router-link>
-      <vue-button btn-type="submit" btn-value="Sign In"></vue-button>
+      <vue-button type="submit" value="Sign In"></vue-button>
     </div>
 
   </form>

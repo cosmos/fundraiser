@@ -43,7 +43,7 @@
 
     <div class="form-footer">
       <router-link to="/signin">Have an account?</router-link>
-      <vue-button btn-type="submit" btn-value="Sign Up"></vue-button>
+      <vue-button type="submit" value="Sign Up"></vue-button>
     </div>
   </form>
 </div>

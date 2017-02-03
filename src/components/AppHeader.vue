@@ -15,7 +15,8 @@
     </header>
     <nav class="user-nav">
       <template v-if="sessionUser.email">
-        <router-link to="/settings">{{ displayName }}</router-link>
+        <router-link to="/transactions">Transactions</router-link>
+        <router-link to="/settings">Settings</router-link>
         <a @click="signOut">Sign Out</a>
       </template>
       <template v-else>

@@ -1,7 +1,7 @@
 <template>
 <div class="page page-fund">
   <vue-page-header
-    :title="$t('siteFund.titleEth')"
+    title="Buy Atoms with ETH"
     subtitle="There are three ways to send ETH to the contribution smart contract."
     type="center">
   </vue-page-header>
@@ -13,7 +13,7 @@
           Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
         </div>
       </div>
-      <vue-button btn-value="Start Walkthrough"></vue-button>
+      <vue-button value="Start Walkthrough"></vue-button>
     </div>
     <div class="method">
       <div class="text">
@@ -22,7 +22,7 @@
           Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
         </div>
       </div>
-      <vue-button btn-value="Start Walkthrough"></vue-button>
+      <vue-button value="Start Walkthrough"></vue-button>
     </div>
     <div class="method">
       <div class="text">
@@ -31,7 +31,7 @@
           Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
         </div>
       </div>
-      <vue-button btn-value="Start Walkthrough"></vue-button>
+      <vue-button value="Start Walkthrough"></vue-button>
     </div>
   </div>
 </div>
@@ -50,7 +50,7 @@ export default {
   head: {
     title () {
       return {
-        inner: this.$t('siteFund.titleEth'),
+        inner: 'Buy Atoms with ETH',
         separator: '-',
         complement: this.$t('site.internetOfBlockchains')
       }

@@ -1,6 +1,6 @@
 <template>
 <div class="page page-fund">
-  <vue-page-header :title="$t('siteFund.titleBtc')" type="center"></vue-page-header>
+  <vue-page-header title="Buy Atoms with BTC" type="center"></vue-page-header>
   <fund-btc-01 v-if="fundBtc.progress === 1"></fund-btc-01>
   <fund-btc-02 v-if="fundBtc.progress === 2"></fund-btc-02>
   <fund-btc-03 v-if="fundBtc.progress === 3"></fund-btc-03>
@@ -31,7 +31,7 @@ export default {
   head: {
     title () {
       return {
-        inner: this.$t('siteFund.titleBtc'),
+        inner: 'Buy Atoms with BTC',
         separator: '-',
         complement: this.$t('site.internetOfBlockchains')
       }
@@ -49,6 +49,9 @@ export default {
         )
       }
     })
+  },
+  beforeDestroy () {
+    this.$store.commit('resetFundBtc')
   }
 }
 </script>

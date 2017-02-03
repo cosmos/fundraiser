@@ -46,7 +46,7 @@
 
     <div class="form-footer">
       <div></div>
-      <vue-button btn-type="submit" btn-value="Save Changes"></vue-button>
+      <vue-button type="submit" value="Save Changes"></vue-button>
     </div>
 
   </form>

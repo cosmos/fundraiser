@@ -10,8 +10,8 @@
     <div class="input-group">
       <vue-button
         @click.native="downloadWallet"
-        btn-icon="download"
-        btn-value="Download Wallet"
+        icon="download"
+        value="Download Wallet"
       >
       </vue-button>
     </div>
@@ -21,10 +21,10 @@
   <div class="form-footer">
     <div></div>
     <vue-button
-      btn-type="submit"
-      btn-icon="angle-right"
-      btn-icon-position="right"
-      btn-value="Continue">
+      type="submit"
+      icon="angle-right"
+      icon-pos="right"
+      value="Continue">
     </vue-button>
   </div>
 

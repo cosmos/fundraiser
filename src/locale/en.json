@@ -9,46 +9,6 @@
     "stats": "Stats",
     "signin": "Sign In",
     "signup": "Sign Up"
-  },
-  "emailSignupForm": {
-    "emailAddress": "name@email.com",
-    "notifyMe": "Notify"
-  },
-  "sectionCallToAction": {
-    "title": "Fundraising Event",
-    "description": "Cosmos fundraising event starts Feb 2017."
-  },
-  "siteFund": {
-    "titleBtc": "Buy Atoms with BTC",
-    "titleEth": "Buy Atoms with ETH",
-    "btnContinue": "Continue",
-    "btnFinished": "Finished",
-    "stepOne": {
-      "title": "1. Customer Info",
-      "subtitle": "We require some info from you to generate a personalized bitcoin address.",
-      "name": "Name",
-      "email": "Email Address",
-      "selectCountry": "Select Country...",
-      "nationality": "Nationality"
-    },
-    "stepTwo": {
-      "title": "2. Wallet Setup",
-      "subtitle": "Generate your public key and paste it into the text field below.",
-      "generatePublicKey": "Generate Public Key",
-      "launchKeygen": "Launch Keygen",
-      "pastePublicKey": "Paste Public Key"
-    },
-    "stepThree": {
-      "title": "3. Purchase Amount",
-      "subtitle": "How many Atoms do you wish to purchase?",
-      "atomCount": "Number of Atoms",
-      "btcPrice": "Bitcoin Price"
-    },
-    "stepFour": {
-      "title": "4. Payment",
-      "subtitle": "Make the payment to the deposit address below. Atoms will arrive in your crowdfund wallet within minutes.",
-      "depositAddress": "Deposit Address",
-      "totalPrice": "Total Price"
-    }
   }
 }
+  

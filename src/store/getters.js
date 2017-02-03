@@ -8,3 +8,5 @@ export const config = state => state.config
 
 export const fundBtc = state => state.fundBtc
 export const notifications = state => state.notifications
+
+export const transactions = state => state.transactions

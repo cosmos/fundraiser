@@ -24,14 +24,14 @@
   <div class="form-footer">
     <vue-button
       @click.native="startOver"
-      btn-icon="angle-left"
-      btn-value="Start Over">
+      icon="angle-left"
+      value="Start Over">
     </vue-button>
     <vue-button
-      btn-type="submit"
-      btn-icon="angle-right"
-      btn-icon-position="right"
-      btn-value="Continue">
+      type="submit"
+      icon="angle-right"
+      icon-pos="right"
+      value="Continue">
     </vue-button>
   </div>
 

@@ -3,7 +3,7 @@
 
   <div class="form-header">
     <div class="title">Step 4</div>
-    <div class="subtitle">Pay <strong>{{ bitcoinAmount }} BTC</strong> to the specified Bitcoin address below.</div>
+    <div class="subtitle">Pay <strong>{{ fundBtc.price }} BTC</strong> to the specified Bitcoin address below.</div>
   </div>
 
   <div class="form-group">
@@ -31,8 +31,8 @@
     <div class="input-group">
       <vue-button
         @click="payBitcoin"
-        btn-icon="btc"
-        btn-value="Open Wallet">
+        icon="btc"
+        value="Open Wallet">
       </vue-button>
     </div>
   </div>
@@ -52,9 +52,9 @@
   <div class="form-footer">
     <div></div>
     <vue-button
-      btn-type="submit"
-      btn-icon="check"
-      btn-value="Done!">
+      type="submit"
+      icon="check"
+      value="Done!">
     </vue-button>
   </div>
 
@@ -74,9 +74,6 @@ export default {
     VueInput
   },
   computed: {
-    bitcoinAmount () {
-      return this.fundBtc.atoms / 2000
-    },
     ...mapGetters(['fundBtc'])
   },
   data () {
@@ -92,7 +89,12 @@ export default {
       console.log('copied to clipboard!')
     },
     nextStep () {
-      this.$store.commit('setFundBtcProgress', 4)
+      let self = this
+      this.$store.commit('setFundBtcTime', Date.now())
+      this.$store.commit('addTransaction', this.fundBtc)
+      this.$store.commit('resetFundBtc', this.fundBtc)
+      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.fundBtc.atoms} atoms for ${this.fundBtc.price} btc.` })
+      this.$router.push('/transactions')
     }
   },
   mounted () {

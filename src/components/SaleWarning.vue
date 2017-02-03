@@ -13,7 +13,7 @@
 @import '../styles/variables.styl'
 
 .sale-warning
-  max-width 30rem
+  max-width 33rem
   margin 0 auto
 
   border 1px solid hsl(60,100%,40%)

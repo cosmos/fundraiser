@@ -20,14 +20,14 @@
         <vue-button
           @click.native="gotoBtc"
           class="btn-bitcoin"
-          btn-value="Buy with BTC"
-          btn-size="large">
+          value="Buy with BTC"
+          size="large">
         </vue-button>
         <vue-button
           @click.native="gotoEth"
           class="btn-ether"
-          btn-value="Buy with ETH"
-          btn-size="large">
+          value="Buy with ETH"
+          size="large">
         </vue-button>
       </div>
       <sale-warning></sale-warning>
@@ -101,28 +101,12 @@ export default {
 
     &.footer
       .buttons
-        margin-bottom 1rem
         display flex
+        justify-content center
+        flex-flow row
+        margin-bottom 0.5rem
 
-        .pz-button
+        .pz-btn-wrapper
+          margin 0 0.5rem 0.5rem
           width 16rem
-          margin 0 auto
-          font-weight 600
-          line-height 1.5rem
-          height auto
-          padding-top 0.5rem
-          padding-bottom 0.5rem
-          &:first-of-type
-            margin-right 0.5rem
-          &:last-of-type
-            margin-left 0.5rem
-
-          &.btn-bitcoin
-            background #f90
-            color c-app-fg
-            border-color darken(#f90, 25%)
-          &.btn-ether
-            background #ECF0F1
-            border-color darken(#ECF0F1, 25%)
-            color #3C3C3D
 </style>
