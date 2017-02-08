@@ -1,7 +1,7 @@
 <template>
 <div class="page page-fund">
   <vue-page-header
-    title="Buy Atoms with ETH"
+    title="Pay with ETH"
     subtitle="There are three ways to send ETH to the contribution smart contract."
     type="center">
   </vue-page-header>

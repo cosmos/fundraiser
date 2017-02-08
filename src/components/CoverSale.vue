@@ -1,9 +1,6 @@
 <template>
   <div class="cover-sale">
     <section>
-      <h1>Fundraise Event</h1>
-    </section>
-    <section>
       <div class="key">Atom Sale Ends In</div>
       <vue-countdown date="April 28, 2017"></vue-countdown>
     </section>

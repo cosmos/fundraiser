@@ -1,31 +1,61 @@
 <template>
-  <div class="page-index page">
-    <cover-sale></cover-sale>
-  </div> 
+  <div class="page-index">
+    <vue-page-header title="Dashboard" type="center"></vue-page-header>
+    <div class="modules">
+      <module-progress></module-progress>
+      <module-balance></module-balance>
+      <module-countdown></module-countdown>
+      <module-payment v-for="coin in coins" :coin="coin"></module-payment>
+      <module-transactions></module-transactions>
+    </div> 
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import VueCountdown from '@nylira/vue-countdown'
-import CoverSale from './CoverSale'
+import VuePageHeader from '@nylira/vue-page-header'
+import ModuleProgress from './ModuleProgress'
+import ModuleBalance from './ModuleBalance'
+import ModuleCountdown from './ModuleCountdown'
+import ModulePayment from './ModulePayment'
+import ModuleTransactions from './ModuleTransactions'
 export default {
   name: 'page-index',
   components: {
-    VueCountdown,
-    CoverSale
+    VuePageHeader,
+    ModuleProgress,
+    ModuleBalance,
+    ModuleCountdown,
+    ModulePayment,
+    ModuleTransactions
   },
-  computed: {
-    saleBegun () {
-      return this.config.SALE_BEGUN
-    },
-    ...mapGetters(['config'])
+  data () {
+    return {
+      coins: [
+        {
+          name: 'Bitcoin',
+          unit: 'BTC',
+          minimumPayment: 0.01,
+          exchangeRate: 2000,
+          address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
+          qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
+        },
+        {
+          name: 'Ethereum',
+          unit: 'ETH',
+          minimumPayment: 1.00,
+          exchangeRate: 20,
+          address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
+          qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
+        }
+      ]
+    }
   },
   head: {
     title () {
       return {
-        inner: 'Cosmos Fundraising',
+        inner: 'Dashboard',
         separator: '-',
-        complement: this.$t('site.internetOfBlockchains')
+        complement: 'Cosmos Fundraise'
       }
     }
   }
@@ -35,6 +65,15 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.page-index
-  border-bottom 0.25rem solid c-app-fg
+.modules
+  display flex
+  flex-flow row wrap
+  max-width 960px
+  margin 0 auto
+
+  padding 0.25rem
+  .module
+    flex 0 0 100%
+    &.module-sm
+      flex 0 0 50%
 </style>
