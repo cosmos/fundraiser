@@ -1,7 +1,7 @@
 <template>
   <module class="module-progress">
     <header>
-      <div class="title">Crowdfund Progress</div>
+      <div class="title">Fundraise Progress</div>
     </header>
     <div class="status">
       <div class="var">
