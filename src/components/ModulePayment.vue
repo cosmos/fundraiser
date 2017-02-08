@@ -53,8 +53,7 @@ export default {
     flex 0 0 33.333%
     max-width 8rem
     padding 0.5rem
-    display flex
-img
+    img
       width 100%
 
     .placeholder
