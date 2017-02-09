@@ -31,12 +31,10 @@
 import { mapGetters } from 'vuex'
 import { orderBy } from 'lodash'
 import moment from 'moment'
-import FormMsg from './FormMsg'
 import Module from './Module'
 export default {
   name: 'module-transactions',
   components: {
-    FormMsg,
     Module
   },
   computed: {

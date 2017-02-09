@@ -5,12 +5,12 @@
     <div class="title">Step 1</div>
   </div>
 
-  <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
+  <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.coins.$error }">
     <label for="fund-btc-amount-btc">Enter amount to purchase in either Bitcoin or Atoms.</label>
 
     <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
     <div class="input-group">
-      <vue-input
+      <field
         id="fund-btc-amount-btc"
         type="number"
         v-model="amountBtc"
@@ -20,33 +20,33 @@
         step="0.01"
         required
       >
-      </vue-input>
+      </field>
       <div class="input-group-addon">BTC</div>
     </div>
     <form-msg name="BTC amount" type="required" v-if="!$v.amountBtc.required"></form-msg>
     <form-msg name="BTC amount" type="between" min="0.01" max="500" v-if="!$v.amountBtc.between"></form-msg>
 
-    <label class="hidden" for="fund-btc-amount-atoms">Amount in Atoms</label>
+    <label class="hidden" for="fund-btc-amount-coins">Amount in Atoms</label>
     <div class="input-group">
-      <vue-input
-        id="fund-btc-amount-atoms"
-        v-model="fields.atoms"
+      <field
+        id="fund-btc-amount-coins"
+        v-model="fields.coins"
         type="number"
-        @input="$v.fields.atoms.$touch()"
+        @input="$v.fields.coins.$touch()"
         min="20.00"
         max="1000000"
         step="20"
         required
       >
-      </vue-input>
+      </field>
       <div class="input-group-addon">Atoms</div>
     </div>
-    <form-msg name="Atom amount" type="required" v-if="!$v.fields.atoms.required"></form-msg>
-    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.atoms.between"></form-msg>
+    <form-msg name="Atom amount" type="required" v-if="!$v.fields.coins.required"></form-msg>
+    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.coins.between"></form-msg>
     <form-msg body="Price: 1 BTC buys 2,000 Atoms."></form-msg>
 
     <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
-    <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
+    <vuelidate-debug name="coins" :data="$v.fields.coins"></vuelidate-debug>
   </div>
 
   <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error || $v.fields.confirmEmail.$error }">
@@ -54,7 +54,7 @@
 
     <label class="hidden" for="fund-btc-email">Email</label>
     <div class="input-group">
-      <vue-input
+      <field
         id="fund-btc-email"
         type="email"
         placeholder="Enter your email"
@@ -62,7 +62,7 @@
         @input="$v.fields.email.$touch()"
         required
       >
-      </vue-input>
+      </field>
     </div>
     <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
     <form-msg name="Email" v-if="!$v.fields.email.email"></form-msg>
@@ -70,7 +70,7 @@
 
     <label class="hidden" for="fund-btc-confirm-email">Confirm Email</label>
     <div class="input-group">
-      <vue-input
+      <field
         id="fund-btc-confirm-email"
         type="email"
         placeholder="Re-enter your email"
@@ -78,7 +78,7 @@
         @input="$v.fields.confirmEmail.$touch()"
         required
       >
-      </vue-input>
+      </field>
     </div>
     <form-msg name="Email confirmation" type="required" v-if="!$v.fields.confirmEmail.required"></form-msg>
     <form-msg name="Emails" type="match" v-if="!$v.fields.confirmEmail.sameAsEmail"></form-msg>
@@ -92,14 +92,14 @@
 
     <label class="hidden" for="fund-btc-password">Password</label>
     <div class="input-group">
-      <vue-input
+      <field
         type="password"
         placeholder="Enter your password"
         v-model="fields.password"
         @input="$v.fields.password.$touch()"
         required
       >
-      </vue-input>
+      </field>
     </div>
     <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
     <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
@@ -107,7 +107,7 @@
 
     <label class="hidden" for="fund-btc-confirm-password">Confirm Password</label>
     <div class="input-group">
-      <vue-input
+      <field
         id="fund-btc-confirm-password"
         type="password"
         placeholder="Re-enter your password"
@@ -115,7 +115,7 @@
         @input="$v.fields.confirmPassword.$touch()"
         required
       >
-      </vue-input>
+      </field>
     </div>
     <form-msg name="Password confirmation" type="required" v-if="!$v.fields.confirmPassword.required"></form-msg>
     <form-msg name="Passwords" type="match" v-if="!$v.fields.confirmPassword.sameAsPassword"></form-msg>
@@ -127,12 +127,12 @@
 
   <div class="form-footer">
     <div></div>
-    <vue-button
+    <btn
       type="submit"
       icon="angle-right"
       icon-pos="right"
       value="Continue">
-    </vue-button>
+    </btn>
   </div>
 
 </form>
@@ -141,28 +141,28 @@
 <script>
 import { mapGetters } from 'vuex'
 import { required, between, sameAs, minLength, email } from 'vuelidate/lib/validators'
-import FormMsg from './FormMsg'
-import VueInput from '@nylira/vue-input'
-import VueButton from '@nylira/vue-button'
+import FormMsg from '@nylira/vue-form-msg'
+import Field from '@nylira/vue-input'
+import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 export default {
   name: 'fund-btc-01',
   components: {
-    VueInput,
-    VueButton,
+    Field,
+    Btn,
     VuelidateDebug,
     FormMsg
   },
   computed: {
     amountBtc: {
       get () {
-        return this.fields.atoms / 2000.00
+        return this.fields.coins / 2000.00
       },
       set (newValue) {
         if (newValue === '.' || newValue === '' || newValue === ' ') {
-          this.fields.atoms = 0
+          this.fields.coins = 0
         } else {
-          this.fields.atoms = newValue * 2000.00
+          this.fields.coins = newValue * 2000.00
         }
       }
     },
@@ -171,12 +171,12 @@ export default {
   data () {
     return {
       fields: {
-        // atoms: 1000,
+        // coins: 1000,
         // email: 'peng@nylira.com',
         // confirmEmail: 'peng@nylira.com',
         // password: 'blowfish',
         // confirmPassword: 'blowfish'
-        atoms: 0,
+        coins: 0,
         email: '',
         confirmEmail: '',
         password: '',
@@ -191,8 +191,8 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setFundBtcPrice', data.atoms / 2000.00)
-        this.$store.commit('setFundBtcAtoms', data.atoms)
+        this.$store.commit('setFundBtcPrice', data.coins / 2000.00)
+        this.$store.commit('setFundBtcAtoms', data.coins)
         this.$store.commit('setFundBtcEmail', data.email)
         this.$store.commit('setFundBtcHash', data.password)
         this.$store.commit('setFundBtcProgress', 2)
@@ -209,7 +209,7 @@ export default {
       between: between(0.01, 500)
     },
     fields: {
-      atoms: {
+      coins: {
         required,
         between: between(20, 1000000)
       },

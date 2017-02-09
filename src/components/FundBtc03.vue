@@ -8,24 +8,24 @@
 
   <div class="form-group">
     <div class="input-group">
-      <vue-button
+      <btn
         @click.native="downloadWallet"
         icon="download"
         value="Download Wallet"
       >
-      </vue-button>
+      </btn>
     </div>
     <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
   </div>
 
   <div class="form-footer">
     <div></div>
-    <vue-button
+    <btn
       type="submit"
       icon="angle-right"
       icon-pos="right"
       value="Continue">
-    </vue-button>
+    </btn>
   </div>
 
 </form>
@@ -35,12 +35,12 @@
 import dummyWallet from '../store/json/dummyWallet.json'
 import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
-import FormMsg from './FormMsg'
-import VueButton from '@nylira/vue-button'
+import FormMsg from '@nylira/vue-form-msg'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'fund-btc-03',
   components: {
-    VueButton,
+    Btn,
     FormMsg
   },
   computed: {

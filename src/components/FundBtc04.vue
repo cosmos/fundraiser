@@ -9,12 +9,12 @@
   <div class="form-group">
     <label for="fund-btc-payment-address">BTC Payment Address</label>
     <div class="input-group">
-      <vue-input
+      <field
         id="fund-btc-payment-address"
         type="text"
         v-model="btcAddress"
       >
-      </vue-input>
+      </field>
     </div>
 
     <label>BTC Payment QR Code</label>
@@ -29,33 +29,33 @@
   <div class="form-group">
     <label>Optionally, Pay BTC From Wallet</label>
     <div class="input-group">
-      <vue-button
+      <btn
         @click="payBitcoin"
         icon="btc"
         value="Open Wallet">
-      </vue-button>
+      </btn>
     </div>
   </div>
 
   <div class="form-group">
     <label>You Will Receive</label>
     <div class="input-group">
-      <vue-input
+      <field
         input-type="number"
-        v-model="fundBtc.atoms"
+        v-model="fundBtc.coins"
       >
-      </vue-input>
+      </field>
       <div class="input-group-addon">Atoms</i></div>
     </div>
   </div>
 
   <div class="form-footer">
     <div></div>
-    <vue-button
+    <btn
       type="submit"
       icon="check"
       value="Done!">
-    </vue-button>
+    </btn>
   </div>
 
 </form>
@@ -65,13 +65,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import VueInput from '@nylira/vue-input'
-import VueButton from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'fund-btc-04',
   components: {
-    VueButton,
-    VueInput
+    Btn,
+    Field
   },
   computed: {
     ...mapGetters(['fundBtc'])
@@ -93,8 +93,8 @@ export default {
       this.$store.commit('setFundBtcTime', Date.now())
       this.$store.commit('addTransaction', this.fundBtc)
       this.$store.commit('resetFundBtc', this.fundBtc)
-      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.fundBtc.atoms} atoms for ${this.fundBtc.price} btc.` })
-      this.$router.push('/transactions')
+      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.fundBtc.coins} atoms for ${this.fundBtc.price} btc.` })
+      this.$router.push('/')
     }
   },
   mounted () {

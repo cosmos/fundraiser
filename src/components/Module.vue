@@ -48,24 +48,26 @@ export default {
 
   .body
     background c-app-fg
-    .vars
-      display flex
-      justify-content center
-      .icon
-        font-size 1.5rem
-        color light
-    .var
-      display flex
-      flex-flow column no-wrap
-      padding 0.75rem 1rem
-      align-items center
-      .value
-        font-size 1.5rem
-        line-height 1
-        margin-bottom 0.5rem
-        color mcolor
-      .unit
-        color light
+
+  .components
+    display flex
+    justify-content center
+    .icon
+      font-size 1.5rem
+      color light
+
+  .component
+    display flex
+    flex-flow column no-wrap
+    padding 0.75rem 1rem
+    align-items center
+    .value
+      font-size 1.5rem
+      line-height 1
+      margin-bottom 0.5rem
+      color mcolor
+    .unit
+      color light
 
   footer
     height 2rem
@@ -93,10 +95,13 @@ export default {
 
 @media screen and (min-width: 720px)
   .module
+    &.module-sm
+      flex 0 0 50%
     .body
-      .var
-        .value
-          font-size 2rem
-        .unit
-          font-size 1.25rem
+      padding 0.5rem
+    .component
+      .value
+        font-size 2rem
+      .unit
+        font-size 1.25rem
 </style>

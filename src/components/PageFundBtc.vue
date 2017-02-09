@@ -1,6 +1,6 @@
 <template>
 <div class="page page-fund">
-  <vue-page-header title="Pay with BTC" subtitle="Purchase Cosmos Atoms with Bitcoin." type="center"></vue-page-header>
+  <page-header title="Pay with BTC" subtitle="Purchase Cosmos Atoms with Bitcoin." type="center"></page-header>
   <fund-btc-01 v-if="fundBtc.progress === 1"></fund-btc-01>
   <fund-btc-02 v-if="fundBtc.progress === 2"></fund-btc-02>
   <fund-btc-03 v-if="fundBtc.progress === 3"></fund-btc-03>
@@ -11,7 +11,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import firebase from 'firebase'
-import VuePageHeader from '@nylira/vue-page-header'
+import PageHeader from '@nylira/vue-page-header'
 import FundBtc01 from './FundBtc01'
 import FundBtc02 from './FundBtc02'
 import FundBtc03 from './FundBtc03'
@@ -19,7 +19,7 @@ import FundBtc04 from './FundBtc04'
 export default {
   name: 'page-fund',
   components: {
-    VuePageHeader,
+    PageHeader,
     FundBtc01,
     FundBtc02,
     FundBtc03,
@@ -59,7 +59,7 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.page-fund .pz-page-header
+.page-fund .ni-page-header
   border-bottom none
 
 .page-fund .form

@@ -4,23 +4,32 @@
       <div class="title">Fundraise Ends In</div>
     </header>
     <div class="body">
-      <div class="var">
-        <div class="value">23</div>
-        <div class="unit">Days</div>
-      </div>
+      <countdown date="April 31, 2017" units="short"></countdown>
     </div>
+    <!--
     <footer>
       <p>Fundraise ends in 545 hours 59 min 9 sec</p>
     </footer>
+    -->
     </div>
   </module>
 </template>
 
 <script>
 import Module from './Module'
+import Countdown from '@nylira/vue-countdown'
 export default {
   components: {
-    Module
+    Module,
+    Countdown
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+.ni-countdown
+  display flex
+  justify-content center
+</style>

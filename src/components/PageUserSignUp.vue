@@ -1,49 +1,49 @@
 <template>
 <div class="page-user-signup">
-  <vue-page-header title="Sign Up" type="center"></vue-page-header>
+  <page-header title="Sign Up" type="center"></page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateSignUp">
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-name">Name</label>
-      <vue-input
+      <field
         id="user-signup-name"
         v-model="fields.displayName"
         type="text"
         placeholder="Display Name"
       >
-      </vue-input>
+      </field>
       <form-msg name="Display Name" type="required" v-if="!$v.fields.displayName.required"></form-msg>
       <form-msg name="Display Name" type="length" min="2" max="20" v-if="!$v.fields.displayName.menLength || !$v.fields.displayName.maxLength"></form-msg>
     </div><!--form-group-->
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-email">Email</label>
-      <vue-input
+      <field
         id="user-signup-email"
         v-model="fields.email"
         type="email"
         placeholder="name@example.com"
       >
-      </vue-input>
+      </field>
       <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
       <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
     </div><!--form-group-->
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-signup-password">Password</label>
-      <vue-input
+      <field
         id="user-signup-password"
         v-model="fields.password"
         type="password"
         placeholder="Password"
       >
-      </vue-input>
+      </field>
       <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
     </div><!--form-group-->
 
     <div class="form-footer">
       <router-link to="/signin">Have an account?</router-link>
-      <vue-button type="submit" value="Sign Up"></vue-button>
+      <btn type="submit" value="Sign Up"></btn>
     </div>
   </form>
 </div>
@@ -53,16 +53,16 @@
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
-import VuePageHeader from '@nylira/vue-page-header'
-import VueButton from '@nylira/vue-button'
-import VueInput from '@nylira/vue-input'
-import FormMsg from './FormMsg'
+import PageHeader from '@nylira/vue-page-header'
+import Btn from '@nylira/vue-button'
+import FormMsg from '@nylira/vue-form-msg'
+import Field from '@nylira/vue-input'
 export default {
-  name: 'page-blog-index',
+  name: 'page-user-signup',
   components: {
-    VuePageHeader,
-    VueButton,
-    VueInput,
+    PageHeader,
+    Btn,
+    Field,
     FormMsg
   },
   computed: {
@@ -150,6 +150,6 @@ export default {
 
 <style lang="stylus">
 @import '../styles/variables.styl'
-.page-user-signup .pz-page-header
+.page-user-signup .ni-page-header
   border-bottom none
 </style>

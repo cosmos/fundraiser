@@ -4,7 +4,7 @@ const empty = {
   type: 'btc',
   time: 0,
   price: 0,
-  atoms: 1000,
+  coins: 1000,
   email: '',
   hash: '',
   progress: 1
@@ -25,8 +25,8 @@ const mutations = {
     console.log('SET fundBtc.price', state.price)
   },
   setFundBtcAtoms (state, value) {
-    state.atoms = value
-    console.log('SET fundBtc.atoms', state.atoms)
+    state.coins = value
+    console.log('SET fundBtc.coins', state.coins)
   },
   setFundBtcEmail (state, value) {
     state.email = value

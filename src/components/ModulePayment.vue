@@ -12,25 +12,27 @@
           <p>1 {{ coin.unit }} = {{ coin.exchangeRate }} CAT</p>
           <p class="desc">Minimum Payment: {{ coin.minimumPayment }} {{ coin.unit }}</p>
         </div>
-        <vue-button
+        <btn
           :value="'Pay with ' + coin.unit"
           @click.native="go('/' + coin.unit)"
           >
-        </vue-button>
+        </btn>
       </div>
     </div>
+    <!--
     <footer>
       <a href="#"><i class="fa fa-history"></i> Transaction History</a>
     </footer>
+    -->
   </module>
 </template>
 
 <script>
 import Module from './Module'
-import VueButton from '@nylira/vue-button'
+import Btn from '@nylira/vue-button'
 export default {
   components: {
-    VueButton,
+    Btn,
     Module
   },
   methods: {
@@ -51,8 +53,8 @@ export default {
 
   .img
     flex 0 0 33.333%
-    max-width 8rem
-    padding 0.5rem
+    max-width 10rem
+    padding 0.5rem 0.5rem 0
     img
       width 100%
 
@@ -78,23 +80,28 @@ export default {
     .label
       flex 1
       margin-bottom 0.5rem
+      p
+        font-size 1.25rem
+        color mcolor
+        &.desc
+          font-size 0.75rem
+          color light
+          margin 0
 
-      p.desc
-        font-size 0.75rem
-        color light
-    .pz-btn
+    .ni-btn
       max-width 10rem
 
 @media screen and (min-width:720px)
   .module.module-payment
     .img
-      flex 0 0 25%
+      flex 0 0 30%
     .text
-      flex 0 0 75%
+      flex 0 0 70%
       .label
         p
           font-size 1.5rem
-        p.desc
+          margin-bottom 0.75rem
+        &.desc
           font-size 1rem
 
 @media screen and (min-width:960px)

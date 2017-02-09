@@ -1,6 +1,6 @@
 <template>
   <div class="page-index">
-    <vue-page-header title="Dashboard" type="center"></vue-page-header>
+    <page-header title="Dashboard" type="center"></page-header>
     <div class="modules">
       <module-progress></module-progress>
       <module-balance></module-balance>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import VuePageHeader from '@nylira/vue-page-header'
+import PageHeader from '@nylira/vue-page-header'
 import ModuleProgress from './ModuleProgress'
 import ModuleBalance from './ModuleBalance'
 import ModuleCountdown from './ModuleCountdown'
@@ -21,7 +21,7 @@ import ModuleTransactions from './ModuleTransactions'
 export default {
   name: 'page-index',
   components: {
-    VuePageHeader,
+    PageHeader,
     ModuleProgress,
     ModuleBalance,
     ModuleCountdown,
@@ -74,6 +74,4 @@ export default {
   padding 0.25rem
   .module
     flex 0 0 100%
-    &.module-sm
-      flex 0 0 50%
 </style>

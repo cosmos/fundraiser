@@ -1,22 +1,22 @@
 <template>
 <div class="page-user-reset">
-  <vue-page-header title="Reset Password" type="center"></vue-page-header>
+  <page-header title="Reset Password" type="center"></page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateReset">
     <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
       <label for="user-reset-email">Email</label>
-      <vue-input
+      <field
         id="user-reset-email"
         v-model="fields.email"
         type="email"
         placeholder="name@example.com"
       >
-      </vue-input>
+      </field>
       <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
       <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
     </div>
     <div class="form-footer">
       <div></div>
-      <vue-button type="submit" value="Reset Password"></vue-button>
+      <btn type="submit" value="Reset Password"></btn>
     </div>
   </form>
 </div>
@@ -25,16 +25,16 @@
 <script>
 import firebase from 'firebase'
 import { required, email } from 'vuelidate/lib/validators'
-import VuePageHeader from '@nylira/vue-page-header'
-import VueButton from '@nylira/vue-button'
-import VueInput from '@nylira/vue-input'
-import FormMsg from './FormMsg'
+import PageHeader from '@nylira/vue-page-header'
+import Btn from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
+import FormMsg from '@nylira/vue-form-msg'
 export default {
-  name: 'page-blog-index',
+  name: 'page-user-reset',
   components: {
-    VuePageHeader,
-    VueButton,
-    VueInput,
+    PageHeader,
+    Btn,
+    Field,
     FormMsg
   },
   data () {
@@ -76,6 +76,6 @@ export default {
 
 <style lang="stylus">
 @import '../styles/variables.styl'
-.page-user-reset .pz-page-header
+.page-user-reset .ni-page-header
   border-bottom none
 </style>

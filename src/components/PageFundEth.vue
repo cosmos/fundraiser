@@ -1,10 +1,10 @@
 <template>
 <div class="page page-fund">
-  <vue-page-header
+  <page-header
     title="Pay with ETH"
     subtitle="There are three ways to send ETH to the contribution smart contract."
     type="center">
-  </vue-page-header>
+  </page-header>
   <div class="methods">
     <div class="method">
       <div class="text">
@@ -13,7 +13,7 @@
           Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
         </div>
       </div>
-      <vue-button value="Start Walkthrough"></vue-button>
+      <btn value="Start Walkthrough"></btn>
     </div>
     <div class="method">
       <div class="text">
@@ -22,7 +22,7 @@
           Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
         </div>
       </div>
-      <vue-button value="Start Walkthrough"></vue-button>
+      <btn value="Start Walkthrough"></btn>
     </div>
     <div class="method">
       <div class="text">
@@ -31,7 +31,7 @@
           Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
         </div>
       </div>
-      <vue-button value="Start Walkthrough"></vue-button>
+      <btn value="Start Walkthrough"></btn>
     </div>
   </div>
 </div>
@@ -39,13 +39,13 @@
 
 <script>
 import firebase from 'firebase'
-import VuePageHeader from '@nylira/vue-page-header'
-import VueButton from '@nylira/vue-button'
+import PageHeader from '@nylira/vue-page-header'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'page-fund',
   components: {
-    VuePageHeader,
-    VueButton
+    PageHeader,
+    Btn
   },
   head: {
     title () {
@@ -94,7 +94,7 @@ export default {
       color dim
       margin-bottom 1rem
 
-  .pz-button
+  .ni-btn
     max-width 14rem
     width 100%
 

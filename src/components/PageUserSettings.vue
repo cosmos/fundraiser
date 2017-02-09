@@ -1,6 +1,6 @@
 <template>
 <div class="page-user-settings">
-  <vue-page-header title="User Settings" type="center"></vue-page-header>
+  <page-header title="User Settings" type="center"></page-header>
   <form class="form form-narrow" v-on:submit.prevent.default="validateUpdateUser">
     <div class="form-header">
       <div class="subtitle">Edit your personal profile here.</div>
@@ -8,45 +8,45 @@
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newDisplayName.$error }">
       <label for="user-settings-name">Change Display Name</label>
-      <vue-input
+      <field
         v-model="fields.newDisplayName"
         type="text"
         id="user-settings-name"
         placeholder="New Display Name"
       >
-      </vue-input>
+      </field>
       <form-msg name="Display Name" type="required" v-if="!$v.fields.newDisplayName.required"></form-msg>
       <form-msg name="Display Name" type="length" min="2" max="20" v-if="!$v.fields.newDisplayName.menLength || !$v.fields.newDisplayName.maxLength"></form-msg>
     </div>
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newEmail.$error }">
       <label for="user-settings-email">Change Email</label>
-      <vue-input
+      <field
         v-model="fields.newEmail"
         type="email"
         id="user-settings-email"
         placeholder="New Email"
       >
-      </vue-input>
+      </field>
       <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
       <form-msg name="Email" type="valid" v-if="!$v.fields.newEmail.email"></form-msg>
     </div>
 
     <div class="form-group" :class="{ 'form-group-error': $v.fields.newPassword.$error }">
       <label for="user-settings-password">Change Password</label>
-      <vue-input
+      <field
         v-model="fields.newPassword"
         type="password"
         id="user-settings-password"
         placeholder="New Password"
       >
-      </vue-input>
+      </field>
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.newPassword.minLength || !$v.fields.newPassword.maxLength"></form-msg>
     </div>
 
     <div class="form-footer">
       <div></div>
-      <vue-button type="submit" value="Save Changes"></vue-button>
+      <btn type="submit" value="Save Changes"></btn>
     </div>
 
   </form>
@@ -56,17 +56,17 @@
 <script>
 import { mapGetters } from 'vuex'
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
-import VuePageHeader from '@nylira/vue-page-header'
-import VueButton from '@nylira/vue-button'
-import VueInput from '@nylira/vue-input'
-import FormMsg from './FormMsg'
+import PageHeader from '@nylira/vue-page-header'
+import Btn from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
+import FormMsg from '@nylira/vue-form-msg'
 import firebase from 'firebase'
 export default {
   name: 'page-user-settings',
   components: {
-    VuePageHeader,
-    VueButton,
-    VueInput,
+    PageHeader,
+    Btn,
+    Field,
     FormMsg
   },
   computed: {
@@ -196,6 +196,6 @@ export default {
 
 <style lang="stylus">
 @import '../styles/variables.styl'
-.page-user-settings .pz-page-header
+.page-user-settings .ni-page-header
   border-bottom none
 </style>
