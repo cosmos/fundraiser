@@ -5,7 +5,10 @@
       <router-view></router-view>
     </div>
     <app-footer></app-footer>
-    <notifications></notifications>
+    <notifications
+      color="hsl(208,100%,25%)"
+      :notifications="notifications">
+    </notifications>
   </div>
 </template>
 
@@ -16,6 +19,7 @@ import Notifications from './components/Notifications.vue'
 import store from './store/index.js'
 // import getLang from './scripts/getLang.js'
 // import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import firebase from './scripts/firebase.js'
 
 export default {
@@ -23,6 +27,9 @@ export default {
     AppHeader,
     AppFooter,
     Notifications
+  },
+  computed: {
+    ...mapGetters(['notifications'])
   },
   head: {
     meta: [

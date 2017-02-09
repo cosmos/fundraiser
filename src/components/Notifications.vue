@@ -1,30 +1,29 @@
 <template>
-  <div class="pz-notifications">
+  <div class="ni-notifications">
     <notification
       v-for="notification in notifications"
-      :data="notification">
+      :data="notification"
+      :color="color"
+    >
     </notification>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Notification from './Notification'
 export default {
-  name: 'pz-notifications',
+  name: 'ni-notifications',
   components: {
     Notification
   },
-  computed: {
-    ...mapGetters(['notifications'])
-  }
+  props: ['notifications', 'color']
 }
 </script>
 
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.pz-notifications
+.ni-notifications
   position fixed
   top 0
   right 0
@@ -36,12 +35,12 @@ export default {
 
   width 100vw
 
-.pz-notification
+.ni-notification
   margin-bottom 0.5rem
   &:last-of-type
     margin-bottom 0
 
 @media screen and (min-width:720px)
-  .pz-notifications
+  .ni-notifications
     max-width 30rem
 </style>

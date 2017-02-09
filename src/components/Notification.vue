@@ -1,6 +1,6 @@
 <template>
-  <div class="pz-notification" :class="cssClass" @click="deactivate" v-if="active">
-    <header>
+  <div class="ni-notification" :class="cssClass" @click="deactivate" v-if="active">
+    <header :style="headerStyle">
       <i :class="'icon fa fa-' + data.icon" v-if="data.icon"></i>
       <div class="title" v-if="data.title">{{ data.title }}</div>
       <menu>
@@ -15,14 +15,21 @@
 <script>
 import moment from 'moment'
 export default {
-  name: 'pz-notification',
+  name: 'ni-notification',
   computed: {
     fromNow () {
       return moment(this.data.time).fromNow()
     },
     cssClass () {
-      if (this.data.type) return `pz-notification-${this.data.type}`
-      else return 'pz-notification-default'
+      if (this.data.type) return `ni-notification-${this.data.type}`
+      else return 'ni-notification-default'
+    },
+    headerStyle () {
+      if (this.color) {
+        return {
+          background: this.color
+        }
+      }
     }
   },
   data () {
@@ -55,16 +62,16 @@ export default {
   mounted () {
     this.setDeactivation()
   },
-  props: ['data']
+  props: ['data', 'color']
 }
 </script>
 
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.pz-notification
-  background c-app-bg
-  box-shadow hsla(0,0,0,0.33) 0 0.125rem 0.25rem
+.ni-notification
+  background #fff
+  box-shadow hsla(0,0,0,0.25) 0 0.125rem 0.25rem
   font-size 0.75rem
 
   cursor pointer
@@ -76,7 +83,7 @@ export default {
     align-items center
     padding 0 0.375rem
     height 2em
-    background lighten(link, 20%)
+    background #666
     
     .icon
       padding-right 0.25rem
@@ -107,16 +114,16 @@ export default {
       .close
         display block
 
-  &.pz-notification-warn
+  &.ni-notification-warn
     header
       background hsl(30,100%,50%)
 
-  &.pz-notification-error
+  &.ni-notification-error
     header
       background hsl(0,100%,50%)
 
 @media screen and (min-width: 360px)
-  .pz-notification
+  .ni-notification
     font-size 0.875rem
     margin 0.625rem 0.625rem 0
 
@@ -127,7 +134,7 @@ export default {
       padding 0 0.5rem
 
 @media screen and (min-width: 400px)
-  .pz-notification
+  .ni-notification
     margin 0.75rem 0.75rem 0
 
     header
@@ -137,6 +144,6 @@ export default {
       padding 0.75rem
 
 @media screen and (min-width: 720px)
-  .pz-notification
+  .ni-notification
     margin 1rem 1rem 0
 </style>
