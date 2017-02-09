@@ -15,7 +15,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
-import Notifications from './components/Notifications.vue'
+import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
 // import getLang from './scripts/getLang.js'
 // import Vue from 'vue'

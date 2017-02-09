@@ -117,9 +117,11 @@ export default {
     },
     signOut () {
       this.closeMenus()
+      let self = this
       firebase.auth().signOut().then(function () {
+        self.$store.commit('notifyCustom', { title: 'Signed Out', body: 'Come back again soon!' })
       }, function (error) {
-        console.error('Sign Out Error', error)
+        self.$store.commit('notifyError', { title: error.code, body: error.message })
       })
     },
     watchWindowSize () {

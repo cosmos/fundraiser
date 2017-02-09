@@ -18,6 +18,7 @@
     "@nylira/vue-countdown": "2.0.1",
     "@nylira/vue-form-msg": "1.0.0",
     "@nylira/vue-input": "2.0.2",
+    "@nylira/vue-notifications": "^1.0.2",
     "@nylira/vue-page-header": "2.0.0",
     "@nylira/vue-page-split": "1.0.0",
     "autoprefixer": "6.7.2",
