@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import firebase from './scripts/firebase.js'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import Notifications from '@nylira/vue-notifications'
@@ -20,7 +21,6 @@ import store from './store/index.js'
 // import getLang from './scripts/getLang.js'
 // import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import firebase from './scripts/firebase.js'
 
 export default {
   components: {
@@ -55,8 +55,9 @@ export default {
     ]
   },
   mounted () {
-    let self = this
     // Vue.config.lang = getLang()
+
+    let self = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         self.$store.commit('setSessionUserDisplayName', user.displayName)
