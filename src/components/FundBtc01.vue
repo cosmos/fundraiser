@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import { required, between, sameAs, minLength, email } from 'vuelidate/lib/validators'
 import FormMsg from '@nylira/vue-form-msg'
@@ -200,6 +201,14 @@ export default {
     }
   },
   mounted () {
+    let self = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        self.fields.email = user.email
+        self.fields.confirmEmail = user.email
+      }
+    })
+
     document.body.scrollTop = document.documentElement.scrollTop = 0
     document.querySelector('#fund-btc-amount-btc').focus()
   },
