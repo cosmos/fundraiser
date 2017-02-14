@@ -5,7 +5,8 @@
     </header>
     <div class="body">
       <div class="img">
-        <img src="../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png">
+        <img v-if="coin.name === 'Ethereum'" src="../assets/images/logo-ethereum-320.png">
+        <img v-else src="../assets/images/logo-bitcoin-320.png">
       </div>
       <div class="text">
         <div class="label">
@@ -54,9 +55,14 @@ export default {
   .img
     flex 0 0 33.333%
     max-width 10rem
-    padding 0.5rem 0.5rem 0
+    margin-right 0.5rem
+
+    display flex
+    align-items center
+    justify-content center
     img
-      width 100%
+      width 66.66%
+      display block
 
     .placeholder
       flex 1
@@ -93,14 +99,10 @@ export default {
 
 @media screen and (min-width:720px)
   .module.module-payment
-    .img
-      flex 0 0 30%
     .text
-      flex 0 0 70%
       .label
         p
           font-size 1.5rem
-          margin-bottom 0.75rem
         &.desc
           font-size 1rem
 

@@ -21,7 +21,7 @@
     "@nylira/vue-notifications": "^1.0.2",
     "@nylira/vue-page-header": "2.0.0",
     "@nylira/vue-page-split": "^1.1.1",
-    "@nylira/vue-user-pages": "^1.1.4",
+    "@nylira/vue-user-pages": "^1.1.5",
     "autoprefixer": "6.7.2",
     "babel-core": "6.22.1",
     "babel-eslint": "7.1.1",
