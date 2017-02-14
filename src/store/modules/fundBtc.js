@@ -5,7 +5,6 @@ const empty = {
   time: 0,
   price: 0,
   coins: 1000,
-  email: '',
   hash: '',
   progress: 1
 }
@@ -27,10 +26,6 @@ const mutations = {
   setFundBtcAtoms (state, value) {
     state.coins = value
     console.log('SET fundBtc.coins', state.coins)
-  },
-  setFundBtcEmail (state, value) {
-    state.email = value
-    console.log('SET fundBtc.email', state.email)
   },
   setFundBtcHash (state, plaintextPassword) {
     const salt = bcrypt.genSaltSync(10)

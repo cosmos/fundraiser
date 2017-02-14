@@ -49,6 +49,7 @@
     <vuelidate-debug name="coins" :data="$v.fields.coins"></vuelidate-debug>
   </div>
 
+  <!--
   <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error || $v.fields.confirmEmail.$error }">
     <label>Enter a valid email address.</label>
 
@@ -86,6 +87,7 @@
     <form-msg body="Your wallet backup will be emailed to this address."></form-msg>
     <vuelidate-debug name="fields.confirmEmail" :data="$v.fields.confirmEmail"></vuelidate-debug>
   </div>
+  -->
 
   <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
     <label>Create a wallet password.</label>
