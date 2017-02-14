@@ -7,11 +7,19 @@
       </a>
       <a href="http://forum.tendermint.com:3000/" target="_blank">
         <i class="fa fa-slick"></i>
-        <span class="label">Tendermint</span>
+        <span class="label">Slack</span>
       </a>
       <a href="https://twitter.com/cosmos_hq" target="_blank">
         <i class="fa fa-twatter"></i>
         <span class="label">@cosmos_hq</span>
+      </a>
+      <a href="https://bitcointalk.org/index.php?topic=1607111.0" target="_blank">
+        <i class="fa fa-btc"></i>
+        <span class="label">Cosmos on BitcoinTalk</span>
+      </a>
+      <a href="http://webchat.freenode.net" target="_blank">
+        <i class="fa fa-commenting-o"></i>
+        <span class="label">#cosmos_network on irc.freenode.net</span>
       </a>
     </nav>
   </section>
@@ -31,25 +39,29 @@ export default {
     border-top dbd
     display flex
     justify-content center
+    max-width 960px
+    margin 0 auto
 
   a
     display flex
+    align-items center
     cursor pointer
-    padding 1.5rem
+    padding 1.5rem 1rem
+    text-align center
 
     i
       font-size 1.5rem
       color light
-      margin-right 0.4em
 
     .label
+      margin-left 0.4em
       display none
       color txt
 
     &:hover
       text-decoration none
-      i
-        color txt
+      img
+        opacity 1
       .label
         color txt
 
@@ -57,12 +69,13 @@ export default {
   .section-social-media
     a
       i
-        font-size 2.25em
+        font-size 2em
     
 @media screen and (min-width: 720px)
   .section-social-media
     nav
       padding 3rem 0
+      flex-flow row wrap
     a
       display flex
       align-items center

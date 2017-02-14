@@ -35,7 +35,7 @@ export default {
           name: 'Bitcoin',
           unit: 'BTC',
           minimumPayment: 0.01,
-          exchangeRate: 2000,
+          exchangeRate: 2000.00,
           address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
           qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
         },
@@ -43,7 +43,7 @@ export default {
           name: 'Ethereum',
           unit: 'ETH',
           minimumPayment: 1.00,
-          exchangeRate: 20,
+          exchangeRate: 20.00,
           address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
           qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
         }

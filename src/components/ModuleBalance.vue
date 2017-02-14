@@ -3,17 +3,12 @@
     <header>
       <div class="title">Your Balance</div>
     </header>
-    <div class="body">
+    <div class="components">
       <div class="component">
-        <div class="value">43,240</div>
-        <div class="unit">.23435 CAT</div>
+        <div class="value"><span class="integer">{{ integerize(atoms) }}</span><span class="fraction">{{ fractionize(atoms) }}</span></div>
+        <div class="unit">atoms</div>
       </div>
     </div>
-    <!--
-    <footer>
-      <a href="#"><i class="fa fa-history"></i> Transaction History</a>
-    </footer>
-    -->
   </module>
 </template>
 
@@ -22,6 +17,20 @@ import Module from './Module'
 export default {
   components: {
     Module
+  },
+  data () {
+    return {
+      atoms: 43240.059827
+    }
+  },
+  methods: {
+    integerize (num) {
+      return Math.trunc(num)
+    },
+    fractionize (num) {
+      let value = Math.trunc(num % 1 * 100000) / 100000
+      return value.toString().substring(1)
+    }
   }
 }
 </script>

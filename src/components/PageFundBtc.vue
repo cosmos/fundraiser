@@ -1,6 +1,6 @@
 <template>
 <div class="page page-fund">
-  <page-header title="Pay with BTC" subtitle="Purchase Cosmos Atoms with Bitcoin." type="center"></page-header>
+  <page-header title="Pay with BTC" type="center"></page-header>
   <fund-btc-01 v-if="fundBtc.progress === 1"></fund-btc-01>
   <fund-btc-02 v-if="fundBtc.progress === 2"></fund-btc-02>
   <fund-btc-03 v-if="fundBtc.progress === 3"></fund-btc-03>

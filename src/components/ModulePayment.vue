@@ -5,17 +5,24 @@
     </header>
     <div class="body">
       <div class="img">
-        <img v-if="coin.name === 'Ethereum'" src="../assets/images/logo-ethereum-320.png">
+        <img v-if="coin.name === 'Ethereum'"
+          src="../assets/images/logo-ethereum-320.png">
         <img v-else src="../assets/images/logo-bitcoin-320.png">
       </div>
       <div class="text">
-        <div class="label">
-          <p>1 {{ coin.unit }} = {{ coin.exchangeRate }} CAT</p>
-          <p class="desc">Minimum Payment: {{ coin.minimumPayment }} {{ coin.unit }}</p>
+        <div class="exchange-rate">
+          <span class="value">1.0 {{ coin.unit }}</span>
+          =
+          <span class="value">{{ coin.exchangeRate }} atoms</span>
+        </div>
+        <div class="minimum-payment">
+          Minimum Payment: {{ coin.minimumPayment }} {{ coin.unit }}
         </div>
         <btn
           :value="'Pay with ' + coin.unit"
           @click.native="go('/' + coin.unit)"
+          icon="angle-right"
+          icon-pos="right"
           >
         </btn>
       </div>
@@ -54,8 +61,7 @@ export default {
 
   .img
     flex 0 0 33.333%
-    max-width 10rem
-    margin-right 0.5rem
+    max-width 8rem
 
     display flex
     align-items center
@@ -76,35 +82,38 @@ export default {
 
   .text
     flex 0 0 66.667%
-    padding 0.5rem
-    padding-left 0
     min-width 0
+    padding-left 1rem
 
     display flex
     flex-flow column
 
-    .label
-      flex 1
+    .exchange-rate
+      color light
+      font-size 1.25rem
+      line-height 1
       margin-bottom 0.5rem
-      p
-        font-size 1.25rem
+      .value
+        font-weight 400
         color mcolor
-        &.desc
-          font-size 0.75rem
-          color light
-          margin 0
 
-    .ni-btn
+    .minimum-payment
+      font-size 0.75rem
+      color light
+      margin-bottom 0.5rem
+    .ni-btn-wrapper
       max-width 10rem
 
 @media screen and (min-width:720px)
   .module.module-payment
+    .body
+      padding 2rem 0
     .text
-      .label
-        p
-          font-size 1.5rem
-        &.desc
-          font-size 1rem
+      .exchange-rate
+        font-size 1.5rem
+      .minimum-payment
+        font-size 1rem
+        margin-bottom 1rem
 
 @media screen and (min-width:960px)
   .module.module-payment

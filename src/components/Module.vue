@@ -36,6 +36,7 @@ export default {
     border-bottom 1px dotted bc
 
     .title
+      flex 1
       text-transform uppercase
       font-weight bold
       font-size 0.75rem
@@ -45,37 +46,61 @@ export default {
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
+    menu
+      display flex
+      padding 0 0.25rem
+      a
+        color txt
+        font-size 0.75rem
+        padding 0 0.25rem
+        font-weight bold
+        color link
+        &.active
+          color txt
 
   .body
     background c-app-fg
+    padding 1rem
 
-  .components
+  .components, .ni-countdown
     display flex
+    flex-flow column
     justify-content center
+
+    padding 0.5rem 0
+    background c-app-fg
     .icon
       font-size 1.5rem
       color light
 
   .component
+    flex 1
+
     display flex
     flex-flow column no-wrap
-    padding 0.75rem 1rem
     align-items center
+
+    padding 0.5rem 1rem
+
     .value
       font-size 1.5rem
       line-height 1
       margin-bottom 0.5rem
+      font-weight 400
       color mcolor
+      .fraction
+        font-weight 300
+
+    .fraction
+      color dim
+
     .unit
       color light
 
   footer
     height 2rem
-
     padding 0 0.5rem
-
     border-top 1px solid bc
-
     display flex
     align-items center
 
@@ -86,22 +111,31 @@ export default {
       font-weight 400
       &.active
         color txt
+
     a + a
       margin-left 0.5rem
+
     p
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
 
+@media screen and (min-width: 400px)
+  .module
+    .components, .ni-countdown
+      padding 0.75rem 0
+    .component
+      padding 0.75rem 1rem
+
 @media screen and (min-width: 720px)
   .module
     &.module-sm
       flex 0 0 50%
-    .body
-      padding 0.5rem
+    .components, .ni-countdown
+      padding 1rem 0
+    .component
+      padding 1rem 1rem
     .component
       .value
-        font-size 2rem
-      .unit
-        font-size 1.25rem
+        font-size 1.5rem
 </style>

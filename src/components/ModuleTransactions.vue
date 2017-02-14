@@ -2,6 +2,11 @@
   <module class="module-transactions">
     <header>
       <div class="title">Transaction History</div>
+      <menu>
+        <a class="btn-filter active" @click="setFilter('', $event)">All</a>
+        <a class="btn-filter" @click="setFilter('btc', $event)">BTC</a>
+        <a class="btn-filter" @click="setFilter('eth', $event)">ETH</a>
+      </menu>
     </header>
     <div class="body transactions">
       <header class="header-transaction">
@@ -10,20 +15,15 @@
         <div class="received">Received</div>
         <div class="date">Date</div>
       </header>
-      <div class="card-transaction" v-for="t in orderedTransactions">
+      <div class="card-transaction" v-for="t in filteredTransactions">
         <div :class="'type type-' + t.type">{{ t.type }}</div>
         <div class="paid">{{ t.price }} <span class="unit">{{ t.type }}</span></div>
-        <div class="received">{{ t.coins }} <span class="unit">CAT</span></div>
+        <div class="received">{{ t.coins }} <span class="unit">atoms</span></div>
         <div class="date" @click="swapDateFormat" :title="isoDate(t.time)">
           {{ flexibleDate(t.time) }}
         </div>
       </div>
     </div>
-    <footer>
-      <a class="active" href="#">All</a>
-      <a href="#">BTC</a>
-      <a href="#">ETH</a>
-    </footer>
   </module>
 </template>
 
@@ -38,6 +38,12 @@ export default {
     Module
   },
   computed: {
+    filteredTransactions () {
+      if (this.filter) {
+        return this.orderedTransactions.filter(t => t.type === this.filter)
+      }
+      return this.orderedTransactions
+    },
     orderedTransactions () {
       return orderBy(this.transactions, ['time'], ['desc'])
     },
@@ -45,10 +51,17 @@ export default {
   },
   data () {
     return {
-      timeAgo: true
+      timeAgo: true,
+      filter: ''
     }
   },
   methods: {
+    setFilter (value, event) {
+      let btns = document.querySelectorAll('.btn-filter')
+      Array.from(btns).forEach(btn => btn.classList.remove('active'))
+      event.target.classList.add('active')
+      this.filter = value
+    },
     fromNow (time) {
       return moment(time).fromNow()
     },
@@ -101,7 +114,6 @@ export default {
     .unit
       display block
       color light
-      text-transform uppercase
       font-size 0.6rem
 
   .header-transaction
@@ -130,4 +142,14 @@ export default {
         font-size 1.25rem
       .unit
         font-size 0.75rem
+
+@media screen and (min-width:720px)
+  .module-transactions
+    .card-transaction
+      .paid, .received
+        display flex
+        align-items center
+        justify-content flex-end
+      .unit
+        margin-left 0.5rem
 </style>

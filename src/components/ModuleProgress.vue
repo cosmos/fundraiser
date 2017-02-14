@@ -3,47 +3,30 @@
     <header>
       <div class="title">Fundraise Progress</div>
     </header>
-    <div class="body">
+    <div class="components">
       <div class="component">
-        <div class="value">{{ btcInteger }}</div>
-        <div class="unit">{{ btcFractional }} BTC</div>
+        <div class="value"><span class="integer">{{ integerize(btcFunded) }}</span></div>
+        <div class="unit">
+          <span class="fraction">{{ fractionize(btcFunded) }}</span> BTC
+        </div>
       </div>
       <div class="component">
-        <div class="value">{{ ethInteger }}</div>
-        <div class="unit">{{ ethFractional }} ETH</div>
+        <div class="value"><span class="integer">{{ integerize(ethFunded) }}</span></div>
+        <div class="unit">
+          <span class="fraction">{{ fractionize(ethFunded) }}</span> ETH
+        </div>
       </div>
       <div class="component">
-        <div class="value">{{ investors }}</div>
+        <div class="value"><span class="integer">{{ investors }}<span></div>
         <div class="unit">Investors</div>
       </div>
     </div>
-    <!--
-    <footer>
-      <p><i class="fa fa-circle-o-notch fa-spin"></i> Progress is updated live&hellip;</p>
-    </footer>
-    -->
   </module>
 </template>
 
 <script>
 import Module from './Module'
 export default {
-  computed: {
-    btcInteger () {
-      return Math.trunc(this.btcFunded)
-    },
-    btcFractional () {
-      let value = Math.trunc(this.btcFunded % 1 * 100000) / 100000
-      return value.toString().substring(1)
-    },
-    ethInteger () {
-      return Math.trunc(this.ethFunded)
-    },
-    ethFractional () {
-      let value = Math.trunc(this.ethFunded % 1 * 100000) / 100000
-      return value.toString().substring(1)
-    }
-  },
   components: {
     Module
   },
@@ -53,6 +36,15 @@ export default {
       ethFunded: 27039.342606,
       investors: 1235
     }
+  },
+  methods: {
+    integerize (num) {
+      return Math.trunc(num)
+    },
+    fractionize (num) {
+      let value = Math.trunc(num % 1 * 100000) / 100000
+      return value.toString().substring(1)
+    }
   }
 }
 </script>
@@ -60,28 +52,11 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.module-progress
-  padding 0.25rem
-  min-width 0
-
-  .body
-    display flex
-    flex-flow column
-    .component
-      flex 1
-      padding 0.5rem 0.75rem
-
-      display flex
-      align-items center
-
-
-@media screen and (min-width: 400px)
-  .module-progress
-    .body
-      display flex
+@media screen and (min-width: 360px)
+  .module.module-progress
+    .components
       flex-flow row
       .component
-        flex 1
         border-right 1px dotted bc
         &:last-of-type
           border-right none

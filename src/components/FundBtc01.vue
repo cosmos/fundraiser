@@ -49,46 +49,6 @@
     <vuelidate-debug name="coins" :data="$v.fields.coins"></vuelidate-debug>
   </div>
 
-  <!--
-  <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error || $v.fields.confirmEmail.$error }">
-    <label>Enter a valid email address.</label>
-
-    <label class="hidden" for="fund-btc-email">Email</label>
-    <div class="input-group">
-      <field
-        id="fund-btc-email"
-        type="email"
-        placeholder="Enter your email"
-        v-model="fields.email"
-        @input="$v.fields.email.$touch()"
-        required
-      >
-      </field>
-    </div>
-    <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
-    <form-msg name="Email" v-if="!$v.fields.email.email"></form-msg>
-    <vuelidate-debug name="fields.email" :data="$v.fields.email"></vuelidate-debug>
-
-    <label class="hidden" for="fund-btc-confirm-email">Confirm Email</label>
-    <div class="input-group">
-      <field
-        id="fund-btc-confirm-email"
-        type="email"
-        placeholder="Re-enter your email"
-        v-model="fields.confirmEmail"
-        @input="$v.fields.confirmEmail.$touch()"
-        required
-      >
-      </field>
-    </div>
-    <form-msg name="Email confirmation" type="required" v-if="!$v.fields.confirmEmail.required"></form-msg>
-    <form-msg name="Emails" type="match" v-if="!$v.fields.confirmEmail.sameAsEmail"></form-msg>
-
-    <form-msg body="Your wallet backup will be emailed to this address."></form-msg>
-    <vuelidate-debug name="fields.confirmEmail" :data="$v.fields.confirmEmail"></vuelidate-debug>
-  </div>
-  -->
-
   <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
     <label>Create a wallet password.</label>
 
@@ -141,9 +101,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import { mapGetters } from 'vuex'
-import { required, between, sameAs, minLength, email } from 'vuelidate/lib/validators'
+import { required, between, sameAs, minLength } from 'vuelidate/lib/validators'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
@@ -175,13 +134,9 @@ export default {
     return {
       fields: {
         // coins: 1000,
-        // email: 'peng@nylira.com',
-        // confirmEmail: 'peng@nylira.com',
         // password: 'blowfish',
         // confirmPassword: 'blowfish'
         coins: 0,
-        email: '',
-        confirmEmail: '',
         password: '',
         confirmPassword: ''
       }
@@ -196,21 +151,12 @@ export default {
       } else {
         this.$store.commit('setFundBtcPrice', data.coins / 2000.00)
         this.$store.commit('setFundBtcAtoms', data.coins)
-        this.$store.commit('setFundBtcEmail', data.email)
         this.$store.commit('setFundBtcHash', data.password)
         this.$store.commit('setFundBtcProgress', 2)
       }
     }
   },
   mounted () {
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        self.fields.email = user.email
-        self.fields.confirmEmail = user.email
-      }
-    })
-
     document.body.scrollTop = document.documentElement.scrollTop = 0
     document.querySelector('#fund-btc-amount-btc').focus()
   },
@@ -223,14 +169,6 @@ export default {
       coins: {
         required,
         between: between(20, 1000000)
-      },
-      email: {
-        required,
-        email
-      },
-      confirmEmail: {
-        required,
-        sameAsEmail: sameAs('email')
       },
       password: {
         required,
