@@ -1,26 +1,26 @@
 <template>
   <module class="module-payment">
     <header>
-      <div class="title">Pay with {{ coin.name }}</div>
+      <div class="title">Pay with {{ coin.NAME }}</div>
     </header>
     <div class="body">
       <div class="img">
-        <img v-if="coin.name === 'Ethereum'"
+        <img v-if="coin.NAME === 'Ethereum'"
           src="../assets/images/logo-ethereum-320.png">
         <img v-else src="../assets/images/logo-bitcoin-320.png">
       </div>
       <div class="text">
         <div class="exchange-rate">
-          <span class="value">1.0 {{ coin.unit }}</span>
+          <span class="value">1.0 {{ coin.UNIT }}</span>
           =
-          <span class="value">{{ coin.exchangeRate }} atoms</span>
+          <span class="value">{{ exchangeRate }} atoms</span>
         </div>
         <div class="minimum-payment">
-          Minimum Payment: {{ coin.minimumPayment }} {{ coin.unit }}
+          Minimum Payment: {{ coin.MIN_PAYMENT }} {{ coin.UNIT }}
         </div>
         <btn
-          :value="'Pay with ' + coin.unit"
-          @click.native="go('/' + coin.unit)"
+          :value="'Pay with ' + coin.UNIT"
+          @click.native="go('/' + coin.UNIT)"
           icon="angle-right"
           icon-pos="right"
           >
@@ -38,10 +38,16 @@
 <script>
 import Module from './Module'
 import Btn from '@nylira/vue-button'
+import num from '../scripts/num.js'
 export default {
   components: {
     Btn,
     Module
+  },
+  computed: {
+    exchangeRate () {
+      return num.pretty(this.coin.EXCHANGE_RATE)
+    }
   },
   methods: {
     go (route) {

@@ -3,7 +3,7 @@
     <header>
       <div class="title">Fundraise Ends In</div>
     </header>
-    <countdown date="April 31, 2017" units="short"></countdown>
+    <countdown :date="END_DATETIME" units="short"></countdown>
     </div>
   </module>
 </template>
@@ -11,10 +11,20 @@
 <script>
 import Module from './Module'
 import Countdown from '@nylira/vue-countdown'
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 export default {
   components: {
     Module,
     Countdown
+  },
+  computed: {
+    END_DATETIME () {
+      const START_DATETIME = this.config.START_DATETIME
+      const ENDS_AFTER = this.config.ENDS_AFTER
+      return moment(START_DATETIME).add(ENDS_AFTER, 'days')._d
+    },
+    ...mapGetters(['config'])
   }
 }
 </script>

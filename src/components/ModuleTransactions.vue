@@ -8,18 +8,27 @@
         <a class="btn-filter" @click="setFilter('eth', $event)">ETH</a>
       </menu>
     </header>
-    <div class="body transactions">
+    <div class="transactions">
       <header class="header-transaction">
         <div class="type">Type</div>
         <div class="paid">Paid</div>
         <div class="received">Received</div>
         <div class="date">Date</div>
       </header>
-      <div class="card-transaction" v-for="t in filteredTransactions">
+      <div
+        class="card-transaction"
+        v-for="t in filteredTransactions" 
+        @click="toggleDetails">
         <div :class="'type type-' + t.type">{{ t.type }}</div>
-        <div class="paid">{{ t.price }} <span class="unit">{{ t.type }}</span></div>
-        <div class="received">{{ t.coins }} <span class="unit">atoms</span></div>
-        <div class="date" @click="swapDateFormat" :title="isoDate(t.time)">
+        <div class="paid">
+          {{ flexibleNumber(t.coins) }}
+          <span class="unit">{{ t.type }}</span>
+        </div>
+        <div class="received">
+          {{ flexibleNumber(t.price * t.coins) }}
+          <span class="unit">atoms</span>
+        </div>
+        <div class="date" :title="isoDate(t.time)">
           {{ flexibleDate(t.time) }}
         </div>
       </div>
@@ -32,6 +41,7 @@ import { mapGetters } from 'vuex'
 import { orderBy } from 'lodash'
 import moment from 'moment'
 import Module from './Module'
+import num from '../scripts/num.js'
 export default {
   name: 'module-transactions',
   components: {
@@ -51,7 +61,7 @@ export default {
   },
   data () {
     return {
-      timeAgo: true,
+      details: false,
       filter: ''
     }
   },
@@ -68,12 +78,16 @@ export default {
     isoDate (time) {
       return moment(time).format('YYYY-MM-DD hh:MM:SS A')
     },
-    flexibleDate (time) {
-      if (this.timeAgo) return this.fromNow(time)
-      return this.isoDate(time)
+    flexibleNumber (value) {
+      if (this.details) return num.full(value)
+      return num.pretty(value)
     },
-    swapDateFormat () {
-      this.timeAgo = !this.timeAgo
+    flexibleDate (time) {
+      if (this.details) return this.isoDate(time)
+      return this.fromNow(time)
+    },
+    toggleDetails () {
+      this.details = !this.details
     }
   }
 }
@@ -97,7 +111,7 @@ export default {
     border-bottom 1px dotted bc
 
     div
-      padding 0.5rem 0.5rem
+      padding 0.5rem
 
     .type
       flex 1
@@ -106,6 +120,11 @@ export default {
     .paid, .received
       flex 2
       text-align right
+      white-space nowrap
+      text-overflow ellipsis
+      overflow hidden
+
+      font-size 0.75rem
 
     .date
       flex 2
@@ -114,7 +133,6 @@ export default {
     .unit
       display block
       color light
-      font-size 0.6rem
 
   .header-transaction
     div
@@ -126,9 +144,6 @@ export default {
     .type
       text-transform uppercase
       font-weight bold
-
-    .paid, .received
-      font-size 1.125rem
 
 @media screen and (min-width:400px)
   .module-transactions
@@ -152,4 +167,8 @@ export default {
         justify-content flex-end
       .unit
         margin-left 0.5rem
+      .paid, .received
+        flex 4
+      .date
+        flex 3
 </style>

@@ -12,8 +12,7 @@
       <field
         id="fund-btc-payment-address"
         type="text"
-        v-model="btcAddress"
-      >
+        v-model="btcAddress">
       </field>
     </div>
 
@@ -114,6 +113,7 @@ export default {
 
 #fund-btc-payment-qr-code
   width 242px
+  height 242px
   border 1px solid bc
   display block
 </style>

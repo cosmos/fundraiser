@@ -5,13 +5,14 @@
       <module-progress></module-progress>
       <module-balance></module-balance>
       <module-countdown></module-countdown>
-      <module-payment v-for="coin in coins" :coin="coin"></module-payment>
+      <module-payment v-for="coin in config.COINS" :coin="coin"></module-payment>
       <module-transactions></module-transactions>
     </div> 
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PageHeader from '@nylira/vue-page-header'
 import ModuleProgress from './ModuleProgress'
 import ModuleBalance from './ModuleBalance'
@@ -28,27 +29,8 @@ export default {
     ModulePayment,
     ModuleTransactions
   },
-  data () {
-    return {
-      coins: [
-        {
-          name: 'Bitcoin',
-          unit: 'BTC',
-          minimumPayment: 0.01,
-          exchangeRate: 2000.00,
-          address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-          qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
-        },
-        {
-          name: 'Ethereum',
-          unit: 'ETH',
-          minimumPayment: 1.00,
-          exchangeRate: 20.00,
-          address: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-          qrCode: require('../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
-        }
-      ]
-    }
+  computed: {
+    ...mapGetters(['config'])
   },
   head: {
     title () {

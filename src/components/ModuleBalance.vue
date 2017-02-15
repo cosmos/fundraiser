@@ -5,7 +5,8 @@
     </header>
     <div class="components">
       <div class="component">
-        <div class="value"><span class="integer">{{ integerize(atoms) }}</span><span class="fraction">{{ fractionize(atoms) }}</span></div>
+        <div class="value" :title="num.full(balance.atoms)">
+          <span class="integer">{{ num.int(balance.atoms) }}</span><span class="fraction">{{ num.frac(balance.atoms) }}</span></div>
         <div class="unit">atoms</div>
       </div>
     </div>
@@ -14,22 +15,18 @@
 
 <script>
 import Module from './Module'
+import { mapGetters } from 'vuex'
+import num from '../scripts/num.js'
 export default {
   components: {
     Module
   },
+  computed: {
+    ...mapGetters(['balance'])
+  },
   data () {
     return {
-      atoms: 43240.059827
-    }
-  },
-  methods: {
-    integerize (num) {
-      return Math.trunc(num)
-    },
-    fractionize (num) {
-      let value = Math.trunc(num % 1 * 100000) / 100000
-      return value.toString().substring(1)
+      num: num
     }
   }
 }

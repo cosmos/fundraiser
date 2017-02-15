@@ -27,7 +27,8 @@ export default {
   min-width 0
 
   .container
-    border 1px solid bc
+    background c-app-fg
+    box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
   header
     height 2rem
@@ -37,24 +38,23 @@ export default {
 
     .title
       flex 1
-      text-transform uppercase
-      font-weight bold
-      font-size 0.75rem
-      padding 0 0.5rem
-      color light
+      font-size 0.875rem
+      padding 0 0.75rem
+      font-weight 500
 
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
     menu
       display flex
-      padding 0 0.25rem
+      padding 0 0.5rem
       a
         color txt
         font-size 0.75rem
         padding 0 0.25rem
         font-weight bold
         color link
+        cursor pointer
         &.active
           color txt
 

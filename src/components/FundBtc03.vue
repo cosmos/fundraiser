@@ -6,7 +6,7 @@
     <div class="subtitle">Download your presale atom wallet.</div>
   </div>
 
-  <div class="form-group">
+  <div id="form-group-download" class="form-group">
     <div class="input-group">
       <btn
         @click.native="downloadWallet"
@@ -16,6 +16,7 @@
       </btn>
     </div>
     <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
+    <form-msg type="error" body="You must download the wallet file before continuing."></form-msg>
   </div>
 
   <div class="form-footer">
@@ -46,6 +47,11 @@ export default {
   computed: {
     ...mapGetters(['fundBtc'])
   },
+  data () {
+    return {
+      downloadClicked: false
+    }
+  },
   methods: {
     downloadWallet () {
       let walletString = JSON.stringify(dummyWallet)
@@ -53,8 +59,14 @@ export default {
       // eslint-disable-next-line
       let blob = new Blob(walletArray, {type: 'text/plain;charset=utf-8'})
       FileSaver.saveAs(blob, 'dummy-atom-wallet.json')
+
+      this.downloadClicked = true
     },
     nextStep () {
+      if (!this.downloadClicked) {
+        document.querySelector('#form-group-download').classList.add('form-group-error')
+        return
+      }
       this.$store.commit('setFundBtcProgress', 4)
     }
   },
