@@ -3,7 +3,7 @@
 
   <div class="form-header">
     <div class="title">Step 4</div>
-    <div class="subtitle">Pay <strong>{{ fundBtc.price }} BTC</strong> to the specified Bitcoin address below.</div>
+    <div class="subtitle">Pay <strong>{{ btcTransaction.price }} BTC</strong> to the specified Bitcoin address below.</div>
   </div>
 
   <div class="form-group">
@@ -41,7 +41,7 @@
     <div class="input-group">
       <field
         input-type="number"
-        v-model="fundBtc.coins"
+        v-model="btcTransaction.atoms"
       >
       </field>
       <div class="input-group-addon">Atoms</i></div>
@@ -60,8 +60,6 @@
 </form>
 </template>
 
-</template>
-
 <script>
 import { mapGetters } from 'vuex'
 import Field from '@nylira/vue-input'
@@ -73,7 +71,7 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['fundBtc'])
+    ...mapGetters(['btcTransaction'])
   },
   data () {
     return {
@@ -89,10 +87,10 @@ export default {
     },
     nextStep () {
       let self = this
-      this.$store.commit('setFundBtcTime', Date.now())
-      this.$store.commit('addTransaction', this.fundBtc)
-      this.$store.commit('resetFundBtc', this.fundBtc)
-      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.fundBtc.coins} atoms for ${this.fundBtc.price} btc.` })
+      this.$store.commit('setBtcTransactionTime', Date.now())
+      this.$store.commit('addTransaction', this.btcTransaction)
+      this.$store.commit('resetBtcTransaction')
+      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.btcTransaction.atoms} atoms for ${this.btcTransaction.price} btc.` })
       this.$router.push('/')
     }
   },

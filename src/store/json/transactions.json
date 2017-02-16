@@ -1,51 +1,58 @@
 {
   "ni2ysobv": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "btc",
     "time": 1487041459606,
     "price": 2000,
-    "coins": 8.3491
+    "atoms": 16250.59023
   },
   "yndibeba": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "eth",
     "time": 1487050459606,
     "price": 22,
-    "coins": 145.4392
+    "atoms": 3220.443
   },
   "ifnuwndpa": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "btc",
     "time": 1487051259606,
     "price": 2000,
-    "coins": 2.23034
+    "atoms": 4430.2304
   },
   "oe93hgna": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "eth",
     "time": 1487051429606,
     "price": 22,
-    "coins": 593.329
+    "atoms": 13329.01
   },
   "didbdoda": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "btc",
     "time": 1487094593000,
     "price": 2000,
-    "coins": 14.352491
+    "atoms": 28010.577
   },
   "podidbab": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "eth",
     "time": 1486594393000,
     "price": 22,
-    "coins": 450.249
+    "atoms": 9959.2493
   },
   "ldnfidba": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "btc",
     "time": 1486393593000,
     "price": 2000,
-    "coins": 6.43492
+    "atoms": 12840.43492
   },
   "didndabd": {
+    "userId": "YapzMKn4CGeCceVfUguUgIW41qI2",
     "type": "eth",
     "time": 1486084593000,
     "price": 22,
-    "coins": 215.5093
+    "atoms": 4730.5093
   }
 }
-

@@ -4,9 +4,9 @@ export const sessionVotes = state => state.session.votes
 
 export const config = state => state.config
 
-export const fundBtc = state => state.fundBtc
+export const btcTransaction = state => state.btcTransaction
 export const notifications = state => state.notifications
 
-export const transactions = state => state.transactions
+export const transactions = state => state.transactions.all
 export const progress = state => state.progress
 export const balance = state => state.balance

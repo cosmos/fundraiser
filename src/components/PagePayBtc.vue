@@ -1,10 +1,10 @@
 <template>
 <div class="page page-fund">
   <page-header title="Pay with BTC" type="center"></page-header>
-  <fund-btc-01 v-if="fundBtc.progress === 1"></fund-btc-01>
-  <fund-btc-02 v-if="fundBtc.progress === 2"></fund-btc-02>
-  <fund-btc-03 v-if="fundBtc.progress === 3"></fund-btc-03>
-  <fund-btc-04 v-if="fundBtc.progress === 4"></fund-btc-04>
+  <pay-btc-01 v-if="btcTransaction.progress === 1"></pay-btc-01>
+  <pay-btc-02 v-if="btcTransaction.progress === 2"></pay-btc-02>
+  <pay-btc-03 v-if="btcTransaction.progress === 3"></pay-btc-03>
+  <pay-btc-04 v-if="btcTransaction.progress === 4"></pay-btc-04>
 </div>
 </template>
 
@@ -12,21 +12,21 @@
 import { mapGetters } from 'vuex'
 import firebase from 'firebase'
 import PageHeader from '@nylira/vue-page-header'
-import FundBtc01 from './FundBtc01'
-import FundBtc02 from './FundBtc02'
-import FundBtc03 from './FundBtc03'
-import FundBtc04 from './FundBtc04'
+import PayBtc01 from './PayBtc01'
+import PayBtc02 from './PayBtc02'
+import PayBtc03 from './PayBtc03'
+import PayBtc04 from './PayBtc04'
 export default {
   name: 'page-fund',
   components: {
     PageHeader,
-    FundBtc01,
-    FundBtc02,
-    FundBtc03,
-    FundBtc04
+    PayBtc01,
+    PayBtc02,
+    PayBtc03,
+    PayBtc04
   },
   computed: {
-    ...mapGetters(['fundBtc', 'sessionUser'])
+    ...mapGetters(['btcTransaction', 'sessionUser'])
   },
   head: {
     title () {
@@ -51,7 +51,7 @@ export default {
     })
   },
   beforeDestroy () {
-    this.$store.commit('resetFundBtc')
+    this.$store.commit('resetBtcTransaction')
   }
 }
 </script>

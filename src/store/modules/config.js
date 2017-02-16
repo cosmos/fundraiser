@@ -10,8 +10,8 @@ const state = {
   BLOCKCHAIN_API: '5b846ae8-eb56-4c14-aae9-bd13056b6df7',
   MAX_ATOM_TO_BUY: 1000000,
   SALE_BEGUN: true,
-  COINS: [
-    {
+  COINS: {
+    BTC: {
       NAME: 'Bitcoin',
       UNIT: 'BTC',
       MIN_PAYMENT: 0.01,
@@ -19,7 +19,7 @@ const state = {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       QR_CODE: require('../../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
     },
-    {
+    ETH: {
       NAME: 'Ethereum',
       UNIT: 'ETH',
       MIN_PAYMENT: 1.00,
@@ -27,7 +27,7 @@ const state = {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       QR_CODE: require('../../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png')
     }
-  ]
+  }
 }
 
 const mutations = {

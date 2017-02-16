@@ -21,11 +21,11 @@
         @click="toggleDetails">
         <div :class="'type type-' + t.type">{{ t.type }}</div>
         <div class="paid">
-          {{ flexibleNumber(t.coins) }}
+          {{ flexibleNumber(t.atoms / t.price) }}
           <span class="unit">{{ t.type }}</span>
         </div>
         <div class="received">
-          {{ flexibleNumber(t.price * t.coins) }}
+          {{ flexibleNumber(t.atoms) }}
           <span class="unit">atoms</span>
         </div>
         <div class="date" :title="isoDate(t.time)">
@@ -48,16 +48,23 @@ export default {
     Module
   },
   computed: {
+    myTransactions () {
+      if (this.transactions.length > 0) {
+        let userId = this.sessionUser.uid
+        return this.transactions.filter(t => t.userId === userId)
+      }
+      return []
+    },
+    orderedTransactions () {
+      return orderBy(this.myTransactions, ['time'], ['desc'])
+    },
     filteredTransactions () {
       if (this.filter) {
         return this.orderedTransactions.filter(t => t.type === this.filter)
       }
       return this.orderedTransactions
     },
-    orderedTransactions () {
-      return orderBy(this.transactions, ['time'], ['desc'])
-    },
-    ...mapGetters(['transactions'])
+    ...mapGetters(['transactions', 'sessionUser'])
   },
   data () {
     return {

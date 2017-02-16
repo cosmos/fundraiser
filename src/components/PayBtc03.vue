@@ -35,7 +35,6 @@
 <script>
 import dummyWallet from '../store/json/dummyWallet.json'
 import FileSaver from 'file-saver'
-import { mapGetters } from 'vuex'
 import FormMsg from '@nylira/vue-form-msg'
 import Btn from '@nylira/vue-button'
 export default {
@@ -43,9 +42,6 @@ export default {
   components: {
     Btn,
     FormMsg
-  },
-  computed: {
-    ...mapGetters(['fundBtc'])
   },
   data () {
     return {
@@ -67,7 +63,7 @@ export default {
         document.querySelector('#form-group-download').classList.add('form-group-error')
         return
       }
-      this.$store.commit('setFundBtcProgress', 4)
+      this.$store.commit('setBtcTransactionProgress', 4)
     }
   },
   mounted () {

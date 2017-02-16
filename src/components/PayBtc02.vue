@@ -55,7 +55,7 @@ export default {
     FormMsg
   },
   computed: {
-    ...mapGetters(['fundBtc'])
+    ...mapGetters(['btcTransaction'])
   },
   data () {
     return {
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     startOver () {
-      this.$store.commit('setFundBtcProgress', 1)
+      this.$store.commit('setBtcTransactionProgress', 1)
     },
     nextStep () {
       this.fields.password = this.passwordValue
@@ -75,7 +75,7 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setFundBtcProgress', 3)
+        this.$store.commit('setBtcTransactionProgress', 3)
       }
     }
   },
@@ -88,8 +88,8 @@ export default {
       password: {
         required,
         matchesHash (value) {
-          const hash = this.fundBtc.hash
-          console.log('hash', this.fundBtc.hash)
+          const hash = this.btcTransaction.hash
+          console.log('hash', this.btcTransaction.hash)
           return bcrypt.compareSync(value, hash)
         }
       }

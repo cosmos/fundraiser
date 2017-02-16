@@ -5,7 +5,7 @@
     <div class="title">Step 1</div>
   </div>
 
-  <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.coins.$error }">
+  <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
     <label for="fund-btc-amount-btc">Enter amount to purchase in either Bitcoin or Atoms.</label>
 
     <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
@@ -26,13 +26,13 @@
     <form-msg name="BTC amount" type="required" v-if="!$v.amountBtc.required"></form-msg>
     <form-msg name="BTC amount" type="between" min="0.01" max="500" v-if="!$v.amountBtc.between"></form-msg>
 
-    <label class="hidden" for="fund-btc-amount-coins">Amount in Atoms</label>
+    <label class="hidden" for="fund-btc-amount-atoms">Amount in Atoms</label>
     <div class="input-group">
       <field
-        id="fund-btc-amount-coins"
-        v-model="fields.coins"
+        id="fund-btc-amount-atoms"
+        v-model="fields.atoms"
         type="number"
-        @input="$v.fields.coins.$touch()"
+        @input="$v.fields.atoms.$touch()"
         min="20.00"
         max="1000000"
         step="20"
@@ -41,12 +41,12 @@
       </field>
       <div class="input-group-addon">Atoms</div>
     </div>
-    <form-msg name="Atom amount" type="required" v-if="!$v.fields.coins.required"></form-msg>
-    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.coins.between"></form-msg>
+    <form-msg name="Atom amount" type="required" v-if="!$v.fields.atoms.required"></form-msg>
+    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.atoms.between"></form-msg>
     <form-msg body="Price: 1 BTC buys 2,000 Atoms."></form-msg>
 
     <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
-    <vuelidate-debug name="coins" :data="$v.fields.coins"></vuelidate-debug>
+    <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
   </div>
 
   <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
@@ -101,8 +101,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { required, between, sameAs, minLength } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
@@ -118,25 +118,25 @@ export default {
   computed: {
     amountBtc: {
       get () {
-        return this.fields.coins / 2000.00
+        return this.fields.atoms / this.config.COINS.BTC.EXCHANGE_RATE
       },
       set (newValue) {
         if (newValue === '.' || newValue === '' || newValue === ' ') {
-          this.fields.coins = 0
+          this.fields.atoms = 0
         } else {
-          this.fields.coins = newValue * 2000.00
+          this.fields.atoms = newValue * 2000.00
         }
       }
     },
-    ...mapGetters(['fundBtc'])
+    ...mapGetters(['sessionUser', 'config'])
   },
   data () {
     return {
       fields: {
-        // coins: 1000,
+        // atoms: 1000,
         // password: 'blowfish',
         // confirmPassword: 'blowfish'
-        coins: 0,
+        atoms: 0,
         password: '',
         confirmPassword: ''
       }
@@ -149,10 +149,11 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setFundBtcPrice', data.coins / 2000.00)
-        this.$store.commit('setFundBtcAtoms', data.coins)
-        this.$store.commit('setFundBtcHash', data.password)
-        this.$store.commit('setFundBtcProgress', 2)
+        this.$store.commit('setBtcTransactionUserId', this.sessionUser.uid)
+        this.$store.commit('setBtcTransactionPrice', this.config.COINS.BTC.EXCHANGE_RATE)
+        this.$store.commit('setBtcTransactionAtoms', data.atoms)
+        this.$store.commit('setBtcTransactionHash', data.password)
+        this.$store.commit('setBtcTransactionProgress', 2)
       }
     }
   },
@@ -166,7 +167,7 @@ export default {
       between: between(0.01, 500)
     },
     fields: {
-      coins: {
+      atoms: {
         required,
         between: between(20, 1000000)
       },
