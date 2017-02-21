@@ -13,13 +13,10 @@
 </template>
 
 <script>
-import firebase from './scripts/firebase.js'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
-// import getLang from './scripts/getLang.js'
-// import Vue from 'vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -29,7 +26,7 @@ export default {
     Notifications
   },
   computed: {
-    ...mapGetters(['notifications'])
+    ...mapGetters(['notifications', 'session'])
   },
   head: {
     meta: [
@@ -55,21 +52,16 @@ export default {
     ]
   },
   mounted () {
-    // Vue.config.lang = getLang()
-
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        self.$store.commit('setSessionUserDisplayName', user.displayName)
-        self.$store.commit('setSessionUserEmail', user.email)
-        self.$store.commit('setSessionUserPhotoUrl', user.photoUrl)
-        self.$store.commit('setSessionUserUid', user.uid)
-        console.log('signed in:', user.email)
-      } else {
-        self.$store.commit('clearSessionUser')
-        // console.log('signed out')
-      }
-    })
+    let user = this.sessionUser
+    if (user.signedIn) {
+      this.$store.commit('setSessionUserDisplayName', user.displayName)
+      this.$store.commit('setSessionUserEmail', user.email)
+      this.$store.commit('setSessionUserPhotoUrl', user.photoUrl)
+      this.$store.commit('setSessionUserUid', user.uid)
+      console.log('signed in:', user.email)
+    } else {
+      this.$store.commit('signOut')
+    }
   },
   store
 }

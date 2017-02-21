@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import PageHeader from '@nylira/vue-page-header'
 import Btn from '@nylira/vue-button'
 export default {
@@ -57,17 +56,14 @@ export default {
     }
   },
   beforeMount () {
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) {
-        self.$store.commit('setSessionRequest', self.$route.path)
-        self.$router.replace('/signup')
-        self.$store.commit(
-          'notifyAuthRequired',
-          'You must sign up first before you may participate in the fundraise.'
-        )
-      }
-    })
+    if (!this.sessionUser.signedIn) {
+      this.$store.commit('setSessionRequest', this.$route.path)
+      this.$router.replace('/signup')
+      this.$store.commit(
+        'notifyAuthRequired',
+        'You must sign up first before you may participate in the fundraise.'
+      )
+    }
   }
 }
 </script>

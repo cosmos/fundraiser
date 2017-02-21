@@ -2,7 +2,8 @@ const emptyUser = {
   displayName: '',
   email: '',
   photoUrl: '',
-  uid: ''
+  uid: '',
+  signedIn: false
 }
 
 const state = {
@@ -11,6 +12,13 @@ const state = {
 }
 
 const mutations = {
+  signIn (state, value) {
+    state.user.email = value
+  },
+  signOut (state) {
+    state.user = JSON.parse(JSON.stringify(emptyUser))
+    console.log('signed out')
+  },
   setSessionRequest (state, url) {
     if (['/signup', '/signin', '/settings'].includes(url)) {
       state.request = '/'
@@ -19,10 +27,6 @@ const mutations = {
       state.request = url
       console.log('setting session request', url)
     }
-  },
-  clearSessionUser (state) {
-    state.user = JSON.parse(JSON.stringify(emptyUser))
-    // console.log('setting session user')
   },
   setSessionUserDisplayName (state, value) {
     state.user.displayName = value

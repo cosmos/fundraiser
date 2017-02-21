@@ -30,19 +30,19 @@
   </menu>
 
   <div class="header-item" @click="toggleMenuUser">
-    <i v-if="!activeMenuUser && !sessionUser.email" class="fa fa-user-o"></i>
-    <i v-else-if="!activeMenuUser &&  sessionUser.email" class="fa fa-user"></i>
+    <i v-if="!activeMenuUser && !sessionUser.signedIn" class="fa fa-user-o"></i>
+    <i v-else-if="!activeMenuUser &&  sessionUser.signedIn" class="fa fa-user"></i>
     <i v-else class="fa fa-times"></i>
 
     <template v-if="desktop">
-      <div v-if="sessionUser.email">Profile</div>
+      <div v-if="sessionUser.signedIn">Profile</div>
       <div v-else>Sign In</div>
     </template>
   </div>
 
   <menu class="menu-popup menu-user" v-if="activeMenuUser">
     <nav class="nav-user">
-      <template v-if="sessionUser.email">
+      <template v-if="sessionUser.signedIn">
         <a @click="goto('/settings')">Settings</a>
         <a @click="signOut">Sign Out</a>
       </template>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import disableScroll from 'disable-scroll'
 export default {
@@ -72,9 +71,7 @@ export default {
     isTocPage () {
       return this.$route.name === 'whitepaper' || this.$route.name === 'whitepaper-localized' || this.$route.name === 'faq' || this.$route.name === 'faq-localized' || this.$route.name === 'plan' || this.$route.name === 'plan-localized'
     },
-    ...mapGetters([
-      'sessionUser'
-    ])
+    ...mapGetters(['sessionUser'])
   },
   data () {
     return {
@@ -117,12 +114,9 @@ export default {
     },
     signOut () {
       this.closeMenus()
-      let self = this
-      firebase.auth().signOut().then(function () {
-        self.$store.commit('notifyCustom', { title: 'Signed Out', body: 'Come back again soon!' })
-      }, function (error) {
-        self.$store.commit('notifyError', { title: error.code, body: error.message })
-      })
+      this.$store.commit('signOut')
+      this.$store.commit('notifyCustom', { title: 'Signed Out', body: 'Come back again soon!' })
+      // this.$store.commit('notifyError', { title: error.code, body: error.message })
     },
     watchWindowSize () {
       let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)

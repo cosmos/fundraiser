@@ -10,7 +10,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import firebase from 'firebase'
 import PageHeader from '@nylira/vue-page-header'
 import PayBtc01 from './PayBtc01'
 import PayBtc02 from './PayBtc02'
@@ -38,17 +37,14 @@ export default {
     }
   },
   beforeMount () {
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) {
-        self.$store.commit('setSessionRequest', self.$route.path)
-        self.$router.replace('/signup')
-        self.$store.commit(
-          'notifyAuthRequired',
-          'You must sign up first before you may participate in the fundraise.'
-        )
-      }
-    })
+    if (!this.sessionUser.signedIn) {
+      this.$store.commit('setSessionRequest', this.$route.path)
+      this.$router.replace('/signup')
+      this.$store.commit(
+        'notifyAuthRequired',
+        'You must sign up first before you may participate in the fundraise.'
+      )
+    }
   },
   beforeDestroy () {
     this.$store.commit('resetBtcTransaction')
