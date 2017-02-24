@@ -26,7 +26,7 @@ export default {
     Notifications
   },
   computed: {
-    ...mapGetters(['notifications', 'session'])
+    ...mapGetters(['notifications', 'sessionUser'])
   },
   head: {
     meta: [
@@ -50,18 +50,6 @@ export default {
       { r: 'icon', t: 'image/png', sz: '16x16', h: require('./assets/favicon/favicon-16x16.png') },
       { r: 'manifest', h: require('./assets/favicon/manifest.json') }
     ]
-  },
-  mounted () {
-    let user = this.sessionUser
-    if (user.signedIn) {
-      this.$store.commit('setSessionUserDisplayName', user.displayName)
-      this.$store.commit('setSessionUserEmail', user.email)
-      this.$store.commit('setSessionUserPhotoUrl', user.photoUrl)
-      this.$store.commit('setSessionUserUid', user.uid)
-      console.log('signed in:', user.email)
-    } else {
-      this.$store.commit('signOut')
-    }
   },
   store
 }

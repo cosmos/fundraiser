@@ -12,12 +12,25 @@ const state = {
 }
 
 const mutations = {
-  signIn (state, value) {
-    state.user.email = value
+  signIn (state, data) {
+    state.user.email = data.email
+    state.user.password = data.password
+    state.user.signedIn = true
+    console.log('signed in')
   },
   signOut (state) {
     state.user = JSON.parse(JSON.stringify(emptyUser))
     console.log('signed out')
+  },
+  signUp (state, data) {
+    state.user.displayName = data.displayName
+    state.user.email = data.email
+    state.user.password = data.password
+    state.user.signedIn = true
+    console.log('signed up')
+  },
+  sendPasswordResetEmail (state, email) {
+    console.log('TODO: send password reset email')
   },
   setSessionRequest (state, url) {
     if (['/signup', '/signin', '/settings'].includes(url)) {

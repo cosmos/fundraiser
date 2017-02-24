@@ -1,5 +1,4 @@
 import VueRouter from 'vue-router'
-import { SignUp, SignIn, Reset, Settings } from '@nylira/vue-user-pages'
 function r (filename) { return require('../components/Page' + filename) }
 
 const routes = [
@@ -7,10 +6,10 @@ const routes = [
   { path: '/btc', component: r('PayBtc') },
   { path: '/eth', component: r('PayEth') },
 
-  { path: '/signup', name: 'signup', component: SignUp },
-  { path: '/signin', name: 'signin', component: SignIn },
-  { path: '/reset', name: 'reset', component: Reset },
-  { path: '/settings', name: 'settings', component: Settings },
+  { path: '/signup', name: 'signup', component: r('UserSignUp') },
+  { path: '/signin', name: 'signin', component: r('UserSignIn') },
+  { path: '/reset', name: 'reset', component: r('UserReset') },
+  { path: '/settings', name: 'settings', component: r('UserSettings') },
 
   // wildcards
   { path: '/404', component: r('404') },

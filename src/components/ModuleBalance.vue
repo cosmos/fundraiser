@@ -24,7 +24,8 @@ export default {
   },
   computed: {
     balance () {
-      let myTransactions = this.transactions.filter(t => t.userId === this.sessionUser.uid)
+      // let myTransactions = this.transactions.filter(t => t.userId === this.sessionUser.uid)
+      let myTransactions = this.transactions
       let total = reduce(myTransactions, (acc, t) => acc + t.atoms, 0)
       return total
     },

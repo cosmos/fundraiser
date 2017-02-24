@@ -17,7 +17,7 @@
       </header>
       <div
         class="card-transaction"
-        v-for="t in filteredTransactions" 
+        v-for="t in transactions" 
         @click="toggleDetails">
         <div :class="'type type-' + t.type">{{ t.type }}</div>
         <div class="paid">
