@@ -24,13 +24,13 @@ export default {
   },
   computed: {
     balance () {
-      if (this.transactions) {
+      if (this.transactions.length > 0) {
         // let myTransactions = this.transactions.filter(t => t.userId === this.sessionUser.uid)
         let myTransactions = this.transactions
         let total = reduce(myTransactions, (acc, t) => acc + t.atoms, 0)
         return total
       }
-      return 0
+      return 0.0
     },
     ...mapGetters(['transactions', 'sessionUser'])
   },
