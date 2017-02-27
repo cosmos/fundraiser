@@ -97,7 +97,6 @@ export default {
     .unit
       color light
       font-size 0.75rem
-      text-transform uppercase
       font-weight 400
 
   footer
