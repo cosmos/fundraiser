@@ -56,4 +56,5 @@ export default {
   padding 0.25rem
   .module
     flex 0 0 100%
+    min-height 142px
 </style>
