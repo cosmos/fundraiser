@@ -9,9 +9,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Module from './Module'
 import Countdown from '@nylira/vue-countdown'
-import { mapGetters } from 'vuex'
 import moment from 'moment'
 export default {
   components: {

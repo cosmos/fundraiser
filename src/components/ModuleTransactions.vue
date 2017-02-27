@@ -9,15 +9,15 @@
       </menu>
     </header>
     <div class="transactions">
-      <header class="header-transaction">
+      <div class="header-transaction">
         <div class="type">Type</div>
         <div class="paid">Paid</div>
         <div class="received">Received</div>
         <div class="date">Date</div>
-      </header>
+      </div>
       <div
         class="card-transaction"
-        v-for="t in transactions" 
+        v-for="t in orderedTransactions" 
         @click="toggleDetails">
         <div :class="'type type-' + t.type">{{ t.type }}</div>
         <div class="paid">
@@ -56,7 +56,7 @@ export default {
       return []
     },
     orderedTransactions () {
-      return orderBy(this.myTransactions, ['time'], ['desc'])
+      return orderBy(this.transactions, ['time'], ['desc'])
     },
     filteredTransactions () {
       if (this.filter) {

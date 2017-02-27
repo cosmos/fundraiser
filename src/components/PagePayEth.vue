@@ -40,12 +40,18 @@
 <script>
 import PageHeader from '@nylira/vue-page-header'
 import Btn from '@nylira/vue-button'
+import { mapGetters } from 'vuex'
 export default {
   name: 'page-fund',
   components: {
     PageHeader,
     Btn
   },
+  computed: {
+    ...mapGetters(['sessionUser'])
+  },
+  data: () => ({
+  }),
   head: {
     title () {
       return {

@@ -2,7 +2,7 @@
   <div class="page-index">
     <page-header title="Dashboard" type="center"></page-header>
     <div class="modules">
-      <module-progress></module-progress>
+      <module-statistics></module-statistics>
       <module-balance></module-balance>
       <module-countdown></module-countdown>
       <module-payment v-for="coin in config.COINS" :coin="coin"></module-payment>
@@ -14,7 +14,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '@nylira/vue-page-header'
-import ModuleProgress from './ModuleProgress'
+import ModuleStatistics from './ModuleStatistics'
 import ModuleBalance from './ModuleBalance'
 import ModuleCountdown from './ModuleCountdown'
 import ModulePayment from './ModulePayment'
@@ -23,7 +23,7 @@ export default {
   name: 'page-index',
   components: {
     PageHeader,
-    ModuleProgress,
+    ModuleStatistics,
     ModuleBalance,
     ModuleCountdown,
     ModulePayment,

@@ -11,12 +11,9 @@
       </div>
       <div class="text">
         <div class="exchange-rate">
-          <span class="value">1.0 {{ coin.UNIT }}</span>
-          =
-          <span class="value">{{ exchangeRate }} atoms</span>
-        </div>
-        <div class="minimum-payment">
-          Minimum Payment: {{ coin.MIN_PAYMENT }} {{ coin.UNIT }}
+          <span class="value">1 {{ coin.UNIT }}</span>
+          :
+          <span class="value">{{ exchangeRate }} ATM</span>
         </div>
         <btn
           :value="'Pay with ' + coin.UNIT"
@@ -25,6 +22,9 @@
           icon-pos="right"
           >
         </btn>
+        <div class="min-payment">
+          Min Payment: {{ coin.MIN_PAYMENT }} {{ coin.UNIT }}
+        </div>
       </div>
     </div>
     <!--
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     exchangeRate () {
-      return num.pretty(this.coin.EXCHANGE_RATE)
+      return num.int(this.coin.EXCHANGE_RATE)
     }
   },
   methods: {
@@ -66,12 +66,13 @@ export default {
     display flex
 
   .img
-    flex 0 0 33.333%
+    flex 0 0 25%
     max-width 8rem
 
     display flex
     align-items center
     justify-content center
+
     img
       width 66.66%
       display block
@@ -96,32 +97,26 @@ export default {
 
     .exchange-rate
       color light
-      font-size 1.25rem
+      margin-bottom 0.75rem
       line-height 1
-      margin-bottom 0.5rem
       .value
-        font-weight 400
+        font-weight 500
         color mcolor
 
-    .minimum-payment
+    .min-payment
       font-size 0.75rem
       color light
-      margin-bottom 0.5rem
+
     .ni-btn-wrapper
       max-width 10rem
+      margin-bottom 0.5rem
 
 @media screen and (min-width:720px)
   .module.module-payment
-    .body
-      padding 2rem 0
+    flex 0 0 50%
     .text
       .exchange-rate
         font-size 1.5rem
-      .minimum-payment
-        font-size 1rem
-        margin-bottom 1rem
-
-@media screen and (min-width:960px)
-  .module.module-payment
-    flex 0 0 50%
+        .value
+          font-weight 400
 </style>

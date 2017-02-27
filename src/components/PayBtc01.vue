@@ -15,16 +15,25 @@
         type="number"
         v-model="amountBtc"
         @input="$v.amountBtc.$touch()"
-        min="0.1"
-        max="500"
-        step="0.01"
-        required
-      >
+        :min="config.COINS.BTC.MIN_PAYMENT"
+        :max="config.COINS.BTC.MAX_PAYMENT"
+        :step="config.COINS.BTC.MIN_PAYMENT"
+        required>
       </field>
       <div class="input-group-addon">BTC</div>
     </div>
-    <form-msg name="BTC amount" type="required" v-if="!$v.amountBtc.required"></form-msg>
-    <form-msg name="BTC amount" type="between" min="0.01" max="500" v-if="!$v.amountBtc.between"></form-msg>
+    <form-msg
+      name="BTC amount"
+      type="required"
+      v-if="!$v.amountBtc.required">
+    </form-msg>
+    <form-msg
+      name="BTC amount"
+      type="between"
+      :min="config.COINS.BTC.MIN_PAYMENT"
+      :max="config.COINS.BTC.MAX_PAYMENT"
+      v-if="!$v.amountBtc.between">
+    </form-msg>
 
     <label class="hidden" for="fund-btc-amount-atoms">Amount in Atoms</label>
     <div class="input-group">
@@ -33,23 +42,34 @@
         v-model="fields.atoms"
         type="number"
         @input="$v.fields.atoms.$touch()"
-        min="20.00"
-        max="1000000"
-        step="20"
-        required
-      >
+        :min="config.ATOM.MIN_BUY"
+        :max="config.ATOM.MAX_BUY"
+        :step="config.ATOM.MIN_BUY"
+        required>
       </field>
       <div class="input-group-addon">Atoms</div>
     </div>
-    <form-msg name="Atom amount" type="required" v-if="!$v.fields.atoms.required"></form-msg>
-    <form-msg name="Atom amount" type="between" min="20" max="1,000,000" v-if="!$v.fields.atoms.between"></form-msg>
-    <form-msg body="Price: 1 BTC buys 2,000 Atoms."></form-msg>
+    <form-msg
+      name="Atom amount"
+      type="required"
+      v-if="!$v.fields.atoms.required">
+    </form-msg>
+    <form-msg
+      name="Atom amount"
+      type="between"
+      :min="config.ATOM.MIN_BUY"
+      :max="config.ATOM.MAX_BUY"
+      v-if="!$v.fields.atoms.between">
+    </form-msg>
+    <form-msg
+      body="Price: 1 BTC buys 2,000 Atoms.">
+    </form-msg>
 
     <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
     <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
   </div>
 
-  <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
+  <div class="form-group":class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
     <label>Create a wallet password.</label>
 
     <label class="hidden" for="fund-btc-password">Password</label>
@@ -101,7 +121,7 @@
 </template>
 
 <script>
-import { required, between, sameAs, minLength } from 'vuelidate/lib/validators'
+import { required, between, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
@@ -124,35 +144,27 @@ export default {
         if (newValue === '.' || newValue === '' || newValue === ' ') {
           this.fields.atoms = 0
         } else {
-          this.fields.atoms = newValue * 2000.00
+          this.fields.atoms = newValue * this.config.COINS.BTC.EXCHANGE_RATE
         }
       }
     },
     ...mapGetters(['sessionUser', 'config'])
   },
-  data () {
-    return {
-      fields: {
-        // atoms: 1000,
-        // password: 'blowfish',
-        // confirmPassword: 'blowfish'
-        atoms: 0,
-        password: '',
-        confirmPassword: ''
-      }
+  data: () => ({
+    fields: {
+      atoms: 0,
+      password: '',
+      confirmPassword: ''
     }
-  },
+  }),
   methods: {
     nextStep () {
       this.$v.$touch()
-      let data = this.fields
-      if (this.$v.$error) {
-        console.log('errors in the form, not going anywhere')
-      } else {
+      if (!this.$v.$error) {
         this.$store.commit('setBtcTransactionUserId', this.sessionUser.uid)
         this.$store.commit('setBtcTransactionPrice', this.config.COINS.BTC.EXCHANGE_RATE)
-        this.$store.commit('setBtcTransactionAtoms', data.atoms)
-        this.$store.commit('setBtcTransactionHash', data.password)
+        this.$store.commit('setBtcTransactionAtoms', this.fields.atoms)
+        this.$store.commit('setBtcTransactionHash', this.fields.password)
         this.$store.commit('setBtcTransactionProgress', 2)
       }
     }
@@ -164,16 +176,23 @@ export default {
   validations: {
     amountBtc: {
       required,
-      between: between(0.01, 500)
+      between (value) {
+        return between(this.config.COINS.BTC.MIN_PAYMENT,
+          this.config.COINS.BTC.MAX_PAYMENT)(value)
+      }
     },
     fields: {
       atoms: {
         required,
-        between: between(20, 1000000)
+        between (value) {
+          return between(this.config.ATOM.MIN_BUY,
+            this.config.ATOM.MAX_BUY)(value)
+        }
       },
       password: {
         required,
-        minLength: minLength(8)
+        minLength (value) { return minLength(this.config.PASSWORD_MIN)(value) },
+        maxLength (value) { return maxLength(this.config.PASSWORD_MAX)(value) }
       },
       confirmPassword: {
         required,

@@ -80,12 +80,12 @@ export default {
     flex-flow column no-wrap
     align-items center
 
-    padding 0.5rem 1rem
+    padding 1rem
 
     .value
       font-size 1.5rem
       line-height 1
-      margin-bottom 0.5rem
+      margin-bottom 0.75rem
       font-weight 400
       color mcolor
       .fraction
@@ -96,6 +96,9 @@ export default {
 
     .unit
       color light
+      font-size 0.75rem
+      text-transform uppercase
+      font-weight 400
 
   footer
     height 2rem
@@ -138,4 +141,7 @@ export default {
     .component
       .value
         font-size 1.5rem
+      .unit
+        font-size 1rem
+        font-weight 300
 </style>
