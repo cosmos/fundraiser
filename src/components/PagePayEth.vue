@@ -1,57 +1,66 @@
 <template>
 <div class="page page-fund">
-  <page-header
-    title="Pay with ETH"
-    subtitle="There are three ways to send ETH to the contribution smart contract."
-    type="center">
-  </page-header>
-  <div class="methods">
-    <div class="method">
-      <div class="text">
+  <div class="modules">
+    <module>
+      <header>
         <div class="title">Send ETH via Wallet</div>
+      </header>
+      <div class="body">
         <div class="description">
           Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
         </div>
       </div>
-      <btn value="Start Walkthrough"></btn>
-    </div>
-    <div class="method">
-      <div class="text">
+      <footer>
+        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
+      </footer>
+    </module>
+
+    <module class="container">
+      <header>
         <div class="title">Send ETH via Third Party</div>
+      </header>
+      <div class="body">
         <div class="description">
           Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
         </div>
       </div>
-      <btn value="Start Walkthrough"></btn>
-    </div>
-    <div class="method">
-      <div class="text">
+      <footer>
+        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
+      </footer>
+    </module>
+
+    <module>
+      <header>
         <div class="title">Send ETH via web3 "dapp"</div>
+      </header>
+      <div class="body">
         <div class="description">
           Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
         </div>
       </div>
-      <btn value="Start Walkthrough"></btn>
-    </div>
+      <footer>
+        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
+      </footer>
+    </module>
   </div>
 </div>
 </template>
 
 <script>
 import PageHeader from '@nylira/vue-page-header'
+import Module from './Module'
 import Btn from '@nylira/vue-button'
 import { mapGetters } from 'vuex'
 export default {
   name: 'page-fund',
   components: {
     PageHeader,
-    Btn
+    Btn,
+    Module
   },
   computed: {
     ...mapGetters(['sessionUser'])
   },
-  data: () => ({
-  }),
   head: {
     title () {
       return {
@@ -62,6 +71,7 @@ export default {
     }
   },
   beforeMount () {
+    /*
     if (!this.sessionUser.signedIn) {
       this.$store.commit('setSessionRequest', this.$route.path)
       this.$router.replace('/signup')
@@ -70,6 +80,7 @@ export default {
         'You must sign up first before you may participate in the fundraise.'
       )
     }
+    */
   }
 }
 </script>
@@ -77,50 +88,27 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.method
-  border-top 1px solid bc
-  padding 1rem
-  background c-app-fg
-  display flex
-  flex-flow column nowrap
-  &:last-of-type
-    border-bottom 1px solid bc
-
-  .text
-    flex 1
-
-    .title
-      font-weight 500
-      font-size 1.25rem
-    .description
-      color dim
-      margin-bottom 1rem
-
-  .ni-btn
-    max-width 14rem
-    width 100%
-
-@media screen and (min-width: 360px)
-  .method
-    padding 1.5rem
-
-@media screen and (min-width: 640px)
-  .method
-    max-width 40rem
-    border 1px solid bc
-    margin 0 auto 1rem
-
-@media screen and (min-width: 960px)
-  .methods
+@media screen and (min-width: 768px)
+  .page-fund .modules
     display flex
-    padding 0 0.5rem
-    max-width 75rem
-    margin 0 auto
+    flex-flow row wrap
+    align-items stretch
+    .module
+      flex 0 0 50%
+      display flex
+      .container
+        flex 1
+        display flex
+        flex-flow column
+        .body
+          flex 1
+          display flex
 
-  .method
-    max-width 40rem
-    border 1px solid bc
-    margin 0 0.5rem
-
-    align-items center
+@media screen and (min-width: 1024px)
+  .page-fund .modules
+    display flex
+    flex-flow row wrap
+    .module
+      flex 0 0 33.333%
 </style>
+

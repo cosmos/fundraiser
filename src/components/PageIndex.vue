@@ -1,6 +1,5 @@
 <template>
   <div class="page-index">
-    <page-header title="Dashboard" type="center"></page-header>
     <div class="modules">
       <module-statistics></module-statistics>
       <module-balance></module-balance>
@@ -43,18 +42,11 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.modules
-  display flex
-  flex-flow row wrap
-  max-width 960px
-  margin 0 auto
-
-  padding 0.25rem
+.page-index .modules
   .module
-    flex 0 0 100%
     min-height 142px
 </style>
+

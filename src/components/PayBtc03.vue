@@ -2,8 +2,8 @@
 <form class="form" v-on:submit.prevent.default="nextStep">
 
   <div class="form-header">
-    <div class="title">Step 3</div>
-    <div class="subtitle">Download your presale atom wallet.</div>
+    <div class="title">Pay with BTC</div>
+    <div class="subtitle">Step 3 - Download your presale atom wallet.</div>
   </div>
 
   <div id="form-group-download" class="form-group">

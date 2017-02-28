@@ -17,9 +17,12 @@
       </div>
       <div
         class="card-transaction"
-        v-for="t in orderedTransactions" 
+        v-for="t in filteredTransactions" 
         @click="toggleDetails">
-        <div :class="'type type-' + t.type">{{ t.type }}</div>
+        <div class="type">
+          <img v-if="t.type === 'btc'" src="../assets/images/logo-bitcoin-320.png">
+          <img v-else src="../assets/images/logo-ethereum-320.png">
+        </div>
         <div class="paid">
           {{ flexibleNumber(t.atoms / t.price) }}
           <span class="unit">{{ t.type }}</span>
@@ -105,8 +108,7 @@ export default {
 
 .module-transactions
   .transactions
-    max-width 960px
-    margin 0 auto
+    max-width 1024px
     font-size 0.75rem
 
   .header-transaction
@@ -123,6 +125,8 @@ export default {
     .type
       flex 1
       display none
+      img
+        width 1rem
 
     .paid, .received
       flex 2
@@ -165,7 +169,7 @@ export default {
       .unit
         font-size 0.75rem
 
-@media screen and (min-width:720px)
+@media screen and (min-width:768px)
   .module-transactions
     .card-transaction
       .paid, .received

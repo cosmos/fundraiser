@@ -1,8 +1,7 @@
 .form
-  border-top 1px solid bc
-  border-bottom 1px solid bc
-  margin-left auto
-  margin-right auto
+  background c-app-fg
+  margin 0.5rem
+  box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
   &.form-narrow
     max-width 32rem
@@ -15,11 +14,9 @@
 
   .title
     font-weight bold
-    text-transform uppercase
 
   .subtitle
     color dim
-    margin-top 0.25rem
     &:first-of-type
       margin-top 0
     strong
@@ -37,12 +34,11 @@
   border-bottom 1px dotted bc
   label
     display block
-    font-size 0.66666rem
-    text-transform uppercase
-    color light
-    font-weight bold
+    font-size 0.875rem
+    font-weight 500
     padding 0.667rem 0 0.333rem
-    line-height 1rem
+    line-height 1.25
+    margin-bottom 0.375rem
 
   .ni-field
     margin-bottom 0.5rem
@@ -69,8 +65,10 @@
 
   .ni-field + .ni-btn-wrapper
     flex 1
+
   .ni-field + .ni-btn-wrapper .ni-btn
     border-left none
+
   .input-group-addon
     flex 1
 
@@ -84,7 +82,7 @@
       .title
         font-size 1.125rem
 
-@media screen and (min-width: 360px)
+@media screen and (min-width: 400px)
   .form
     .form-header, .form-footer
       padding 1.5rem
@@ -94,10 +92,11 @@
       .title
         font-size 1.25rem
 
-@media screen and (min-width: 512px)
-  .form
-    border 1px solid bc
 
-@media screen and (min-width: 720px)
+@media screen and (min-width: 32rem)
   .form
-    margin-bottom 3rem
+    margin 0.666rem auto
+
+@media screen and (min-width: 1024px)
+  .form
+    margin 0.75rem auto

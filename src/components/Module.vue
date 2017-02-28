@@ -22,6 +22,17 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
+.modules
+  padding 0.25rem
+
+  display flex
+  flex-flow row wrap
+  max-width 1024px
+  margin 0 auto
+
+  .module
+    flex 0 0 100%
+
 .module
   padding 0.25rem
   min-width 0
@@ -45,9 +56,11 @@ export default {
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
+
     menu
       display flex
       padding 0 0.5rem
+
       a
         color txt
         font-size 0.75rem
@@ -60,7 +73,8 @@ export default {
 
   .body
     background c-app-fg
-    padding 1rem
+    padding 0.5rem 0.75rem
+    font-size 0.875rem
 
   .components, .ni-countdown
     display flex
@@ -79,7 +93,6 @@ export default {
     display flex
     flex-flow column no-wrap
     align-items center
-
     padding 1rem
 
     .value
@@ -88,6 +101,7 @@ export default {
       margin-bottom 0.75rem
       font-weight 400
       color mcolor
+
       .fraction
         font-weight 300
 
@@ -100,14 +114,22 @@ export default {
       font-weight 400
 
   footer
+    border-top 1px dotted bc
     height 2rem
-    padding 0 0.5rem
-    border-top 1px solid bc
     display flex
     align-items center
+    justify-content flex-end
 
     font-size 0.75rem
     color dim
+
+    .ni-btn
+      border-right none
+      border-bottom none
+      border-top none
+      border-left 1px dotted bc
+      height 2rem - 0.0625rem
+      font-size 0.875rem
 
     a
       font-weight 400
@@ -122,25 +144,45 @@ export default {
       text-overflow ellipsis
       overflow hidden
 
-@media screen and (min-width: 400px)
+@media screen and (min-width: 414px)
   .module
     .components, .ni-countdown
       padding 0.75rem 0
+
     .component
       padding 0.75rem 1rem
 
-@media screen and (min-width: 720px)
+@media screen and (min-width: 768px)
+  .modules, .module
+    padding 0.333rem
+
   .module
     &.module-sm
       flex 0 0 50%
+
+    header
+      height 2.5rem
+      .title
+        font-size 1rem
+
+    .body
+      padding 1rem
+      font-size 1rem
+
     .components, .ni-countdown
       padding 1rem 0
+
     .component
       padding 1rem 1rem
+      
     .component
       .value
         font-size 1.5rem
       .unit
         font-size 1rem
         font-weight 300
+
+@media screen and (min-width: 1024px)
+  .modules, .module
+    padding 0.375rem
 </style>

@@ -97,8 +97,7 @@ export default {
 
     .exchange-rate
       color light
-      margin-bottom 0.75rem
-      line-height 1
+      margin-bottom 0.5rem
       .value
         font-weight 500
         color mcolor
@@ -111,12 +110,7 @@ export default {
       max-width 10rem
       margin-bottom 0.5rem
 
-@media screen and (min-width:720px)
+@media screen and (min-width:768px)
   .module.module-payment
     flex 0 0 50%
-    .text
-      .exchange-rate
-        font-size 1.5rem
-        .value
-          font-weight 400
 </style>

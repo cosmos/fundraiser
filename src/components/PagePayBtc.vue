@@ -1,6 +1,5 @@
 <template>
 <div class="page page-fund">
-  <page-header title="Pay with BTC" type="center"></page-header>
   <pay-btc-01 v-if="btcTransaction.progress === 1"></pay-btc-01>
   <pay-btc-02 v-if="btcTransaction.progress === 2"></pay-btc-02>
   <pay-btc-03 v-if="btcTransaction.progress === 3"></pay-btc-03>
@@ -37,6 +36,7 @@ export default {
     }
   },
   beforeMount () {
+    /*
     if (!this.sessionUser.signedIn) {
       this.$store.commit('setSessionRequest', this.$route.path)
       this.$router.replace('/signup')
@@ -45,27 +45,10 @@ export default {
         'You must sign up first before you may participate in the fundraise.'
       )
     }
+    */
   },
   beforeDestroy () {
     this.$store.commit('resetBtcTransaction')
   }
 }
 </script>
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-
-.page-fund .ni-page-header
-  border-bottom none
-
-.page-fund .form
-  max-width 32rem
-  margin 0 auto
-
-.step
-  border-bottom 1px solid bc
-  padding 0.5rem 0
-  .step-title
-    font-weight bold
-    padding 0 1rem
-</style>

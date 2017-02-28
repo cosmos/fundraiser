@@ -1,8 +1,9 @@
 <template>
-<form class="form" v-on:submit.prevent.default="nextStep">
+<form class="form form-narrow" v-on:submit.prevent.default="nextStep">
 
   <div class="form-header">
-    <div class="title">Step 1</div>
+    <div class="title">Pay with BTC</div>
+    <div class="subtitle">Step 1</div>
   </div>
 
   <div class="form-group" :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
@@ -10,9 +11,7 @@
 
     <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
     <div class="input-group">
-      <field
-        id="fund-btc-amount-btc"
-        type="number"
+      <field id="fund-btc-amount-btc" type="number"
         v-model="amountBtc"
         @input="$v.amountBtc.$touch()"
         :min="config.COINS.BTC.MIN_PAYMENT"
@@ -79,8 +78,7 @@
         placeholder="Enter your password"
         v-model="fields.password"
         @input="$v.fields.password.$touch()"
-        required
-      >
+        required>
       </field>
     </div>
     <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
@@ -95,16 +93,26 @@
         placeholder="Re-enter your password"
         v-model="fields.confirmPassword"
         @input="$v.fields.confirmPassword.$touch()"
-        required
-      >
+        required>
       </field>
     </div>
-    <form-msg name="Password confirmation" type="required" v-if="!$v.fields.confirmPassword.required"></form-msg>
-    <form-msg name="Passwords" type="match" v-if="!$v.fields.confirmPassword.sameAsPassword"></form-msg>
+    <form-msg
+      name="Password confirmation"
+      type="required"
+      v-if="!$v.fields.confirmPassword.required">
+    </form-msg>
+    <form-msg
+      name="Passwords"
+      type="match"
+      v-if="!$v.fields.confirmPassword.sameAsPassword">
+    </form-msg>
 
     <form-msg body="This is required to encrypt and access your wallet."></form-msg>
     <form-msg body="This should NOT be the same as your account password."></form-msg>
-    <vuelidate-debug name="fields.confirmPassword" :data="$v.fields.confirmPassword"></vuelidate-debug>
+    <vuelidate-debug
+      name="fields.confirmPassword"
+      :data="$v.fields.confirmPassword">
+    </vuelidate-debug>
   </div>
 
   <div class="form-footer">

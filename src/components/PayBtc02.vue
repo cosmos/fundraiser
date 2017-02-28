@@ -2,8 +2,8 @@
 <form class="form" v-on:submit.prevent.default="nextStep">
 
   <div class="form-header">
-    <div class="title">Step 2</div>
-    <div class="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
+    <div class="title">Pay with BTC</div>
+    <div class="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
   </div>
 
   <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">

@@ -2,8 +2,8 @@
 <form class="form" v-on:submit.prevent.default="nextStep">
 
   <div class="form-header">
-    <div class="title">Step 4</div>
-    <div class="subtitle">Pay <strong>{{ btcTransaction.price }} BTC</strong> to the specified Bitcoin address below.</div>
+    <div class="title">Pay with BTC</div>
+    <div class="subtitle">Step 4 - Pay {{ btcTransaction.price }} BTC to the specified Bitcoin address below.</div>
   </div>
 
   <div class="form-group">
@@ -41,8 +41,7 @@
     <div class="input-group">
       <field
         input-type="number"
-        v-model="btcTransaction.atoms"
-      >
+        v-model="btcTransaction.atoms">
       </field>
       <div class="input-group-addon">Atoms</i></div>
     </div>

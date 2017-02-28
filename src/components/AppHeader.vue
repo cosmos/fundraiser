@@ -1,32 +1,31 @@
 <template>
 <header class="app-header">
+  <div class="container">
 
   <div class="header-item" @click="toggleMenuApp" v-if="!desktop">
     <i v-if="!activeMenuApp" class="fa fa-bars"></i>
     <i v-else class="fa fa-times"></i>
   </div>
 
-  <a @click="goto('/')" id="logo" class="header-item">
+  <router-link to="/" @click.native="closeMenus" id="logo" class="header-item">
     <img class="title" src="../assets/images/cosmos_logo_m.png" alt="Cosmos Logo">
     <span class="subtitle">Fundraiser</span>
-  </a>
+  </router-link>
 
   <menu class="menu-popup menu-app" v-if="activeMenuApp || desktop">
     <nav class="nav-app">
-      <a @click="goto('/')">Dashboard</a>
-      <a @click="goto('/btc')">Pay with BTC</a>
-      <a @click="goto('/eth')">Pay with ETH</a>
+      <router-link to="/" @click.native="closeMenus" exact>Dashboard</router-link>
+      <router-link to="/btc" @click.native="closeMenus">Pay with BTC</router-link>
+      <router-link to="/eth" @click.native="closeMenus">Pay with ETH</router-link>
     </nav>
+    <!--
     <nav>
       <a href="https://cosmos.network">
         <span class="label">Cosmos</span>
         <i class="fa fa-external-link"></i>
       </a>
-      <a href="https://tendermint.com">
-        <span class="label">Tendermint</span>
-        <i class="fa fa-external-link"></i>
-      </a>
     </nav>
+    -->
   </menu>
 
   <div class="header-item" @click="toggleMenuUser">
@@ -43,7 +42,7 @@
   <menu class="menu-popup menu-user" v-if="activeMenuUser">
     <nav class="nav-user">
       <template v-if="sessionUser.signedIn">
-        <a @click="goto('/settings')">Settings</a>
+        <router-link to="/settings">Settings</router-link>
         <a @click="signOut">Sign Out</a>
       </template>
       <template v-else>
@@ -52,6 +51,7 @@
       </template>
     </nav>
   </menu>
+  </div>
 </header>
 </template>
 
@@ -86,12 +86,6 @@ export default {
       this.activeMenuUser = false
       disableScroll.off()
     },
-    goto (route) {
-      this.closeMenus()
-      // console.log('going to', route)
-      this.$router.push(route)
-      return
-    },
     toggleMenuApp () {
       this.activeMenuApp = !this.activeMenuApp
       if (this.activeMenuApp) disableScroll.on()
@@ -120,7 +114,7 @@ export default {
     },
     watchWindowSize () {
       let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-      if (w >= 960) {
+      if (w >= 1024) {
         this.closeMenus()
         this.desktop = true
         return
@@ -149,9 +143,13 @@ export default {
   background #fff
   border-bottom 1px solid bc
 
-  display flex
-  flex-flow row wrap
-  justify-content space-between
+
+  .container
+    display flex
+    flex-flow row wrap
+    justify-content space-between
+    max-width 1024px
+    margin 0 auto
 
   .header-item
     height 3*x
@@ -182,8 +180,8 @@ export default {
       margin-bottom 0.15rem
     .subtitle
       font-weight bold
-      font-size 0.6rem
-      letter-spacing 0.14rem
+      font-size 0.5rem
+      letter-spacing 0.23rem
       text-transform uppercase
       color light
       line-height 1
@@ -194,6 +192,7 @@ export default {
         display flex
         align-items center
         cursor pointer
+        height 3rem
         .label
           flex 1
         i.fa
@@ -234,7 +233,11 @@ export default {
         &:hover
           color link
 
-@media screen and (min-width:960px)
+@media screen and (min-width:1024px)
+  .menu-popup nav a
+  .header-item div
+    font-weight 400
+
   .menu-app
     display flex
     padding 0 1rem
@@ -245,8 +248,12 @@ export default {
       a
         padding 0 1rem
         color txt
-        &:hover
-          color link
+        font-weight 400
+        border-left 1px dotted bc
+        &:last-of-type
+          border-right 1px dotted bc
+        &.router-link-active
+          background lighten(bc, 75%)
 
   .menu-user
     position fixed

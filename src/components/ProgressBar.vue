@@ -53,28 +53,26 @@ export default {
 
   .pb-bar-outer
     height 3rem
-    background c-app-bg
     display flex
-    border 1px solid bc
-    padding 1px
+    padding 0.125rem
+    background mcolor
 
   .pb-bar-inner
-    background mcolor
+    background link
 
     display flex
     justify-content flex-end
     align-items center
+
     .label
       padding 0 0.5em
       font-size 1.5rem
-      font-weight 300
-      color c-app-fg
-      color lighten(mcolor, 75%)
+      font-weight 400
+      color mcolor
       &.label-amount
         font-size 1rem
-        font-weight 400
+        font-weight 600
         display none
-        color lighten(mcolor, 25%)
 
   .description
     color light

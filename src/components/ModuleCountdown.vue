@@ -37,5 +37,5 @@ export default {
     flex-flow row
     .component
       flex 1
-      max-width 4rem
+      max-width 5rem
 </style>
