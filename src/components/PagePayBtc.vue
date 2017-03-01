@@ -1,9 +1,11 @@
 <template>
-<div class="page page-fund">
-  <pay-btc-01 v-if="btcTransaction.progress === 1"></pay-btc-01>
-  <pay-btc-02 v-if="btcTransaction.progress === 2"></pay-btc-02>
-  <pay-btc-03 v-if="btcTransaction.progress === 3"></pay-btc-03>
-  <pay-btc-04 v-if="btcTransaction.progress === 4"></pay-btc-04>
+<div class="page page-btc">
+  <div class="ni-forms">
+    <pay-btc-01 v-if="btcTransaction.progress === 1"></pay-btc-01>
+    <pay-btc-02 v-if="btcTransaction.progress === 2"></pay-btc-02>
+    <pay-btc-03 v-if="btcTransaction.progress === 3"></pay-btc-03>
+    <pay-btc-04 v-if="btcTransaction.progress === 4"></pay-btc-04>
+  </div>
 </div>
 </template>
 
@@ -15,7 +17,7 @@ import PayBtc02 from './PayBtc02'
 import PayBtc03 from './PayBtc03'
 import PayBtc04 from './PayBtc04'
 export default {
-  name: 'page-fund',
+  name: 'page-btc',
   components: {
     PageHeader,
     PayBtc01,
@@ -52,3 +54,13 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+
+.page-btc
+  .ni-form
+    margin 0 auto
+
+</style>

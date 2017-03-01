@@ -42,11 +42,4 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
-@import '../styles/variables.styl'
-
-.page-index .modules
-  .module
-    min-height 142px
-</style>
 

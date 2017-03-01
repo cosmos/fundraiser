@@ -117,7 +117,7 @@ export default {
     display flex
     align-items center
 
-    border-bottom 1px dotted bc
+    border-bottom 1px solid bc
 
     div
       padding 0.5rem

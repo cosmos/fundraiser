@@ -31,13 +31,16 @@ export default {
   margin 0 auto
 
   .module
-    flex 0 0 100%
+    flex 1 1 100%
+
 
 .module
   padding 0.25rem
   min-width 0
+  display flex
 
   .container
+    flex 1
     background c-app-fg
     box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
@@ -45,7 +48,7 @@ export default {
     height 2rem
     display flex
     align-items center
-    border-bottom 1px dotted bc
+    border-bottom 1px solid bc
 
     .title
       flex 1
@@ -114,7 +117,7 @@ export default {
       font-weight 400
 
   footer
-    border-top 1px dotted bc
+    border-top 1px solid bc
     height 2rem
     display flex
     align-items center
@@ -127,7 +130,7 @@ export default {
       border-right none
       border-bottom none
       border-top none
-      border-left 1px dotted bc
+      border-left 1px solid bc
       height 2rem - 0.0625rem
       font-size 0.875rem
 
@@ -158,7 +161,7 @@ export default {
 
   .module
     &.module-sm
-      flex 0 0 50%
+      flex 1 1 50%
 
     header
       height 2.5rem

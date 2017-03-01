@@ -1,47 +1,44 @@
 <template>
-<div class="page page-fund">
-  <div class="modules">
-    <module>
-      <header>
-        <div class="title">Send ETH via Wallet</div>
-      </header>
-      <div class="body">
-        <div class="description">
-          Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
-        </div>
-      </div>
-      <footer>
-        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
-      </footer>
-    </module>
+<div class="page page-eth">
+  <div class="ni-forms">
+    <custom-form width="narrow">
+      <div slot="title">Send ETH via Wallet</div>
+      <form-group>
+        Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
+      </form-group>
+      <btn
+        slot="submit"
+        icon="angle-right"
+        icon-pos="right"
+        value="Start">
+      </btn>
+    </custom-form>
 
-    <module class="container">
-      <header>
-        <div class="title">Send ETH via Third Party</div>
-      </header>
-      <div class="body">
-        <div class="description">
-          Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
-        </div>
-      </div>
-      <footer>
-        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
-      </footer>
-    </module>
+    <custom-form width="narrow">
+      <div slot="title">Send ETH via Third Party</div>
+      <form-group>
+        Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
+      </form-group>
+      <btn
+        slot="submit"
+        icon="angle-right"
+        icon-pos="right"
+        value="Start">
+      </btn>
+    </custom-form>
 
-    <module>
-      <header>
-        <div class="title">Send ETH via web3 "dapp"</div>
-      </header>
-      <div class="body">
-        <div class="description">
-          Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
-        </div>
-      </div>
-      <footer>
-        <btn icon="angle-right" icon-pos="right" value="Start"></btn>
-      </footer>
-    </module>
+    <custom-form width="narrow">
+      <div slot="title">Send ETH via web3 "dapp"</div>
+      <form-group>
+        Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
+      </form-group>
+      <btn
+        slot="submit"
+        icon="angle-right"
+        icon-pos="right"
+        value="Start">
+      </btn>
+    </custom-form>
   </div>
 </div>
 </template>
@@ -51,12 +48,16 @@ import PageHeader from '@nylira/vue-page-header'
 import Module from './Module'
 import Btn from '@nylira/vue-button'
 import { mapGetters } from 'vuex'
+import CustomForm from './Form'
+import FormGroup from './FormGroup'
 export default {
-  name: 'page-fund',
+  name: 'page-eth',
   components: {
     PageHeader,
     Btn,
-    Module
+    Module,
+    CustomForm,
+    FormGroup
   },
   computed: {
     ...mapGetters(['sessionUser'])
@@ -88,27 +89,25 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
+.page-eth .ni-form
+  .ni-form-footer
+    .ni-btn-wrapper
+      flex 1
+
 @media screen and (min-width: 768px)
-  .page-fund .modules
+  .page-eth .ni-forms
+    width 1024px
+    margin 0 auto
     display flex
     flex-flow row wrap
     align-items stretch
-    .module
-      flex 0 0 50%
-      display flex
-      .container
-        flex 1
-        display flex
-        flex-flow column
-        .body
-          flex 1
-          display flex
+    justify-content center
+
+  .page-eth .ni-form
+    flex 0 0 50%
 
 @media screen and (min-width: 1024px)
-  .page-fund .modules
-    display flex
-    flex-flow row wrap
-    .module
-      flex 0 0 33.333%
+  .page-eth .ni-form
+    flex 0 0 33.3333%
 </style>
 

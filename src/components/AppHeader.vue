@@ -28,7 +28,7 @@
     -->
   </menu>
 
-  <div class="header-item" @click="toggleMenuUser">
+  <div class="header-item header-item-toggle" @click="toggleMenuUser">
     <i v-if="!activeMenuUser && !sessionUser.signedIn" class="fa fa-user-o"></i>
     <i v-else-if="!activeMenuUser &&  sessionUser.signedIn" class="fa fa-user"></i>
     <i v-else class="fa fa-times"></i>
@@ -39,7 +39,7 @@
     </template>
   </div>
 
-  <menu class="menu-popup menu-user" v-if="activeMenuUser">
+  <menu class="menu-popup menu-user" v-if="activeMenuUser || desktop">
     <nav class="nav-user">
       <template v-if="sessionUser.signedIn">
         <router-link to="/settings">Settings</router-link>
@@ -141,8 +141,7 @@ export default {
   width 100%
 
   background #fff
-  border-bottom 1px solid bc
-
+  box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
   .container
     display flex
@@ -159,6 +158,7 @@ export default {
 
     color txt
     cursor pointer
+    user-select none
     &:hover
       color link
 
@@ -186,7 +186,7 @@ export default {
       color light
       line-height 1
 
-  .menu-app
+  .menu-popup
     nav
       a
         display flex
@@ -206,7 +206,7 @@ export default {
           i.fa
             color link
 
-@media screen and (max-width:959px)
+@media screen and (max-width:1023px)
   .menu-popup
     height 100vh
     position fixed
@@ -238,7 +238,7 @@ export default {
   .header-item div
     font-weight 400
 
-  .menu-app
+  .menu-popup
     display flex
     padding 0 1rem
     nav
@@ -249,35 +249,19 @@ export default {
         padding 0 1rem
         color txt
         font-weight 400
-        border-left 1px dotted bc
+        border-left 1px solid bc
         &:last-of-type
-          border-right 1px dotted bc
+          border-right 1px solid bc
         &.router-link-active
           background lighten(bc, 75%)
-
-  .menu-user
-    position fixed
-    top 3rem
-    right 0
-    z-index 100000
-    background c-app-fg
-    user-select none
-
-    border-left 1px solid bc
-    border-bottom 1px solid bc
-    width 20rem
-
-    nav
-      display flex
-      flex-flow column
-      padding 1.5rem 3rem
-
-      a
-        padding 0.75rem 0
-        color txt
-        border-bottom 1px solid bc
-        &:last-of-type
-          border-bottom none
-        &:hover
-          color link
+          background linear-gradient(top, hsl(0,0,96%), hsl(0,0,98%))
+    &.menu-user
+      padding-right 0
+      nav a:first-of-type
+        border-left none
+      nav a:last-of-type
+        border-right none
+  .app-header
+    .header-item.header-item-toggle
+      display none
 </style>

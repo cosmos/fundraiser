@@ -65,15 +65,15 @@ export default {
 
 .module.module-statistics
   .pb-container
-    border-bottom 1px dotted bc
+    border-bottom 1px solid bc
 
   .components
     flex-flow row wrap
     padding 0
     .component
       flex 0 0 50%
-      border-right 1px dotted bc
-      border-bottom 1px dotted bc
+      border-right 1px solid bc
+      border-bottom 1px solid bc
       &:nth-child(2)
         border-right none
       &:nth-child(3)
@@ -91,5 +91,5 @@ export default {
         flex 0 0 25%
         border-bottom none
         &:nth-child(2)
-          border-right 1px dotted bc
+          border-right 1px solid bc
 </style>
