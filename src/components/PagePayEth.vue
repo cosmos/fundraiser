@@ -1,7 +1,7 @@
 <template>
 <div class="page page-eth">
   <div class="ni-forms">
-    <custom-form width="narrow">
+    <form-struct width="narrow">
       <div slot="title">Send ETH via Wallet</div>
       <form-group>
         Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
@@ -12,9 +12,9 @@
         icon-pos="right"
         value="Start">
       </btn>
-    </custom-form>
+    </form-struct>
 
-    <custom-form width="narrow">
+    <form-struct width="narrow">
       <div slot="title">Send ETH via Third Party</div>
       <form-group>
         Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
@@ -25,9 +25,9 @@
         icon-pos="right"
         value="Start">
       </btn>
-    </custom-form>
+    </form-struct>
 
-    <custom-form width="narrow">
+    <form-struct width="narrow">
       <div slot="title">Send ETH via web3 "dapp"</div>
       <form-group>
         Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
@@ -38,7 +38,7 @@
         icon-pos="right"
         value="Start">
       </btn>
-    </custom-form>
+    </form-struct>
   </div>
 </div>
 </template>
@@ -48,7 +48,7 @@ import PageHeader from '@nylira/vue-page-header'
 import Module from './Module'
 import Btn from '@nylira/vue-button'
 import { mapGetters } from 'vuex'
-import CustomForm from './Form'
+import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
 export default {
   name: 'page-eth',
@@ -56,7 +56,7 @@ export default {
     PageHeader,
     Btn,
     Module,
-    CustomForm,
+    FormStruct,
     FormGroup
   },
   computed: {

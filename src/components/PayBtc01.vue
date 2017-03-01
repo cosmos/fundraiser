@@ -1,9 +1,9 @@
 <template>
-  <custom-form :submission="nextStep">
+  <form v-on:submit.prevent.default="nextStep"><form-struct>
     <div slot="title">Pay with BTC</div>
     <div slot="subtitle">Step 1</div>
 
-    <form-group :class="{ 'form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
+    <form-group :class="{ 'ni-form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
       <label for="fund-btc-amount-btc">Enter amount to purchase in either Bitcoin or Atoms.</label>
       <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
       <input-group>
@@ -64,7 +64,7 @@
       <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
     </form-group>
 
-    <form-group :class="{ 'form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
+    <form-group :class="{ 'ni-form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
       <label>Create a wallet password.</label>
 
       <label class="hidden" for="fund-btc-password">Password</label>
@@ -117,13 +117,13 @@
       icon-pos="right"
       value="Continue">
     </btn>
-  </form>
+  </form-struct></form>
 </template>
 
 <script>
 import { required, between, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
-import CustomForm from './Form'
+import FormStruct from './FormStruct'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
@@ -133,7 +133,7 @@ import InputGroup from './InputGroup'
 export default {
   name: 'fund-btc-01',
   components: {
-    CustomForm,
+    FormStruct,
     Field,
     Btn,
     VuelidateDebug,
@@ -166,6 +166,7 @@ export default {
   methods: {
     nextStep () {
       this.$v.$touch()
+      console.log('next step!')
       if (!this.$v.$error) {
         this.$store.commit('setBtcTransactionUserId', this.sessionUser.uid)
         this.$store.commit('setBtcTransactionPrice', this.config.COINS.BTC.EXCHANGE_RATE)

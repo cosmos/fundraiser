@@ -1,5 +1,5 @@
 <template>
-  <form :class="cssClass">
+  <div :class="cssClass">
     <div class="ni-form-container">
       <header class="ni-form-header">
         <div class="ni-form-suptitle"><slot name="suptitle"></slot></div>
@@ -13,7 +13,7 @@
         <slot name="submit"></slot>
       </footer>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
       return value
     }
   },
-  props: ['width', 'submission']
+  props: ['width']
 }
 </script>
 
