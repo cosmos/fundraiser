@@ -1,47 +1,46 @@
 <template>
-<form class="form" v-on:submit.prevent.default="nextStep">
+  <form-struct :submit="nextStep">
+    <div slot="title">Pay with BTC</div>
+    <div slot="subtitle">Step 3 - Download your presale atom wallet.</div>
 
-  <div class="form-header">
-    <div class="title">Pay with BTC</div>
-    <div class="subtitle">Step 3 - Download your presale atom wallet.</div>
-  </div>
+    <form-group id="form-group-download">
+      <field-group>
+        <btn
+          @click.native="downloadWallet"
+          icon="download"
+          value="Download Wallet">
+        </btn>
+      </field-group>
+      <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
+      <form-msg type="error" body="You must download the wallet file before continuing."></form-msg>
+    </form-group>
 
-  <div id="form-group-download" class="form-group">
-    <div class="input-group">
-      <btn
-        @click.native="downloadWallet"
-        icon="download"
-        value="Download Wallet"
-      >
-      </btn>
-    </div>
-    <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
-    <form-msg type="error" body="You must download the wallet file before continuing."></form-msg>
-  </div>
-
-  <div class="form-footer">
-    <div></div>
     <btn
+      slot="submit"
       type="submit"
       icon="angle-right"
       icon-pos="right"
       value="Continue">
     </btn>
-  </div>
-
-</form>
+  </form>
 </template>
 
 <script>
 import dummyWallet from '../store/json/dummyWallet.json'
 import FileSaver from 'file-saver'
 import FormMsg from '@nylira/vue-form-msg'
+import FormStruct from './FormStruct'
+import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
+import FieldGroup from './FieldGroup'
 export default {
   name: 'fund-btc-03',
   components: {
+    FormStruct,
+    FormGroup,
+    FormMsg,
     Btn,
-    FormMsg
+    FieldGroup
   },
   data () {
     return {
@@ -60,7 +59,7 @@ export default {
     },
     nextStep () {
       if (!this.downloadClicked) {
-        document.querySelector('#form-group-download').classList.add('form-group-error')
+        document.querySelector('#form-group-download').classList.add('error')
         return
       }
       this.$store.commit('setBtcTransactionProgress', 4)

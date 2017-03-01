@@ -1,40 +1,42 @@
 <template>
-<div class="page-user">
-  <page-header title="Reset Password" type="center"></page-header>
-  <form class="form form-narrow" v-on:submit.prevent.default="validateReset">
-    <div class="form-group" :class="{ 'form-group-error': $v.fields.email.$error }">
-      <label for="user-reset-email">Email</label>
-      <field
-        id="user-reset-email"
-        v-model="fields.email"
-        type="email"
-        placeholder="name@example.com"
-      >
-      </field>
-      <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
-      <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
-    </div>
-    <div class="form-footer">
-      <div></div>
-      <btn type="submit" value="Reset Password"></btn>
-    </div>
-  </form>
-</div>
+  <div class="page-user ni-forms">
+    <form-struct :submit="validateReset">
+      <div slot="title">Reset Password</div>
+      <form-group :class="{ error: $v.fields.email.$error }">
+        <label for="user-reset-email">Email</label>
+        <field
+          id="user-reset-email"
+          v-model="fields.email"
+          type="email"
+          placeholder="name@example.com">
+        </field>
+        <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
+        <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
+      </form-group>
+      <btn slot="submit" type="submit" value="Reset Password"></btn>
+    </form-struct>
+  </div>
 </template>
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import PageHeader from '@nylira/vue-page-header'
-import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
+import FieldGroup from './FieldGroup'
+import FormGroup from './FormGroup'
 import FormMsg from '@nylira/vue-form-msg'
+import FormStruct from './FormStruct'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'page-user-reset',
   components: {
     PageHeader,
-    Btn,
     Field,
-    FormMsg
+    FieldGroup,
+    FormGroup,
+    FormMsg,
+    FormStruct,
+    Btn
   },
   data () {
     return {

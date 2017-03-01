@@ -1,12 +1,12 @@
 <template>
-  <form v-on:submit.prevent.default="nextStep"><form-struct>
+  <form-struct :submit="nextStep">
     <div slot="title">Pay with BTC</div>
     <div slot="subtitle">Step 1</div>
 
-    <form-group :class="{ 'ni-form-group-error': $v.amountBtc.$error || $v.fields.atoms.$error }">
+    <form-group :class="{ error: $v.amountBtc.$error || $v.fields.atoms.$error }">
       <label for="fund-btc-amount-btc">Enter amount to purchase in either Bitcoin or Atoms.</label>
       <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
-      <input-group>
+      <field-group>
         <field id="fund-btc-amount-btc" type="number"
           v-model="amountBtc"
           @input="$v.amountBtc.$touch()"
@@ -15,8 +15,8 @@
           :step="config.COINS.BTC.MIN_PAYMENT"
           required>
         </field>
-        <div class="input-group-addon">BTC</div>
-      </input-group>
+        <div class="field-group-addon">BTC</div>
+      </field-group>
       <form-msg
         name="BTC amount"
         type="required"
@@ -31,7 +31,7 @@
       </form-msg>
 
       <label class="hidden" for="fund-btc-amount-atoms">Amount in Atoms</label>
-      <input-group>
+      <field-group>
         <field
           id="fund-btc-amount-atoms"
           v-model="fields.atoms"
@@ -42,8 +42,8 @@
           :step="config.ATOM.MIN_BUY"
           required>
         </field>
-        <div class="input-group-addon">Atoms</div>
-      </input-group>
+        <div class="field-group-addon">Atoms</div>
+      </field-group>
       <form-msg
         name="Atom amount"
         type="required"
@@ -64,11 +64,11 @@
       <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
     </form-group>
 
-    <form-group :class="{ 'ni-form-group-error': $v.fields.password.$error || $v.fields.confirmPassword.$error }">
+    <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
       <label>Create a wallet password.</label>
 
       <label class="hidden" for="fund-btc-password">Password</label>
-      <input-group>
+      <field-group>
         <field
           type="password"
           placeholder="Enter your password"
@@ -76,13 +76,13 @@
           @input="$v.fields.password.$touch()"
           required>
         </field>
-      </input-group>
+      </field-group>
       <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
       <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
 
       <label class="hidden" for="fund-btc-confirm-password">Confirm Password</label>
-      <input-group>
+      <field-group>
         <field
           id="fund-btc-confirm-password"
           type="password"
@@ -91,7 +91,7 @@
           @input="$v.fields.confirmPassword.$touch()"
           required>
         </field>
-      </input-group>
+      </field-group>
       <form-msg
         name="Password confirmation"
         type="required"
@@ -117,7 +117,7 @@
       icon-pos="right"
       value="Continue">
     </btn>
-  </form-struct></form>
+  </form>
 </template>
 
 <script>
@@ -129,7 +129,7 @@ import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 import FormGroup from './FormGroup'
-import InputGroup from './InputGroup'
+import FieldGroup from './FieldGroup'
 export default {
   name: 'fund-btc-01',
   components: {
@@ -139,7 +139,7 @@ export default {
     VuelidateDebug,
     FormMsg,
     FormGroup,
-    InputGroup
+    FieldGroup
   },
   computed: {
     amountBtc: {

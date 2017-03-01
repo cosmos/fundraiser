@@ -1,72 +1,75 @@
 <template>
-<form class="form" v-on:submit.prevent.default="nextStep">
+  <form-struct :submit="nextStep">
+    <div slot="title">Pay with BTC</div>
+    <div slot="subtitle">Step 4 - Pay {{ btcTransaction.price }} BTC to the specified Bitcoin address below.</div>
 
-  <div class="form-header">
-    <div class="title">Pay with BTC</div>
-    <div class="subtitle">Step 4 - Pay {{ btcTransaction.price }} BTC to the specified Bitcoin address below.</div>
-  </div>
+    <form-group>
+      <label for="fund-btc-payment-address">BTC Payment Address</label>
+      <field-group>
+        <field
+          id="fund-btc-payment-address"
+          type="text"
+          v-model="btcAddress">
+        </field>
+      </field-group>
 
-  <div class="form-group">
-    <label for="fund-btc-payment-address">BTC Payment Address</label>
-    <div class="input-group">
-      <field
-        id="fund-btc-payment-address"
-        type="text"
-        v-model="btcAddress">
-      </field>
-    </div>
+      <label>BTC Payment QR Code</label>
+      <field-group>
+        <img
+          id="fund-btc-payment-qr-code"
+          alt="Bitcoin Payment QR Code"
+          src="../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png">
+      </field-group>
+    </form-group>
 
-    <label>BTC Payment QR Code</label>
-    <div class="input-group">
-      <img
-        id="fund-btc-payment-qr-code"
-        alt="Bitcoin Payment QR Code"
-        src="../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png">
-    </div>
-  </div>
+    <form-group>
+      <label>Optionally, Pay BTC From Wallet</label>
+      <field-group>
+        <btn
+          @click="payBitcoin"
+          icon="btc"
+          value="Open Wallet">
+        </btn>
+      </field-group>
+    </form-group>
 
-  <div class="form-group">
-    <label>Optionally, Pay BTC From Wallet</label>
-    <div class="input-group">
-      <btn
-        @click="payBitcoin"
-        icon="btc"
-        value="Open Wallet">
-      </btn>
-    </div>
-  </div>
+    <form-group>
+      <label>You Will Receive</label>
+      <field-group>
+        <field
+          input-type="number"
+          v-model="btcTransaction.atoms">
+        </field>
+        <div class="field-group-addon">Atoms</i></div>
+      </field-group>
+    </form-group>
 
-  <div class="form-group">
-    <label>You Will Receive</label>
-    <div class="input-group">
-      <field
-        input-type="number"
-        v-model="btcTransaction.atoms">
-      </field>
-      <div class="input-group-addon">Atoms</i></div>
-    </div>
-  </div>
-
-  <div class="form-footer">
-    <div></div>
     <btn
+      slot="submit"
       type="submit"
       icon="check"
       value="Done!">
     </btn>
-  </div>
 
-</form>
+  </form-struct>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
+import FormStruct from './FormStruct'
+import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
+import FieldGroup from './FieldGroup'
 export default {
   name: 'fund-btc-04',
   components: {
+    FormStruct,
+    FormGroup,
+    FormMsg,
     Btn,
+    FieldGroup,
     Field
   },
   computed: {

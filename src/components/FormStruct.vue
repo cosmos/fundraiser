@@ -1,5 +1,5 @@
 <template>
-  <div :class="cssClass">
+  <form :class="cssClass" v-on:submit.prevent.default="submit">
     <div class="ni-form-container">
       <header class="ni-form-header">
         <div class="ni-form-suptitle"><slot name="suptitle"></slot></div>
@@ -10,10 +10,11 @@
         <slot></slot>
       </main>
       <footer class="ni-form-footer">
+        <slot name="reset"><div></div></slot>
         <slot name="submit"></slot>
       </footer>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -26,7 +27,7 @@ export default {
       return value
     }
   },
-  props: ['width']
+  props: ['width', 'submit']
 }
 </script>
 

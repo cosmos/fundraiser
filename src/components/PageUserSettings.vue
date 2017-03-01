@@ -1,72 +1,63 @@
 <template>
-<div class="page-user">
-  <page-header title="User Settings" type="center"></page-header>
-  <form class="form form-narrow" v-on:submit.prevent.default="validateUserSettings">
-    <div class="form-header">
-      <div class="subtitle">Edit your personal profile here.</div>
-    </div>
-
-    <div class="form-group" :class="{ 'form-group-error': $v.fields.newDisplayName.$error }">
-      <label for="user-settings-name">Change Display Name</label>
-      <field
-        v-model="fields.newDisplayName"
-        type="text"
-        id="user-settings-name"
-        placeholder="New Display Name"
-      >
-      </field>
-      <form-msg name="Display Name" type="required" v-if="!$v.fields.newDisplayName.required"></form-msg>
-      <form-msg name="Display Name" type="length" min="2" max="20" v-if="!$v.fields.newDisplayName.menLength || !$v.fields.newDisplayName.maxLength"></form-msg>
-    </div>
-
-    <div class="form-group" :class="{ 'form-group-error': $v.fields.newEmail.$error }">
-      <label for="user-settings-email">Change Email</label>
-      <field
-        v-model="fields.newEmail"
-        type="email"
-        id="user-settings-email"
-        placeholder="New Email"
-      >
-      </field>
-      <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
-      <form-msg name="Email" type="valid" v-if="!$v.fields.newEmail.email"></form-msg>
-    </div>
-
-    <div class="form-group" :class="{ 'form-group-error': $v.fields.newPassword.$error }">
-      <label for="user-settings-password">Change Password</label>
-      <field
-        v-model="fields.newPassword"
-        type="password"
-        id="user-settings-password"
-        placeholder="New Password"
-      >
-      </field>
-      <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.newPassword.minLength || !$v.fields.newPassword.maxLength"></form-msg>
-    </div>
-
-    <div class="form-footer">
-      <div></div>
-      <btn type="submit" value="Save Changes"></btn>
-    </div>
-
-  </form>
-</div>
+  <div class="page-user ni-forms">
+    <form-struct :submit="validateUserSettings">
+      <div slot="title">User Settings</div>
+      <div slot="subtitle">Edit your personal profile here.</div>
+      <form-group :class="{ error: $v.fields.newDisplayName.$error }">
+        <label for="user-settings-name">Change Display Name</label>
+        <field
+          v-model="fields.newDisplayName"
+          type="text"
+          id="user-settings-name"
+          placeholder="New Display Name">
+        </field>
+        <form-msg name="Display Name" type="required" v-if="!$v.fields.newDisplayName.required"></form-msg>
+        <form-msg name="Display Name" type="length" min="2" max="20" v-if="!$v.fields.newDisplayName.menLength || !$v.fields.newDisplayName.maxLength"></form-msg>
+      </form-group>
+      <form-group :class="{ error: $v.fields.newEmail.$error }">
+        <label for="user-settings-email">Change Email</label>
+        <field
+          v-model="fields.newEmail"
+          type="email"
+          id="user-settings-email"
+          placeholder="New Email">
+        </field>
+        <form-msg name="Email" type="required" v-if="!$v.fields.newEmail.required"></form-msg>
+        <form-msg name="Email" type="valid" v-if="!$v.fields.newEmail.email"></form-msg>
+      </form-group>
+      <form-group :class="{ error: $v.fields.newPassword.$error }">
+        <label for="user-settings-password">Change Password</label>
+        <field
+          v-model="fields.newPassword"
+          type="password"
+          id="user-settings-password"
+          placeholder="New Password">
+        </field>
+        <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.newPassword.minLength || !$v.fields.newPassword.maxLength"></form-msg>
+      </form-group>
+      <btn slot="submit" type="submit" value="Save Changes"></btn>
+    </form-struct>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
-import PageHeader from '@nylira/vue-page-header'
-import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
+import FieldGroup from './FieldGroup'
+import FormGroup from './FormGroup'
 import FormMsg from '@nylira/vue-form-msg'
+import FormStruct from './FormStruct'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'page-user-settings',
   components: {
-    PageHeader,
-    Btn,
     Field,
-    FormMsg
+    FieldGroup,
+    FormGroup,
+    FormMsg,
+    FormStruct,
+    Btn
   },
   computed: {
     pageTitle () {

@@ -1,47 +1,45 @@
 <template>
-<form class="form" v-on:submit.prevent.default="nextStep">
+  <form-struct :submit="nextStep">
+    <div slot="title">Pay with BTC</div>
+    <div slot="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
 
-  <div class="form-header">
-    <div class="title">Pay with BTC</div>
-    <div class="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
-  </div>
-
-  <div class="form-group" :class="{ 'form-group-error': $v.fields.password.$error }">
+  <form-group :class="{ 'error': $v.fields.password.$error }">
     <label for="fund-btc-recall-password">Password</label>
     <field
       id="fund-btc-recall-password"
       type="password"
       placeholder="Enter your password"
       v-model="passwordValue"
-      required
-    >
+      required>
     </field>
     <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
     <form-msg name="Password" v-if="!$v.fields.password.matchesHash"></form-msg>
     <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
-  </div>
+  </form-group>
 
-  <div class="form-footer">
-    <btn
-      @click.native="startOver"
-      icon="angle-left"
-      value="Start Over">
-    </btn>
-    <btn
-      type="submit"
-      icon="angle-right"
-      icon-pos="right"
-      value="Continue">
-    </btn>
-  </div>
+  <btn
+    slot="reset"
+    icon="angle-left"
+    value="Start Over">
+  </btn>
 
-</form>
+  <btn
+    slot="submit"
+    type="submit"
+    icon="angle-right"
+    icon-pos="right"
+    value="Continue">
+  </btn>
+
+  </form-struct>
 </template>
 
 <script>
 import bcrypt from 'bcryptjs'
 import { mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import FormStruct from './FormStruct'
+import FormGroup from './FormGroup'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
@@ -49,6 +47,8 @@ import VuelidateDebug from './VuelidateDebug'
 export default {
   name: 'fund-btc-02',
   components: {
+    FormStruct,
+    FormGroup,
     Field,
     Btn,
     VuelidateDebug,

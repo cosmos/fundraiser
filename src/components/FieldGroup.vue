@@ -1,12 +1,12 @@
 <template>
-  <div class="ni-input-group">
+  <div class="ni-field-group">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ni-form',
+  name: 'ni-field-group',
   computed: {
     cssClass () {
       let value = 'ni form'
@@ -21,7 +21,7 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.ni-input-group
+.ni-field-group
   display flex
   margin-bottom 0.5rem
 
@@ -38,6 +38,6 @@ export default {
   .ni-field + .ni-btn-wrapper .ni-btn
     border-left none
 
-  .input-group-addon
+  .field-group-addon
     flex 1
 </style>

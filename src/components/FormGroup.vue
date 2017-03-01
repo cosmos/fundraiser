@@ -34,7 +34,7 @@ export default {
   .ni-form-msg-error
     display none
 
-  &.ni-form-group-error
+  &.error
     .ni-field
       border-color #f00
     .ni-form-msg-error
