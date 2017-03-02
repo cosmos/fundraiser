@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs'
+import cfr from 'cosmos-fundraiser'
 
 const empty = {
   type: 'btc',
@@ -6,8 +6,7 @@ const empty = {
   price: 0,
   atoms: 0,
   hash: '',
-  progress: 1,
-  userId: ''
+  progress: 1
 }
 
 const state = JSON.parse(JSON.stringify(empty))
@@ -15,10 +14,6 @@ const state = JSON.parse(JSON.stringify(empty))
 const mutations = {
   resetBtcDonation (state) {
     state = JSON.parse(JSON.stringify(empty))
-  },
-  setBtcDonationUserId (state, userId) {
-    state.userId = userId
-    console.log('SET btcDonation.userId', state.userId)
   },
   setBtcDonationTime (state, time) {
     state.time = time
@@ -32,11 +27,13 @@ const mutations = {
     state.atoms = value
     console.log('SET btcDonation.atoms', state.atoms)
   },
-  setBtcDonationHash (state, plaintextPassword) {
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(plaintextPassword, salt)
-    state.hash = hash
-    console.log('SET btcDonation.hash', state.hash)
+  setBtcDonationWallet (state, wallet) {
+    state.wallet = wallet
+    console.log('SET btcDonation.wallet')
+  },
+  setBtcDonationEncryptedSeed (state, encryptedSeed) {
+    state.encryptedSeed = encryptedSeed
+    console.log('SET btcDonation.encryptedSeed')
   },
   setBtcDonationProgress (state, value) {
     state.progress = value
@@ -44,7 +41,19 @@ const mutations = {
   }
 }
 
+const actions = {
+  generateBtcDonationWallet ({ commit }, password) {
+    let seed = cfr.generateSeed()
+    let wallet = cfr.deriveWallet(seed)
+    commit('setBtcDonationWallet', wallet)
+    let encryptedSeed = cfr.encryptSeed(seed, password)
+    commit('setBtcDonationEncryptedSeed', encryptedSeed)
+    commit('setBtcDonationProgress', 2)
+  }
+}
+
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }

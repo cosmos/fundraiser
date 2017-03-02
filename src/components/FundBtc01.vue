@@ -168,15 +168,22 @@ export default {
       this.$v.$touch()
       console.log('next step!')
       if (!this.$v.$error) {
-        this.$store.commit('setBtcDonationUserId', this.sessionUser.uid)
         this.$store.commit('setBtcDonationPrice', this.config.COINS.BTC.EXCHANGE_RATE)
         this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
-        this.$store.commit('setBtcDonationHash', this.fields.password)
-        this.$store.commit('setBtcDonationProgress', 2)
+        this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
       }
     }
   },
   mounted () {
+    if (this.sessionUser &&
+      this.sessionUser.wallets &&
+      this.sessionUser.wallets.length > 0) {
+      // we already have a wallet
+      let encryptedSeed = this.sessionUser.wallets[0]
+      this.$store.commit('setBtcDonationEncryptedSeed', encryptedSeed)
+      this.$store.commit('setBtcDonationProgress', 'decrypt')
+      return
+    }
     document.body.scrollTop = document.documentElement.scrollTop = 0
     document.querySelector('#fund-btc-amount-btc').focus()
   },

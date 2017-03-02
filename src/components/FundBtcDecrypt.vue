@@ -1,7 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
+    <div slot="subtitle">Step 2 - Enter your password to decrypt your pre-existing wallet.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">
     <label for="fund-btc-recall-password">Password</label>
@@ -13,7 +13,7 @@
       required>
     </field>
     <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
-    <form-msg name="Password" v-if="!$v.fields.password.matchesHash"></form-msg>
+    <form-msg name="Password" v-if="!$v.fields.password.isCorrect"></form-msg>
     <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
   </form-group>
 
@@ -36,8 +36,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import cfr from 'cosmos-fundraiser'
 import { required } from 'vuelidate/lib/validators'
+import cfr from 'cosmos-fundraiser'
 import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
 import FormMsg from '@nylira/vue-form-msg'
@@ -66,16 +66,13 @@ export default {
     }
   },
   methods: {
-    startOver () {
-      this.$store.commit('setBtcDonationProgress', 1)
-    },
     nextStep () {
       this.fields.password = this.passwordValue
       this.$v.$touch()
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setBtcDonationProgress', 3)
+        this.$store.commit('setBtcDonationProgress', 4)
       }
     }
   },
@@ -87,10 +84,12 @@ export default {
     fields: {
       password: {
         required,
-        matchesHash (password) {
+        isCorrect (password) {
           let encryptedSeed = this.btcDonation.encryptedSeed
           try {
-            cfr.decryptSeed(encryptedSeed, password)
+            let seed = cfr.decryptSeed(encryptedSeed, password)
+            let wallet = cfr.deriveWallet(seed, password)
+            this.$store.commit('setBtcDonationWallet', wallet)
             return true
           } catch (err) {
             return false

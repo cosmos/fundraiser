@@ -4,6 +4,7 @@
     <fund-btc-01 v-if="btcDonation.progress === 1"></fund-btc-01>
     <fund-btc-02 v-if="btcDonation.progress === 2"></fund-btc-02>
     <fund-btc-03 v-if="btcDonation.progress === 3"></fund-btc-03>
+    <fund-btc-decrypt v-if="btcDonation.progress === 'decrypt'"></fund-btc-decrypt>
     <fund-btc-04 v-if="btcDonation.progress === 4"></fund-btc-04>
   </div>
 </div>
@@ -15,6 +16,7 @@ import PageHeader from '@nylira/vue-page-header'
 import FundBtc01 from './FundBtc01'
 import FundBtc02 from './FundBtc02'
 import FundBtc03 from './FundBtc03'
+import FundBtcDecrypt from './FundBtcDecrypt'
 import FundBtc04 from './FundBtc04'
 export default {
   name: 'page-btc',
@@ -23,6 +25,7 @@ export default {
     FundBtc01,
     FundBtc02,
     FundBtc03,
+    FundBtcDecrypt,
     FundBtc04
   },
   computed: {

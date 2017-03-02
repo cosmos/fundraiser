@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import dummyWallet from '../store/json/dummyWallet.json'
+import { mapGetters } from 'vuex'
 import FileSaver from 'file-saver'
+import cfr from 'cosmos-fundraiser'
 import FormMsg from '@nylira/vue-form-msg'
 import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
@@ -47,13 +48,16 @@ export default {
       downloadClicked: false
     }
   },
+  computed: {
+    ...mapGetters(['btcDonation'])
+  },
   methods: {
     downloadWallet () {
-      let walletString = JSON.stringify(dummyWallet)
-      let walletArray = walletString.split('')
+      let { encryptedSeed } = this.btcDonation
+      let walletBytes = cfr.encodeWallet(encryptedSeed)
       // eslint-disable-next-line
-      let blob = new Blob(walletArray, {type: 'text/plain;charset=utf-8'})
-      FileSaver.saveAs(blob, 'dummy-atom-wallet.json')
+      let blob = new Blob([ walletBytes.buffer ], { type: 'application/octet-stream' })
+      FileSaver.saveAs(blob, 'cosmos_fundraiser.wallet')
 
       this.downloadClicked = true
     },
