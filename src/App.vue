@@ -20,7 +20,7 @@ import store from './store/index.js'
 import { mapGetters } from 'vuex'
 import { Client } from 'cosmos-fundraiser'
 
-const client = Client('http://localhost:8000')
+const client = Client(process.env.COSMOS_API_URI)
 
 export default {
   components: {

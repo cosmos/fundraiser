@@ -1,5 +1,5 @@
 const { Client } = require('cosmos-fundraiser')
-const client = Client('http://localhost:8000')
+const client = Client(process.env.COSMOS_API_URI)
 
 const emptyUser = {
   displayName: '',
@@ -148,6 +148,8 @@ const actions = {
     })
   }
 }
+
+console.log('foo', process.env.FOO)
 
 export default {
   state,
