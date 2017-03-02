@@ -114,16 +114,13 @@ export default {
       }
     },
     updateName (name) {
-      this.$store.commit('setSessionUserDisplayName', name)
-      this.$store.commit('notifyCustom', { title: 'Display Name Updated', body: `Your display name has been succesfully changed to "${name}".` })
+      this.$store.dispatch('setSessionUserDisplayName', name)
     },
     updatePassword (password) {
-      this.$store.commit('setSessionUserPassword', password)
-      this.$store.commit('notifyCustom', { title: 'Password Updated', body: `Your password has been successfully updated.` })
+      this.$store.dispatch('setSessionUserPassword', password)
     },
     updateEmail (email) {
-      this.$store.commit('setSessionUserEmail', email)
-      this.$store.commit('notifyCustom', { title: 'Email Updated', body: `Your email has been succesfully updated.` })
+      this.$store.dispatch('setSessionUserEmail', email)
     }
   },
   mounted () {

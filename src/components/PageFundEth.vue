@@ -110,4 +110,3 @@ export default {
   .page-eth .ni-form
     flex 0 0 33.3333%
 </style>
-

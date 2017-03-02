@@ -99,6 +99,53 @@ const actions = {
       commit('notifySignOut')
       router.push('/')
     })
+  },
+  setSessionUserDisplayName ({ commit }, name) {
+    client.updateName(name, (err) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Update Error',
+          body: 'An error occurred while updating your display name'
+        })
+      }
+      commit('setSessionUserDisplayName', name)
+      commit('notifyCustom', {
+        title: 'Display Name Updated',
+        body: `Your display name has been succesfully changed to "${name}".`
+      })
+    })
+  },
+  setSessionUserEmail ({ commit }, email) {
+    client.updateEmail(email, (err) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Update Error',
+          body: 'An error occurred while updating your email address'
+        })
+      }
+      commit('setSessionUserEmail', email)
+      commit('notifyCustom', {
+        title: 'Email Updated',
+        body: `Your email has been succesfully changed to "${email}".`
+      })
+    })
+  },
+  setSessionUserPassword ({ commit }, password) {
+    client.updatePassword(password, (err) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Update Error',
+          body: 'An error occurred while updating your password'
+        })
+      }
+      commit('notifyCustom', {
+        title: 'Password Updated',
+        body: `Your password has been succesfully changed.`
+      })
+    })
   }
 }
 
