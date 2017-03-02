@@ -1,10 +1,7 @@
 <template>
   <module size="sm" class="module-countdown">
-    <header>
-      <div class="title">Fundraise Ends In</div>
-    </header>
+    <div slot="title">Fundraise Ends In</div>
     <countdown :date="END_DATETIME" units="short"></countdown>
-    </div>
   </module>
 </template>
 
@@ -32,10 +29,13 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.module.module-countdown
+.module-countdown
   .ni-countdown
-    flex-flow row
-    .component
+    padding 0 5vw
+    .ni-kvs
+      display flex
+      flex-flow row !important
       flex 1
+    .ni-kv
       max-width 5rem
 </style>

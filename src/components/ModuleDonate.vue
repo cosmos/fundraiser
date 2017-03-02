@@ -1,8 +1,6 @@
 <template>
-  <module class="module-payment">
-    <header>
-      <div class="title">Pay with {{ coin.NAME }}</div>
-    </header>
+  <module size="sm" class="module-donation">
+    <div slot="title">Donate {{ coin.NAME }}</div>
     <div class="body">
       <div class="img">
         <img v-if="coin.NAME === 'Ethereum'"
@@ -13,33 +11,29 @@
         <div class="exchange-rate">
           <span class="value">1 {{ coin.UNIT }}</span>
           :
-          <span class="value">{{ exchangeRate }} ATM</span>
+          <span class="value">{{ exchangeRate }} Atoms</span>
         </div>
         <btn
-          :value="'Pay with ' + coin.UNIT"
+          :value="'Donate ' + coin.UNIT"
           @click.native="go('/' + coin.UNIT)"
           icon="angle-right"
           icon-pos="right"
           >
         </btn>
-        <div class="min-payment">
-          Min Payment: {{ coin.MIN_PAYMENT }} {{ coin.UNIT }}
+        <div class="min-donation">
+          Minimum Donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
         </div>
       </div>
     </div>
-    <!--
-    <footer>
-      <a href="#"><i class="fa fa-history"></i> Transaction History</a>
-    </footer>
-    -->
   </module>
 </template>
 
 <script>
-import Module from './Module'
-import Btn from '@nylira/vue-button'
 import num from '../scripts/num.js'
+import Btn from '@nylira/vue-button'
+import Module from './Module'
 export default {
+  name: 'module-donate',
   components: {
     Btn,
     Module
@@ -61,12 +55,13 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.module.module-payment
+.module-donation
   .body
     display flex
+    padding 1rem
 
   .img
-    flex 0 0 25%
+    flex 0 0 33.333%
     max-width 8rem
 
     display flex
@@ -102,15 +97,18 @@ export default {
         font-weight 500
         color mcolor
 
-    .min-payment
+    .min-donation
       font-size 0.75rem
       color light
 
     .ni-btn-wrapper
-      max-width 10rem
+      max-width 12rem
       margin-bottom 0.5rem
 
 @media screen and (min-width:768px)
-  .module.module-payment
-    flex 0 0 50%
+  .module-donation
+    .body
+      padding 1.5rem
+    .text
+      padding-left 2rem
 </style>

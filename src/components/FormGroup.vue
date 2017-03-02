@@ -44,7 +44,7 @@ export default {
   .ni-form-group
     padding 0.625rem 1.25rem
 
-@media screen and (min-width: 400px)
+@media screen and (min-width: 414px)
   .ni-form-group
     padding 0.725rem 1.5rem
 </style>

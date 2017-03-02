@@ -83,8 +83,6 @@ export default {
 
   .ni-form-title
     font-size 1.125rem
-
-@media screen and (min-width: 400px)
   .ni-form-header, .ni-form-footer
     padding-left 1.5rem
     padding-right 1.5rem

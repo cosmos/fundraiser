@@ -2,9 +2,9 @@
 <div class="page page-eth">
   <div class="ni-forms">
     <form-struct width="narrow">
-      <div slot="title">Send ETH via Wallet</div>
+      <div slot="title">Donate ETH via Wallet</div>
       <form-group>
-        Send your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
+        Donate your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
       </form-group>
       <btn
         slot="submit"
@@ -15,9 +15,9 @@
     </form-struct>
 
     <form-struct width="narrow">
-      <div slot="title">Send ETH via Third Party</div>
+      <div slot="title">Donate ETH via Third Party</div>
       <form-group>
-        Send your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
+        Donate your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
       </form-group>
       <btn
         slot="submit"
@@ -28,7 +28,7 @@
     </form-struct>
 
     <form-struct width="narrow">
-      <div slot="title">Send ETH via web3 "dapp"</div>
+      <div slot="title">Donate ETH via web3 "dapp"</div>
       <form-group>
         Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
       </form-group>

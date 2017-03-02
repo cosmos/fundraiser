@@ -1,10 +1,10 @@
 <template>
 <div class="page page-btc">
   <div class="ni-forms">
-    <pay-btc-01 v-if="btcTransaction.progress === 1"></pay-btc-01>
-    <pay-btc-02 v-if="btcTransaction.progress === 2"></pay-btc-02>
-    <pay-btc-03 v-if="btcTransaction.progress === 3"></pay-btc-03>
-    <pay-btc-04 v-if="btcTransaction.progress === 4"></pay-btc-04>
+    <fund-btc-01 v-if="btcDonation.progress === 1"></fund-btc-01>
+    <fund-btc-02 v-if="btcDonation.progress === 2"></fund-btc-02>
+    <fund-btc-03 v-if="btcDonation.progress === 3"></fund-btc-03>
+    <fund-btc-04 v-if="btcDonation.progress === 4"></fund-btc-04>
   </div>
 </div>
 </template>
@@ -12,21 +12,21 @@
 <script>
 import { mapGetters } from 'vuex'
 import PageHeader from '@nylira/vue-page-header'
-import PayBtc01 from './PayBtc01'
-import PayBtc02 from './PayBtc02'
-import PayBtc03 from './PayBtc03'
-import PayBtc04 from './PayBtc04'
+import FundBtc01 from './FundBtc01'
+import FundBtc02 from './FundBtc02'
+import FundBtc03 from './FundBtc03'
+import FundBtc04 from './FundBtc04'
 export default {
   name: 'page-btc',
   components: {
     PageHeader,
-    PayBtc01,
-    PayBtc02,
-    PayBtc03,
-    PayBtc04
+    FundBtc01,
+    FundBtc02,
+    FundBtc03,
+    FundBtc04
   },
   computed: {
-    ...mapGetters(['btcTransaction', 'sessionUser'])
+    ...mapGetters(['btcDonation', 'sessionUser'])
   },
   head: {
     title () {
@@ -50,7 +50,7 @@ export default {
     */
   },
   beforeDestroy () {
-    this.$store.commit('resetBtcTransaction')
+    this.$store.commit('resetBtcDonation')
   }
 }
 </script>

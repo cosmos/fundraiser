@@ -3,8 +3,8 @@ function r (filename) { return require('../components/Page' + filename) }
 
 const routes = [
   { path: '/', component: r('Index') },
-  { path: '/btc', component: r('PayBtc') },
-  { path: '/eth', component: r('PayEth') },
+  { path: '/btc', component: r('FundBtc') },
+  { path: '/eth', component: r('FundEth') },
 
   { path: '/signup', name: 'signup', component: r('UserSignUp') },
   { path: '/signin', name: 'signin', component: r('UserSignIn') },

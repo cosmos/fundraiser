@@ -1,21 +1,21 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Pay with BTC</div>
+    <div slot="title">Donate BTC</div>
     <div slot="subtitle">Step 1</div>
 
     <form-group :class="{ error: $v.amountBtc.$error || $v.fields.atoms.$error }">
-      <label for="fund-btc-amount-btc">Enter amount to purchase in either Bitcoin or Atoms.</label>
+      <label for="fund-btc-amount-btc">Enter amount you wish to donate in BTC.</label>
       <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
       <field-group>
         <field id="fund-btc-amount-btc" type="number"
           v-model="amountBtc"
           @input="$v.amountBtc.$touch()"
-          :min="config.COINS.BTC.MIN_PAYMENT"
-          :max="config.COINS.BTC.MAX_PAYMENT"
-          :step="config.COINS.BTC.MIN_PAYMENT"
+          :min="config.COINS.BTC.MIN_DONATION"
+          :max="config.COINS.BTC.MAX_DONATION"
+          :step="config.COINS.BTC.MIN_DONATION"
           required>
         </field>
-        <div class="field-group-addon">BTC</div>
+        <div class="nfield-group-addon">BTC</div>
       </field-group>
       <form-msg
         name="BTC amount"
@@ -25,8 +25,8 @@
       <form-msg
         name="BTC amount"
         type="between"
-        :min="config.COINS.BTC.MIN_PAYMENT"
-        :max="config.COINS.BTC.MAX_PAYMENT"
+        :min="config.COINS.BTC.MIN_DONATION"
+        :max="config.COINS.BTC.MAX_DONATION"
         v-if="!$v.amountBtc.between">
       </form-msg>
 
@@ -57,7 +57,7 @@
         v-if="!$v.fields.atoms.between">
       </form-msg>
       <form-msg
-        body="Price: 1 BTC buys 2,000 Atoms.">
+        body="Valuation: 1 BTC = 2,000 Atoms.">
       </form-msg>
 
       <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
@@ -168,11 +168,11 @@ export default {
       this.$v.$touch()
       console.log('next step!')
       if (!this.$v.$error) {
-        this.$store.commit('setBtcTransactionUserId', this.sessionUser.uid)
-        this.$store.commit('setBtcTransactionPrice', this.config.COINS.BTC.EXCHANGE_RATE)
-        this.$store.commit('setBtcTransactionAtoms', this.fields.atoms)
-        this.$store.commit('setBtcTransactionHash', this.fields.password)
-        this.$store.commit('setBtcTransactionProgress', 2)
+        this.$store.commit('setBtcDonationUserId', this.sessionUser.uid)
+        this.$store.commit('setBtcDonationPrice', this.config.COINS.BTC.EXCHANGE_RATE)
+        this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
+        this.$store.commit('setBtcDonationHash', this.fields.password)
+        this.$store.commit('setBtcDonationProgress', 2)
       }
     }
   },
@@ -184,8 +184,8 @@ export default {
     amountBtc: {
       required,
       between (value) {
-        return between(this.config.COINS.BTC.MIN_PAYMENT,
-          this.config.COINS.BTC.MAX_PAYMENT)(value)
+        return between(this.config.COINS.BTC.MIN_DONATION,
+          this.config.COINS.BTC.MAX_DONATION)(value)
       }
     },
     fields: {

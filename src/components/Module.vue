@@ -1,7 +1,16 @@
 <template>
   <div :class="cssClass">
-    <div class="container">
-      <slot></slot>
+    <div class="ni-module-container">
+      <header class="ni-module-header">
+        <div class="ni-module-title"><slot name="title"></slot></div>
+        <div class="ni-module-menu"><slot name="menu"></slot></div>
+      </header>
+      <main class="ni-module-main">
+        <slot></slot>
+      </main>
+      <footer class="ni-module-footer">
+        <slot name="footer"></slot>
+      </footer>
     </div>
   </div>
 </template>
@@ -10,8 +19,8 @@
 export default {
   computed: {
     cssClass () {
-      let base = 'module'
-      if (this.size) base += ' module-' + this.size
+      let base = 'ni-module'
+      if (this.size) base += ' ni-module-' + this.size
       return base
     }
   },
@@ -22,170 +31,57 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.modules
+.ni-module
   padding 0.25rem
-
-  display flex
-  flex-flow row wrap
-  max-width 1024px
-  margin 0 auto
-
-  .module
-    flex 1 1 100%
-
-
-.module
-  padding 0.25rem
-  min-width 0
   display flex
 
-  .container
-    flex 1
-    background c-app-fg
-    box-shadow hsla(0,0,0,0.1) 0 1px 3px
+.ni-module-container
+  flex 1
+  background c-app-fg
+  box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
-  header
-    height 2rem
-    display flex
-    align-items center
-    border-bottom 1px solid bc
+.ni-module-header
+  height 2rem
+  display flex
+  align-items center
+  border-bottom 1px solid bc
 
-    .title
-      flex 1
-      font-size 0.875rem
-      padding 0 0.75rem
-      font-weight 500
+.ni-module-title
+  flex 1
+  font-size 0.875rem
+  padding 0 0.75rem
+  font-weight 500
 
-      white-space nowrap
-      text-overflow ellipsis
-      overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
+  overflow hidden
 
-    menu
-      display flex
-      padding 0 0.5rem
+.ni-module-menu
+  display flex
+  padding 0 0.5rem
 
-      a
-        color txt
-        font-size 0.75rem
-        padding 0 0.25rem
-        font-weight bold
-        color link
-        cursor pointer
-        &.active
-          color txt
-
-  .body
-    background c-app-fg
-    padding 0.5rem 0.75rem
-    font-size 0.875rem
-
-  .components, .ni-countdown
-    display flex
-    flex-flow column
-    justify-content center
-
-    padding 0.5rem 0
-    background c-app-fg
-    .icon
-      font-size 1.5rem
-      color light
-
-  .component
-    flex 1
-
-    display flex
-    flex-flow column no-wrap
-    align-items center
-    padding 1rem
-
-    .value
-      font-size 1.5rem
-      line-height 1
-      margin-bottom 0.75rem
-      font-weight 400
-      color mcolor
-
-      .fraction
-        font-weight 300
-
-    .fraction
-      color dim
-
-    .unit
-      color light
-      font-size 0.75rem
-      font-weight 400
-
-  footer
-    border-top 1px solid bc
-    height 2rem
-    display flex
-    align-items center
-    justify-content flex-end
-
+  a
+    color txt
     font-size 0.75rem
-    color dim
+    padding 0 0.25rem
+    font-weight bold
+    color link
+    cursor pointer
+    &.active
+      color txt
 
-    .ni-btn
-      border-right none
-      border-bottom none
-      border-top none
-      border-left 1px solid bc
-      height 2rem - 0.0625rem
-      font-size 0.875rem
-
-    a
-      font-weight 400
-      &.active
-        color txt
-
-    a + a
-      margin-left 0.5rem
-
-    p
-      white-space nowrap
-      text-overflow ellipsis
-      overflow hidden
-
-@media screen and (min-width: 414px)
-  .module
-    .components, .ni-countdown
-      padding 0.75rem 0
-
-    .component
-      padding 0.75rem 1rem
+.ni-module-main
+  flex 1
+  .ni-kvs
+    padding 0 !important
 
 @media screen and (min-width: 768px)
-  .modules, .module
-    padding 0.333rem
+  .ni-module-header
+    height 2.5rem
 
-  .module
-    &.module-sm
-      flex 1 1 50%
+  .ni-module-title
+    font-size 1rem
 
-    header
-      height 2.5rem
-      .title
-        font-size 1rem
-
-    .body
-      padding 1rem
-      font-size 1rem
-
-    .components, .ni-countdown
-      padding 1rem 0
-
-    .component
-      padding 1rem 1rem
-      
-    .component
-      .value
-        font-size 1.5rem
-      .unit
-        font-size 1rem
-        font-weight 300
-
-@media screen and (min-width: 1024px)
-  .modules, .module
-    padding 0.375rem
+  .ni-module-main
+    font-size 1rem
 </style>

@@ -1,38 +1,37 @@
 <template>
-  <module class="module-transactions">
-    <header>
-      <div class="title">Transaction History</div>
-      <menu>
-        <a class="btn-filter active" @click="setFilter('', $event)">All</a>
-        <a class="btn-filter" @click="setFilter('btc', $event)">BTC</a>
-        <a class="btn-filter" @click="setFilter('eth', $event)">ETH</a>
-      </menu>
-    </header>
-    <div class="transactions">
+  <module class="module-donations">
+    <div slot="title">Donation History</div>
+    <menu slot="menu">
+      <a class="btn-filter active" @click="setFilter('', $event)">All</a>
+      <a class="btn-filter" @click="setFilter('btc', $event)">BTC</a>
+      <a class="btn-filter" @click="setFilter('eth', $event)">ETH</a>
+    </menu>
+    <div class="donations">
       <div class="header-transaction">
         <div class="type">Type</div>
-        <div class="paid">Paid</div>
-        <div class="received">Received</div>
+        <div class="donated">Donated</div>
+        <div class="claimed">Claimed</div>
         <div class="date">Date</div>
       </div>
       <div
         class="card-transaction"
-        v-for="t in filteredTransactions" 
+        v-for="t in filteredDonations" 
         @click="toggleDetails">
         <div class="type">
           <img v-if="t.type === 'btc'" src="../assets/images/logo-bitcoin-320.png">
           <img v-else src="../assets/images/logo-ethereum-320.png">
         </div>
-        <div class="paid">
-          {{ flexibleNumber(t.atoms / t.price) }}
-          <span class="unit">{{ t.type }}</span>
+        <div class="donated">
+          <span class="value">{{ flexibleNumber(t.atoms / t.price) }}</span>
+          <span class="key">{{ t.type.toUpperCase() }}</span>
         </div>
-        <div class="received">
-          {{ flexibleNumber(t.atoms) }}
-          <span class="unit">atoms</span>
+        <div class="claimed">
+          <span class="value">{{ flexibleNumber(t.atoms) }}</span>
+          <span class="key">Atoms</span>
         </div>
         <div class="date" :title="isoDate(t.time)">
-          {{ flexibleDate(t.time) }}
+          <span class="value">{{ flexibleDate(t.time) }}</span>
+          <span class="key">{{ date(t.time) }}</span>
         </div>
       </div>
     </div>
@@ -46,28 +45,28 @@ import moment from 'moment'
 import Module from './Module'
 import num from '../scripts/num.js'
 export default {
-  name: 'module-transactions',
+  name: 'module-donations',
   components: {
     Module
   },
   computed: {
-    myTransactions () {
-      if (this.transactions.length > 0) {
+    myDonations () {
+      if (this.donations.length > 0) {
         let userId = this.sessionUser.uid
-        return this.transactions.filter(t => t.userId === userId)
+        return this.donations.filter(t => t.userId === userId)
       }
       return []
     },
-    orderedTransactions () {
-      return orderBy(this.transactions, ['time'], ['desc'])
+    orderedDonations () {
+      return orderBy(this.donations, ['time'], ['desc'])
     },
-    filteredTransactions () {
+    filteredDonations () {
       if (this.filter) {
-        return this.orderedTransactions.filter(t => t.type === this.filter)
+        return this.orderedDonations.filter(t => t.type === this.filter)
       }
-      return this.orderedTransactions
+      return this.orderedDonations
     },
-    ...mapGetters(['transactions', 'sessionUser'])
+    ...mapGetters(['donations', 'sessionUser'])
   },
   data () {
     return {
@@ -88,6 +87,9 @@ export default {
     isoDate (time) {
       return moment(time).format('YYYY-MM-DD hh:MM:SS A')
     },
+    date (time) {
+      return moment(time).format('YYYY-MM-DD')
+    },
     flexibleNumber (value) {
       if (this.details) return num.full(value)
       return num.pretty(value)
@@ -106,8 +108,8 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.module-transactions
-  .transactions
+.module-donations
+  .donations
     max-width 1024px
     font-size 0.75rem
 
@@ -128,58 +130,50 @@ export default {
       img
         width 1rem
 
-    .paid, .received
+    .donated, .claimed
       flex 2
-      text-align right
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
 
+
+    .value, .key
       font-size 0.75rem
+      display block
+
+    .value
+      font-weight 400
+
+    .key
+      color light
 
     .date
       flex 2
-      text-align right
-
-    .unit
-      display block
-      color light
 
   .header-transaction
-    div
-      font-weight bold
+    background bc
 
   .card-transaction
     &:last-of-type
       border-bottom none
-    .type
-      text-transform uppercase
-      font-weight bold
 
-@media screen and (min-width:400px)
-  .module-transactions
+@media screen and (min-width:360px)
+  .module-donations
+    .card-transaction
+      .value
+        font-size 0.875rem
+
+@media screen and (min-width:414px)
+  .module-donations
+    .card-transaction
+      .value
+        font-size 1rem
+
+@media screen and (min-width:768px)
+  .module-donations
+
     .header-transaction
     .card-transaction
       .type
         display block
-
-    .card-transaction
-      .paid, .received
-        font-size 1.25rem
-      .unit
-        font-size 0.75rem
-
-@media screen and (min-width:768px)
-  .module-transactions
-    .card-transaction
-      .paid, .received
-        display flex
-        align-items center
-        justify-content flex-end
-      .unit
-        margin-left 0.5rem
-      .paid, .received
-        flex 4
-      .date
-        flex 3
 </style>

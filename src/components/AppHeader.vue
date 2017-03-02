@@ -15,8 +15,8 @@
   <menu class="menu-popup menu-app" v-if="activeMenuApp || desktop">
     <nav class="nav-app">
       <router-link to="/" @click.native="closeMenus" exact>Dashboard</router-link>
-      <router-link to="/btc" @click.native="closeMenus">Pay with BTC</router-link>
-      <router-link to="/eth" @click.native="closeMenus">Pay with ETH</router-link>
+      <router-link to="/btc" @click.native="closeMenus">Donate BTC</router-link>
+      <router-link to="/eth" @click.native="closeMenus">Donate ETH</router-link>
     </nav>
     <!--
     <nav>

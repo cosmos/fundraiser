@@ -1,32 +1,32 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Pay with BTC</div>
-    <div slot="subtitle">Step 4 - Pay {{ btcTransaction.price }} BTC to the specified Bitcoin address below.</div>
+    <div slot="title">Donate BTC</div>
+    <div slot="subtitle">Step 4 - Donate {{ btcDonation.price }} BTC to the specified Bitcoin address below.</div>
 
     <form-group>
-      <label for="fund-btc-payment-address">BTC Payment Address</label>
+      <label for="fund-btc-donation-address">BTC Donation Address</label>
       <field-group>
         <field
-          id="fund-btc-payment-address"
+          id="fund-btc-donation-address"
           type="text"
           v-model="btcAddress">
         </field>
       </field-group>
 
-      <label>BTC Payment QR Code</label>
+      <label>BTC Donation QR Code</label>
       <field-group>
         <img
-          id="fund-btc-payment-qr-code"
-          alt="Bitcoin Payment QR Code"
+          id="fund-btc-donation-qr-code"
+          alt="Bitcoin Donation QR Code"
           src="../assets/images/1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi.png">
       </field-group>
     </form-group>
 
     <form-group>
-      <label>Optionally, Pay BTC From Wallet</label>
+      <label>Optionally, Donate BTC From Wallet</label>
       <field-group>
         <btn
-          @click="payBitcoin"
+          @click="donateBitcoin"
           icon="btc"
           value="Open Wallet">
         </btn>
@@ -38,7 +38,7 @@
       <field-group>
         <field
           input-type="number"
-          v-model="btcTransaction.atoms">
+          v-model="btcDonation.atoms">
         </field>
         <div class="field-group-addon">Atoms</i></div>
       </field-group>
@@ -73,7 +73,7 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['btcTransaction'])
+    ...mapGetters(['btcDonation'])
   },
   data () {
     return {
@@ -81,25 +81,25 @@ export default {
     }
   },
   methods: {
-    payBitcoin () {
-      console.log('paid bitcoin')
+    donateBitcoin () {
+      console.log('donated bitcoin')
     },
     copyBitcoin () {
       console.log('copied to clipboard!')
     },
     nextStep () {
       let self = this
-      this.$store.commit('setBtcTransactionTime', Date.now())
-      this.$store.commit('addTransaction', this.btcTransaction)
-      this.$store.commit('resetBtcTransaction')
-      self.$store.commit('notifyCustom', { title: 'Payment Successful', body: `You have succesfully purchased ${this.btcTransaction.atoms} atoms for ${this.btcTransaction.price} btc.` })
+      this.$store.commit('setBtcDonationTime', Date.now())
+      this.$store.commit('addDonation', this.btcDonation)
+      this.$store.commit('resetBtcDonation')
+      self.$store.commit('notifyCustom', { title: 'Donation Successful', body: `You have succesfully purchased ${this.btcDonation.atoms} atoms for ${this.btcDonation.price} btc.` })
       this.$router.push('/')
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
 
-    let el = document.querySelector('#fund-btc-payment-address')
+    let el = document.querySelector('#fund-btc-donation-address')
     el.addEventListener('focus', function () {
       el.select()
     })
@@ -111,7 +111,7 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-#fund-btc-payment-qr-code
+#fund-btc-donation-qr-code
   width 242px
   height 242px
   border 1px solid bc

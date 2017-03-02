@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: 'vuelidate-debug',
   props: ['name', 'data']
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Pay with BTC</div>
+    <div slot="title">Donate BTC</div>
     <div slot="subtitle">Step 3 - Download your presale atom wallet.</div>
 
     <form-group id="form-group-download">
@@ -62,7 +62,7 @@ export default {
         document.querySelector('#form-group-download').classList.add('error')
         return
       }
-      this.$store.commit('setBtcTransactionProgress', 4)
+      this.$store.commit('setBtcDonationProgress', 4)
     }
   },
   mounted () {

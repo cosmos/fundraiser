@@ -13,8 +13,8 @@ const state = {
     BTC: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       EXCHANGE_RATE: 2000,
-      MIN_PAYMENT: 0.01,
-      MAX_PAYMENT: 500,
+      MIN_DONATION: 0.01,
+      MAX_DONATION: 500,
       NAME: 'Bitcoin',
       UNIT: 'BTC',
       SATOSHIS_IN_BTC: 100000000
@@ -22,8 +22,8 @@ const state = {
     ETH: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       EXCHANGE_RATE: 20,
-      MIN_PAYMENT: 1,
-      MAX_PAYMENT: 50000,
+      MIN_DONATION: 1,
+      MAX_DONATION: 50000,
       NAME: 'Ethereum',
       UNIT: 'ETH'
     }

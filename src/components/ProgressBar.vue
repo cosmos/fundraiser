@@ -2,11 +2,11 @@
   <div class="pb-container">
     <div class="pb-bar-outer">
       <div class="pb-bar-inner" :style="innerBarStyle">
-        <span class="label label-amount">${{ num.short(amountPaid) }} / $10M</span>
-        <span class="label label-percentage">{{ percentagePaidFriendly }}%</span>
+        <span class="label label-amount">${{ num.short(amountDonated) }} / $10M</span>
+        <span class="label label-percentage">{{ percentageDonatedFriendly }}%</span>
       </div>
     </div>
-    <div class="description">${{ num.short(amountPaid) }} / $10M</label>
+    <div class="description">${{ num.short(amountDonated) }} / $10M</label>
   </div>
 </template>
 
@@ -16,20 +16,20 @@ import num from '../scripts/num.js'
 export default {
   name: 'progress-bar',
   computed: {
-    amountPaid () {
+    amountDonated () {
       let btcToUsd = this.progress.btcRaised * 1200
       let ethToUsd = this.progress.ethRaised * 13
       return btcToUsd + ethToUsd
     },
-    percentagePaid () {
-      return this.amountPaid / 10000000
+    percentageDonated () {
+      return this.amountDonated / 10000000
     },
-    percentagePaidFriendly () {
-      return Math.round(this.percentagePaid * 10000) / 100
+    percentageDonatedFriendly () {
+      return Math.round(this.percentageDonated * 10000) / 100
     },
     innerBarStyle () {
       return {
-        width: this.percentagePaid * 100 + '%'
+        width: this.percentageDonated * 100 + '%'
       }
     },
     ...mapGetters(['progress', 'config'])
@@ -40,7 +40,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.amountPaid)
+    console.log(this.amountDonated)
   }
 }
 </script>

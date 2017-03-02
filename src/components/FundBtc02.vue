@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Pay with BTC</div>
+    <div slot="title">Donate BTC</div>
     <div slot="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">
@@ -55,7 +55,7 @@ export default {
     FormMsg
   },
   computed: {
-    ...mapGetters(['btcTransaction'])
+    ...mapGetters(['btcDonation'])
   },
   data () {
     return {
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     startOver () {
-      this.$store.commit('setBtcTransactionProgress', 1)
+      this.$store.commit('setBtcDonationProgress', 1)
     },
     nextStep () {
       this.fields.password = this.passwordValue
@@ -75,7 +75,7 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setBtcTransactionProgress', 3)
+        this.$store.commit('setBtcDonationProgress', 3)
       }
     }
   },
@@ -88,8 +88,8 @@ export default {
       password: {
         required,
         matchesHash (value) {
-          const hash = this.btcTransaction.hash
-          console.log('hash', this.btcTransaction.hash)
+          const hash = this.btcDonation.hash
+          console.log('hash', this.btcDonation.hash)
           return bcrypt.compareSync(value, hash)
         }
       }
