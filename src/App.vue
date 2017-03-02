@@ -18,6 +18,9 @@ import AppFooter from './components/AppFooter.vue'
 import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
 import { mapGetters } from 'vuex'
+import { Client } from 'cosmos-fundraiser'
+
+const client = Client('http://localhost:8000')
 
 export default {
   components: {
@@ -50,6 +53,23 @@ export default {
       { r: 'icon', t: 'image/png', sz: '16x16', h: require('./assets/favicon/favicon-16x16.png') },
       { r: 'manifest', h: require('./assets/favicon/manifest.json') }
     ]
+  },
+  mounted () {
+    let { commit } = this.$store
+    client.getUser((err, user) => {
+      if (err && err.code !== 401) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Error',
+          body: 'An error occurred while loading user data from server'
+        })
+      }
+      if (err && err.code === 401) return // not logged in
+      console.log('got user', user)
+      commit('setSessionUserDisplayName', user.name)
+      commit('setSessionUserUid', user.userId)
+      commit('signIn', user)
+    })
   },
   store
 }

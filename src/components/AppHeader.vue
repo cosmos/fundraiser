@@ -108,8 +108,7 @@ export default {
     },
     signOut () {
       this.closeMenus()
-      this.$store.commit('signOut')
-      this.$store.commit('notifyCustom', { title: 'Signed Out', body: 'Come back again soon!' })
+      this.$store.dispatch('signOut')
       // this.$store.commit('notifyError', { title: error.code, body: error.message })
     },
     watchWindowSize () {
