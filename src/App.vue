@@ -65,9 +65,6 @@ export default {
         })
       }
       if (err && err.code === 401) return // not logged in
-      console.log('got user', user)
-      commit('setSessionUserDisplayName', user.name)
-      commit('setSessionUserUid', user.userId)
       commit('signIn', user)
     })
   },

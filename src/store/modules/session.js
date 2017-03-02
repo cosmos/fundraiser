@@ -15,22 +15,14 @@ const state = {
 }
 
 const mutations = {
-  signIn (state, data) {
-    state.user.email = data.email
-    state.user.password = data.password
+  signIn (state, user) {
+    state.user = user
     state.user.signedIn = true
     console.log('signed in')
   },
   signOut (state) {
     state.user = JSON.parse(JSON.stringify(emptyUser))
     console.log('signed out')
-  },
-  signUp (state, data) {
-    state.user.displayName = data.displayName
-    state.user.email = data.email
-    state.user.password = data.password
-    state.user.signedIn = true
-    console.log('signed up')
   },
   sendPasswordResetEmail (state, email) {
     console.log('TODO: send password reset email')
@@ -53,15 +45,20 @@ const mutations = {
   },
   setSessionUserPhotoUrl (state, value) {
     state.user.photoUrl = value
-  },
-  setSessionUserUid (state, value) {
-    state.user.uid = value
+  }
+}
+
+function loginRedirect (commit, sessionRequest, router) {
+  if (sessionRequest) {
+    router.push(sessionRequest)
+    commit('setSessionRequest', '')
+  } else {
+    router.push('/')
   }
 }
 
 const actions = {
   signUp ({ commit, getters }, { user, router }) {
-    user.name = user.displayName
     client.register(user, (err) => {
       if (err) {
         console.error(err)
@@ -70,15 +67,9 @@ const actions = {
           body: 'An error occurred while signing up'
         })
       }
-      commit('signUp', user)
+      commit('signIn', user)
       commit('notifySignUp')
-      let sessionRequest = getters.sessionRequest
-      if (sessionRequest) {
-        router.push(sessionRequest)
-        commit('setSessionRequest', '')
-      } else {
-        router.push('/')
-      }
+      loginRedirect(commit, getters.sessionRequest, router)
     })
   },
   signIn ({ commit, getters }, { user, router }) {
@@ -92,16 +83,10 @@ const actions = {
       }
       commit('signIn', user)
       commit('notifySignIn', user)
-      let sessionRequest = getters.sessionRequest
-      if (sessionRequest) {
-        router.push(sessionRequest)
-        commit('setSessionRequest', '')
-      } else {
-        router.push('/')
-      }
+      loginRedirect(commit, getters.sessionRequest, router)
     })
   },
-  signOut ({ commit }) {
+  signOut ({ commit }, router) {
     client.logout((err) => {
       if (err) {
         console.error(err)
@@ -112,6 +97,7 @@ const actions = {
       }
       commit('signOut')
       commit('notifySignOut')
+      router.push('/')
     })
   }
 }

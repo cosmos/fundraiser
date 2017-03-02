@@ -108,7 +108,7 @@ export default {
     },
     signOut () {
       this.closeMenus()
-      this.$store.dispatch('signOut')
+      this.$store.dispatch('signOut', this.$router)
       // this.$store.commit('notifyError', { title: error.code, body: error.message })
     },
     watchWindowSize () {
