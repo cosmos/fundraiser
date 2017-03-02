@@ -1,3 +1,6 @@
+const { Client } = require('cosmos-fundraiser')
+const client = Client('http://localhost:8000')
+
 const emptyUser = {
   displayName: '',
   email: '',
@@ -56,7 +59,65 @@ const mutations = {
   }
 }
 
+const actions = {
+  signUp ({ commit, getters }, { user, router }) {
+    user.name = user.displayName
+    client.register(user, (err) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Signup Error',
+          body: 'An error occurred while signing up'
+        })
+      }
+      commit('signUp', user)
+      commit('notifySignUp')
+      let sessionRequest = getters.sessionRequest
+      if (sessionRequest) {
+        router.push(sessionRequest)
+        commit('setSessionRequest', '')
+      } else {
+        router.push('/')
+      }
+    })
+  },
+  signIn ({ commit, getters }, { user, router }) {
+    client.login(user, (err, user) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Login Error',
+          body: 'Invalid login'
+        })
+      }
+      commit('signIn', user)
+      commit('notifySignIn', user)
+      let sessionRequest = getters.sessionRequest
+      if (sessionRequest) {
+        router.push(sessionRequest)
+        commit('setSessionRequest', '')
+      } else {
+        router.push('/')
+      }
+    })
+  },
+  signOut ({ commit }) {
+    client.logout((err) => {
+      if (err) {
+        console.error(err)
+        return commit('notifyError', {
+          title: 'Logout Error',
+          body: 'Could not log out'
+        })
+      }
+      commit('signOut')
+      commit('notifySignOut')
+    })
+  }
+}
+
 export default {
   state,
-  mutations
+  mutations,
+  actions
 }

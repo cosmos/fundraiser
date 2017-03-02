@@ -78,17 +78,10 @@ export default {
       if (!this.$v.$error) this.signUp()
     },
     signUp () {
-      this.$store.commit('signUp', this.fields)
-      this.signInSuccess()
-    },
-    signInSuccess () {
-      this.$store.commit('notifySignUp')
-      if (this.sessionRequest) {
-        this.$router.push(this.sessionRequest)
-        this.$store.commit('setSessionRequest', '')
-      } else {
-        this.$router.push('/')
-      }
+      this.$store.dispatch('signUp', {
+        user: this.fields,
+        router: this.$router
+      })
     }
   },
   mounted () {
