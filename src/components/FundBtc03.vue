@@ -66,7 +66,10 @@ export default {
         document.querySelector('#form-group-download').classList.add('error')
         return
       }
-      this.$store.commit('setBtcDonationProgress', 4)
+      this.$store.dispatch('submitBtcDonationWallet', (err) => {
+        if (err) return
+        this.$store.commit('setBtcDonationProgress', 4)
+      })
     }
   },
   mounted () {

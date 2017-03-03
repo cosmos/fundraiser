@@ -88,7 +88,7 @@ export default {
           let encryptedSeed = this.btcDonation.encryptedSeed
           try {
             let seed = cfr.decryptSeed(encryptedSeed, password)
-            let wallet = cfr.deriveWallet(seed, password)
+            let wallet = cfr.deriveWallet(seed)
             this.$store.commit('setBtcDonationWallet', wallet)
             return true
           } catch (err) {
