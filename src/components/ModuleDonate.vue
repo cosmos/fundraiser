@@ -15,7 +15,7 @@
         </div>
         <btn
           :value="'Donate ' + coin.UNIT"
-          @click.native="go('/' + coin.UNIT)"
+          @click.native="go('/' + coin.UNIT.toLowerCase())"
           icon="angle-right"
           icon-pos="right"
           >

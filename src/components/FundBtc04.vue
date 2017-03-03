@@ -83,15 +83,13 @@ export default {
   },
   methods: {
     donateBitcoin () {
-      console.log('opening wallet...')
       window.location.href = 'bitcoin:1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi'
     },
     nextStep () {
-      let self = this
       this.$store.commit('setBtcDonationTime', Date.now())
       this.$store.commit('addDonation', this.btcDonation)
       this.$store.commit('resetBtcDonation')
-      self.$store.commit('notifyCustom', { title: 'Donation Successful', body: `You have succesfully purchased ${this.btcDonation.atoms} atoms for ${this.btcDonation.price} btc.` })
+      this.$store.commit('notifyCustom', { title: 'Donation Successful', body: `You have donated ${this.btcDonation.price} BTC for ${this.btcDonation.atoms} Atoms.` })
       this.$router.push('/')
     }
   },

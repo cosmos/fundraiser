@@ -25,6 +25,12 @@ export default {
   display flex
   margin-bottom 0.5rem
 
+  .ni-field
+    flex 4
+
+  .ni-field-addon
+    flex 1
+
   .ni-field, .ni-btn-wrapper
     margin 0
 

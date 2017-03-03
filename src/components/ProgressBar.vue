@@ -38,9 +38,6 @@ export default {
     return {
       num: num
     }
-  },
-  mounted () {
-    console.log(this.amountDonated)
   }
 }
 </script>
