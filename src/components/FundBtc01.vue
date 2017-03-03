@@ -15,7 +15,7 @@
           :step="config.COINS.BTC.MIN_DONATION"
           required>
         </field>
-        <div class="nfield-group-addon">BTC</div>
+        <div class="ni-field-addon">BTC</div>
       </field-group>
       <form-msg
         name="BTC amount"
@@ -42,7 +42,7 @@
           :step="config.ATOM.MIN_BUY"
           required>
         </field>
-        <div class="field-group-addon">Atoms</div>
+        <div class="ni-field-addon">Atoms</div>
       </field-group>
       <form-msg
         name="Atom amount"

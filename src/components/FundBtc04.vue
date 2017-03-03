@@ -11,6 +11,7 @@
           type="text"
           v-model="btcAddress">
         </field>
+        <btn-copy :value="btcAddress"></btn-copy>
       </field-group>
 
       <label>BTC Donation QR Code</label>
@@ -40,7 +41,7 @@
           input-type="number"
           v-model="btcDonation.atoms">
         </field>
-        <div class="field-group-addon">Atoms</i></div>
+        <div class="ni-field-addon">Atoms</div>
       </field-group>
     </form-group>
 
@@ -61,6 +62,7 @@ import Field from '@nylira/vue-input'
 import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
+import BtnCopy from './BtnCopy'
 import FieldGroup from './FieldGroup'
 export default {
   name: 'fund-btc-04',
@@ -69,6 +71,7 @@ export default {
     FormGroup,
     FormMsg,
     Btn,
+    BtnCopy,
     FieldGroup,
     Field
   },
@@ -82,10 +85,8 @@ export default {
   },
   methods: {
     donateBitcoin () {
-      console.log('donated bitcoin')
-    },
-    copyBitcoin () {
-      console.log('copied to clipboard!')
+      console.log('opening wallet...')
+      window.location.href = 'bitcoin:1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi'
     },
     nextStep () {
       let self = this

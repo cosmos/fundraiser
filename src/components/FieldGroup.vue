@@ -26,18 +26,29 @@ export default {
   margin-bottom 0.5rem
 
   .ni-field, .ni-btn-wrapper
-    flex 5
     margin 0
 
   .ni-btn-wrapper
     max-width 15rem
 
   .ni-field + .ni-btn-wrapper
-    flex 1
+    margin-left 1rem
 
-  .ni-field + .ni-btn-wrapper .ni-btn
+  .ni-btn-wrapper + .ni-field
+    margin-left 1rem
+
+  .ni-field-addon
+    background c-app-bg
+    border 1px solid #ccc
+    display flex
+    align-items center
+    padding 0 0.5rem
+
+    color light
+
+  .ni-field + .ni-field-addon
     border-left none
 
-  .field-group-addon
-    flex 1
+  .ni-field-addon + .ni-field
+    border-left none
 </style>
