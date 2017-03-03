@@ -1,5 +1,5 @@
 const { Client } = require('cosmos-fundraiser')
-const client = Client('http://localhost:8000')
+const client = Client(process.env.COSMOS_API_URI)
 
 const emptyUser = {
   displayName: '',
@@ -143,8 +143,26 @@ const actions = {
       }
       commit('notifyCustom', {
         title: 'Password Updated',
-        body: `Your password has been succesfully changed.`
+        body: 'Your password has been succesfully changed.'
       })
+    })
+  },
+  submitBtcDonationWallet ({ commit, getters }, cb) {
+    let { encryptedSeed } = getters.btcDonation
+    client.backupWallet(encryptedSeed, (err) => {
+      if (err) {
+        console.error(err)
+        commit('notifyError', {
+          title: 'Wallet Backup Error',
+          body: 'An error occurred while backing up your wallet.'
+        })
+        if (cb) cb(err)
+      }
+      commit('notifyCustom', {
+        title: 'Wallet Backed Up',
+        body: 'Your encrypted wallet is now backed up in the Cosmos Fundraiser database.'
+      })
+      if (cb) cb(null)
     })
   }
 }

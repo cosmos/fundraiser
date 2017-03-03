@@ -76,11 +76,9 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['btcDonation'])
-  },
-  data () {
-    return {
-      btcAddress: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi'
+    ...mapGetters(['btcDonation']),
+    btcAddress () {
+      return this.btcDonation.wallet.addresses.bitcoin
     }
   },
   methods: {
