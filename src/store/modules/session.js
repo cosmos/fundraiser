@@ -11,7 +11,8 @@ const emptyUser = {
 
 const state = {
   request: '',
-  user: JSON.parse(JSON.stringify(emptyUser))
+  user: JSON.parse(JSON.stringify(emptyUser)),
+  client
 }
 
 const mutations = {
