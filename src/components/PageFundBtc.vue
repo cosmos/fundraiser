@@ -6,6 +6,7 @@
     <fund-btc-03 v-if="btcDonation.progress === 3"></fund-btc-03>
     <fund-btc-decrypt v-if="btcDonation.progress === 'decrypt'"></fund-btc-decrypt>
     <fund-btc-04 v-if="btcDonation.progress === 4"></fund-btc-04>
+    <fund-btc-05 v-if="btcDonation.progress === 5"></fund-btc-05>
   </div>
 </div>
 </template>
@@ -18,6 +19,7 @@ import FundBtc02 from './FundBtc02'
 import FundBtc03 from './FundBtc03'
 import FundBtcDecrypt from './FundBtcDecrypt'
 import FundBtc04 from './FundBtc04'
+import FundBtc05 from './FundBtc05'
 export default {
   name: 'page-btc',
   components: {
@@ -26,7 +28,8 @@ export default {
     FundBtc02,
     FundBtc03,
     FundBtcDecrypt,
-    FundBtc04
+    FundBtc04,
+    FundBtc05
   },
   computed: {
     ...mapGetters(['btcDonation', 'sessionUser'])

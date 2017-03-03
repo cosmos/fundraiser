@@ -6,7 +6,8 @@ const empty = {
   price: 0,
   atoms: 0,
   hash: '',
-  progress: 1
+  progress: 1,
+  tx: null
 }
 
 const state = JSON.parse(JSON.stringify(empty))
@@ -38,13 +39,18 @@ const mutations = {
   setBtcDonationProgress (state, value) {
     state.progress = value
     console.log('SET btcDonation.progress', state.progress)
+  },
+  setBtcDonationTx (state, tx) {
+    state.tx = tx
+    console.log('SET btcDonation.tx', state.tx)
   }
 }
 
 const actions = {
   generateBtcDonationWallet ({ commit }, password) {
+    let testnet = process.env.NODE_ENV === 'development'
     let seed = cfr.generateSeed()
-    let wallet = cfr.deriveWallet(seed)
+    let wallet = cfr.deriveWallet(seed, testnet)
     commit('setBtcDonationWallet', wallet)
     let encryptedSeed = cfr.encryptSeed(seed, password)
     commit('setBtcDonationEncryptedSeed', encryptedSeed)
