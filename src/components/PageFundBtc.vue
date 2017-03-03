@@ -6,6 +6,7 @@
     <fund-btc-03 v-if="btcDonation.progress === 3"></fund-btc-03>
     <fund-btc-decrypt v-if="btcDonation.progress === 'decrypt'"></fund-btc-decrypt>
     <fund-btc-04 v-if="btcDonation.progress === 4"></fund-btc-04>
+    <fund-btc-05 v-if="btcDonation.progress === 5"></fund-btc-05>
   </div>
   <modal v-if="wantsToLeave">
     <div slot="title">Canceling Donation</div>
@@ -29,6 +30,7 @@ import FundBtc02 from './FundBtc02'
 import FundBtc03 from './FundBtc03'
 import FundBtcDecrypt from './FundBtcDecrypt'
 import FundBtc04 from './FundBtc04'
+import FundBtc05 from './FundBtc05'
 import Modal from './Modal'
 export default {
   name: 'page-btc',
@@ -40,6 +42,7 @@ export default {
     FundBtc03,
     FundBtcDecrypt,
     FundBtc04,
+    FundBtc05,
     Modal
   },
   computed: {

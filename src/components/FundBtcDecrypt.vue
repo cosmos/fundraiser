@@ -45,7 +45,7 @@ import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 export default {
-  name: 'fund-btc-02',
+  name: 'fund-btc-decrypt',
   components: {
     FormStruct,
     FormGroup,
@@ -86,9 +86,10 @@ export default {
         required,
         isCorrect (password) {
           let encryptedSeed = this.btcDonation.encryptedSeed
+          let testnet = process.env.NODE_ENV === 'development'
           try {
             let seed = cfr.decryptSeed(encryptedSeed, password)
-            let wallet = cfr.deriveWallet(seed)
+            let wallet = cfr.deriveWallet(seed, testnet)
             this.$store.commit('setBtcDonationWallet', wallet)
             return true
           } catch (err) {
