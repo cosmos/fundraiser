@@ -12,7 +12,8 @@ const emptyUser = {
 const state = {
   request: '',
   user: JSON.parse(JSON.stringify(emptyUser)),
-  client
+  client,
+  ready: false
 }
 
 const mutations = {
@@ -46,6 +47,9 @@ const mutations = {
   },
   setSessionUserPhotoUrl (state, value) {
     state.user.photoUrl = value
+  },
+  setSessionReady (state) {
+    state.ready = true
   }
 }
 

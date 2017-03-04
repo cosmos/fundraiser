@@ -54,7 +54,7 @@ export default {
       { r: 'manifest', h: require('./assets/favicon/manifest.json') }
     ]
   },
-  mounted () {
+  created () {
     let { commit } = this.$store
     client.getUser((err, user) => {
       if (err && err.code !== 401) {
@@ -64,6 +64,7 @@ export default {
           body: 'An error occurred while loading user data from server'
         })
       }
+      commit('setSessionReady')
       if (err && err.code === 401) return // not logged in
       commit('signIn', user)
     })

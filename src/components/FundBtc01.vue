@@ -154,7 +154,7 @@ export default {
         }
       }
     },
-    ...mapGetters(['sessionUser', 'config'])
+    ...mapGetters(['sessionUser', 'sessionReady', 'config'])
   },
   data: () => ({
     fields: {
@@ -172,20 +172,30 @@ export default {
         this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
         this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
       }
-    }
-  },
-  mounted () {
-    if (this.sessionUser &&
-      this.sessionUser.wallets &&
-      this.sessionUser.wallets.length > 0) {
+    },
+    skipWalletCreation () {
       // we already have a wallet
       let encryptedSeed = this.sessionUser.wallets[0]
       this.$store.commit('setBtcDonationEncryptedSeed', encryptedSeed)
       this.$store.commit('setBtcDonationProgress', 'decrypt')
-      return
+    },
+    skipIfWalletExists () {
+      if (this.sessionUser &&
+        this.sessionUser.wallets &&
+        this.sessionUser.wallets.length > 0) {
+        this.skipWalletCreation()
+      }
     }
+  },
+  mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
     document.querySelector('#fund-btc-amount-btc').focus()
+
+    let done = this.$store.watch(() => this.sessionReady, () => {
+      this.skipIfWalletExists()
+      done()
+    })
+    this.skipIfWalletExists()
   },
   validations: {
     amountBtc: {

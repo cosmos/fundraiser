@@ -1,6 +1,7 @@
 export const sessionRequest = state => state.session.request
 export const sessionUser = state => state.session.user
 export const sessionClient = state => state.session.client
+export const sessionReady = state => state.session.ready
 
 export const config = state => state.config
 
