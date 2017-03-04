@@ -1,7 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 3 - Download your presale atom wallet.</div>
+    <div slot="subtitle">Download your presale Atom wallet.</div>
 
     <form-group id="form-group-download">
       <field-group>
@@ -11,7 +11,7 @@
           value="Download Wallet">
         </btn>
       </field-group>
-      <form-msg body="If the wallet opens in a browser window, copy and paste the contents into a text file."></form-msg>
+      <form-msg body="You will use this wallet later to access your Cosmos Atoms."></form-msg>
       <form-msg type="error" body="You must download the wallet file before continuing."></form-msg>
     </form-group>
 

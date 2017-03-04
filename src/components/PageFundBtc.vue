@@ -75,7 +75,7 @@ export default {
     */
   },
   beforeRouteLeave (to, from, next) {
-    if (this.canLeave) {
+    if (this.canLeave || this.btcDonation.progress === 5) {
       next(true)
     } else {
       this.leaveDestination = to.path

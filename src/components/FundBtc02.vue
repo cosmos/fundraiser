@@ -1,7 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 2 - Confirm that you remember your password. If you've forgotten it, please start over.</div>
+    <div slot="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">
     <label for="fund-btc-recall-password">Password</label>

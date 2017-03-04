@@ -1,68 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 1</div>
-
-    <form-group :class="{ error: $v.amountBtc.$error || $v.fields.atoms.$error }">
-      <label for="fund-btc-amount-btc">Enter amount you wish to donate in BTC.</label>
-      <label class="hidden" for="fund-btc-amount-btc">Amount in BTC</label>
-      <field-group>
-        <field id="fund-btc-amount-btc" type="number"
-          v-model="amountBtc"
-          @input="$v.amountBtc.$touch()"
-          :min="config.COINS.BTC.MIN_DONATION"
-          :max="config.COINS.BTC.MAX_DONATION"
-          :step="config.COINS.BTC.MIN_DONATION"
-          required>
-        </field>
-        <div class="ni-field-addon">BTC</div>
-      </field-group>
-      <form-msg
-        name="BTC amount"
-        type="required"
-        v-if="!$v.amountBtc.required">
-      </form-msg>
-      <form-msg
-        name="BTC amount"
-        type="between"
-        :min="config.COINS.BTC.MIN_DONATION"
-        :max="config.COINS.BTC.MAX_DONATION"
-        v-if="!$v.amountBtc.between">
-      </form-msg>
-
-      <label class="hidden" for="fund-btc-amount-atoms">Amount in Atoms</label>
-      <field-group>
-        <field
-          id="fund-btc-amount-atoms"
-          v-model="fields.atoms"
-          type="number"
-          @input="$v.fields.atoms.$touch()"
-          :min="config.ATOM.MIN_BUY"
-          :max="config.ATOM.MAX_BUY"
-          :step="config.ATOM.MIN_BUY"
-          required>
-        </field>
-        <div class="ni-field-addon">Atoms</div>
-      </field-group>
-      <form-msg
-        name="Atom amount"
-        type="required"
-        v-if="!$v.fields.atoms.required">
-      </form-msg>
-      <form-msg
-        name="Atom amount"
-        type="between"
-        :min="config.ATOM.MIN_BUY"
-        :max="config.ATOM.MAX_BUY"
-        v-if="!$v.fields.atoms.between">
-      </form-msg>
-      <form-msg
-        body="Valuation: 1 BTC = 2,000 Atoms.">
-      </form-msg>
-
-      <vuelidate-debug name="amountBtc" :data="$v.amountBtc"></vuelidate-debug>
-      <vuelidate-debug name="atoms" :data="$v.fields.atoms"></vuelidate-debug>
-    </form-group>
+    <div slot="subtitle">Create a wallet</div>
 
     <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
       <label>Create a wallet password.</label>
@@ -189,7 +128,6 @@ export default {
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    document.querySelector('#fund-btc-amount-btc').focus()
 
     let done = this.$store.watch(() => this.sessionReady, () => {
       this.skipIfWalletExists()

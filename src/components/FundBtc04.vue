@@ -1,13 +1,27 @@
 <template>
   <form-struct>
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 4 - Send {{ btcDonation.price ? btcDonation.price : '' }} BTC to the address below to continue.</div>
+    <div slot="subtitle">Send BTC to the address below to continue.</div>
 
     <form-group>
+
       <field-group>
         <i id="btc-donation-spinner" class="fa fa-spinner fa-spin"></i>
         <span>&nbsp;Waiting for transaction...</span>
       </field-group>
+      <br />
+      <div class="btc-donation-send-field">
+        <strong>Exchange Rate</strong>
+        <span>1 BTC : {{ this.config.COINS.BTC.EXCHANGE_RATE }} ATOM</span>
+      </div>
+      <div class="btc-donation-send-field">
+        <strong>Minimum Donation</strong>
+        <span>{{ this.config.COINS.BTC.MIN_DONATION }} BTC</span>
+      </div>
+      <div class="btc-donation-send-field">
+        <strong>Maximum Donation</strong>
+        <span>{{ this.config.COINS.BTC.MAX_DONATION }} BTC</span>
+      </div>
     </form-group>
 
     <form-group>
@@ -34,7 +48,7 @@
       <label>Optionally, Donate BTC From Wallet</label>
       <field-group>
         <btn
-          @click="donateBitcoin"
+          @click.native="donateBitcoin"
           icon="btc"
           value="Open Wallet">
         </btn>
@@ -67,7 +81,7 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['btcDonation']),
+    ...mapGetters(['btcDonation', 'config']),
     btcAddress () {
       return this.btcDonation.wallet.addresses.bitcoin
     },
@@ -79,7 +93,7 @@ export default {
   },
   methods: {
     donateBitcoin () {
-      window.location.href = 'bitcoin:1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi'
+      window.location.href = `bitcoin:${this.btcAddress}?label=My%20Cosmos%20Fundraiser%20wallet`
     },
     nextStep () {
       this.$store.commit('setBtcDonationProgress', 5)
@@ -124,4 +138,9 @@ export default {
   height 1em
   position relative
   top 4px
+
+.btc-donation-send-field
+  strong
+    display inline-block
+    width 190px
 </style>
