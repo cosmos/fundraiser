@@ -75,9 +75,11 @@ export default {
     */
   },
   beforeRouteLeave (to, from, next) {
-    // only show leave modal for page 4, when waiting for tx since
+    // only show leave modal for page 4 and 5 since
     // flow can be trivially resumed for other states
-    if (this.canLeave || this.btcDonation.progress !== 4) {
+    if (this.canLeave ||
+      this.btcDonation.progress !== 4 ||
+      this.btcDonation.progress !== 5) {
       next(true)
     } else {
       this.leaveDestination = to.path

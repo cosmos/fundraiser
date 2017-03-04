@@ -1,9 +1,16 @@
 <template>
   <form-struct :submit="finalize">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 5 - Finalize your contribution.</div>
+    <div slot="subtitle">Review your contribution</div>
 
     <form-group>
+      <div>
+        <p>Please confirm your donation.</p>
+        <p>
+          Once you confirm, funds will be sent from your intermediate Bitcoin wallet to the Cosmos Fundraiser exodus address.
+        </p>
+      </div>
+      <br />
       <div class="btc-donation-final-field">
         <strong>Donation Amount</strong>
         <span>{{ donationAmount / 1e8 }} BTC</span>
@@ -22,7 +29,7 @@
       </div>
       <br />
       <div>
-        <span>Once the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</span>
+        <span>When the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</span>
       </div>
     </form-group>
 
@@ -56,7 +63,7 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['btcDonation', 'config', 'sessionClient']),
+    ...mapGetters(['btcDonation', 'config']),
     btcAddress () {
       return this.btcDonation.wallet.addresses.bitcoin
     },
@@ -80,32 +87,9 @@ export default {
   },
   methods: {
     finalize () {
-      let testnet = process.env.NODE_ENV === 'development'
-
-      var pushTx
-      if (testnet) {
-        pushTx = (tx, cb) => this.sessionClient.pushTx(tx, cb)
-      } else {
-        pushTx = (tx, cb) => bitcoin.pushTx(tx, { tesnet: false }, cb)
-      }
-
-      pushTx(this.finalTx.tx, (err, res) => {
-        if (err) {
-          console.error(err)
-          return this.$store.commit('notifyError', {
-            title: 'Bitcoin Error',
-            body: 'Could not broadcast donation transaction.'
-          })
-        }
-        console.log('res', res)
-        // TODO: submit tx to API server
-        this.$store.commit('setBtcDonationTime', Date.now())
-        this.$store.commit('addDonation', this.btcDonation)
-        this.$store.commit('resetBtcDonation')
-        this.$store.commit('notifyCustom', {
-          title: 'Donation Successful',
-          body: `You have succesfully donated ${this.donationAmount / 1e8} BTC and will receive ${this.atomAmount} ATOM.`
-        })
+      this.$store.dispatch('finalizeBtcDonation', (err) => {
+        if (err) return
+        this.$store.commit('setBtcDonationProgress', 6)
         this.$router.push('/')
       })
     }
