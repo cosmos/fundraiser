@@ -9,13 +9,13 @@
     <fund-btc-05 v-if="btcDonation.progress === 5"></fund-btc-05>
   </div>
   <modal v-if="wantsToLeave">
-    <div slot="title">Canceling Donation</div>
+    <div slot="title">Donation in Progress</div>
     <div>
-      Leaving this page will completely reset the current donation progress. Are you sure you want to cancel the donation?
+      You may return at any time to continue with your donation.
     </div>
     <div slot="footer">
       <btn value="Return to Page" @click.native="cancelLeave"></btn>
-      <btn value="Yes, Cancel Donation" @click.native="confirmLeave"></btn>
+      <btn value="Finish Donation Later" @click.native="confirmLeave"></btn>
     </div>
   </modal>
 </div>
@@ -75,7 +75,9 @@ export default {
     */
   },
   beforeRouteLeave (to, from, next) {
-    if (this.canLeave || this.btcDonation.progress === 5) {
+    // only show leave modal for page 4, when waiting for tx since
+    // flow can be trivially resumed for other states
+    if (this.canLeave || this.btcDonation.progress !== 4) {
       next(true)
     } else {
       this.leaveDestination = to.path
@@ -90,8 +92,6 @@ export default {
     confirmLeave () {
       this.canLeave = true
       this.$router.push(this.leaveDestination)
-      this.$store.commit('resetBtcDonation')
-      this.$store.commit('notifyCustom', { title: 'Donation Canceled', body: `Your donation information has been wiped for security reasons. Try again soon.` })
     }
   }
 }
