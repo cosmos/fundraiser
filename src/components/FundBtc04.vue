@@ -70,7 +70,6 @@ import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
 import BtnCopy from './BtnCopy'
 import FieldGroup from './FieldGroup'
-const testnet = process.env.NODE_ENV === 'development'
 export default {
   name: 'fund-btc-04',
   components: {
@@ -110,7 +109,7 @@ export default {
     })
 
     console.log('waiting for tx to ' + this.btcAddress)
-    bitcoin.waitForTx(this.btcAddress, { testnet }, (err, tx) => {
+    bitcoin.waitForPayment(this.btcAddress, (err, inputs) => {
       if (err) {
         console.error(err)
         return this.$store.commit('notifyError', {
@@ -118,8 +117,8 @@ export default {
           body: 'An error occurred when trying to get Bitcoin transaction data.'
         })
       }
-      console.log('got tx:', tx)
-      this.$store.commit('setBtcDonationTx', tx)
+      console.log('got inputs:', inputs)
+      this.$store.commit('setBtcDonationTx', inputs)
       this.$store.commit('setBtcDonationProgress', 5)
     })
   }
