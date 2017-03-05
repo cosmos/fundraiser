@@ -89,7 +89,7 @@ export default {
     finalize () {
       this.$store.dispatch('finalizeBtcDonation', (err) => {
         if (err) return
-        this.$store.commit('setBtcDonationProgress', 6)
+        this.$store.commit('setBtcDonationProgress', 1)
         this.$router.push('/')
       })
     }

@@ -22,6 +22,10 @@
         <strong>Maximum Donation</strong>
         <span>{{ this.config.COINS.BTC.MAX_DONATION }} BTC</span>
       </div>
+      <br />
+      <div>
+        <span>This address is for your intermediate BTC wallet. You will be asked to confirm your contribution on the next page.</span>
+      </div>
     </form-group>
 
     <form-group>
@@ -42,10 +46,8 @@
           alt="Bitcoin Donation QR Code"
           v-bind:src="qrcode">
       </field-group>
-    </form-group>
 
-    <form-group>
-      <label>Optionally, Donate BTC From Wallet</label>
+      <label>Donate BTC From Wallet</label>
       <field-group>
         <btn
           @click.native="donateBitcoin"
