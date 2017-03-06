@@ -130,6 +130,15 @@ export default {
       this.$store.commit('setBtcDonationEncryptedSeed', encryptedSeed)
       this.$store.commit('setBtcDonationProgress', 'decrypt')
     },
+    ensureLoggedIn () {
+      if (this.sessionUser.signedIn) return
+      this.$store.commit(
+        'notifyAuthRequired',
+        'You must have an account to donate, please sign up.'
+      )
+      this.$store.commit('setSessionRequest', '/btc')
+      this.$router.push('/')
+    },
     skipIfWalletExists () {
       if (this.sessionUser &&
         this.sessionUser.wallets &&
@@ -141,11 +150,16 @@ export default {
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
 
-    let done = this.$store.watch(() => this.sessionReady, () => {
+    if (this.sessionReady) {
+      this.ensureLoggedIn()
       this.skipIfWalletExists()
-      done()
-    })
-    this.skipIfWalletExists()
+    } else {
+      let done = this.$store.watch(() => this.sessionReady, () => {
+        this.ensureLoggedIn()
+        this.skipIfWalletExists()
+        done()
+      })
+    }
   },
   validations: {
     fields: {
