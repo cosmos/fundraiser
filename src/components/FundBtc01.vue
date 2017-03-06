@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { required, between, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import FormStruct from './FormStruct'
 import FormMsg from '@nylira/vue-form-msg'
@@ -116,11 +116,13 @@ export default {
   methods: {
     nextStep () {
       this.$v.$touch()
-      console.log('next step!')
       if (!this.$v.$error) {
         this.$store.commit('setBtcDonationPrice', this.config.COINS.BTC.EXCHANGE_RATE)
         this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
         this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
+        this.$store.commit('setBtcDonationProgress', 2)
+      } else {
+        console.log('there was an error', this.$v)
       }
     },
     skipWalletCreation () {
@@ -147,21 +149,23 @@ export default {
     this.skipIfWalletExists()
   },
   validations: {
+    /*
     amountBtc: {
       required,
       between (value) {
         return between(this.config.COINS.BTC.MIN_DONATION,
           this.config.COINS.BTC.MAX_DONATION)(value)
       }
-    },
+    }, */
     fields: {
+      /*
       atoms: {
         required,
         between (value) {
           return between(this.config.ATOM.MIN_BUY,
             this.config.ATOM.MAX_BUY)(value)
         }
-      },
+      }, */
       password: {
         required,
         minLength (value) { return minLength(this.config.PASSWORD_MIN)(value) },
