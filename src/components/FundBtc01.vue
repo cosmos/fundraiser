@@ -9,12 +9,15 @@
       <label class="hidden" for="fund-btc-password">Password</label>
       <field-group>
         <field
+          id="fund-btc-password"
           type="password"
           placeholder="Enter your password"
           v-model="fields.password"
           @input="$v.fields.password.$touch()"
           required>
         </field>
+        <password-visible-addon v-model="visible.password">
+        </password-visible-addon>
       </field-group>
       <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
@@ -30,6 +33,8 @@
           @input="$v.fields.confirmPassword.$touch()"
           required>
         </field>
+        <password-visible-addon v-model="visible.confirmPassword">
+        </password-visible-addon>
       </field-group>
       <form-msg
         name="Password confirmation"
@@ -69,6 +74,7 @@ import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 import FormGroup from './FormGroup'
 import FieldGroup from './FieldGroup'
+import PasswordVisibleAddon from './PasswordVisibleAddon'
 export default {
   name: 'fund-btc-01',
   components: {
@@ -78,7 +84,8 @@ export default {
     VuelidateDebug,
     FormMsg,
     FormGroup,
-    FieldGroup
+    FieldGroup,
+    PasswordVisibleAddon
   },
   computed: {
     amountBtc: {
@@ -96,6 +103,10 @@ export default {
     ...mapGetters(['sessionUser', 'sessionReady', 'config'])
   },
   data: () => ({
+    visible: {
+      password: false,
+      confirmPassword: false
+    },
     fields: {
       atoms: 0,
       password: '',
@@ -159,6 +170,24 @@ export default {
       confirmPassword: {
         required,
         sameAsPassword: sameAs('password')
+      }
+    }
+  },
+  watch: {
+    'visible.password' (newVal, oldVal) {
+      let el = document.querySelector('#fund-btc-password')
+      if (newVal) {
+        el.type = 'text'
+      } else {
+        el.type = 'password'
+      }
+    },
+    'visible.confirmPassword'  (newVal, oldVal) {
+      let el = document.querySelector('#fund-btc-confirm-password')
+      if (newVal) {
+        el.type = 'text'
+      } else {
+        el.type = 'password'
       }
     }
   }

@@ -24,12 +24,14 @@ export default {
 .ni-field-group
   display flex
   margin-bottom 0.5rem
+  max-width 24rem
 
   .ni-field
-    flex 4
+    flex 1
+    max-width 20rem
 
   .ni-field-addon
-    flex 1
+    width 2rem
 
   .ni-field, .ni-btn-wrapper
     margin 0
@@ -57,4 +59,8 @@ export default {
 
   .ni-field-addon + .ni-field
     border-left none
+
+@media screen and (min-width: 768px)
+  .ni-field-group
+    margin-bottom 0.75rem
 </style>
