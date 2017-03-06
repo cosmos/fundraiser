@@ -2,8 +2,8 @@
   <div class="page-index">
     <modules>
       <module-statistics></module-statistics>
-      <module-balance></module-balance>
       <module-countdown></module-countdown>
+      <module-balance></module-balance>
       <module-donate v-for="coin in config.COINS" :coin="coin"></module-donate>
       <module-donations></module-donations>
     </modules> 

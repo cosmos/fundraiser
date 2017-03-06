@@ -46,16 +46,15 @@ export default {
 @import '../styles/variables.styl'
 
 .pb-container
-  padding 1em
+  padding 0.5em 0
 
   .pb-bar-outer
     height 3rem
     display flex
-    padding 0.125rem
-    background mcolor
+    background hsl(mhue,15%,75%)
 
   .pb-bar-inner
-    background link
+    background mcolor
 
     display flex
     justify-content flex-end
@@ -64,12 +63,13 @@ export default {
     .label
       padding 0 0.5em
       font-size 1.5rem
-      font-weight 400
-      color mcolor
+      font-weight 300
+      color hsla(0,0,100%,0.875)
       &.label-amount
         font-size 1rem
-        font-weight 600
+        font-weight 300
         display none
+        color hsla(0,0,100%,0.75)
 
   .description
     color light

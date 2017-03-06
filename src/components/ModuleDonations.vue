@@ -8,7 +8,6 @@
     </menu>
     <div class="donations">
       <div class="header-transaction">
-        <div class="type">Type</div>
         <div class="donated">Donated</div>
         <div class="claimed">Claimed</div>
         <div class="date">Date</div>
@@ -17,10 +16,6 @@
         class="card-transaction"
         v-for="t in filteredDonations" 
         @click="toggleDetails">
-        <div class="type">
-          <img v-if="t.type === 'btc'" src="../assets/images/logo-bitcoin-320.png">
-          <img v-else src="../assets/images/logo-ethereum-320.png">
-        </div>
         <div class="donated">
           <span class="value">{{ flexibleNumber(t.atoms / t.price) }}</span>
           <span class="key">{{ t.type.toUpperCase() }}</span>
@@ -112,6 +107,7 @@ export default {
   .donations
     max-width 1024px
     font-size 0.75rem
+    font-weight 400
 
   .header-transaction
   .card-transaction
@@ -124,18 +120,11 @@ export default {
     div
       padding 0.5rem
 
-    .type
-      flex 1
-      display none
-      img
-        width 1rem
-
     .donated, .claimed
       flex 2
       white-space nowrap
       text-overflow ellipsis
       overflow hidden
-
 
     .value, .key
       font-size 0.75rem
@@ -150,8 +139,18 @@ export default {
     .date
       flex 2
 
+    .donated .value
+      color hsl(0,100%,40%)
+
+    .claimed .value
+      color hsl(mhue,msat,40%)
+
   .header-transaction
-    background bc
+    background c-app-bg
+    height 2rem
+    display flex
+    div
+      padding 0 0.5rem
 
   .card-transaction
     &:last-of-type
@@ -168,12 +167,4 @@ export default {
     .card-transaction
       .value
         font-size 1rem
-
-@media screen and (min-width:768px)
-  .module-donations
-
-    .header-transaction
-    .card-transaction
-      .type
-        display block
 </style>

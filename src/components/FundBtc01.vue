@@ -4,7 +4,7 @@
     <div slot="subtitle">Step 1 - Create a fundraise wallet.</div>
 
     <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
-      <label>Encrypt the wallet with a password.</label>
+      <label>Encrypt your wallet with a password.</label>
 
       <label class="hidden" for="fund-btc-password">Password</label>
       <field-group>
@@ -46,7 +46,6 @@
         type="match"
         v-if="!$v.fields.confirmPassword.sameAsPassword">
       </form-msg>
-      <form-msg body="This is required to encrypt and access your wallet."></form-msg>
       <form-msg body="This should NOT be the same as your account password."></form-msg>
       <vuelidate-debug
         name="fields.confirmPassword"
@@ -149,23 +148,7 @@ export default {
     this.skipIfWalletExists()
   },
   validations: {
-    /*
-    amountBtc: {
-      required,
-      between (value) {
-        return between(this.config.COINS.BTC.MIN_DONATION,
-          this.config.COINS.BTC.MAX_DONATION)(value)
-      }
-    }, */
     fields: {
-      /*
-      atoms: {
-        required,
-        between (value) {
-          return between(this.config.ATOM.MIN_BUY,
-            this.config.ATOM.MAX_BUY)(value)
-        }
-      }, */
       password: {
         required,
         minLength (value) { return minLength(this.config.PASSWORD_MIN)(value) },

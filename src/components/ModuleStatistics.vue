@@ -66,6 +66,9 @@ export default {
 @import '../styles/variables.styl'
 
 .module-statistics
+  .ni-module-footer
+    display none
+
   .pb-container
     border-bottom 1px solid bc
 

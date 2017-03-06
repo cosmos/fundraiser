@@ -24,11 +24,10 @@ export default {
 .ni-field-group
   display flex
   margin-bottom 0.5rem
-  max-width 24rem
+  max-width 40rem
 
   .ni-field
     flex 1
-    max-width 20rem
 
   .ni-field-addon
     width 2rem

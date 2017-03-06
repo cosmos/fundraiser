@@ -9,8 +9,8 @@
       </div>
       <div class="text">
         <div class="exchange-rate">
-          <span class="value">1 {{ coin.UNIT }}</span>
-          :
+          <span class="key">{{ coin.UNIT }}</span>
+          <span class="symbol">=</span>
           <span class="value">{{ exchangeRate }} Atoms</span>
         </div>
         <btn
@@ -20,10 +20,10 @@
           icon-pos="right"
           >
         </btn>
-        <div class="min-donation">
-          Minimum Donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
-        </div>
       </div>
+    </div>
+    <div slot="footer">
+      Minimum Donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
     </div>
   </module>
 </template>
@@ -58,57 +58,54 @@ export default {
 .module-donation
   .body
     display flex
+    align-items center
+    justify-content center
     padding 1rem
 
   .img
-    flex 0 0 33.333%
-    max-width 8rem
-
     display flex
     align-items center
     justify-content center
+    max-width 6rem
 
     img
-      width 66.66%
+      width 3rem
       display block
 
-    .placeholder
-      flex 1
-      display flex
-      align-items center
-      justify-content center
-
-      font-size 1.5rem
-      background bc
-      color light
-
   .text
-    flex 0 0 66.667%
-    min-width 0
-    padding-left 1rem
-
     display flex
     flex-flow column
+    justify-content center
+    margin-left 1.5rem
 
     .exchange-rate
-      color light
-      margin-bottom 0.5rem
-      .value
-        font-weight 500
+      line-height 2rem
+      color dim
+      font-size 1rem
+      margin-bottom 0.25rem
+      .key, .value
         color mcolor
+        font-weight 400
+      .symbol
+        color light
+        font-weight 300
 
     .min-donation
       font-size 0.75rem
       color light
 
     .ni-btn-wrapper
-      max-width 12rem
-      margin-bottom 0.5rem
-
+      width 12rem
 @media screen and (min-width:768px)
   .module-donation
     .body
       padding 1.5rem
+
+    .img img
+      width 4rem
+
     .text
-      padding-left 2rem
+      .exchange-rate
+        margin-bottom 0.5rem
+        font-size 1.25rem
 </style>

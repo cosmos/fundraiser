@@ -2,6 +2,9 @@
   <module size="sm" class="module-countdown">
     <div slot="title">Fundraise Ends In</div>
     <countdown :date="END_DATETIME" units="short"></countdown>
+    <div slot="footer">
+      Fundraise ends on {{ END_DATEFRIENDLY }}.
+    </div>
   </module>
 </template>
 
@@ -20,6 +23,9 @@ export default {
       const START_DATETIME = this.config.START_DATETIME
       const ENDS_AFTER = this.config.ENDS_AFTER
       return moment(START_DATETIME).add(ENDS_AFTER, 'days')._d
+    },
+    END_DATEFRIENDLY () {
+      return moment(this.END_DATETIME).format('LL')
     },
     ...mapGetters(['config'])
   }

@@ -41,10 +41,22 @@ export default {
   box-shadow hsla(0,0,0,0.1) 0 1px 3px
 
 .ni-module-header
-  height 2rem
   display flex
   align-items center
   border-bottom 1px solid bc
+  height 2rem
+
+.ni-module-footer
+  padding 0 1rem
+  border-top 1px solid bc
+  height 2rem
+  background c-app-bg
+  font-size 0.75rem
+  color dim
+
+  display flex
+  justify-content space-around
+  align-items center
 
 .ni-module-title
   flex 1
@@ -78,7 +90,6 @@ export default {
 @media screen and (min-width: 768px)
   .ni-module-header
     height 2.5rem
-
   .ni-module-title
     font-size 1rem
 
