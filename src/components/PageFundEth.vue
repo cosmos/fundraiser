@@ -96,7 +96,7 @@ export default {
 
 @media screen and (min-width: 768px)
   .page-eth .ni-forms
-    width 1024px
+    max-width 1024px
     margin 0 auto
     display flex
     flex-flow row wrap
