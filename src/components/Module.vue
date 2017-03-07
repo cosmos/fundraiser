@@ -47,16 +47,18 @@ export default {
   height 2rem
 
 .ni-module-footer
-  padding 0 1rem
-  border-top 1px solid bc
-  height 2rem
-  background c-app-bg
-  font-size 0.75rem
-  color dim
+  > div
+    display flex
+    justify-content space-between
+    align-items center
 
-  display flex
-  justify-content space-around
-  align-items center
+    padding 0 1rem
+    border-top 1px solid bc
+    height 2rem
+    background c-app-bg
+    font-size 0.75rem
+    color dim
+
 
 .ni-module-title
   flex 1
@@ -84,15 +86,18 @@ export default {
 
 .ni-module-main
   flex 1
+  min-height 5.375rem
   .ni-kvs
     padding 0 !important
 
 @media screen and (min-width: 768px)
   .ni-module-header
     height 2.5rem
+
   .ni-module-title
     font-size 1rem
 
   .ni-module-main
     font-size 1rem
+    min-height 6.75rem
 </style>

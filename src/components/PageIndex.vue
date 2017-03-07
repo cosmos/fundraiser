@@ -3,7 +3,7 @@
     <modules>
       <module-statistics></module-statistics>
       <module-countdown></module-countdown>
-      <module-balance></module-balance>
+      <module-contributions></module-contributions>
       <module-donate v-for="coin in config.COINS" :coin="coin"></module-donate>
       <module-donations></module-donations>
     </modules> 
@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex'
 import PageHeader from '@nylira/vue-page-header'
 import Modules from './Modules'
 import ModuleStatistics from './ModuleStatistics'
-import ModuleBalance from './ModuleBalance'
+import ModuleContributions from './ModuleContributions'
 import ModuleCountdown from './ModuleCountdown'
 import ModuleDonate from './ModuleDonate'
 import ModuleDonations from './ModuleDonations'
@@ -25,7 +25,7 @@ export default {
     PageHeader,
     Modules,
     ModuleStatistics,
-    ModuleBalance,
+    ModuleContributions,
     ModuleCountdown,
     ModuleDonate,
     ModuleDonations
