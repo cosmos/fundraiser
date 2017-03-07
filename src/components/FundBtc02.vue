@@ -18,6 +18,7 @@
   </form-group>
 
   <btn
+    @click="startOver"
     slot="reset"
     icon="angle-left"
     value="Start Over">

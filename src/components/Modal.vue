@@ -3,7 +3,6 @@
     <div class="ni-modal-container">
       <header class="ni-modal-header">
         <div class="ni-modal-title"><slot name="title"></slot></div>
-        <div class="ni-modal-close" @click="close"><i class="fa fa-times"></i></div>
       </header>
       <main class="ni-modal-main">
         <slot></slot>
@@ -18,9 +17,6 @@
 <script>
 import disableScroll from 'disable-scroll'
 export default {
-  data: () => ({
-    visible: false
-  }),
   methods: {
     close () {
       this.$destroy()

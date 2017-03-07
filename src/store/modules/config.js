@@ -13,7 +13,7 @@ const state = {
     BTC: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       EXCHANGE_RATE: 2000,
-      MIN_DONATION: 0.01,
+      MIN_DONATION: 0.006,
       MAX_DONATION: 500,
       NAME: 'Bitcoin',
       UNIT: 'BTC',

@@ -4,7 +4,7 @@
     icon="copy"
     @click.native="click"
     :data-clipboard-text="value"
-    value="Copy">
+    :value="label">
   </btn>
 </template>
 
@@ -15,6 +15,12 @@ import Btn from '@nylira/vue-button'
 export default {
   components: {
     Btn
+  },
+  computed: {
+    label () {
+      if (this.key) return this.key
+      return 'Copy'
+    }
   },
   methods: {
     trunc (value) {

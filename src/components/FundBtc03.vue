@@ -77,3 +77,11 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+#form-group-download
+  padding-top 1rem
+</style>
+
