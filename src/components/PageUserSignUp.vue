@@ -24,7 +24,7 @@
         <form-msg name="Email" type="required" v-if="!$v.fields.email.required"></form-msg>
         <form-msg name="Email" type="valid" v-if="!$v.fields.email.email"></form-msg>
       </form-group>
-      <form-group :class="{ error: $v.fields.email.$error }">
+      <form-group :class="{ error: $v.fields.password.$error }">
         <label for="user-signup-password">Password</label>
         <field
           id="user-signup-password"
