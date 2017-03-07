@@ -2,7 +2,7 @@
   <div class="page-user ni-forms">
     <form-struct :submit="validateSignUp">
       <div slot="title">Sign Up</div>
-      <form-group :class="{ error: $v.fields.email.$error }">
+      <form-group :class="{ error: $v.fields.displayName.$error }">
         <label for="user-signup-name">Name</label>
         <field
           id="user-signup-name"
