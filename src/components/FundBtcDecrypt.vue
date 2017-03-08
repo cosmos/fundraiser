@@ -69,9 +69,7 @@ export default {
     nextStep () {
       this.fields.password = this.passwordValue
       this.$v.$touch()
-      if (this.$v.$error) {
-        console.log('errors in the form, not going anywhere')
-      } else {
+      if (!this.$v.$error) {
         this.$store.commit('setBtcDonationProgress', 4)
       }
     }

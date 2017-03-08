@@ -4,20 +4,20 @@
     <div slot="subtitle">Send BTC to the address below to claim your Atoms.</div>
 
     <form-group>
-      <div id="fund-btc-donation-data">
-        <div class="kv">
+      <div class="fund-btc-key-values">
+        <div class="key-value">
           <div class="key">Exchange Rate</div>
           <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} Atoms</div>
         </div>
-        <div class="kv">
+        <div class="key-value">
           <div class="key">Min Donation</div>
           <div class="value">{{ config.COINS.BTC.MIN_DONATION }} BTC</div>
         </div>
-        <div class="kv">
+        <div class="key-value">
           <div class="key">Max Donation</div>
           <div class="value">{{ config.COINS.BTC.MAX_DONATION }} BTC</div>
         </div>
-      </table>
+      </div>
     </form-group>
 
     <form-group>
@@ -163,8 +163,8 @@ export default {
   height 3.5rem !important
   mono()
 
-#fund-btc-donation-data
-  .kv
+.fund-btc-key-values
+  .key-value
     padding 0.125rem 0
     display flex
     align-items center

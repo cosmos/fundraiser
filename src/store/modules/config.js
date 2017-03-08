@@ -17,6 +17,7 @@ const state = {
       MAX_DONATION: 500,
       NAME: 'Bitcoin',
       UNIT: 'BTC',
+      USD: '1200',
       SATOSHIS_IN_BTC: 100000000
     },
     ETH: {
@@ -25,7 +26,8 @@ const state = {
       MIN_DONATION: 1,
       MAX_DONATION: 50000,
       NAME: 'Ethereum',
-      UNIT: 'ETH'
+      UNIT: 'ETH',
+      USD: '19'
     }
   }
 }

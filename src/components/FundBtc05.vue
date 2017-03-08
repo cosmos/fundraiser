@@ -1,36 +1,38 @@
 <template>
   <form-struct :submit="finalize">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Review your contribution</div>
+    <div slot="subtitle"><strong>Please confirm your donation.</strong> Once you confirm, funds will be sent from your intermediate Bitcoin wallet to the Cosmos Fundraiser exodus address.</div>
 
     <form-group>
-      <div>
-        <p>Please confirm your donation.</p>
-        <p>
-          Once you confirm, funds will be sent from your intermediate Bitcoin wallet to the Cosmos Fundraiser exodus address.
-        </p>
+      <div class="fund-btc-key-values">
+        <div class="key-value">
+          <div class="key">Donation Amount</div>
+          <div class="value">{{ donationAmount / 1e8 }} BTC</div>
+        </div>
+        <div class="key-value">
+          <div class="key">Bitcoin Fee</div>
+          <div class="value">{{ bitcoinFee / 1e8 }} BTC</div>
+        </div>
+        <div class="key-value">
+          <div class="key">Exchange Rate</div>
+          <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} Atoms</div>
+        </div>
       </div>
-      <br />
-      <div class="btc-donation-final-field">
-        <strong>Donation Amount</strong>
-        <span>{{ donationAmount / 1e8 }} BTC</span>
-      </div>
-      <div class="btc-donation-final-field">
-        <strong>Bitcoin Fee</strong>
-        <span>{{ bitcoinFee / 1e8 }} BTC</span>
-      </div>
-      <div class="btc-donation-final-field">
-        <strong>Exchange Rate</strong>
-        <span>1 BTC : {{ this.config.COINS.BTC.EXCHANGE_RATE }} ATOM</span>
-      </div>
-      <div class="btc-donation-final-field">
-        <strong>Your Cosmos Address</strong>
-        <span>{{ cosmosAddress }}</span>
-      </div>
-      <br />
-      <div>
-        <span>When the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</span>
-      </div>
+    </form-group>
+
+    <form-group>
+      <label for="your-cosmos-address">Your Cosmos Address</label>
+      <field-group>
+        <field
+          id="your-cosmos-address"
+          type="textarea"
+          v-model="cosmosAddress">
+        </field>
+      </field-group>
+    </form-group>
+
+    <form-group>
+      <p>When the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</p>
     </form-group>
 
     <btn
@@ -99,13 +101,3 @@ export default {
   }
 }
 </script>
-
-
-<style lang="stylus">
-@import '../styles/variables.styl'
-
-.btc-donation-final-field
-  strong
-    display inline-block
-    width 190px
-</style>

@@ -21,7 +21,7 @@
     @click="startOver"
     slot="reset"
     icon="angle-left"
-    value="Start Over">
+    value="Reset">
   </btn>
 
   <btn

@@ -4,28 +4,28 @@
     <progress-bar></progress-bar>
     <key-values>
       <key-value>
-        <div slot="value" :title="num.full(progress.btcRaised)">
-          <span class="integer">{{ num.int(progress.btcRaised) }}</span><span class="fraction">{{ num.frac(progress.btcRaised) }}</span>
-        </div>
-        <div slot="key">BTC Raised</div>
-      </key-value>
-      <key-value>
         <div slot="value" :title="num.full(progress.ethRaised)">
-          <span class="integer">{{ num.int(progress.ethRaised) }}</span><span class="fraction">{{ num.frac(progress.ethRaised) }}</span>
+          <span class="integer">${{ num.int(fundAmount) }}</span>
         </div>
-        <div slot="key">ETH Raised</div>
-      </key-value>
-      <key-value>
-        <div slot="value" :title="num.int(atomsPurchased)">
-          <span class="integer">{{ num.short(atomsPurchased) }}</span>
-        </div>
-        <div slot="key">Atoms Claimed</div>
+        <div slot="key">of $10M goal</div>
       </key-value>
       <key-value>
         <div slot="value">
           <span class="integer">{{ num.int(progress.donors) }}<span>
         </div>
-        <div slot="key">Donors</div>
+        <div slot="key">donors</div>
+      </key-value>
+      <key-value>
+        <div slot="value">
+          <span class="integer">44<span>
+        </div>
+        <div slot="key">days to go</div>
+      </key-value>
+      <key-value>
+        <div slot="value" :title="num.int(atomsPurchased)">
+          <span class="integer">{{ num.short(atomsPurchased) }}</span>
+        </div>
+        <div slot="key">atoms claimed</div>
       </key-value>
     </key-values>
   </module>
@@ -47,6 +47,11 @@ export default {
     ProgressBar
   },
   computed: {
+    fundAmount () {
+      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
+      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.USD
+      return ethTotal + btcTotal
+    },
     atomsPurchased () {
       let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.EXCHANGE_RATE
       let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.EXCHANGE_RATE
@@ -77,7 +82,7 @@ export default {
     padding 0
 
   .ni-kv
-    flex 0 0 50%
+    flex 0 0 50% !important
     border-right 1px solid bc
     border-bottom 1px solid bc
     &:nth-child(2)
@@ -94,7 +99,7 @@ export default {
       flex-flow row wrap
       padding 0
     .ni-kv
-      flex 0 0 25%
+      flex 0 0 25% !important
       border-bottom none
       &:nth-child(2)
         border-right 1px solid bc

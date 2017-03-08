@@ -1,7 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Step 1 - Create a fundraise wallet.</div>
+    <div slot="subtitle">Create a fundraise wallet.</div>
 
     <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
       <label>Encrypt your wallet with a password.</label>

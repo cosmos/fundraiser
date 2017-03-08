@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nylira/vue-article-body": "2.0.1",
-    "@nylira/vue-button": "2.0.3",
+    "@nylira/vue-button": "^2.0.4",
     "@nylira/vue-countdown": "^2.1.1",
     "@nylira/vue-form-msg": "1.0.3",
     "@nylira/vue-input": "^2.1.1",

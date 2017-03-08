@@ -28,20 +28,16 @@ export default {
   justify-content center
 
 .ni-kv-value
-  font-size 1.5rem
+  font-size 1.25rem
   line-height 1
   margin-bottom 0.75rem
   font-weight 400
-  color mcolor
-
-  .fraction
-    font-weight 300
-    color dim
 
 .ni-kv-key
   color light
   font-size 0.75rem
   font-weight 400
+  line-height 1
 
 @media screen and (min-width: 414px)
   .ni-kv
@@ -53,6 +49,7 @@ export default {
     
   .ni-kv-value
     font-size 1.5rem
+    margin-bottom 1rem
 
   .ni-kv-key
     font-size 1rem

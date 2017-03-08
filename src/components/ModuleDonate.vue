@@ -8,22 +8,23 @@
         <img v-else src="../assets/images/logo-bitcoin-320.png">
       </div>
       <div class="text">
-        <div class="exchange-rate">
-          <span class="key">{{ coin.UNIT }}</span>
-          <span class="symbol">=</span>
-          <span class="value">{{ exchangeRate }} Atoms</span>
-        </div>
         <btn
           :value="'Donate ' + coin.UNIT"
           @click.native="go('/' + coin.UNIT.toLowerCase())"
           icon="angle-right"
           icon-pos="right"
+          size="lg"
           >
         </btn>
+        <div class="exchange-rate">
+          <span class="key">1 {{ coin.UNIT }}</span>
+          <span class="symbol">:</span>
+          <span class="value">{{ exchangeRate }} Atoms</span>
+        </div>
       </div>
     </div>
     <div slot="footer">
-      Minimum Donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
+      minimum donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
     </div>
   </module>
 </template>
@@ -79,16 +80,20 @@ export default {
     margin-left 1.5rem
 
     .exchange-rate
-      line-height 2rem
-      color dim
-      font-size 1rem
-      margin-bottom 0.25rem
-      .key, .value
-        color mcolor
-        font-weight 400
-      .symbol
+      border 1px solid bc
+      border-top none
+      background c-app-bg
+      height 1.5rem
+
+      display flex
+      align-items center
+      justify-content center
+
+      font-size 0.75rem
+      font-weight 400
+      > span
+        margin-right 0.25rem
         color light
-        font-weight 300
 
     .min-donation
       font-size 0.75rem
@@ -103,9 +108,4 @@ export default {
 
     .img img
       width 4rem
-
-    .text
-      .exchange-rate
-        margin-bottom 0.5rem
-        font-size 1.25rem
 </style>

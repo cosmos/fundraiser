@@ -58,7 +58,6 @@ export default {
       // eslint-disable-next-line
       let blob = new Blob([ walletBytes.buffer ], { type: 'application/octet-stream' })
       FileSaver.saveAs(blob, 'cosmos_fundraiser.wallet')
-
       this.downloadClicked = true
     },
     nextStep () {
@@ -84,4 +83,3 @@ export default {
 #form-group-download
   padding-top 1rem
 </style>
-

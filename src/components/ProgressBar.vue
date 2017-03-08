@@ -2,11 +2,9 @@
   <div class="pb-container">
     <div class="pb-bar-outer">
       <div class="pb-bar-inner" :style="innerBarStyle">
-        <span class="label label-amount">${{ num.short(amountDonated) }} / $10M</span>
-        <span class="label label-percentage">{{ percentageDonatedFriendly }}%</span>
+        <div class="label label-percentage">{{ percentageDonatedFriendly }}% funded</div>
       </div>
     </div>
-    <div class="description">${{ num.short(amountDonated) }} / $10M</label>
   </div>
 </template>
 
@@ -17,15 +15,15 @@ export default {
   name: 'progress-bar',
   computed: {
     amountDonated () {
-      let btcToUsd = this.progress.btcRaised * 1200
-      let ethToUsd = this.progress.ethRaised * 13
-      return btcToUsd + ethToUsd
+      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
+      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.USD
+      return ethTotal + btcTotal
     },
     percentageDonated () {
       return this.amountDonated / 10000000
     },
     percentageDonatedFriendly () {
-      return Math.round(this.percentageDonated * 10000) / 100
+      return Math.round(this.percentageDonated * 100)
     },
     innerBarStyle () {
       return {
@@ -46,12 +44,12 @@ export default {
 @import '../styles/variables.styl'
 
 .pb-container
-  padding 0.5em 0
+  padding 0.375em 0
 
   .pb-bar-outer
-    height 3rem
+    height 1.5rem
     display flex
-    background hsl(mhue,15%,75%)
+    background hsl(mhue,15%,85%)
 
   .pb-bar-inner
     background mcolor
@@ -61,15 +59,9 @@ export default {
     align-items center
 
     .label
-      padding 0 0.5em
-      font-size 1.5rem
-      font-weight 300
-      color hsla(0,0,100%,0.875)
-      &.label-amount
-        font-size 1rem
-        font-weight 300
-        display none
-        color hsla(0,0,100%,0.75)
+      font-size 0.75rem
+      color alpha(c-app-fg,85%)
+      padding 0 0.375rem
 
   .description
     color light
@@ -77,17 +69,4 @@ export default {
     font-size 0.75rem
     font-weight 400
     margin-top 0.5rem
-
-@media screen and (min-width: 768px)
-  .pb-container
-    .pb-bar-inner
-      justify-content space-between
-
-      .label
-        padding 0 0.75rem
-        &.label-amount
-          display block
-
-    .description
-      display none
 </style>

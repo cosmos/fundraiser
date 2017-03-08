@@ -49,7 +49,7 @@ export default {
 .ni-module-footer
   > div
     display flex
-    justify-content space-between
+    justify-content center
     align-items center
 
     padding 0 1rem
@@ -69,6 +69,7 @@ export default {
   white-space nowrap
   text-overflow ellipsis
   overflow hidden
+  color dim
 
 .ni-module-menu
   display flex
@@ -86,18 +87,12 @@ export default {
 
 .ni-module-main
   flex 1
-  min-height 5.375rem
+  min-height 4.75rem
   .ni-kvs
     padding 0 !important
 
 @media screen and (min-width: 768px)
-  .ni-module-header
-    height 2.5rem
-
-  .ni-module-title
-    font-size 1rem
-
   .ni-module-main
     font-size 1rem
-    min-height 6.75rem
+    min-height 6.5rem
 </style>
