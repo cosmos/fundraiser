@@ -6,15 +6,7 @@
 
 <script>
 export default {
-  name: 'ni-field-group',
-  computed: {
-    cssClass () {
-      let value = 'ni form'
-      if (this.width === 'narrow') value += ' ni-form-narrow'
-      return value
-    }
-  },
-  props: ['width']
+  name: 'ni-field-group'
 }
 </script>
 
@@ -50,6 +42,7 @@ export default {
     display flex
     align-items center
     padding 0 0.5rem
+    height 2rem
 
     color light
 
