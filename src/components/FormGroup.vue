@@ -28,9 +28,6 @@ export default {
     line-height 1.25
     margin-bottom 0.375rem
 
-  .ni-field
-    margin-bottom 0.5rem
-
   .ni-form-msg-error
     display none
 

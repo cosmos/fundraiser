@@ -4,7 +4,7 @@
     <progress-bar></progress-bar>
     <key-values>
       <key-value>
-        <div slot="value" :title="num.full(progress.ethRaised)">
+        <div slot="value">
           <span class="integer">${{ num.int(fundAmount) }}</span>
         </div>
         <div slot="key">of $10M goal</div>
@@ -17,7 +17,7 @@
       </key-value>
       <time-remaining :date="END_DATETIME" :started="FUNDRAISE_STARTED"></time-remaining>
       <key-value>
-        <div slot="value" :title="num.int(atomsPurchased)">
+        <div slot="value">
           <span class="integer">{{ num.short(atomsPurchased) }}</span>
         </div>
         <div slot="key">atoms claimed</div>
