@@ -27,52 +27,13 @@
     </nav>
     -->
   </menu>
-
-  <div class="header-item header-item-toggle" @click="toggleMenuUser">
-    <i v-if="!activeMenuUser && !sessionUser.signedIn" class="fa fa-user-o"></i>
-    <i v-else-if="!activeMenuUser &&  sessionUser.signedIn" class="fa fa-user"></i>
-    <i v-else class="fa fa-times"></i>
-
-    <template v-if="desktop">
-      <div v-if="sessionUser.signedIn">Profile</div>
-      <div v-else>Sign In</div>
-    </template>
-  </div>
-
-  <menu class="menu-popup menu-user" v-if="activeMenuUser || desktop">
-    <nav class="nav-user">
-      <template v-if="sessionUser.signedIn">
-        <router-link to="/settings">Settings</router-link>
-        <a @click="signOut">Sign Out</a>
-      </template>
-      <template v-else>
-        <a @click="signUp" exact>{{ $t('siteHeader.signup') }}</a>
-        <a @click="signIn">{{ $t('siteHeader.signin') }}</a>
-      </template>
-    </nav>
-  </menu>
-  </div>
 </header>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import disableScroll from 'disable-scroll'
 export default {
   name: 'app-header',
-  computed: {
-    displayName () {
-      if (this.sessionUser.displayName) {
-        return this.sessionUser.displayName
-      } else {
-        return 'Loading...'
-      }
-    },
-    isTocPage () {
-      return this.$route.name === 'whitepaper' || this.$route.name === 'whitepaper-localized' || this.$route.name === 'faq' || this.$route.name === 'faq-localized' || this.$route.name === 'plan' || this.$route.name === 'plan-localized'
-    },
-    ...mapGetters(['sessionUser'])
-  },
   data () {
     return {
       activeMenuApp: false,
@@ -254,12 +215,7 @@ export default {
         &.router-link-active
           background lighten(bc, 75%)
           background linear-gradient(top, hsl(0,0,96%), hsl(0,0,98%))
-    &.menu-user
-      padding-right 0
-      nav a:first-of-type
-        border-left none
-      nav a:last-of-type
-        border-right none
+
   .app-header
     .header-item.header-item-toggle
       display none

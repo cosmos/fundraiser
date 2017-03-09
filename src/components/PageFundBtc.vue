@@ -46,7 +46,7 @@ export default {
     Modal
   },
   computed: {
-    ...mapGetters(['btcDonation', 'sessionUser'])
+    ...mapGetters(['btcDonation'])
   },
   data: () => ({
     wantsToLeave: false,
@@ -61,18 +61,6 @@ export default {
         complement: this.$t('site.internetOfBlockchains')
       }
     }
-  },
-  beforeMount () {
-    /*
-    if (!this.sessionUser.signedIn) {
-      this.$store.commit('setSessionRequest', this.$route.path)
-      this.$router.replace('/signup')
-      this.$store.commit(
-        'notifyAuthRequired',
-        'You must sign up first before you may participate in the fundraise.'
-      )
-    }
-    */
   },
   beforeRouteLeave (to, from, next) {
     // only show leave modal for page 4 and 5 since
@@ -105,5 +93,4 @@ export default {
 .page-btc
   .ni-form
     margin 0 auto
-
 </style>

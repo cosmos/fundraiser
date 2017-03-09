@@ -49,7 +49,7 @@ export default {
       let atoms = reduce(donations, (acc, t) => acc + t.atoms, 0)
       return atoms / this.config.COINS.ETH.EXCHANGE_RATE
     },
-    ...mapGetters(['donations', 'sessionUser', 'config'])
+    ...mapGetters(['donations', 'config'])
   },
   data () {
     return {

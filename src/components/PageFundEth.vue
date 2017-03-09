@@ -70,18 +70,6 @@ export default {
         complement: this.$t('site.internetOfBlockchains')
       }
     }
-  },
-  beforeMount () {
-    /*
-    if (!this.sessionUser.signedIn) {
-      this.$store.commit('setSessionRequest', this.$route.path)
-      this.$router.replace('/signup')
-      this.$store.commit(
-        'notifyAuthRequired',
-        'You must sign up first before you may participate in the fundraise.'
-      )
-    }
-    */
   }
 }
 </script>

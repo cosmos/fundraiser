@@ -29,7 +29,7 @@ export default {
     Notifications
   },
   computed: {
-    ...mapGetters(['notifications', 'sessionUser'])
+    ...mapGetters(['notifications'])
   },
   head: {
     meta: [

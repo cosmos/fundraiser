@@ -45,23 +45,17 @@ export default {
     Module
   },
   computed: {
-    myDonations () {
-      if (this.donations.length > 0) {
-        let userId = this.sessionUser.uid
-        return this.donations.filter(t => t.userId === userId)
-      }
-      return []
-    },
     orderedDonations () {
       return orderBy(this.donations, ['time'], ['desc'])
     },
     filteredDonations () {
       if (this.filter) {
         return this.orderedDonations.filter(t => t.type === this.filter)
+      } else {
+        return this.orderedDonations
       }
-      return this.orderedDonations
     },
-    ...mapGetters(['donations', 'sessionUser'])
+    ...mapGetters(['donations'])
   },
   data () {
     return {

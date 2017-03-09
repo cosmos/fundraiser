@@ -6,11 +6,6 @@ const routes = [
   { path: '/btc', component: r('FundBtc') },
   { path: '/eth', component: r('FundEth') },
 
-  { path: '/signup', name: 'signup', component: r('UserSignUp') },
-  { path: '/signin', name: 'signin', component: r('UserSignIn') },
-  { path: '/reset', name: 'reset', component: r('UserReset') },
-  { path: '/settings', name: 'settings', component: r('UserSettings') },
-
   // wildcards
   { path: '/404', component: r('404') },
   { path: '*', component: r('404') }
