@@ -120,8 +120,6 @@ export default {
         this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
         this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
         this.$store.commit('setBtcDonationProgress', 2)
-      } else {
-        console.log('there was an error', this.$v)
       }
     },
     skipWalletCreation () {
