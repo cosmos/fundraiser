@@ -2,6 +2,7 @@
 <div class="page page-eth">
   <div class="ni-forms">
     <form-struct width="narrow">
+      <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
       <div slot="title">Donate ETH via Wallet</div>
       <form-group>
         Donate your ETH with simple wallet (e.g. myetherwallet.com, metamask). You should ensure that your account wallet is backed up.
@@ -15,6 +16,7 @@
     </form-struct>
 
     <form-struct width="narrow">
+      <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
       <div slot="title">Donate ETH via Third Party</div>
       <form-group>
         Donate your ETH via a third party (e.g. exchange). You'll have to use the transaction data field and insert your own address.
@@ -28,6 +30,7 @@
     </form-struct>
 
     <form-struct width="narrow">
+      <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
       <div slot="title">Donate ETH via web3 "dapp"</div>
       <form-group>
         Uses web3.js/parity.js in order to inspect your account and send a transaction. You need to have Metamask, Mist, or Parity Chrome installed.
@@ -44,23 +47,27 @@
 </template>
 
 <script>
-import PageHeader from '@nylira/vue-page-header'
-import Module from './Module'
-import Btn from '@nylira/vue-button'
 import { mapGetters } from 'vuex'
-import FormStruct from './FormStruct'
+import moment from 'moment'
+import Btn from '@nylira/vue-button'
 import FormGroup from './FormGroup'
+import FormStruct from './FormStruct'
+import Module from './Module'
+import ModuleOverlay from './ModuleOverlay'
 export default {
   name: 'page-eth',
   components: {
-    PageHeader,
     Btn,
     Module,
     FormStruct,
-    FormGroup
+    FormGroup,
+    ModuleOverlay
   },
   computed: {
-    ...mapGetters(['sessionUser'])
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
+    ...mapGetters(['config', 'sessionUser'])
   },
   head: {
     title () {

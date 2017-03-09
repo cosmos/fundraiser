@@ -1,5 +1,6 @@
 <template>
   <module size="sm" class="module-contrib-total">
+    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
     <div slot="title">Total Contributions</div>
     <div class="module-contrib-total-main">
       <key-values>
@@ -23,10 +24,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 import num from '../scripts/num.js'
 import KeyValue from './KeyValue'
 import KeyValues from './KeyValues'
 import Module from './Module'
+import ModuleOverlay from './ModuleOverlay'
 import Btn from '@nylira/vue-button'
 export default {
   name: 'module-contributions-total',
@@ -34,9 +37,13 @@ export default {
     Btn,
     KeyValue,
     KeyValues,
-    Module
+    Module,
+    ModuleOverlay
   },
   computed: {
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
     atoms () {
       let atomBtc = this.btc * this.config.COINS.BTC.EXCHANGE_RATE
       let atomEth = this.eth * this.config.COINS.ETH.EXCHANGE_RATE

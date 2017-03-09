@@ -1,5 +1,7 @@
 <template>
   <form-struct :submit="nextStep">
+    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
+
     <div slot="title">Donate BTC</div>
     <div slot="subtitle">Create a fundraise wallet.</div>
 
@@ -66,27 +68,33 @@
 <script>
 import { required, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import moment from 'moment'
+import Btn from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
+import FieldGroup from './FieldGroup'
 import FormStruct from './FormStruct'
 import FormMsg from '@nylira/vue-form-msg'
-import Field from '@nylira/vue-input'
-import Btn from '@nylira/vue-button'
-import VuelidateDebug from './VuelidateDebug'
 import FormGroup from './FormGroup'
-import FieldGroup from './FieldGroup'
+import ModuleOverlay from './ModuleOverlay'
 import PasswordVisibleAddon from './PasswordVisibleAddon'
+import VuelidateDebug from './VuelidateDebug'
 export default {
   name: 'fund-btc-01',
   components: {
-    FormStruct,
-    Field,
     Btn,
-    VuelidateDebug,
-    FormMsg,
-    FormGroup,
+    Field,
     FieldGroup,
-    PasswordVisibleAddon
+    FormGroup,
+    FormMsg,
+    FormStruct,
+    ModuleOverlay,
+    PasswordVisibleAddon,
+    VuelidateDebug
   },
   computed: {
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
     amountBtc: {
       get () {
         return this.fields.atoms / this.config.COINS.BTC.EXCHANGE_RATE

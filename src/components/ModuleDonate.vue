@@ -1,5 +1,6 @@
 <template>
   <module size="sm" class="module-donation">
+    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
     <div slot="title">Donate {{ coin.NAME }}</div>
     <div class="body">
       <div class="img">
@@ -30,19 +31,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 import num from '../scripts/num.js'
 import Btn from '@nylira/vue-button'
 import Module from './Module'
+import ModuleOverlay from './ModuleOverlay'
 export default {
   name: 'module-donate',
   components: {
     Btn,
-    Module
+    Module,
+    ModuleOverlay
   },
   computed: {
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
     exchangeRate () {
       return num.int(this.coin.EXCHANGE_RATE)
-    }
+    },
+    ...mapGetters(['config'])
   },
   methods: {
     go (route) {

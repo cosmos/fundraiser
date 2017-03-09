@@ -1,6 +1,7 @@
 <template>
   <form :class="cssClass" v-on:submit.prevent.default="submit">
     <div class="ni-form-container">
+      <slot name="overlay"></slot>
       <header class="ni-form-header">
         <div class="ni-form-suptitle"><slot name="suptitle"></slot></div>
         <div class="ni-form-title"><slot name="title"></slot></div>
@@ -50,6 +51,7 @@ export default {
   box-shadow hsla(0,0,0,0.1) 0 1px 3px
   display flex
   flex-flow column
+  position relative
 
 .ni-form-header, .ni-form-footer
   padding 1rem

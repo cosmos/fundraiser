@@ -1,6 +1,7 @@
 <template>
   <div :class="cssClass">
     <div class="ni-module-container">
+      <slot name="overlay"></slot>
       <header class="ni-module-header">
         <div class="ni-module-title"><slot name="title"></slot></div>
         <div class="ni-module-menu"><slot name="menu"></slot></div>
@@ -39,6 +40,7 @@ export default {
   flex 1
   background c-app-fg
   box-shadow hsla(0,0,0,0.1) 0 1px 3px
+  position relative
 
 .ni-module-header
   display flex

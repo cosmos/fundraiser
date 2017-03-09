@@ -1,5 +1,6 @@
 <template>
   <module class="module-donations">
+    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
     <div slot="title">Donation History</div>
     <menu slot="menu">
       <a class="btn-filter active" @click="setFilter('', $event)">All</a>
@@ -38,13 +39,18 @@ import { mapGetters } from 'vuex'
 import { orderBy } from 'lodash'
 import moment from 'moment'
 import Module from './Module'
+import ModuleOverlay from './ModuleOverlay'
 import num from '../scripts/num.js'
 export default {
   name: 'module-donations',
   components: {
-    Module
+    Module,
+    ModuleOverlay
   },
   computed: {
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
     orderedDonations () {
       return orderBy(this.donations, ['time'], ['desc'])
     },
@@ -55,7 +61,7 @@ export default {
         return this.orderedDonations
       }
     },
-    ...mapGetters(['donations'])
+    ...mapGetters(['config', 'donations'])
   },
   data () {
     return {

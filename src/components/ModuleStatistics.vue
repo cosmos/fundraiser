@@ -15,7 +15,7 @@
         </div>
         <div slot="key">donors</div>
       </key-value>
-      <time-remaining :date="END_DATETIME"></time-remaining>
+      <time-remaining :date="END_DATETIME" :started="FUNDRAISE_STARTED"></time-remaining>
       <key-value>
         <div slot="value" :title="num.int(atomsPurchased)">
           <span class="integer">{{ num.short(atomsPurchased) }}</span>
@@ -45,10 +45,16 @@ export default {
     TimeRemaining
   },
   computed: {
+    FUNDRAISE_STARTED () {
+      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+    },
     END_DATETIME () {
-      const START_DATETIME = this.config.START_DATETIME
-      const ENDS_AFTER = this.config.ENDS_AFTER
-      return moment(START_DATETIME).add(ENDS_AFTER, 'days')._d
+      if (this.FUNDRAISE_STARTED) {
+        return moment(this.config.START_DATETIME)
+          .add(this.config.ENDS_AFTER, 'days')._d
+      } else {
+        return this.config.START_DATETIME
+      }
     },
     fundAmount () {
       let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
