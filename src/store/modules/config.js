@@ -2,7 +2,7 @@ const state = {
   ENDS_AFTER: 42,
   SALE_URL: 'https://fundraise.cosmos.network',
   SELF_URL: 'https://cosmos.network/',
-  START_DATETIME: '2017-03-30 00:00:00',
+  START_DATETIME: '2017-03-07 00:00:00',
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
   ATOM: {

@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     FUNDRAISE_STARTED () {
-      return Date.now >= moment(this.config.START_DATETIME).millisecond()
+      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
     atoms () {
       let atomBtc = this.btc * this.config.COINS.BTC.EXCHANGE_RATE

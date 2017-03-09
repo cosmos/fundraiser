@@ -44,4 +44,3 @@ export default {
 
   transition ease-in-out all 100ms
 </style>
-

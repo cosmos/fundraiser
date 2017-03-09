@@ -12,20 +12,25 @@
     <span class="subtitle">Fundraiser</span>
   </router-link>
 
-  <menu class="menu-popup menu-app" v-if="activeMenuApp || desktop">
+  <div class="header-item" v-if="!desktop">
+  </div>
+
+  <menu class="menu-popup" v-if="activeMenuApp || desktop">
     <nav class="nav-app">
       <router-link to="/" @click.native="closeMenus" exact>Dashboard</router-link>
       <router-link to="/btc" @click.native="closeMenus">Donate BTC</router-link>
       <router-link to="/eth" @click.native="closeMenus">Donate ETH</router-link>
     </nav>
-    <!--
     <nav>
-      <a href="https://cosmos.network">
+      <a href="https://cosmos.network" target="_blank">
         <span class="label">Cosmos</span>
         <i class="fa fa-external-link"></i>
       </a>
+      <a href="https://tendermint.com" target="_blank">
+        <span class="label">Tendermint</span>
+        <i class="fa fa-external-link"></i>
+      </a>
     </nav>
-    -->
   </menu>
 </header>
 </template>
@@ -199,8 +204,11 @@ export default {
     font-weight 400
 
   .menu-popup
+    flex 1
     display flex
-    padding 0 1rem
+    justify-content space-between
+
+    padding 0 0.75rem
     nav
       display flex
       flex-flow row
