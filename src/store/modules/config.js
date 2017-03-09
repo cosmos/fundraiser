@@ -1,6 +1,6 @@
 const state = {
   ENDS_AFTER: 42,
-  SALE_URL: 'https://sale.cosmos.network',
+  SALE_URL: 'https://fundraise.cosmos.network',
   SELF_URL: 'https://cosmos.network/',
   START_DATETIME: '2017-03-30 00:00:00',
   PASSWORD_MIN: 8,
@@ -17,8 +17,7 @@ const state = {
       MAX_DONATION: 500,
       NAME: 'Bitcoin',
       UNIT: 'BTC',
-      USD: '1200',
-      SATOSHIS_IN_BTC: 100000000
+      USD: '1200'
     },
     ETH: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
