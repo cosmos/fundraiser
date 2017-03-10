@@ -26,6 +26,7 @@ const actions = {
           body: 'An error occurred while backing up your wallet.'
         })
         if (cb) cb(err)
+        return
       }
       commit('notifyCustom', {
         title: 'Wallet Backed Up',
