@@ -4,4 +4,72 @@
 <meta name=viewport content="width=device-width, user-scalable=no">
 <meta name="description" content="">
 <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<div id="app"></div>
+
+<div id="app">
+  <div id="load">
+    <div id="load-container">
+      <div id="load-title">Cosmos Fundraiser</div>
+      <div id="load-main">
+        <p class="green">app is loading&hellip;</p>
+        <p>taking forever? disable noscript</p>
+        <p>need help? <a href="mailto:hello@tendermint.com">email us</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+if (!Object.defineProperty) {
+  window.alert('The Cosmos Fundraiser does not support Internet Explorer 8 and below. Please update your browser to a modern version of Chrome, Firefox, or Safari.')
+}
+</script>
+
+<style>
+body { margin: 0; }
+#load {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: hsl(0,0%,98%);
+}
+#load-container {
+  box-shadow: hsl(0,0%,88%) 0 0 0.5em;
+  font: 16px/1.5 system, -apple-system, BlinkMacSystemFont, "Roboto", "Seogue UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  width: 18rem;
+  height: 18rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+#load-title {
+  font-size: 1.5rem;
+  line-height: 3;
+  font-weight: 500;
+  width: 100%;
+  border-bottom: 1px dotted hsl(0,0%,95%);
+  text-transform: lowercase;
+}
+#load-main {
+  padding: 0.5rem 0 0;
+}
+#load-main {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #666;
+  margin-bottom: 1em;
+}
+#load-main p.green {
+  color: hsl(120,100%,30%);
+}
+#load-main a {
+  text-decoration: none;
+}
+</style>

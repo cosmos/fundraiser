@@ -1,8 +1,8 @@
 <template>
   <footer class="app-footer">
     <div class="container">
-      <div class="copyright">&copy; 2016 Cosmos Network Foundation
-    </div>
+      <div class="copyright">&copy; 2016 Cosmos Network Foundation</div>
+      <div class="about"><a href="https://cosmos.network">What is Cosmos?</a></div>
   </footer>
 </template>
 
@@ -22,9 +22,11 @@ export default {
     max-width 1024px
     margin 0 auto
 
-  .copyright
-    padding 0 1rem
-    color light
-    text-align center
-    line-height 2.25rem
+    display flex
+    justify-content space-between
+
+    > div
+      padding 0 1rem
+      color light
+      line-height 2.25rem
 </style>
