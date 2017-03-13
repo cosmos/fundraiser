@@ -106,7 +106,7 @@ export default {
   width 100%
 
   background #fff
-  box-shadow hsla(0,0,0,0.1) 0 1px 3px
+  shadow()
 
   .container
     display flex

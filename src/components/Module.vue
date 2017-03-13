@@ -39,7 +39,7 @@ export default {
 .ni-module-container
   flex 1
   background c-app-fg
-  box-shadow hsla(0,0,0,0.1) 0 1px 3px
+  shadow()
   position relative
 
 .ni-module-header

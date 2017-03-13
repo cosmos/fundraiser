@@ -48,10 +48,10 @@ export default {
 .ni-form-container
   flex 1
   background c-app-fg
-  box-shadow hsla(0,0,0,0.1) 0 1px 3px
   display flex
   flex-flow column
   position relative
+  shadow()
 
 .ni-form-header, .ni-form-footer
   padding 1rem
