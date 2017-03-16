@@ -13,7 +13,7 @@ const state = {
   COINS: {
     BTC: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-      EXCHANGE_RATE: 2000,
+      EXCHANGE_RATE: 12500,
       MIN_DONATION: 0.006,
       MAX_DONATION: 500,
       NAME: 'Bitcoin',
@@ -22,7 +22,7 @@ const state = {
     },
     ETH: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-      EXCHANGE_RATE: 20,
+      EXCHANGE_RATE: 400,
       MIN_DONATION: 1,
       MAX_DONATION: 50000,
       NAME: 'Ethereum',
