@@ -28,6 +28,8 @@ import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
 import { mapGetters } from 'vuex'
 
+store.dispatch('startFetchInterval')
+
 export default {
   components: {
     AppHeader,
