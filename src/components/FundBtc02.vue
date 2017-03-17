@@ -37,7 +37,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import cfr from 'cosmos-fundraiser'
 import { required } from 'vuelidate/lib/validators'
 import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
@@ -88,14 +87,8 @@ export default {
     fields: {
       password: {
         required,
-        matchesHash (password) {
-          let encryptedSeed = this.btcDonation.encryptedSeed
-          try {
-            cfr.decryptSeed(encryptedSeed, password)
-            return true
-          } catch (err) {
-            return false
-          }
+        sameAsPassword (password) {
+          return password === this.btcDonation.password
         }
       }
     }
