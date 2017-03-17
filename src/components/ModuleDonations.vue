@@ -15,14 +15,14 @@
       </div>
       <div
         class="card-transaction"
-        v-for="t in filteredDonations" 
+        v-for="t in filteredDonations"
         @click="toggleDetails">
         <div class="donated">
-          <span class="value">{{ flexibleNumber(t.atoms / t.price) }}</span>
+          <span class="value">{{ flexibleNumber(t.donated) }}</span>
           <span class="key">{{ t.type.toUpperCase() }}</span>
         </div>
         <div class="claimed">
-          <span class="value">{{ flexibleNumber(t.atoms) }}</span>
+          <span class="value">{{ flexibleNumber(t.claimed) }}</span>
           <span class="key">Atoms</span>
         </div>
         <div class="date" :title="isoDate(t.time)">
@@ -36,7 +36,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { orderBy } from 'lodash'
 import moment from 'moment'
 import Module from './Module'
 import ModuleOverlay from './ModuleOverlay'
@@ -51,14 +50,11 @@ export default {
     FUNDRAISE_STARTED () {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
-    orderedDonations () {
-      return orderBy(this.donations, ['time'], ['desc'])
-    },
     filteredDonations () {
       if (this.filter) {
-        return this.orderedDonations.filter(t => t.type === this.filter)
+        return this.donations.filter(t => t.type === this.filter)
       } else {
-        return this.orderedDonations
+        return this.donations
       }
     },
     ...mapGetters(['config', 'donations'])
