@@ -1,9 +1,10 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Download your presale Atom wallet.</div>
+    <div slot="subtitle">Backup your Atom wallet</div>
 
     <form-group id="form-group-download">
+      <label>Download Encrypted Wallet File</label>
       <field-group>
         <btn
           @click.native="downloadWallet"
@@ -13,6 +14,34 @@
       </field-group>
       <form-msg body="You will use this wallet later to access your Cosmos Atoms."></form-msg>
       <form-msg type="error" body="You must download the wallet file before continuing."></form-msg>
+    </form-group>
+
+    <form-group :class="{ 'error': $v.emailAddress.$error || $v.emailAddressConfirm.$error }">
+      <label for="fund-btc-email-address">Email Address</label>
+      <field-group>
+      <field
+        id="fund-btc-email-address"
+        type="text"
+        placeholder="Enter your email address"
+        v-model="emailAddress"
+        required>
+      </field>
+      </field-group>
+      <form-msg name="Email Address" type="required" v-if="!$v.emailAddress.required">X</form-msg>
+
+      <field-group>
+      <field
+        id="fund-btc-email-address-confirm"
+        type="text"
+        placeholder="Re-enter your email address"
+        v-model="emailAddressConfirm"
+        required>
+      </field>
+      </field-group>
+      <form-msg name="Email Address Confirmation" type="required" v-if="!$v.emailAddressConfirm.required">X</form-msg>
+
+      <form-msg body="A copy of your encrypted wallet will be sent to this email as a backup."></form-msg>
+      <form-msg body="We will NOT store your email address or share it with third-parties."></form-msg>
     </form-group>
 
     <btn
@@ -27,6 +56,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { required, sameAs } from 'vuelidate/lib/validators'
 import FileSaver from 'file-saver'
 import cfr from 'cosmos-fundraiser'
 import FormMsg from '@nylira/vue-form-msg'
@@ -34,18 +64,22 @@ import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
 import FieldGroup from './FieldGroup'
+import Field from '@nylira/vue-input'
 export default {
   name: 'fund-btc-03',
   components: {
     FormStruct,
     FormGroup,
+    Field,
     FormMsg,
     Btn,
     FieldGroup
   },
   data () {
     return {
-      downloadClicked: false
+      downloadClicked: false,
+      emailAddress: '',
+      emailAddressConfirm: ''
     }
   },
   computed: {
@@ -64,11 +98,27 @@ export default {
       if (!this.downloadClicked) {
         document.querySelector('#form-group-download').classList.add('error')
         return
+      } else {
+        document.querySelector('#form-group-download').classList.remove('error')
       }
-      this.$store.dispatch('submitBtcDonationWallet', (err) => {
-        if (err) return
-        this.$store.commit('setBtcDonationProgress', 4)
+      this.$v.$touch()
+      if (this.$v.$error) return
+      this.$store.dispatch('emailBtcDonationWallet', {
+        emailAddress: this.emailAddress,
+        cb: (err) => {
+          if (err) return
+          this.$store.commit('setBtcDonationProgress', 4)
+        }
       })
+    }
+  },
+  validations: {
+    emailAddress: {
+      required
+    },
+    emailAddressConfirm: {
+      required,
+      sameAsEmail: sameAs('emailAddress')
     }
   },
   mounted () {

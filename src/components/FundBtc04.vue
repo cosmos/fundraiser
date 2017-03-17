@@ -18,6 +18,8 @@
           <div class="value">{{ config.COINS.BTC.MAX_DONATION }} BTC</div>
         </div>
       </div>
+      <br />
+      <span>This address is for your intermediate BTC wallet. You will be asked to confirm your contribution on the next page.</span>
     </form-group>
 
     <form-group>
@@ -84,7 +86,6 @@ import BtnCopy from './BtnCopy'
 import FieldGroup from './FieldGroup'
 import ButtonGroup from './ButtonGroup'
 import Modal from './Modal'
-const testnet = process.env.NODE_ENV === 'development'
 export default {
   name: 'fund-btc-04',
   components: {
@@ -133,7 +134,7 @@ export default {
     })
 
     console.log('waiting for tx to ' + this.btcAddress)
-    bitcoin.waitForTx(this.btcAddress, { testnet }, (err, tx) => {
+    bitcoin.waitForPayment(this.btcAddress, (err, inputs) => {
       if (err) {
         console.error(err)
         return this.$store.commit('notifyError', {
@@ -141,8 +142,8 @@ export default {
           body: 'An error occurred when trying to get Bitcoin transaction data.'
         })
       }
-      console.log('got tx:', tx)
-      this.$store.commit('setBtcDonationTx', tx)
+      console.log('got inputs:', inputs)
+      this.$store.commit('setBtcDonationTx', inputs)
       this.$store.commit('setBtcDonationProgress', 5)
     })
   }

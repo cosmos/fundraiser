@@ -107,7 +107,7 @@ export default {
         }
       }
     },
-    ...mapGetters(['sessionUser', 'sessionReady', 'config'])
+    ...mapGetters(['config'])
   },
   data: () => ({
     visible: {
@@ -124,34 +124,13 @@ export default {
     nextStep () {
       this.$v.$touch()
       if (!this.$v.$error) {
-        this.$store.commit('setBtcDonationPrice', this.config.COINS.BTC.EXCHANGE_RATE)
-        this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
         this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
         this.$store.commit('setBtcDonationProgress', 2)
-      }
-    },
-    skipWalletCreation () {
-      // we already have a wallet
-      let encryptedSeed = this.sessionUser.wallets[0]
-      this.$store.commit('setBtcDonationEncryptedSeed', encryptedSeed)
-      this.$store.commit('setBtcDonationProgress', 'decrypt')
-    },
-    skipIfWalletExists () {
-      if (this.sessionUser &&
-        this.sessionUser.wallets &&
-        this.sessionUser.wallets.length > 0) {
-        this.skipWalletCreation()
       }
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-
-    let done = this.$store.watch(() => this.sessionReady, () => {
-      this.skipIfWalletExists()
-      done()
-    })
-    this.skipIfWalletExists()
   },
   validations: {
     fields: {

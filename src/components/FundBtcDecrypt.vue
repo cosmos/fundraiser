@@ -83,16 +83,15 @@ export default {
       password: {
         required,
         isCorrect (password) {
-          let encryptedSeed = this.btcDonation.encryptedSeed
-          let testnet = process.env.NODE_ENV === 'development'
-          try {
-            let seed = cfr.decryptSeed(encryptedSeed, password)
-            let wallet = cfr.deriveWallet(seed, testnet)
-            this.$store.commit('setBtcDonationWallet', wallet)
-            return true
-          } catch (err) {
-            return false
-          }
+          return new Promise((resolve) => {
+            let encryptedSeed = this.btcDonation.encryptedSeed
+            cfr.decryptSeed(encryptedSeed, password, (err, seed) => {
+              if (err) return resolve(false)
+              let wallet = cfr.deriveWallet(seed)
+              this.$store.commit('setBtcDonationWallet', wallet)
+              resolve(true)
+            })
+          })
         }
       }
     }
