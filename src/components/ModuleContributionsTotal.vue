@@ -6,12 +6,12 @@
       <key-values>
         <key-value>
           <div slot="value" :title="num.full(btc)">
-            <span class="integer">{{ num.int(btc) }}</span></div>
+            <span class="integer">{{ num.short(btc) }}</span></div>
           <div slot="key">BTC raised</div>
         </key-value>
         <key-value>
           <div slot="value" :title="num.full(eth)">
-            <span class="integer">{{ num.int(eth) }}</span></div>
+            <span class="integer">{{ num.short(eth) }}</span></div>
           <div slot="key">ETH raised</div>
         </key-value>
       </key-values>
@@ -45,10 +45,7 @@ export default {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
     atoms () {
-      let atomBtc = this.btc * this.config.COINS.BTC.EXCHANGE_RATE
-      let atomEth = this.eth * this.config.COINS.ETH.EXCHANGE_RATE
-      let total = atomBtc + atomEth
-      return num.pretty(total)
+      return num.pretty(this.atomsClaimed)
     },
     btc () {
       return this.progress.btcRaised
@@ -56,7 +53,7 @@ export default {
     eth () {
       return this.progress.ethRaised
     },
-    ...mapGetters(['progress', 'config'])
+    ...mapGetters(['progress', 'config', 'atomsClaimed'])
   },
   data () {
     return {
