@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Donate BTC</div>
+    <div slot="title">Donate</div>
     <div slot="subtitle">Backup your Atom wallet</div>
 
     <form-group id="form-group-download">
@@ -17,10 +17,10 @@
     </form-group>
 
     <form-group :class="{ 'error': $v.emailAddress.$error || $v.emailAddressConfirm.$error }">
-      <label for="fund-btc-email-address">Email Address</label>
+      <label for="create-wallet-email-address">Email Address</label>
       <field-group>
       <field
-        id="fund-btc-email-address"
+        id="create-wallet-email-address"
         type="text"
         placeholder="Enter your email address"
         v-model="emailAddress"
@@ -31,7 +31,7 @@
 
       <field-group>
       <field
-        id="fund-btc-email-address-confirm"
+        id="create-wallet-email-address-confirm"
         type="text"
         placeholder="Re-enter your email address"
         v-model="emailAddressConfirm"
@@ -66,7 +66,7 @@ import Btn from '@nylira/vue-button'
 import FieldGroup from './FieldGroup'
 import Field from '@nylira/vue-input'
 export default {
-  name: 'fund-btc-03',
+  name: 'create-wallet-03',
   components: {
     FormStruct,
     FormGroup,
@@ -83,11 +83,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['btcDonation'])
+    ...mapGetters(['donation'])
   },
   methods: {
     downloadWallet () {
-      let { encryptedSeed } = this.btcDonation
+      let { encryptedSeed } = this.donation
       let walletBytes = cfr.encodeWallet(encryptedSeed)
       // eslint-disable-next-line
       let blob = new Blob([ walletBytes.buffer ], { type: 'application/octet-stream' })
@@ -103,11 +103,11 @@ export default {
       }
       this.$v.$touch()
       if (this.$v.$error) return
-      this.$store.dispatch('emailBtcDonationWallet', {
+      this.$store.dispatch('emailDonationWallet', {
         emailAddress: this.emailAddress,
         cb: (err) => {
           if (err) return
-          this.$store.commit('setBtcDonationProgress', 4)
+          this.$store.commit('setDonationProgress', 4)
         }
       })
     }

@@ -1,10 +1,10 @@
 <template>
-  <form-struct id="form-fund-btc-04">
+  <form-struct id="form-donate-btc-01">
     <div slot="title">Donate BTC</div>
     <div slot="subtitle">Send BTC to the address below to claim your Atoms.</div>
 
     <form-group>
-      <div class="fund-btc-key-values">
+      <div class="donate-btc-key-values">
         <div class="key-value">
           <div class="key">Exchange Rate</div>
           <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} Atoms</div>
@@ -23,10 +23,10 @@
     </form-group>
 
     <form-group>
-      <label for="fund-btc-donation-address">Donation Address</label>
+      <label for="donate-btc-donation-address">Donation Address</label>
       <field-group>
         <field
-          id="fund-btc-donation-address"
+          id="donate-btc-donation-address"
           type="textarea"
           v-model="btcAddress">
         </field>
@@ -48,7 +48,7 @@
 
     </form-group>
 
-    <form-group id="fund-btc-loading">
+    <form-group id="donate-btc-loading">
       <div>
         <div class="container">
           <i class="fa fa-circle-o-notch fa-spin"></i>
@@ -57,7 +57,7 @@
       </div>
     </form-group>
 
-    <modal v-if="qrCodeVisible" id="fund-btc-qr">
+    <modal v-if="qrCodeVisible" id="donate-btc-qr">
       <div slot="title">QR Code</div>
       <div>
         <img
@@ -87,7 +87,7 @@ import FieldGroup from './FieldGroup'
 import ButtonGroup from './ButtonGroup'
 import Modal from './Modal'
 export default {
-  name: 'fund-btc-04',
+  name: 'donate-btc-01',
   components: {
     FormStruct,
     FormGroup,
@@ -100,9 +100,9 @@ export default {
     Modal
   },
   computed: {
-    ...mapGetters(['btcDonation', 'config']),
+    ...mapGetters(['donation', 'config']),
     btcAddress () {
-      return this.btcDonation.wallet.addresses.bitcoin
+      return this.donation.wallet.addresses.bitcoin
     },
     qrcode () {
       let data = qr.imageSync(this.btcAddress, { margin: 0 })
@@ -119,7 +119,7 @@ export default {
         `bitcoin:${this.btcAddress}?label=My%20Cosmos%20Fundraiser%20wallet`
     },
     nextStep () {
-      this.$store.commit('setBtcDonationProgress', 5)
+      this.$store.commit('setDonationProgress', 5)
     },
     qrCodeToggle (value) {
       this.qrCodeVisible = value
@@ -128,7 +128,7 @@ export default {
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
 
-    let el = document.querySelector('#fund-btc-donation-address')
+    let el = document.querySelector('#donate-btc-donation-address')
     el.addEventListener('focus', function () {
       el.select()
     })
@@ -144,7 +144,7 @@ export default {
       }
       console.log('got inputs:', inputs)
       this.$store.commit('setBtcDonationTx', inputs)
-      this.$store.commit('setBtcDonationProgress', 5)
+      this.$store.commit('setDonationProgress', 5)
     })
   }
 }
@@ -154,17 +154,17 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-#form-fund-btc-04
+#form-donate-btc-01
   .ni-form-main
     border-bottom none
   .ni-form-footer
     display none
 
-#fund-btc-donation-address
+#donate-btc-donation-address
   height 3.5rem !important
   mono()
 
-.fund-btc-key-values
+.donate-btc-key-values
   .key-value
     padding 0.125rem 0
     display flex
@@ -177,7 +177,7 @@ export default {
       flex 3
       font-weight 500
 
-#fund-btc-loading
+#donate-btc-loading
   border-bottom none
   > div
     border-bottom none
@@ -193,7 +193,7 @@ export default {
       font-weight 400
       color txt
 
-#fund-btc-qr
+#donate-btc-qr
   img
     width 66.666vw
     max-width 20rem

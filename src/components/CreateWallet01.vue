@@ -2,16 +2,16 @@
   <form-struct :submit="nextStep">
     <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
 
-    <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Create a fundraise wallet.</div>
+    <div slot="title">Donate</div>
+    <div slot="subtitle">Create a fundraiser wallet.</div>
 
     <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
       <label>Encrypt your wallet with a password.</label>
 
-      <label class="hidden" for="fund-btc-password">Password</label>
+      <label class="hidden" for="create-wallet-password">Password</label>
       <field-group>
         <field
-          id="fund-btc-password"
+          id="create-wallet-password"
           type="password"
           placeholder="Enter your password"
           v-model="fields.password"
@@ -25,10 +25,10 @@
       <form-msg name="Password" type="length" min="8" max="1024" v-if="!$v.fields.password.minLength || !$v.fields.password.maxLength"></form-msg>
       <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
 
-      <label class="hidden" for="fund-btc-confirm-password">Confirm Password</label>
+      <label class="hidden" for="create-wallet-confirm-password">Confirm Password</label>
       <field-group>
         <field
-          id="fund-btc-confirm-password"
+          id="create-wallet-confirm-password"
           type="password"
           placeholder="Re-enter your password"
           v-model="fields.confirmPassword"
@@ -79,7 +79,7 @@ import ModuleOverlay from './ModuleOverlay'
 import PasswordVisibleAddon from './PasswordVisibleAddon'
 import VuelidateDebug from './VuelidateDebug'
 export default {
-  name: 'fund-btc-01',
+  name: 'create-wallet-01',
   components: {
     Btn,
     Field,
@@ -95,18 +95,6 @@ export default {
     FUNDRAISE_STARTED () {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
-    amountBtc: {
-      get () {
-        return this.fields.atoms / this.config.COINS.BTC.EXCHANGE_RATE
-      },
-      set (newValue) {
-        if (newValue === '.' || newValue === '' || newValue === ' ') {
-          this.fields.atoms = 0
-        } else {
-          this.fields.atoms = newValue * this.config.COINS.BTC.EXCHANGE_RATE
-        }
-      }
-    },
     ...mapGetters(['config'])
   },
   data: () => ({
@@ -115,7 +103,6 @@ export default {
       confirmPassword: false
     },
     fields: {
-      atoms: 0,
       password: '',
       confirmPassword: ''
     }
@@ -124,8 +111,9 @@ export default {
     nextStep () {
       this.$v.$touch()
       if (!this.$v.$error) {
-        this.$store.dispatch('generateBtcDonationWallet', this.fields.password)
-        this.$store.commit('setBtcDonationProgress', 2)
+        this.$store.dispatch('generateDonationWallet', this.fields.password)
+        this.$store.commit('setDonationProgress', 2)
+        return
       }
     }
   },
@@ -147,7 +135,7 @@ export default {
   },
   watch: {
     'visible.password' (newVal, oldVal) {
-      let el = document.querySelector('#fund-btc-password')
+      let el = document.querySelector('#create-wallet-password')
       if (newVal) {
         el.type = 'text'
       } else {
@@ -155,7 +143,7 @@ export default {
       }
     },
     'visible.confirmPassword'  (newVal, oldVal) {
-      let el = document.querySelector('#fund-btc-confirm-password')
+      let el = document.querySelector('#create-wallet-confirm-password')
       if (newVal) {
         el.type = 'text'
       } else {

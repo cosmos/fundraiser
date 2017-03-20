@@ -1,48 +1,58 @@
 import cfr from 'cosmos-fundraiser'
-const { bitcoin } = cfr
-const { sendEmail } = cfr
+const { bitcoin, sendEmail } = cfr
 
 const empty = {
   progress: 1,
   wallet: null,
   tx: null,
-  password: ''
+  password: '',
+  encryptedSeed: null,
+  currency: '',
+  feeRate: 220
 }
 
 const state = JSON.parse(JSON.stringify(empty))
 
 const mutations = {
-  resetBtcDonation (state) {
+  resetDonation (state) {
     state = JSON.parse(JSON.stringify(empty))
   },
-  setBtcDonationWallet (state, wallet) {
+  setDonationWallet (state, wallet) {
     state.wallet = wallet
-    console.log('SET btcDonation.wallet')
+    console.log('SET donation.wallet')
   },
-  setBtcDonationEncryptedSeed (state, encryptedSeed) {
+  setDonationEncryptedSeed (state, encryptedSeed) {
     state.encryptedSeed = encryptedSeed
-    console.log('SET btcDonation.encryptedSeed')
+    console.log('SET donation.encryptedSeed')
   },
-  setBtcDonationProgress (state, value) {
+  setDonationPassword (state, password) {
+    state.password = password
+    console.log('SET donation.password', state.password)
+  },
+  setDonationProgress (state, value) {
     state.progress = value
-    console.log('SET btcDonation.progress', state.progress)
+    console.log('SET donation.progress', state.progress)
+  },
+  setDonationCurrency (state, currency) {
+    state.currency = currency
+    console.log('SET donation.currency', state.currency)
   },
   setBtcDonationTx (state, tx) {
     state.tx = tx
-    console.log('SET btcDonation.tx', state.tx)
+    console.log('SET donation.tx', state.tx)
   },
-  setBtcDonationPassword (state, password) {
-    state.password = password
-    console.log('SET btcDonation.password', state.password)
+  setBtcDonationFeeRate (state, feeRate) {
+    state.feeRate = feeRate
+    console.log('SET donation.feeRate', state.feeRate)
   }
 }
 
 const actions = {
-  generateBtcDonationWallet ({ commit }, password) {
+  generateDonationWallet ({ commit }, password) {
     let seed = cfr.generateSeed()
     let wallet = cfr.deriveWallet(seed)
-    commit('setBtcDonationWallet', wallet)
-    commit('setBtcDonationPassword', password)
+    commit('setDonationWallet', wallet)
+    commit('setDonationPassword', password)
     cfr.encryptSeed(seed, password, (err, encryptedSeed) => {
       if (err) {
         commit('notifyError', {
@@ -51,13 +61,13 @@ const actions = {
         })
         return
       }
-      commit('setBtcDonationEncryptedSeed', encryptedSeed)
-      commit('setBtcDonationProgress', 2)
+      commit('setDonationEncryptedSeed', encryptedSeed)
+      commit('setDonationProgress', 2)
     })
   },
   finalizeBtcDonation ({ commit, dispatch, state, rootState }, cb) {
-    let { wallet, tx } = state
-    let finalTx = bitcoin.createFinalTx(wallet, tx)
+    let { wallet, tx, feeRate } = state
+    let finalTx = bitcoin.createFinalTx(wallet, tx, feeRate)
     bitcoin.pushTx(finalTx.tx, (err) => {
       if (err) {
         console.error(err)
@@ -75,7 +85,7 @@ const actions = {
         price: rootState.config.COINS.BTC.EXCHANGE_RATE,
         atoms: finalTx.atomAmount
       })
-      commit('resetBtcDonation')
+      commit('resetDonation')
       commit('notifyCustom', {
         title: 'Donation Successful',
         body: `You have succesfully donated ${finalTx.paidAmount / 1e8} BTC and will receive ${finalTx.atomAmount} ATOM.`
@@ -83,8 +93,8 @@ const actions = {
       cb()
     })
   },
-  emailBtcDonationWallet ({ commit, getters }, { emailAddress, cb }) {
-    let { encryptedSeed } = getters.btcDonation
+  emailDonationWallet ({ commit, getters }, { emailAddress, cb }) {
+    let { encryptedSeed } = getters.donation
     let walletBytes = cfr.encodeWallet(encryptedSeed)
     sendEmail(emailAddress, walletBytes, (err) => {
       if (err) {
@@ -100,6 +110,20 @@ const actions = {
         body: 'We sent you an email with a copy of your Cosmos wallet so you don\'t lose it.'
       })
       cb(null)
+    })
+  },
+  fetchBtcDonationFeeRate ({ commit }) {
+    bitcoin.fetchFeeRate((err, feeRate) => {
+      if (err) {
+        console.error(err)
+        commit('notifyError', {
+          title: 'Bitcoin Error',
+          body: 'Could not fetch recommended transaction fee rate from 21.co.'
+        })
+        return
+      }
+      console.log('got fee rate:', feeRate)
+      commit('setBtcDonationFeeRate', feeRate)
     })
   }
 }

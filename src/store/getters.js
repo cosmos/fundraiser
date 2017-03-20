@@ -3,7 +3,7 @@ export const sessionReady = state => state.session.ready
 
 export const config = state => state.config
 
-export const btcDonation = state => state.btcDonation
+export const donation = state => state.donation
 export const notifications = state => state.notifications
 
 export const donations = state => state.stats.donations.slice(-15)

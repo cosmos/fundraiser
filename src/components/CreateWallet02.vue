@@ -1,12 +1,12 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Donate BTC</div>
+    <div slot="title">Donate</div>
     <div slot="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">
-    <label for="fund-btc-recall-password">Password</label>
+    <label for="create-wallet-recall-password">Password</label>
     <field
-      id="fund-btc-recall-password"
+      id="create-wallet-recall-password"
       type="password"
       placeholder="Enter your password"
       v-model="passwordValue"
@@ -45,7 +45,7 @@ import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 export default {
-  name: 'fund-btc-02',
+  name: 'create-wallet-02',
   components: {
     FormStruct,
     FormGroup,
@@ -55,7 +55,7 @@ export default {
     FormMsg
   },
   computed: {
-    ...mapGetters(['btcDonation'])
+    ...mapGetters(['donation'])
   },
   data () {
     return {
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     startOver () {
-      this.$store.commit('setBtcDonationProgress', 1)
+      this.$store.commit('setDonationProgress', 1)
     },
     nextStep () {
       this.fields.password = this.passwordValue
@@ -75,20 +75,20 @@ export default {
       if (this.$v.$error) {
         console.log('errors in the form, not going anywhere')
       } else {
-        this.$store.commit('setBtcDonationProgress', 3)
+        this.$store.commit('setDonationProgress', 3)
       }
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    document.querySelector('#fund-btc-recall-password').focus()
+    document.querySelector('#create-wallet-recall-password').focus()
   },
   validations: {
     fields: {
       password: {
         required,
         sameAsPassword (password) {
-          return password === this.btcDonation.password
+          return password === this.donation.password
         }
       }
     }

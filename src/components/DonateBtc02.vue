@@ -55,7 +55,7 @@ import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
 import FieldGroup from './FieldGroup'
 export default {
-  name: 'fund-btc-05',
+  name: 'fund-btc-02',
   components: {
     FormStruct,
     FormGroup,
@@ -65,16 +65,16 @@ export default {
     Field
   },
   computed: {
-    ...mapGetters(['btcDonation', 'config']),
+    ...mapGetters(['donation', 'config']),
     btcAddress () {
-      return this.btcDonation.wallet.addresses.bitcoin
+      return this.donation.wallet.addresses.bitcoin
     },
     cosmosAddress () {
-      return this.btcDonation.wallet.addresses.cosmos
+      return this.donation.wallet.addresses.cosmos
     },
     finalTx () {
-      let { wallet, tx } = this.btcDonation
-      let finalTx = bitcoin.createFinalTx(wallet, tx)
+      let { wallet, tx, feeRate } = this.donation
+      let finalTx = bitcoin.createFinalTx(wallet, tx, feeRate)
       return finalTx
     },
     donationAmount () {
@@ -91,7 +91,6 @@ export default {
     finalize () {
       this.$store.dispatch('finalizeBtcDonation', (err) => {
         if (err) return
-        this.$store.commit('setBtcDonationProgress', 1)
         this.$router.push('/')
       })
     }
@@ -101,3 +100,15 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+.fund-btc-key-values
+  .key-value
+    div
+      display inline-block
+    .key
+      font-weight 600
+      width 150px
+</style>
