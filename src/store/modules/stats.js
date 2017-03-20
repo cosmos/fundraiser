@@ -1,4 +1,4 @@
-import { bitcoin } from 'cosmos-fundraiser'
+import { bitcoin, ethereum } from 'cosmos-fundraiser'
 
 const MAX_DONATIONS = 30
 
@@ -21,12 +21,13 @@ const mutations = {
     state.donationsMap[donation.id] = true
     state.donations.push(donation)
     state.donations.sort((a, b) => b.time - a.time)
-    state.donations = state.donations.slice(0) // clone to trigger update
 
     if (state.donations.length > MAX_DONATIONS) {
       let toRemove = state.donations.pop()
       delete state.donationsMap[toRemove.id]
     }
+
+    state.donations = state.donations.slice(0) // clone to trigger update
   },
   setBtcRaised (state, btcRaised) {
     state.progress.btcRaised = btcRaised
@@ -36,6 +37,15 @@ const mutations = {
   },
   setAtomsClaimedBtc (state, atomsClaimedBtc) {
     state.progress.atomsClaimedBtc = atomsClaimedBtc
+  },
+  setEthRaised (state, ethRaised) {
+    state.progress.ethRaised = ethRaised
+  },
+  setEthTxCount (state, ethTxCount) {
+    state.progress.ethTxCount = ethTxCount
+  },
+  setAtomsClaimedEth (state, atomsClaimedEth) {
+    state.progress.atomsClaimedEth = atomsClaimedEth
   }
 }
 
@@ -60,6 +70,41 @@ const actions = {
           time: tx.time * 1000,
           donated: tx.donated / 1e8,
           claimed: tx.claimed
+        })
+      }
+    })
+
+    ethereum.fetchTotals(ethereum.FUNDRAISER_CONTRACT, (err, totals) => {
+      if (err) {
+        console.error(err.stack)
+        commit('notifyError', {
+          title: 'Error Fetching Donation Stats',
+          body: 'Could not fetch ETH donations from Etherscan.'
+        })
+        return
+      }
+      console.log(totals)
+      commit('setEthRaised', totals.ether)
+      commit('setAtomsClaimedEth', totals.atoms)
+    })
+
+    ethereum.fetchTxs(ethereum.FUNDRAISER_CONTRACT, (err, txs) => {
+      if (err) {
+        console.error(err.stack)
+        commit('notifyError', {
+          title: 'Error Fetching Donation Stats',
+          body: 'Could not fetch ETH donations from Etherscan.'
+        })
+        return
+      }
+      for (let tx of txs) {
+        console.log(tx)
+        commit('addDonation', {
+          id: tx.hash,
+          type: 'eth',
+          time: parseInt(tx.timeStamp) * 1000,
+          donated: parseInt(tx.value) / 1e18,
+          claimed: 0
         })
       }
     })

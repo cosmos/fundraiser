@@ -6,7 +6,7 @@ export const config = state => state.config
 export const donation = state => state.donation
 export const notifications = state => state.notifications
 
-export const donations = state => state.stats.donations.slice(-15)
+export const donations = state => state.stats.donations.slice(0, 15)
 export const txCount = state =>
   state.stats.progress.btcTxCount + state.stats.progress.ethTxCount
 export const atomsClaimed = state =>
