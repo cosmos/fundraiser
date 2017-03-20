@@ -7,6 +7,7 @@
     <create-wallet-decrypt v-if="donation.progress === 'decrypt'"></create-wallet-decrypt>
     <donate-btc-01 v-if="donation.progress === 4 && donation.currency === 'BTC'"></donate-btc-01>
     <donate-btc-02 v-if="donation.progress === 5 && donation.currency === 'BTC'"></donate-btc-02>
+    <donate-eth v-if="donation.progress === 4 && donation.currency === 'ETH'"></donate-eth>
   </div>
   <modal v-if="wantsToLeave">
     <div slot="title">Donation in Progress</div>
@@ -31,6 +32,7 @@ import CreateWallet03 from './CreateWallet03'
 import CreateWalletDecrypt from './CreateWalletDecrypt'
 import DonateBtc01 from './DonateBtc01'
 import DonateBtc02 from './DonateBtc02'
+import DonateEth from './DonateEth'
 import Modal from './Modal'
 export default {
   name: 'page-wallet',
@@ -43,6 +45,7 @@ export default {
     CreateWalletDecrypt,
     DonateBtc01,
     DonateBtc02,
+    DonateEth,
     Modal
   },
   computed: {
@@ -58,6 +61,8 @@ export default {
     this.$store.commit('setDonationCurrency', currency)
     if (currency === 'BTC') {
       this.$store.dispatch('fetchBtcDonationFeeRate')
+    } else if (currency === 'ETH') {
+      this.$store.dispatch('fetchEthDonationAtomRate')
     }
   },
   head: {

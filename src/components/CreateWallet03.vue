@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Donate</div>
+    <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Backup your Atom wallet</div>
 
     <form-group id="form-group-download">

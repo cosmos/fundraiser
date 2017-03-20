@@ -2,7 +2,7 @@
   <form-struct :submit="nextStep">
     <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
 
-    <div slot="title">Donate</div>
+    <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Create a fundraiser wallet.</div>
 
     <form-group :class="{ error: $v.fields.password.$error || $v.fields.confirmPassword.$error }">
@@ -95,7 +95,7 @@ export default {
     FUNDRAISE_STARTED () {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
-    ...mapGetters(['config'])
+    ...mapGetters(['config', 'donation'])
   },
   data: () => ({
     visible: {

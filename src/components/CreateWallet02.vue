@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Donate</div>
+    <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">

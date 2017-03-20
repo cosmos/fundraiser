@@ -1,5 +1,5 @@
 import cfr from 'cosmos-fundraiser'
-const { bitcoin, sendEmail } = cfr
+const { bitcoin, ethereum, sendEmail } = cfr
 
 const empty = {
   progress: 1,
@@ -8,7 +8,8 @@ const empty = {
   password: '',
   encryptedSeed: null,
   currency: '',
-  feeRate: 220
+  feeRate: 220,
+  ethRate: 0
 }
 
 const state = JSON.parse(JSON.stringify(empty))
@@ -44,6 +45,10 @@ const mutations = {
   setBtcDonationFeeRate (state, feeRate) {
     state.feeRate = feeRate
     console.log('SET donation.feeRate', state.feeRate)
+  },
+  setEthDonationAtomRate (state, ethRate) {
+    state.ethRate = ethRate
+    console.log('SET donation.ethRate', state.ethRate)
   }
 }
 
@@ -124,6 +129,19 @@ const actions = {
       }
       console.log('got fee rate:', feeRate)
       commit('setBtcDonationFeeRate', feeRate)
+    })
+  },
+  fetchEthDonationAtomRate ({ commit }) {
+    ethereum.fetchAtomRate(ethereum.FUNDRAISER_CONTRACT, (err, atomRate) => {
+      if (err) {
+        console.error(err)
+        commit('notifyError', {
+          title: 'Ethereum Error',
+          body: 'Could not fetch ATOM/ETH exchange rate from Etherscan.'
+        })
+        return
+      }
+      commit('setEthDonationAtomRate', atomRate)
     })
   }
 }
