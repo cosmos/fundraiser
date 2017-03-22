@@ -4,7 +4,7 @@ const state = {
   SELF_URL: 'https://cosmos.network/',
   TIMEZONE: 'America/Los_Angeles',
   ANNOUNCE_DATETIME: '2017-03-15 07:10:00',
-  START_DATETIME: '2017-03-31 13:00:00',
+  START_DATETIME: '2017-03-20 13:00:00',
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
   ATOM: {

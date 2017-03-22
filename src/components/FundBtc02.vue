@@ -1,26 +1,27 @@
 <template>
   <form-struct :submit="nextStep">
     <div slot="title">Donate BTC</div>
-    <div slot="subtitle">Confirm that you remember your password. If you've forgotten it, please start over.</div>
+    <div slot="subtitle">Confirm that you remember the mnemonic. If you've forgotten it, please start over.</div>
 
-  <form-group :class="{ 'error': $v.fields.password.$error }">
-    <label for="fund-btc-recall-password">Password</label>
-    <field
-      id="fund-btc-recall-password"
-      type="password"
-      placeholder="Enter your password"
-      v-model="passwordValue"
-      required>
-    </field>
-    <form-msg name="Password" type="required" v-if="!$v.fields.password.required"></form-msg>
-    <form-msg name="Password" v-if="!$v.fields.password.matchesHash"></form-msg>
-    <vuelidate-debug name="fields.password" :data="$v.fields.password"></vuelidate-debug>
+  <form-group :class="{ 'error': $v.fields.mnemonic.$error }">
+    <label for="fund-btc-recall-mnemonic">Mnemonic</label>
+    <field-group>
+      <field
+        id="fund-btc-recall-mnemonic"
+        type="textarea"
+        placeholder="Enter your mnemonic"
+        v-model="mnemonicValue"
+        required>
+      </field>
+    </field-group>
+    <form-msg name="Mnemonic" type="required" v-if="!$v.fields.mnemonic.required"></form-msg>
+    <form-msg name="Mnemonic" v-if="!$v.fields.mnemonic.matchesHash"></form-msg>
+    <vuelidate-debug name="fields.mnemonic" :data="$v.fields.mnemonic"></vuelidate-debug>
   </form-group>
 
   <btn
     @click="startOver"
     slot="reset"
-    icon="angle-left"
     value="Reset">
   </btn>
 
@@ -43,6 +44,7 @@ import FormStruct from './FormStruct'
 import FormGroup from './FormGroup'
 import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
+import FieldGroup from './FieldGroup'
 import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 export default {
@@ -51,6 +53,7 @@ export default {
     FormStruct,
     FormGroup,
     Field,
+    FieldGroup,
     Btn,
     VuelidateDebug,
     FormMsg
@@ -60,9 +63,9 @@ export default {
   },
   data () {
     return {
-      passwordValue: '',
+      mnemonicValue: '',
       fields: {
-        password: ''
+        mnemonic: ''
       }
     }
   },
@@ -71,27 +74,25 @@ export default {
       this.$store.commit('setBtcDonationProgress', 1)
     },
     nextStep () {
-      this.fields.password = this.passwordValue
+      this.fields.mnemonic = this.mnemonicValue
       this.$v.$touch()
-      if (this.$v.$error) {
-        console.log('errors in the form, not going anywhere')
-      } else {
+      if (!this.$v.$error) {
         this.$store.commit('setBtcDonationProgress', 3)
       }
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    document.querySelector('#fund-btc-recall-password').focus()
+    document.querySelector('#fund-btc-recall-mnemonic').focus()
   },
   validations: {
     fields: {
-      password: {
+      mnemonic: {
         required,
-        matchesHash (password) {
+        matchesHash (mnemonic) {
           let encryptedSeed = this.btcDonation.encryptedSeed
           try {
-            cfr.decryptSeed(encryptedSeed, password)
+            cfr.decryptSeed(encryptedSeed, mnemonic)
             return true
           } catch (err) {
             return false

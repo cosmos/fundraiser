@@ -3,6 +3,7 @@
     <page-header
       title="Error 404"
       subtitle="Page Not Found"
+      slot="header"
       type="split">
     </page-header>
     <article-body>
@@ -29,7 +30,7 @@ export default {
     ArticleBody
   },
   mounted () {
-    document.title = '404 - Cosmos Fundraising - Internet of Blockchains'
+    document.title = '404 - Cosmos Fundraiser - Internet of Blockchains'
   }
 }
 </script>

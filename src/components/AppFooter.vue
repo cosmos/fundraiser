@@ -26,7 +26,7 @@ export default {
     justify-content space-between
 
     > div
-      padding 0 1rem
+      padding 0.375rem 1rem
       color light
-      line-height 2.25rem
+      line-height 1.5rem
 </style>
