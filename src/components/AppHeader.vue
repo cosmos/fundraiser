@@ -116,7 +116,8 @@ export default {
     margin 0 auto
 
   .header-item
-    height 3*x
+    height 3rem
+    min-width 3rem
     display flex
     align-items center
     padding 0 1rem
