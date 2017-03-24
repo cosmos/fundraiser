@@ -2,6 +2,7 @@
   <div :class="cssClass">
     <div class="ni-modal-container">
       <header class="ni-modal-header">
+        <div class="ni-modal-icon" v-if="icon"><i :class="iconCssClass"></i></div>
         <div class="ni-modal-title"><slot name="title"></slot></div>
       </header>
       <main class="ni-modal-main">
@@ -15,10 +16,14 @@
 </template>
 
 <script>
-// import disableScroll from 'disable-scroll'
 import Ps from 'perfect-scrollbar'
 export default {
   computed: {
+    iconCssClass () {
+      let value = 'fa fa-'
+      if (this.icon) value += this.icon
+      return value
+    },
     cssClass () {
       let value = 'ni-modal'
       if (this.size === 'fullscreen' || this.size === 'fs') {
@@ -33,14 +38,9 @@ export default {
     }
   },
   mounted () {
-    // disableScroll.on()
     Ps.initialize(document.querySelector('.ni-modal-main'))
   },
-  destroyed () {
-    // disableScroll.off()
-    Ps.destroy(document.querySelector('.ni-modal-main'))
-  },
-  props: ['size']
+  props: ['size', 'icon']
 }
 </script>
 
@@ -86,13 +86,23 @@ export default {
 .ni-modal-header
   display flex
   align-items center
-  justify-content space-between
   height 3rem + 0.0625rem
 
 .ni-modal-main, .ni-modal-footer
   padding 1rem
 
+.ni-modal-icon
+  width 3rem
+  height 3rem
+  display flex
+  align-items center
+  justify-content center
+
+.ni-modal-icon + .ni-modal-title
+  padding-left 0
+
 .ni-modal-title
+  flex 1
   font-weight 500
   padding 0 1rem
 

@@ -8,7 +8,8 @@ const empty = {
   tx: null,
   currency: '',
   feeRate: 220,
-  ethRate: 0
+  ethRate: 0,
+  agreed: false
 }
 
 const state = JSON.parse(JSON.stringify(empty))
@@ -16,6 +17,9 @@ const state = JSON.parse(JSON.stringify(empty))
 const mutations = {
   resetDonation (state) {
     state = JSON.parse(JSON.stringify(empty))
+  },
+  setDonationAgreed (state, value) {
+    state.agreed = value
   },
   setDonationWallet (state, wallet) {
     state.wallet = wallet

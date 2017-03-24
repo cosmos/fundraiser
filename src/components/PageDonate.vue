@@ -7,16 +7,7 @@
     <donate-btc-02 v-if="donation.progress === 4 && donation.currency === 'BTC'"></donate-btc-02>
     <donate-eth v-if="donation.progress === 3 && donation.currency === 'ETH'"></donate-eth>
   </div>
-  <modal v-if="wantsToLeave">
-    <div slot="title">Donation in Progress</div>
-    <div>
-      You may return at any time to continue with your donation.
-    </div>
-    <div slot="footer">
-      <btn value="Return to Page" @click.native="cancelLeave"></btn>
-      <btn value="Finish Donation Later" @click.native="confirmLeave"></btn>
-    </div>
-  </modal>
+  <modal-agreement v-if="!donation.agreed"></modal-agreement>
 </div>
 </template>
 
@@ -29,7 +20,7 @@ import CreateWallet02 from './CreateWallet02'
 import DonateBtc01 from './DonateBtc01'
 import DonateBtc02 from './DonateBtc02'
 import DonateEth from './DonateEth'
-import Modal from './Modal'
+import ModalAgreement from './ModalAgreement'
 export default {
   name: 'page-wallet',
   components: {
@@ -40,16 +31,11 @@ export default {
     DonateBtc01,
     DonateBtc02,
     DonateEth,
-    Modal
+    ModalAgreement
   },
   computed: {
     ...mapGetters(['donation'])
   },
-  data: () => ({
-    wantsToLeave: false,
-    canLeave: false,
-    leaveDestination: ''
-  }),
   head: {
     title () {
       return {
@@ -69,19 +55,6 @@ export default {
     let currency = to.params.currency.toUpperCase()
     this.setCurrency(currency)
     next()
-  },
-  beforeRouteLeave (to, from, next) {
-    console.log('beforeRouteLeave', to, from)
-    let done =
-      (this.donation.currency === 'BTC' && this.donation.progress === 4) ||
-      (this.donation.currency === 'ETH' && this.donation.progress === 3)
-    if (this.canLeave || done) {
-      this.$store.commit('setDonationProgress', 1)
-      next(true)
-    } else {
-      this.leaveDestination = to.path
-      this.wantsToLeave = true
-    }
   },
   methods: {
     setCurrency (currency) {
