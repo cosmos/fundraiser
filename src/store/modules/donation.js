@@ -1,9 +1,10 @@
 import cfr from 'cosmos-fundraiser'
-const { bitcoin, ethereum, sendEmail } = cfr
+const { bitcoin, ethereum } = cfr
 
 const empty = {
   progress: 1,
   wallet: null,
+  mnemonic: '',
   tx: null,
   currency: '',
   feeRate: 220,
@@ -20,13 +21,9 @@ const mutations = {
     state.wallet = wallet
     console.log('SET donation.wallet')
   },
-  setDonationEncryptedSeed (state, encryptedSeed) {
-    state.encryptedSeed = encryptedSeed
-    console.log('SET donation.encryptedSeed')
-  },
-  setDonationPassword (state, password) {
-    state.password = password
-    console.log('SET donation.password', state.password)
+  setDonationMnemonic (state, mnemonic) {
+    state.mnemonic = mnemonic
+    console.log('SET donation.mnemonic', state.mnemonic)
   },
   setDonationProgress (state, value) {
     state.progress = value
@@ -51,22 +48,11 @@ const mutations = {
 }
 
 const actions = {
-  generateDonationWallet ({ commit }, password) {
-    let seed = cfr.generateSeed()
-    let wallet = cfr.deriveWallet(seed)
+  generateDonationWallet ({ commit }) {
+    let mnemonic = cfr.generateMnemonic()
+    let wallet = cfr.deriveWallet(mnemonic)
     commit('setDonationWallet', wallet)
-    commit('setDonationPassword', password)
-    cfr.encryptSeed(seed, password, (err, encryptedSeed) => {
-      if (err) {
-        commit('notifyError', {
-          title: 'Wallet Encryption Error',
-          body: 'Could not encrypt wallet'
-        })
-        return
-      }
-      commit('setDonationEncryptedSeed', encryptedSeed)
-      commit('setDonationProgress', 2)
-    })
+    commit('setDonationMnemonic', mnemonic)
   },
   finalizeBtcDonation ({ commit, dispatch, state, rootState }, cb) {
     let { wallet, tx, feeRate } = state
@@ -94,25 +80,6 @@ const actions = {
         body: `You have succesfully donated ${finalTx.paidAmount / 1e8} BTC and will receive ${finalTx.atomAmount} ATOM.`
       })
       cb()
-    })
-  },
-  emailDonationWallet ({ commit, getters }, { emailAddress, cb }) {
-    let { encryptedSeed } = getters.donation
-    let walletBytes = cfr.encodeWallet(encryptedSeed)
-    sendEmail(emailAddress, walletBytes, (err) => {
-      if (err) {
-        console.error(err)
-        commit('notifyError', {
-          title: 'Wallet Backup Error',
-          body: 'An error occurred while backing up your wallet.'
-        })
-        return cb(err)
-      }
-      commit('notifyCustom', {
-        title: 'Wallet Email Sent',
-        body: 'We sent you an email with a copy of your Cosmos wallet so you don\'t lose it.'
-      })
-      cb(null)
     })
   },
   fetchBtcDonationFeeRate ({ commit }) {

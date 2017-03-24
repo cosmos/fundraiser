@@ -16,6 +16,7 @@ import router from './router/index.js'
 sync(store, router)
 
 store.dispatch('fetchEthDonationAtomRate')
+store.dispatch('generateDonationWallet')
 
 Vue.use(VueAnalytics, {id: 'UA-51029217-2', router: router})
 Vue.use(VueHead)

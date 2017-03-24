@@ -9,7 +9,7 @@
       <label>Write this down.</label>
       <label class="hidden" for="create-wallet-mnemonic">Mnemonic</label>
       <field-group>
-        <mnemonic :value="fields.mnemonic"></mnemonic>
+        <mnemonic :value="donation.mnemonic"></mnemonic>
       </field-group>
     </form-group>
     <btn
@@ -51,16 +51,8 @@ export default {
     },
     ...mapGetters(['config', 'donation'])
   },
-  data: () => ({
-    fields: {
-      mnemonic: 'placeholder mnemonic currently here rainbow butter cats tables'
-    }
-  }),
   methods: {
     nextStep () {
-      this.$v.$touch()
-      if (this.$v.$error) return
-      this.$store.commit('generateDonationWallet')
       this.$store.commit('setDonationProgress', 2)
     }
   },

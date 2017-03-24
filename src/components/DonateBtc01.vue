@@ -118,9 +118,6 @@ export default {
       window.location.href =
         `bitcoin:${this.btcAddress}?label=My%20Cosmos%20Fundraiser%20wallet`
     },
-    nextStep () {
-      this.$store.commit('setDonationProgress', 5)
-    },
     qrCodeToggle (value) {
       this.qrCodeVisible = value
     }
@@ -144,7 +141,7 @@ export default {
       }
       console.log('got inputs:', inputs)
       this.$store.commit('setBtcDonationTx', inputs)
-      this.$store.commit('setDonationProgress', 5)
+      this.$store.commit('setDonationProgress', 4)
     })
   }
 }
