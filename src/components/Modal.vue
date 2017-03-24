@@ -111,6 +111,10 @@ export default {
   &:hover
     color link
 
+.ni-modal-main
+  .ps-scrollbar-y-rail
+    display none
+
 .ni-modal-main > .ni-article-body
   margin -1rem
 
