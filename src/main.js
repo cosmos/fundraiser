@@ -15,6 +15,8 @@ import store from './store/index.js'
 import router from './router/index.js'
 sync(store, router)
 
+store.dispatch('fetchEthDonationAtomRate')
+
 Vue.use(VueAnalytics, {id: 'UA-51029217-2', router: router})
 Vue.use(VueHead)
 Vue.use(VueI18n)

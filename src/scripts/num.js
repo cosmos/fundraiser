@@ -18,6 +18,18 @@ function short (num) {
   }
   return numeral(num).format('0,0.00')
 }
+function shortInt (num) {
+  if (num > 1000000000) {
+    return integerize(num / 1000000000) + 'B'
+  }
+  if (num > 1000000) {
+    return integerize(num / 1000000) + 'M'
+  }
+  if (num > 1000) {
+    return integerize(num / 1000) + 'K'
+  }
+  return integerize(num)
+}
 function integerize (num) {
   return numeral(num).format('0,0')
 }
@@ -30,5 +42,6 @@ export default {
   pretty: pretty,
   int: integerize,
   frac: fractionize,
-  short: short
+  short: short,
+  shortInt
 }

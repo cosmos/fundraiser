@@ -1,12 +1,12 @@
 <template>
   <form-struct :submit="nextStep">
-    <div slot="title">Donate BTC</div>
+    <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Enter your password to decrypt your pre-existing wallet.</div>
 
   <form-group :class="{ 'error': $v.fields.password.$error }">
-    <label for="fund-btc-recall-password">Password</label>
+    <label for="create-wallet-recall-password">Password</label>
     <field
-      id="fund-btc-recall-password"
+      id="create-wallet-recall-password"
       type="password"
       placeholder="Enter your password"
       v-model="passwordValue"
@@ -45,7 +45,7 @@ import Field from '@nylira/vue-input'
 import Btn from '@nylira/vue-button'
 import VuelidateDebug from './VuelidateDebug'
 export default {
-  name: 'fund-btc-decrypt',
+  name: 'create-wallet-decrypt',
   components: {
     FormStruct,
     FormGroup,
@@ -55,7 +55,7 @@ export default {
     FormMsg
   },
   computed: {
-    ...mapGetters(['btcDonation'])
+    ...mapGetters(['donation'])
   },
   data () {
     return {
@@ -70,29 +70,28 @@ export default {
       this.fields.password = this.passwordValue
       this.$v.$touch()
       if (!this.$v.$error) {
-        this.$store.commit('setBtcDonationProgress', 4)
+        this.$store.commit('setDonationProgress', 4)
       }
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    document.querySelector('#fund-btc-recall-password').focus()
+    document.querySelector('#create-wallet-recall-password').focus()
   },
   validations: {
     fields: {
       password: {
         required,
         isCorrect (password) {
-          let encryptedSeed = this.btcDonation.encryptedSeed
-          let testnet = process.env.NODE_ENV === 'development'
-          try {
-            let seed = cfr.decryptSeed(encryptedSeed, password)
-            let wallet = cfr.deriveWallet(seed, testnet)
-            this.$store.commit('setBtcDonationWallet', wallet)
-            return true
-          } catch (err) {
-            return false
-          }
+          return new Promise((resolve) => {
+            let encryptedSeed = this.donation.encryptedSeed
+            cfr.decryptSeed(encryptedSeed, password, (err, seed) => {
+              if (err) return resolve(false)
+              let wallet = cfr.deriveWallet(seed)
+              this.$store.commit('setDonationWallet', wallet)
+              resolve(true)
+            })
+          })
         }
       }
     }

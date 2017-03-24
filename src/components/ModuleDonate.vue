@@ -49,9 +49,12 @@ export default {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
     exchangeRate () {
+      if (this.coin.NAME === 'Ethereum') {
+        return this.donation.ethRate
+      }
       return num.int(this.coin.EXCHANGE_RATE)
     },
-    ...mapGetters(['config'])
+    ...mapGetters(['config', 'donation'])
   },
   methods: {
     go (route) {

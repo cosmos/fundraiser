@@ -2,12 +2,12 @@
   <form-struct :submit="nextStep">
     <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
 
-    <div slot="title">Donate BTC</div>
+    <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Copy this mnemonic and store it in a secure location. You'll need it to access your atoms later.</div>
 
     <form-group>
       <label>Write this down.</label>
-      <label class="hidden" for="fund-btc-mnemonic">Mnemonic</label>
+      <label class="hidden" for="create-wallet-mnemonic">Mnemonic</label>
       <field-group>
         <mnemonic :value="fields.mnemonic"></mnemonic>
       </field-group>
@@ -34,7 +34,7 @@ import FormGroup from './FormGroup'
 import Mnemonic from './Mnemonic'
 import ModuleOverlay from './ModuleOverlay'
 export default {
-  name: 'fund-btc-01',
+  name: 'create-wallet-01',
   components: {
     Btn,
     Field,
@@ -49,7 +49,7 @@ export default {
     FUNDRAISE_STARTED () {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
     },
-    ...mapGetters(['sessionUser', 'sessionReady', 'config'])
+    ...mapGetters(['config', 'donation'])
   },
   data: () => ({
     fields: {
@@ -58,32 +58,14 @@ export default {
   }),
   methods: {
     nextStep () {
-      this.$store.commit('setBtcDonationPrice', this.config.COINS.BTC.EXCHANGE_RATE)
-      this.$store.commit('setBtcDonationAtoms', this.fields.atoms)
-      this.$store.dispatch('generateBtcDonationWallet', this.fields.mnemonic)
-      this.$store.commit('setBtcDonationProgress', 2)
-    },
-    skipWalletCreation () {
-      // we already have a wallet
-      let encryptedSeed = this.sessionUser.wallets[0]
-      this.$store.commit('setBtcDonationEncryptedSeed', encryptedSeed)
-      this.$store.commit('setBtcDonationProgress', 'decrypt')
-    },
-    skipIfWalletExists () {
-      if (this.sessionUser &&
-        this.sessionUser.wallets &&
-        this.sessionUser.wallets.length > 0) {
-        this.skipWalletCreation()
-      }
+      this.$v.$touch()
+      if (this.$v.$error) return
+      this.$store.commit('generateDonationWallet')
+      this.$store.commit('setDonationProgress', 2)
     }
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    let done = this.$store.watch(() => this.sessionReady, () => {
-      this.skipIfWalletExists()
-      done()
-    })
-    this.skipIfWalletExists()
   }
 }
 </script>

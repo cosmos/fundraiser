@@ -5,20 +5,20 @@
     <key-values>
       <key-value>
         <div slot="value">
-          <span class="integer">${{ num.int(fundAmount) }}</span>
+          <span class="integer">{{ num.int(atoms) }} ATOM</span>
         </div>
-        <div slot="key">of $10M goal</div>
+        <div slot="key">of {{ num.shortInt(config.CAP_AMOUNT) }} ATOM goal</div>
       </key-value>
       <key-value>
         <div slot="value">
-          <span class="integer">{{ num.int(progress.donors) }}<span>
+          <span class="integer">{{ num.int(txCount) }}<span>
         </div>
-        <div slot="key">donors</div>
+        <div slot="key">donations</div>
       </key-value>
       <time-remaining :date="END_DATETIME" :started="FUNDRAISE_STARTED"></time-remaining>
       <key-value>
         <div slot="value">
-          <span class="integer">{{ num.short(atomsPurchased) }}</span>
+          <span class="integer">{{ num.short(atoms) }}</span>
         </div>
         <div slot="key">atoms claimed</div>
       </key-value>
@@ -56,17 +56,10 @@ export default {
         return this.config.START_DATETIME
       }
     },
-    fundAmount () {
-      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
-      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.USD
-      return ethTotal + btcTotal
+    atoms () {
+      return num.pretty(this.atomsClaimed)
     },
-    atomsPurchased () {
-      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.EXCHANGE_RATE
-      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.EXCHANGE_RATE
-      return ethTotal + btcTotal
-    },
-    ...mapGetters(['progress', 'config'])
+    ...mapGetters(['progress', 'config', 'txCount', 'atomsClaimed'])
   },
   data () {
     return {

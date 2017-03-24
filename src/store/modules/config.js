@@ -6,6 +6,8 @@ const state = {
   START_DATETIME: '2017-03-20 13:00:00',
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
+  CAP_START: 6, // when cap starts being enforced, after START_DATETIME (in hours)
+  CAP_AMOUNT: 100e6, // cap in ATOMs
   ATOM: {
     MIN_BUY: 20,
     MAX_BUY: 1000000
@@ -14,7 +16,7 @@ const state = {
     BTC: {
       ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
       EXCHANGE_RATE: 12500,
-      MIN_DONATION: 0.006,
+      MIN_DONATION: 0.01,
       MAX_DONATION: 500,
       NAME: 'Bitcoin',
       UNIT: 'BTC',

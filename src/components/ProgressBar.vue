@@ -14,13 +14,8 @@ import num from '../scripts/num.js'
 export default {
   name: 'progress-bar',
   computed: {
-    amountDonated () {
-      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
-      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.USD
-      return ethTotal + btcTotal
-    },
     percentageDonated () {
-      return this.amountDonated / 10000000
+      return this.atomsClaimed / this.config.CAP_AMOUNT
     },
     percentageDonatedFriendly () {
       return Math.round(this.percentageDonated * 100)
@@ -30,7 +25,7 @@ export default {
         width: this.percentageDonated * 100 + '%'
       }
     },
-    ...mapGetters(['progress', 'config'])
+    ...mapGetters([ 'progress', 'config', 'atomsClaimed' ])
   },
   data () {
     return {
