@@ -20,7 +20,7 @@
   </form-group>
 
   <btn
-    @click="startOver"
+    @click.native="startOver"
     slot="reset"
     value="Reset">
   </btn>
