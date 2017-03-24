@@ -18,5 +18,6 @@ export default {
   padding 0.5rem 0.75rem
   mono()
   background lighten(bc, 50%)
+  user-select none
 </style>
 
