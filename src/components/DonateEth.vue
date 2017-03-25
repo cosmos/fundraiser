@@ -6,7 +6,7 @@
     <form-group>
       <div class="donate-eth-key-values">
         <div class="key-value">
-          <div class="key">Exchange Rate</div>
+          <div class="key">Exchange Rate<sup>*</sup></div>
           <div class="value">1 ETH : {{ donation.ethRate }} Atoms</div>
         </div>
         <div class="key-value">
@@ -18,6 +18,13 @@
           <div class="value">{{ config.COINS.ETH.MAX_DONATION }} ETH</div>
         </div>
       </div>
+      <p class="disclaimer">
+        <sup>*</sup> The actual Exchange Rate may differ from what is shown
+        depending on when the exchange rate is updated on the donation smart
+        contract.  Check the most recent ETH/BTC rate before submitting a
+        donation, and for best results, pay a suffiently large fee to get your
+        donation transaction committed quickly.
+      </p>
     </form-group>
 
     <form-group>
@@ -70,7 +77,7 @@ export default {
     ethTx () {
       let { addresses } = this.donation.wallet
       let tx = ethereum.getTransaction(
-        '0x' + addresses.cosmos,
+        addresses.cosmos,
         addresses.ethereum
       )
       return JSON.stringify(tx, null, '  ')
@@ -116,4 +123,9 @@ export default {
     .value
       flex 3
       font-weight 500
+
+.disclaimer
+  font-size 0.75rem
+  color dim
+  font-style italic
 </style>
