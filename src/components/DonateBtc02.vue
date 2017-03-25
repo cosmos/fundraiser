@@ -55,7 +55,7 @@ import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
 import FieldGroup from './FieldGroup'
 export default {
-  name: 'fund-btc-02',
+  name: 'donate-btc-02',
   components: {
     FormStruct,
     FormGroup,
@@ -73,9 +73,8 @@ export default {
       return this.donation.wallet.addresses.cosmos
     },
     finalTx () {
-      let { wallet, tx, feeRate } = this.donation
-      let finalTx = bitcoin.createFinalTx(wallet, tx, feeRate)
-      return finalTx
+      let { tx, feeRate } = this.donation
+      return bitcoin.createFinalTx(tx.utxos, feeRate)
     },
     donationAmount () {
       return this.finalTx.paidAmount

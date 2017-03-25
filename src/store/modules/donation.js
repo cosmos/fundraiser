@@ -52,16 +52,21 @@ const mutations = {
 }
 
 const actions = {
-  generateDonationWallet ({ commit }) {
-    let mnemonic = cfr.generateMnemonic()
+  setDonationMnemonicAndWallet ({ commit }, mnemonic) {
+    commit('setDonationMnemonic', mnemonic)
     let wallet = cfr.deriveWallet(mnemonic)
     commit('setDonationWallet', wallet)
-    commit('setDonationMnemonic', mnemonic)
+  },
+  generateDonationWallet ({ dispatch }) {
+    let mnemonic = cfr.generateMnemonic()
+    dispatch('setDonationMnemonicAndWallet', mnemonic)
   },
   finalizeBtcDonation ({ commit, dispatch, state, rootState }, cb) {
     let { wallet, tx, feeRate } = state
-    let finalTx = bitcoin.createFinalTx(wallet, tx, feeRate)
-    bitcoin.pushTx(finalTx.tx, (err) => {
+    console.log('tx', tx)
+    let finalTx = bitcoin.createFinalTx(tx.utxos, feeRate)
+    let signedTx = bitcoin.signFinalTx(wallet, finalTx.tx)
+    bitcoin.pushTx(signedTx.toHex(), (err) => {
       if (err) {
         console.error(err)
         commit('notifyError', {
@@ -70,7 +75,7 @@ const actions = {
         })
         return cb(err)
       }
-      let txid = finalTx.tx.getId()
+      let txid = signedTx.getId()
       console.log('sent final tx. txid=' + txid)
       commit('addDonation', {
         type: 'btc',

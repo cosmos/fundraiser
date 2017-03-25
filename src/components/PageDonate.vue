@@ -3,6 +3,7 @@
   <div class="ni-forms">
     <create-wallet-01 v-if="donation.progress === 1"></create-wallet-01>
     <create-wallet-02 v-if="donation.progress === 2"></create-wallet-02>
+    <input-wallet v-if="donation.progress === 'input'"></input-wallet>
     <donate-btc-01 v-if="donation.progress === 3 && donation.currency === 'BTC'"></donate-btc-01>
     <donate-btc-02 v-if="donation.progress === 4 && donation.currency === 'BTC'"></donate-btc-02>
     <donate-eth v-if="donation.progress === 3 && donation.currency === 'ETH'"></donate-eth>
@@ -17,6 +18,7 @@ import Btn from '@nylira/vue-button'
 import PageHeader from '@nylira/vue-page-header'
 import CreateWallet01 from './CreateWallet01'
 import CreateWallet02 from './CreateWallet02'
+import InputWallet from './InputWallet'
 import DonateBtc01 from './DonateBtc01'
 import DonateBtc02 from './DonateBtc02'
 import DonateEth from './DonateEth'
@@ -28,6 +30,7 @@ export default {
     PageHeader,
     CreateWallet01,
     CreateWallet02,
+    InputWallet,
     DonateBtc01,
     DonateBtc02,
     DonateEth,

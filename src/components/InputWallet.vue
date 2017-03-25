@@ -3,21 +3,21 @@
     <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
 
     <div slot="title">Donate {{ donation.currency }}</div>
-    <div slot="subtitle">Copy this mnemonic and store it in a secure location. You'll need it to access your atoms later.</div>
+    <div slot="subtitle">Enter a pre-existing mnemonic</div>
 
     <form-group>
-      <label>Write this down.</label>
+      <label>Mnemonic</label>
       <label class="hidden" for="create-wallet-mnemonic">Mnemonic</label>
       <field-group>
-        <mnemonic :value="donation.mnemonic"></mnemonic>
+        <field
+          id="create-wallet-recall-mnemonic"
+          type="textarea"
+          placeholder="Enter your mnemonic"
+          v-model="mnemonicValue"
+          required>
+        </field>
       </field-group>
     </form-group>
-
-    <btn
-      @click.native="enterMnemonic"
-      slot="reset"
-      value="Enter your existing mnemonic">
-    </btn>
 
     <btn
       slot="submit"
@@ -41,7 +41,7 @@ import FormGroup from './FormGroup'
 import Mnemonic from './Mnemonic'
 import ModuleOverlay from './ModuleOverlay'
 export default {
-  name: 'create-wallet-01',
+  name: 'input-wallet',
   components: {
     Btn,
     Field,
@@ -52,6 +52,11 @@ export default {
     Mnemonic,
     ModuleOverlay
   },
+  data () {
+    return {
+      mnemonicValue: ''
+    }
+  },
   computed: {
     FUNDRAISE_STARTED () {
       return Date.now() >= moment(this.config.START_DATETIME).valueOf()
@@ -60,10 +65,8 @@ export default {
   },
   methods: {
     nextStep () {
-      this.$store.commit('setDonationProgress', 2)
-    },
-    enterMnemonic () {
-      this.$store.commit('setDonationProgress', 'input')
+      this.$store.dispatch('setDonationMnemonicAndWallet', this.mnemonicValue)
+      this.$store.commit('setDonationProgress', 3)
     }
   },
   mounted () {
