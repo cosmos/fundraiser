@@ -27,7 +27,7 @@
         </div>
         <div class="date" :title="isoDate(t.time)">
           <span class="value">{{ flexibleDate(t.time) }}</span>
-          <span class="key">{{ date(t.time) }}</span>
+          <span class="key">{{ fromNow(t.time) }}</span>
         </div>
       </div>
     </div>
