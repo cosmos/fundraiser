@@ -21,7 +21,12 @@ export default {
   computed: {
     iconCssClass () {
       let value = 'fa fa-'
-      if (this.icon) value += this.icon
+      if (this.icon) {
+        value += this.icon
+        if (this.icon === 'refresh') {
+          value += ' fa-spin'
+        }
+      }
       return value
     },
     cssClass () {
@@ -92,7 +97,8 @@ export default {
   padding 1rem
 
 .ni-modal-icon
-  width 3rem
+  padding-left 1rem
+  padding-right 0.5rem
   height 3rem
   display flex
   align-items center

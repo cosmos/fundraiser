@@ -9,13 +9,7 @@
       color="hsl(208,100%,25%)"
       :notifications="notifications">
     </notifications>
-    <modal v-if="!isValidBrowser">
-      <div slot="title"><i class="fa fa-warning"></i> Unsupported Web Browser</div>
-      <div>The Cosmos Fundraiser does not support Internet Explorer 8 and below. Please update your browser to a modern version of Chrome, Firefox, or Safari.</div>
-      <div slot="footer">
-        <btn value="Download Mozilla Firefox" @click.native="gotoFirefox"></btn>
-      </div>
-    </modal>
+    <modal-unsupported v-if="!isValidBrowser"></modal-unsupported>
   </div>
 </template>
 
@@ -24,6 +18,8 @@ import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import Btn from '@nylira/vue-button'
 import Modal from './components/Modal'
+import ModalUnsupported from './components/ModalUnsupported'
+import ModalLoading from './components/ModalLoading'
 import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
 import { mapGetters } from 'vuex'
@@ -36,12 +32,11 @@ export default {
     AppFooter,
     Btn,
     Modal,
+    ModalUnsupported,
+    ModalLoading,
     Notifications
   },
   computed: {
-    isValidBrowser () {
-      return Object.defineProperty
-    },
     ...mapGetters(['notifications'])
   },
   head: {
