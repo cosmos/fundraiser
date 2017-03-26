@@ -20,6 +20,12 @@
     </form-group>
 
     <btn
+      @click.native="startOver"
+      slot="reset"
+      value="Reset">
+    </btn>
+
+    <btn
       slot="submit"
       type="submit"
       icon="angle-right"
@@ -64,6 +70,9 @@ export default {
     ...mapGetters(['config', 'donation'])
   },
   methods: {
+    startOver () {
+      this.$store.commit('setDonationProgress', 1)
+    },
     nextStep () {
       this.$store.dispatch('setDonationMnemonicAndWallet', this.mnemonicValue)
       this.$store.commit('setDonationProgress', 3)
