@@ -59,11 +59,9 @@ export default {
 @import '../styles/variables.styl'
 
 .ni-ph
-
   .ni-ph-container
     max-width 1024px
     margin 0 auto
-    padding 0 0.75rem
 
   .ni-ph-title
     font-size 1.5rem
@@ -101,6 +99,7 @@ export default {
     .ni-ph-container
       display flex
       flex-flow row nowrap
+      padding 0 0.75rem
     .ni-ph-title, .ni-kvs
       flex 0 0 50%
     .ni-ph-title

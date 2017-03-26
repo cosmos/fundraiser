@@ -9,7 +9,7 @@
       color="hsl(208,100%,25%)"
       :notifications="notifications">
     </notifications>
-    <modal-unsupported v-if="!isValidBrowser"></modal-unsupported>
+    <modal-unsupported></modal-unsupported>
   </div>
 </template>
 
