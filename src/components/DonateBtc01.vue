@@ -18,8 +18,7 @@
           <div class="value">{{ config.COINS.BTC.MAX_DONATION }} BTC</div>
         </div>
       </div>
-      <br />
-      <span>This address is for your intermediate BTC wallet. You will be asked to confirm your contribution on the next page.</span>
+      <form-msg body="This address is for your intermediate BTC wallet. You will be asked to confirm your contribution on the next page."></form-msg>
     </form-group>
 
     <form-group>
@@ -31,18 +30,17 @@
           v-model="btcAddress">
         </field>
       </field-group>
-
       <button-group>
         <btn-copy :value="btcAddress"></btn-copy>
         <btn
           @click.native="qrCodeToggle(true)"
           icon="qrcode"
-          value="QR">
+          value="QR Code">
         </btn>
         <btn
           @click.native="donateBitcoin"
           icon="btc"
-          value="Pay">
+          value="Open Wallet">
         </btn>
       </button-group>
 
@@ -162,6 +160,7 @@ export default {
   mono()
 
 .donate-btc-key-values
+  margin-bottom 1rem
   .key-value
     padding 0.125rem 0
     display flex
