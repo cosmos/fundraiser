@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     label () {
-      if (this.type === 'cap') return 'left (of hidden cap)'
+      if (this.type === 'cap') return 'left of hidden cap'
       else if (this.started) return 'left'
       else return 'til start'
     },

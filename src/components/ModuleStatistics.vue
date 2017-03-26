@@ -1,13 +1,14 @@
 <template>
   <module class="module-statistics">
-    <div slot="title">Fundraise Statistics</div>
+    <div slot="title">Fundraise Stats</div>
+    <div class="pb-label" slot="menu">{{ pbLabel }}</div>
     <progress-bar></progress-bar>
     <key-values>
       <key-value>
         <div slot="value">
           <span class="integer">{{ num.int(atoms) }} ATOM</span>
         </div>
-        <div slot="key">of {{ num.shortInt(config.CAP_AMOUNT) }} ATOM goal</div>
+        <div slot="key">{{ capAmount }}</div>
       </key-value>
       <key-value>
         <div slot="value">
@@ -45,6 +46,24 @@ export default {
     ProgressBar
   },
   computed: {
+    pbLabel () {
+      let cap = this.config.CAP_AMOUNT
+      let capLabel = ''
+      if (cap > 0) {
+        capLabel = cap
+      } else {
+        capLabel = '∞'
+      }
+      return `${num.short(this.atoms)} ATOM / ${capLabel}`
+    },
+    capAmount () {
+      let cap = this.config.CAP_AMOUNT
+      if (cap > 0) {
+        return `of ${cap} ATOM goal`
+      } else {
+        return `of hidden cap`
+      }
+    },
     btc () {
       return this.progress.btcRaised
     },
@@ -89,6 +108,10 @@ export default {
     &:nth-child(4)
       border-right none
       border-bottom none
+  .pb-label
+    padding 0 0.25rem
+    color light
+    font-size 0.875rem
 
 @media screen and (min-width: 768px)
   .module-statistics

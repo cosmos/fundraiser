@@ -2,7 +2,7 @@
   <div class="pb-container">
     <div class="pb-bar-outer">
       <div class="pb-bar-inner" :style="innerBarStyle">
-        <div class="label label-percentage">{{ percentageDonatedFriendly }}% funded</div>
+        <div class="label label-percentage"><!--{{ percentageDonated }}% funded--></div>
       </div>
     </div>
   </div>
