@@ -23,7 +23,7 @@
         </div>
         <div class="claimed">
           <span class="value">{{ flexibleNumber(t.claimed) }}</span>
-          <span class="key">Atoms</span>
+          <span class="key">ATOM</span>
         </div>
         <div class="date" :title="isoDate(t.time)">
           <span class="value">{{ flexibleDate(t.time) }}</span>
