@@ -80,8 +80,8 @@ const actions = {
       commit('addDonation', {
         type: 'btc',
         time: Date.now(),
-        price: rootState.config.COINS.BTC.EXCHANGE_RATE,
-        atoms: finalTx.atomAmount
+        donated: finalTx.paidAmount / 1e8,
+        claimed: finalTx.atomAmount
       })
       commit('resetDonation')
       commit('notifyCustom', {
