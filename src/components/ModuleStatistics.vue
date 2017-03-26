@@ -25,50 +25,26 @@
           <span class="integer">{{ num.short(eth) }}</span></div>
         <div slot="key">ETH raised</div>
       </key-value>
-
-      <!--
-      <time-remaining :date="END_DATETIME" :started="FUNDRAISE_STARTED"></time-remaining>
-      <key-value>
-        <div slot="value">
-          <span class="integer">{{ num.short(atoms) }}</span>
-        </div>
-        <div slot="key">atoms claimed</div>
-      </key-value>
-      -->
     </key-values>
   </module>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import moment from 'moment'
 import num from '../scripts/num.js'
 import KeyValues from './KeyValues'
 import KeyValue from './KeyValue'
 import Module from './Module'
 import ProgressBar from './ProgressBar'
-import TimeRemaining from './TimeRemaining'
 export default {
   name: 'module-statistics',
   components: {
     KeyValue,
     KeyValues,
     Module,
-    ProgressBar,
-    TimeRemaining
+    ProgressBar
   },
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
-    END_DATETIME () {
-      if (this.FUNDRAISE_STARTED) {
-        return moment(this.config.START_DATETIME)
-          .add(this.config.ENDS_AFTER, 'days')._d
-      } else {
-        return this.config.START_DATETIME
-      }
-    },
     btc () {
       return this.progress.btcRaised
     },

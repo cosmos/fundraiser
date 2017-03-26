@@ -5,7 +5,7 @@ const state = {
   SALE_URL: 'https://fundraiser.cosmos.network',
   SELF_URL: 'https://cosmos.network/',
   ANNOUNCE_DATETIME: '2017-03-15 07:10:00',
-  START_DATETIME: '2017-03-24 13:00:00',
+  START_DATETIME: '2017-03-26 13:00:00',
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
   CAP_START: 6,              // when cap starts being enforced, after START_DATETIME (in hours)

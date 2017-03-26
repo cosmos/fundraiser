@@ -1,5 +1,6 @@
 <template>
   <div class="page-index">
+    <page-header></page-header>
     <modules>
       <module-statistics></module-statistics>
       <module-donate v-for="coin in config.COINS" :coin="coin"></module-donate>
@@ -10,7 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PageHeader from '@nylira/vue-page-header'
+import PageHeader from './PageHeader'
 import Modules from './Modules'
 import ModuleStatistics from './ModuleStatistics'
 import ModuleDonate from './ModuleDonate'
