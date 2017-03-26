@@ -32,7 +32,11 @@
     </form-group>
 
     <form-group>
-      <p>When the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</p>
+      <label>When the Cosmos blockchain launches, your account will be credited with:</label>
+      <field-group id="field-group-atom-amount">
+        <field v-model="atomAmount" disabled></field>
+        <div class="ni-field-addon">ATOM</div>
+      </field-group>
     </form-group>
 
     <btn
@@ -110,4 +114,8 @@ export default {
     .key
       font-weight 600
       width 150px
+
+#field-group-atom-amount
+  .ni-field-addon
+    width auto
 </style>
