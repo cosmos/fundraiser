@@ -1,23 +1,24 @@
 <template>
   <key-value class="ni-time-remaining" :title="date" v-if="days > 0">
-    <div slot="value">{{ days }} days</div>
+    <div slot="value">{{ days }} day<template v-if="days > 1">s</template></div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="hours > 0">
-    <div slot="value">{{ hours }} hours</div>
+    <div slot="value">{{ hours }} hour<template v-if="hours > 1">s</template></div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="minutes > 0">
-    <div slot="value">{{ minutes }} minutes</div>
+    <div slot="value">{{ minutes }} minute<template v-if="minutes > 1">s</template></div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="seconds > 0">
-    <div slot="value">{{ seconds }} seconds</div>
+    <div slot="value">{{ seconds }} seconds<template v-if="seconds > 1">s</template></div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="type === 'cap'">
     <div slot="value">--</div>
     <div slot="key">hidden cap ended</div>
+    {{ started }}
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else>
     <div slot="value"><i class="fa fa-hourglass-end"></i></div>
@@ -34,9 +35,12 @@ export default {
   },
   computed: {
     label () {
-      if (this.type === 'cap') return 'left of hidden cap'
-      else if (this.started) return 'left'
-      else return 'til start'
+      if (this.started) {
+        if (this.type === 'cap') return 'left of hidden cap'
+        else return 'left'
+      } else {
+        return 'til start'
+      }
     },
     usableDate () {
       return Math.trunc(Date.parse(this.date) / 1000)

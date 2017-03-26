@@ -6,11 +6,11 @@
         <time-remaining
           type="cap"
           :date="END_HIDDEN_DATETIME"
-          :started="FUNDRAISE_STARTED">
+          :started="fundraiseStarted">
         </time-remaining>
         <time-remaining
           :date="END_DATETIME"
-          :started="FUNDRAISE_STARTED">
+          :started="fundraiseStarted">
         </time-remaining>
       </key-values>
     </div>
@@ -20,6 +20,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import moment from 'moment'
+import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
 import TimeRemaining from './TimeRemaining'
 import KeyValues from './KeyValues'
 export default {
@@ -29,28 +30,39 @@ export default {
     TimeRemaining
   },
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
     END_HIDDEN_DATETIME () {
-      if (this.FUNDRAISE_STARTED) {
-        return moment(this.config.START_DATETIME)
-          .add(this.config.CAP_START, 'hours')._d
+      let utcStart = moment.utc(this.config.START_DATETIME)
+      let localStart = moment(utcStart).local()
+      if (this.fundraiseStarted) {
+        return moment(localStart).add(this.config.CAP_START, 'days')._d
       } else {
-        return this.config.START_DATETIME
+        return localStart
       }
     },
     END_DATETIME () {
-      if (this.FUNDRAISE_STARTED) {
-        return moment(this.config.START_DATETIME)
-          .add(this.config.ENDS_AFTER, 'days')._d
+      let utcStart = moment.utc(this.config.START_DATETIME)
+      let localStart = moment(utcStart).local()
+      if (this.fundraiseStarted) {
+        return moment(localStart).add(this.config.ENDS_AFTER, 'days')._d
       } else {
-        return this.config.START_DATETIME
+        return localStart
       }
     },
     ...mapGetters(['config'])
   },
+  data: () => ({
+    hasFundraiseStarted,
+    fundraiseStarted: false
+  }),
   methods: {
+    watchFundraiseStart () {
+      let start = this.config.START_DATETIME
+      this.fundraiseStarted = hasFundraiseStarted(start)
+    }
+  },
+  mounted () {
+    this.watchFundraiseStart()
+    setInterval(() => this.watchFundraiseStart(), 1000)
   }
 }
 </script>

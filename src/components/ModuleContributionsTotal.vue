@@ -1,6 +1,5 @@
 <template>
   <module size="sm" class="module-contrib-total">
-    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
     <div slot="title">Total Contributions</div>
     <div class="module-contrib-total-main">
       <key-values>
@@ -29,7 +28,6 @@ import num from '../scripts/num.js'
 import KeyValue from './KeyValue'
 import KeyValues from './KeyValues'
 import Module from './Module'
-import ModuleOverlay from './ModuleOverlay'
 import Btn from '@nylira/vue-button'
 export default {
   name: 'module-contributions-total',
@@ -37,13 +35,9 @@ export default {
     Btn,
     KeyValue,
     KeyValues,
-    Module,
-    ModuleOverlay
+    Module
   },
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
     atoms () {
       return num.pretty(this.atomsClaimed)
     },

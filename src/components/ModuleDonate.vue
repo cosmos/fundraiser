@@ -1,6 +1,6 @@
 <template>
   <module size="sm" class="module-donation">
-    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
     <div slot="title">Donate {{ coin.NAME }}</div>
     <div class="body">
       <div class="img">
@@ -32,7 +32,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import moment from 'moment'
+import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
 import num from '../scripts/num.js'
 import Btn from '@nylira/vue-button'
 import Module from './Module'
@@ -45,9 +45,6 @@ export default {
     ModuleOverlay
   },
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
     exchangeRate () {
       if (this.coin.NAME === 'Ethereum') {
         return this.donation.ethRate
@@ -56,10 +53,24 @@ export default {
     },
     ...mapGetters(['config', 'donation'])
   },
+  data () {
+    return {
+      hasFundraiseStarted,
+      fundraiseStarted: false
+    }
+  },
   methods: {
     go (route) {
       this.$router.push(route)
+    },
+    watchFundraiseStart () {
+      let start = this.config.START_DATETIME
+      this.fundraiseStarted = hasFundraiseStarted(start)
     }
+  },
+  mounted () {
+    this.watchFundraiseStart()
+    setInterval(() => this.watchFundraiseStart(), 1000)
   },
   props: ['coin']
 }

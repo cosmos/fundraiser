@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
 
     <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Enter a pre-existing mnemonic</div>
@@ -37,7 +37,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import moment from 'moment'
+import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
 import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
@@ -58,15 +58,12 @@ export default {
     Mnemonic,
     ModuleOverlay
   },
-  data () {
-    return {
-      mnemonicValue: ''
-    }
-  },
+  data: () => ({
+    hasFundraiseStarted,
+    fundraiseStarted: false,
+    mnemonicValue: ''
+  }),
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
     ...mapGetters(['config', 'donation'])
   },
   methods: {
@@ -76,9 +73,15 @@ export default {
     nextStep () {
       this.$store.dispatch('setDonationMnemonicAndWallet', this.mnemonicValue)
       this.$store.commit('setDonationProgress', 3)
+    },
+    watchFundraiseStart () {
+      let start = this.config.START_DATETIME
+      this.fundraiseStarted = hasFundraiseStarted(start)
     }
   },
   mounted () {
+    this.watchFundraiseStart()
+    setInterval(() => this.watchFundraiseStart(), 1000)
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }
