@@ -1,7 +1,7 @@
 <template>
   <div class="ni-module-overlay">
     <div class="ni-module-overlay-text">
-      <slot>Fundraise has not started yet</slot>
+      <slot>Fundraiser has not started yet</slot>
     </div>
   </div>
 </template>
