@@ -76,7 +76,7 @@ export default {
       return moment(time).fromNow()
     },
     isoDate (time) {
-      return moment(time).format('YYYY-MM-DD hh:MM:SS A')
+      return moment(time).format('YYYY-MM-DD hh:mm:ss A')
     },
     date (time) {
       return moment(time).format('YYYY-MM-DD')
