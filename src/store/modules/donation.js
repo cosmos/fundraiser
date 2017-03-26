@@ -16,7 +16,8 @@ const state = JSON.parse(JSON.stringify(empty))
 
 const mutations = {
   resetDonation (state) {
-    Object.assign(state, empty)
+    state.progress = 3
+    state.tx = null
   },
   setDonationAgreed (state, value) {
     state.agreed = value
