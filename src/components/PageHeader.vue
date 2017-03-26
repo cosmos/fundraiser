@@ -91,7 +91,7 @@ export default {
   .ni-ph
     .ni-ph-title
       font-size 2rem
-      padding 1.5rem 0.25rem
+      padding 1.5rem 0.75rem
 
 @media screen and (min-width: 1024px)
   .ni-ph
