@@ -15,6 +15,18 @@
         </div>
         <div slot="key">donations</div>
       </key-value>
+      <key-value>
+        <div slot="value" :title="num.full(btc)">
+          <span class="integer">{{ num.short(btc) }}</span></div>
+        <div slot="key">BTC raised</div>
+      </key-value>
+      <key-value>
+        <div slot="value" :title="num.full(eth)">
+          <span class="integer">{{ num.short(eth) }}</span></div>
+        <div slot="key">ETH raised</div>
+      </key-value>
+
+      <!--
       <time-remaining :date="END_DATETIME" :started="FUNDRAISE_STARTED"></time-remaining>
       <key-value>
         <div slot="value">
@@ -22,6 +34,7 @@
         </div>
         <div slot="key">atoms claimed</div>
       </key-value>
+      -->
     </key-values>
   </module>
 </template>
@@ -55,6 +68,12 @@ export default {
       } else {
         return this.config.START_DATETIME
       }
+    },
+    btc () {
+      return this.progress.btcRaised
+    },
+    eth () {
+      return this.progress.ethRaised
     },
     atoms () {
       return num.pretty(this.atomsClaimed)

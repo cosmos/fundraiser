@@ -1,5 +1,5 @@
 <template>
-  <module class="module-contrib-total">
+  <module size="sm" class="module-contrib-total">
     <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
     <div slot="title">Total Contributions</div>
     <div class="module-contrib-total-main">
