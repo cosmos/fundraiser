@@ -34,6 +34,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
+      },
+      mangle: {
+        except: [ 'Array', 'BigInteger', 'Boolean', 'ECPair', 'Function', 'Number', 'Point' ]
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
