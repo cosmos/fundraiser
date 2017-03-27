@@ -16,7 +16,6 @@
     </field-group>
     <form-msg name="Mnemonic" type="required" v-if="!$v.fields.mnemonic.required"></form-msg>
     <form-msg name="Mnemonic" v-if="!$v.fields.mnemonic.matches"></form-msg>
-    <vuelidate-debug name="fields.mnemonic" :data="$v.fields.mnemonic"></vuelidate-debug>
   </form-group>
 
   <btn
@@ -45,7 +44,6 @@ import FormMsg from '@nylira/vue-form-msg'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
 import Btn from '@nylira/vue-button'
-import VuelidateDebug from './VuelidateDebug'
 export default {
   name: 'create-wallet-02',
   components: {
@@ -54,7 +52,6 @@ export default {
     Field,
     FieldGroup,
     Btn,
-    VuelidateDebug,
     FormMsg
   },
   computed: {

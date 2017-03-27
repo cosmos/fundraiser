@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
 import VueHead from 'vue-head'
-import VueI18n from 'vue-i18n'
 import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 
@@ -20,14 +19,8 @@ store.dispatch('generateDonationWallet')
 
 Vue.use(VueAnalytics, {id: 'UA-51029217-2', router: router})
 Vue.use(VueHead)
-Vue.use(VueI18n)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
-
-// i18n settings
-Vue.config.lang = 'en'
-Vue.config.fallbackLang = 'en'
-Vue.locale('en', require('./locale/en.json'))
 
 /* eslint no-unused-vars: 0 */
 const app = new Vue({

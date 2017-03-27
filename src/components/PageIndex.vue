@@ -33,7 +33,7 @@ export default {
       return {
         inner: 'Dashboard',
         separator: '-',
-        complement: 'Cosmos Fundraise'
+        complement: 'Cosmos Fundraiser'
       }
     }
   }
