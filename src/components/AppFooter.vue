@@ -16,17 +16,21 @@ export default {
 @import '../styles/variables.styl'
 
 .app-footer
-  height 3rem
+  border-top 1px solid bc
+  flex 0 0 3rem
 
   .container
     max-width 1024px
     margin 0 auto
 
+    height 3rem
+
     display flex
     justify-content space-between
+    align-items center
 
     > div
-      padding 0.375rem 1rem
+      padding 0 1rem
       color light
       line-height 1.5rem
 </style>
