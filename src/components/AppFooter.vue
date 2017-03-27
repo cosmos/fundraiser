@@ -1,17 +1,14 @@
 <template>
   <footer class="app-footer">
     <div class="container">
-      <div class="copyright">&copy; {{ currentYear }} Interchain Foundation</div>
+      <div class="copyright">&copy; 2017 Interchain Foundation</div>
       <div class="about"><a href="https://cosmos.network">What is Cosmos?</a></div>
   </footer>
 </template>
 
 <script>
 export default {
-  name: 'app-footer',
-  data: () => ({
-    currentYear: new Date().getFullYear()
-  })
+  name: 'app-footer'
 }
 </script>
 

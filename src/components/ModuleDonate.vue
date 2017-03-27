@@ -5,8 +5,8 @@
     <div class="body">
       <div class="img">
         <img v-if="coin.NAME === 'Ethereum'"
-          src="../assets/images/logo-ethereum-320.png">
-        <img v-else src="../assets/images/logo-bitcoin-320.png">
+          src="../assets/images/ethereum.png">
+        <img v-else src="../assets/images/bitcoin.png">
       </div>
       <div class="text">
         <btn
