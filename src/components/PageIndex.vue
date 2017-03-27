@@ -31,9 +31,9 @@ export default {
   head: {
     title () {
       return {
-        inner: 'Dashboard',
+        inner: 'Cosmos Fundraiser',
         separator: '-',
-        complement: 'Cosmos Fundraiser'
+        complement: 'Internet of Blockchains'
       }
     }
   }
