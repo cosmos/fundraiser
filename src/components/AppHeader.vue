@@ -21,7 +21,7 @@
         </nav>
         <nav>
           <a href="https://cosmos.network" target="_blank">
-            <span class="label">Cosmos</span>
+            <span class="label">About Cosmos</span>
             <i class="fa fa-external-link"></i>
           </a>
         </nav>
