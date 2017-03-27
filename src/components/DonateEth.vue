@@ -28,12 +28,10 @@
     </form-group>
 
     <form-group>
-    <p>
-      To make your donation, copy and paste this information into a wallet
-such as MyEtherWallet or Mist. Be sure to include an amount of ETH to
-donate! Your Cosmos address is included in the data, and the donation
-will be recorded for that address in the smart contract.
-    </p>
+      <p>To make your donation, copy and paste this information into a wallet
+  such as MyEtherWallet or Mist. Be sure to include an amount of ETH to
+  donate! Your Cosmos address is included in the data, and the donation
+  will be recorded for that address in the smart contract.</p>
       <label for="donate-eth-donation-tx">Transaction Data</label>
       <field-group>
         <field
@@ -43,37 +41,29 @@ will be recorded for that address in the smart contract.
         </field>
       </field-group>
     </form-group>
-
   </form-struct>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { ethereum } from 'cosmos-fundraiser'
-import FormMsg from '@nylira/vue-form-msg'
-import Field from '@nylira/vue-input'
-import FormStruct from './FormStruct'
-import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
-import BtnCopy from './BtnCopy'
+import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
-import ButtonGroup from './ButtonGroup'
+import FormGroup from './FormGroup'
+import FormStruct from './FormStruct'
 import Modal from './Modal'
 export default {
   name: 'donate-eth',
   components: {
-    FormStruct,
-    FormGroup,
-    FormMsg,
     Btn,
-    BtnCopy,
-    FieldGroup,
-    ButtonGroup,
     Field,
+    FieldGroup,
+    FormGroup,
+    FormStruct,
     Modal
   },
   computed: {
-    ...mapGetters(['donation', 'config']),
     ethTx () {
       let { addresses } = this.donation.wallet
       let tx = ethereum.getTransaction(
@@ -81,7 +71,8 @@ export default {
         addresses.ethereum
       )
       return JSON.stringify(tx, null, '  ')
-    }
+    },
+    ...mapGetters(['donation', 'config'])
   },
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0

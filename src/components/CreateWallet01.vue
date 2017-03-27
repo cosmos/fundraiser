@@ -33,10 +33,8 @@
 import { mapGetters } from 'vuex'
 import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
 import Btn from '@nylira/vue-button'
-import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
 import FormStruct from './FormStruct'
-import FormMsg from '@nylira/vue-form-msg'
 import FormGroup from './FormGroup'
 import Mnemonic from './Mnemonic'
 import ModuleOverlay from './ModuleOverlay'
@@ -44,10 +42,8 @@ export default {
   name: 'create-wallet-01',
   components: {
     Btn,
-    Field,
     FieldGroup,
     FormGroup,
-    FormMsg,
     FormStruct,
     Mnemonic,
     ModuleOverlay

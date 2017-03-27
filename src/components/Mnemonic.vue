@@ -19,5 +19,6 @@ export default {
   mono()
   background lighten(bc, 50%)
   user-select none
+  cursor not-allowed
 </style>
 

@@ -34,7 +34,7 @@ export default {
       let utcStart = moment.utc(this.config.START_DATETIME)
       let localStart = moment(utcStart).local()
       if (this.fundraiseStarted) {
-        return moment(localStart).add(this.config.CAP_START, 'days')._d
+        return moment(localStart).add(this.config.CAP_START, 'hours')._d
       } else {
         return localStart
       }

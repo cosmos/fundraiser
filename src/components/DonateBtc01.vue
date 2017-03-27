@@ -30,7 +30,7 @@
           v-model="btcAddress">
         </field>
       </field-group>
-      <button-group>
+      <btn-group>
         <btn-copy :value="btcAddress"></btn-copy>
         <btn
           @click.native="qrCodeToggle(true)"
@@ -42,8 +42,7 @@
           icon="btc"
           value="Open Wallet">
         </btn>
-      </button-group>
-
+      </btn-group>
     </form-group>
 
     <form-group id="donate-btc-loading">
@@ -72,33 +71,32 @@
 </template>
 
 <script>
+import { bitcoin } from 'cosmos-fundraiser'
 import { mapGetters } from 'vuex'
 import qr from 'qr-image'
-import { bitcoin } from 'cosmos-fundraiser'
-import FormMsg from '@nylira/vue-form-msg'
-import Field from '@nylira/vue-input'
-import FormStruct from './FormStruct'
-import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
 import BtnCopy from './BtnCopy'
+import BtnGroup from './BtnGroup'
+import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
-import ButtonGroup from './ButtonGroup'
+import FormGroup from './FormGroup'
+import FormMsg from '@nylira/vue-form-msg'
+import FormStruct from './FormStruct'
 import Modal from './Modal'
 export default {
   name: 'donate-btc-01',
   components: {
-    FormStruct,
-    FormGroup,
-    FormMsg,
     Btn,
     BtnCopy,
-    FieldGroup,
-    ButtonGroup,
+    BtnGroup,
     Field,
+    FieldGroup,
+    FormGroup,
+    FormMsg,
+    FormStruct,
     Modal
   },
   computed: {
-    ...mapGetters(['donation', 'config']),
     btcAddress () {
       return this.donation.wallet.addresses.bitcoin
     },
@@ -106,7 +104,8 @@ export default {
       let data = qr.imageSync(this.btcAddress, { margin: 0 })
       let base64 = Buffer(data).toString('base64')
       return `data:image/png;base64,${base64}`
-    }
+    },
+    ...mapGetters(['donation', 'config'])
   },
   data: () => ({
     qrCodeVisible: false
@@ -144,7 +143,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="stylus">
 @import '../styles/variables.styl'

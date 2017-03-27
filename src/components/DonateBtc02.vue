@@ -52,24 +52,21 @@
 <script>
 import { mapGetters } from 'vuex'
 import { bitcoin } from 'cosmos-fundraiser'
-import FormMsg from '@nylira/vue-form-msg'
-import Field from '@nylira/vue-input'
-import FormStruct from './FormStruct'
-import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
+import FormGroup from './FormGroup'
+import FormStruct from './FormStruct'
 export default {
   name: 'donate-btc-02',
   components: {
-    FormStruct,
-    FormGroup,
-    FormMsg,
     Btn,
+    Field,
     FieldGroup,
-    Field
+    FormGroup,
+    FormStruct
   },
   computed: {
-    ...mapGetters(['donation', 'config']),
     btcAddress () {
       return this.donation.wallet.addresses.bitcoin
     },
@@ -88,7 +85,8 @@ export default {
     },
     atomAmount () {
       return this.finalTx.atomAmount
-    }
+    },
+    ...mapGetters(['donation', 'config'])
   },
   methods: {
     finalize () {
