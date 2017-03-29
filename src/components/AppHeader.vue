@@ -1,38 +1,33 @@
 <template>
-<header class="app-header">
-  <div class="container">
-
-  <div class="header-item" @click="toggleMenuApp" v-if="!desktop">
-    <i v-if="!activeMenuApp" class="fa fa-bars"></i>
-    <i v-else class="fa fa-times"></i>
-  </div>
-
-  <router-link to="/" @click.native="closeMenus" id="logo" class="header-item">
-    <img class="title" src="../assets/images/cosmos_logo_m.png" alt="Cosmos Logo">
-    <span class="subtitle">Fundraiser</span>
-  </router-link>
-
-  <div class="header-item" v-if="!desktop">
-  </div>
-
-  <menu class="menu-popup" v-if="activeMenuApp || desktop">
-    <nav class="nav-app">
-      <router-link to="/" @click.native="closeMenus" exact>Dashboard</router-link>
-      <router-link to="/btc" @click.native="closeMenus">Donate BTC</router-link>
-      <router-link to="/eth" @click.native="closeMenus">Donate ETH</router-link>
-    </nav>
-    <nav>
-      <a href="https://cosmos.network" target="_blank">
-        <span class="label">Cosmos</span>
-        <i class="fa fa-external-link"></i>
-      </a>
-      <a href="https://tendermint.com" target="_blank">
-        <span class="label">Tendermint</span>
-        <i class="fa fa-external-link"></i>
-      </a>
-    </nav>
-  </menu>
-</header>
+  <header class="app-header">
+    <div class="container">
+      <div class="header-item" @click="toggleMenuApp" v-if="!desktop">
+        <i v-if="!activeMenuApp" class="fa fa-bars"></i>
+        <i v-else class="fa fa-times"></i>
+      </div>
+      <router-link to="/" @click.native="closeMenus" id="logo" class="header-item">
+        <img class="title" src="../assets/images/cosmos.png" alt="Cosmos Logo">
+        <span class="subtitle">Fundraiser</span>
+      </router-link>
+      <div class="header-item" v-if="!desktop"></div>
+      <menu class="menu-popup" v-if="activeMenuApp || desktop">
+        <nav class="nav-app">
+          <router-link to="/" @click.native="closeMenus" exact>
+            Dashboard</router-link>
+          <router-link to="/donate/btc" @click.native="closeMenus">
+            Donate BTC</router-link>
+          <router-link to="/donate/eth" @click.native="closeMenus">
+            Donate ETH</router-link>
+        </nav>
+        <nav>
+          <a href="https://cosmos.network" target="_blank">
+            <span class="label">About Cosmos</span>
+            <i class="fa fa-external-link"></i>
+          </a>
+        </nav>
+      </menu>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -116,7 +111,8 @@ export default {
     margin 0 auto
 
   .header-item
-    height 3*x
+    height 3rem
+    min-width 3rem
     display flex
     align-items center
     padding 0 1rem

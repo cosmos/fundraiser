@@ -34,6 +34,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
+      },
+      mangle: {
+        except: [ 'Array', 'BigInteger', 'Boolean', 'ECPair', 'Function', 'Number', 'Point' ]
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -87,7 +90,7 @@ if (config.build.productionGzip) {
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',
-      algorithm: 'gzip',
+      algorithm: 'zopfli',
       test: new RegExp(
         '\\.(' +
         config.build.productionGzipExtensions.join('|') +

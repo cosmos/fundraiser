@@ -10,8 +10,16 @@ reset-html5()
 body
   df()
   background c-app-bg
-  padding-top 3rem
   -webkit-text-size-adjust 100%
+
+#app
+  padding-top 3rem
+  display flex
+  flex-flow column nowrap
+  min-height 100vh
+
+.app-content
+  flex 1
 
 a
   color link
@@ -31,10 +39,6 @@ em
 .ni-page-header
   border-bottom none !important
 
-@media screen and (min-width: 960px)
-  .mobile-only
-    display none
-
 .hidden 
   position absolute
   left -10000px
@@ -45,3 +49,7 @@ em
 
 .page-user .ni-form
   margin 0 auto
+
+@media screen and (min-width: 960px)
+  .mobile-only
+    display none

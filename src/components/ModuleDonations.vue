@@ -1,6 +1,6 @@
 <template>
   <module class="module-donations">
-    <module-overlay slot="overlay" v-if="!FUNDRAISE_STARTED"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
     <div slot="title">Donation History</div>
     <menu slot="menu">
       <a class="btn-filter active" @click="setFilter('', $event)">All</a>
@@ -15,19 +15,19 @@
       </div>
       <div
         class="card-transaction"
-        v-for="t in filteredDonations" 
+        v-for="t in filteredDonations"
         @click="toggleDetails">
         <div class="donated">
-          <span class="value">{{ flexibleNumber(t.atoms / t.price) }}</span>
+          <span class="value">{{ flexibleNumber(t.donated) }}</span>
           <span class="key">{{ t.type.toUpperCase() }}</span>
         </div>
         <div class="claimed">
-          <span class="value">{{ flexibleNumber(t.atoms) }}</span>
-          <span class="key">Atoms</span>
+          <span class="value">{{ flexibleNumber(t.claimed) }}</span>
+          <span class="key">ATOM</span>
         </div>
         <div class="date" :title="isoDate(t.time)">
           <span class="value">{{ flexibleDate(t.time) }}</span>
-          <span class="key">{{ date(t.time) }}</span>
+          <span class="key">{{ fromNow(t.time) }}</span>
         </div>
       </div>
     </div>
@@ -36,11 +36,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { orderBy } from 'lodash'
 import moment from 'moment'
+import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
+import num from '../scripts/num.js'
 import Module from './Module'
 import ModuleOverlay from './ModuleOverlay'
-import num from '../scripts/num.js'
 export default {
   name: 'module-donations',
   components: {
@@ -48,24 +48,20 @@ export default {
     ModuleOverlay
   },
   computed: {
-    FUNDRAISE_STARTED () {
-      return Date.now() >= moment(this.config.START_DATETIME).valueOf()
-    },
-    orderedDonations () {
-      return orderBy(this.donations, ['time'], ['desc'])
-    },
     filteredDonations () {
       if (this.filter) {
-        return this.orderedDonations.filter(t => t.type === this.filter)
+        return this.donations.filter(t => t.type === this.filter)
       } else {
-        return this.orderedDonations
+        return this.donations
       }
     },
     ...mapGetters(['config', 'donations'])
   },
   data () {
     return {
-      details: false,
+      hasFundraiseStarted,
+      fundraiseStarted: false,
+      details: true,
       filter: ''
     }
   },
@@ -80,7 +76,7 @@ export default {
       return moment(time).fromNow()
     },
     isoDate (time) {
-      return moment(time).format('YYYY-MM-DD hh:MM:SS A')
+      return moment(time).format('YYYY-MM-DD hh:mm:ss A')
     },
     date (time) {
       return moment(time).format('YYYY-MM-DD')
@@ -95,7 +91,15 @@ export default {
     },
     toggleDetails () {
       this.details = !this.details
+    },
+    watchFundraiseStart () {
+      let start = this.config.START_DATETIME
+      this.fundraiseStarted = hasFundraiseStarted(start)
     }
+  },
+  mounted () {
+    this.watchFundraiseStart()
+    setInterval(() => this.watchFundraiseStart(), 1000)
   }
 }
 </script>

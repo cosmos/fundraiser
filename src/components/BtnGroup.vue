@@ -1,19 +1,17 @@
 <template>
-  <div class="ni-button-group">
+  <div class="ni-btn-group">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ni-button-group'
+  name: 'ni-btn-group'
 }
 </script>
 
 <style lang="stylus">
-@import '../styles/variables.styl'
-
-.ni-button-group
+.ni-btn-group
   margin-bottom 0.5rem
   max-width 40rem
 
@@ -26,6 +24,6 @@ export default {
       border-left none
 
 @media screen and (min-width: 768px)
-  .ni-button-group
+  .ni-btn-group
     margin-bottom 0.75rem
 </style>

@@ -1,9 +1,8 @@
 <template>
   <div class="page-index">
+    <page-header></page-header>
     <modules>
       <module-statistics></module-statistics>
-      <module-contributions-total></module-contributions-total>
-      <module-contributions-user></module-contributions-user>
       <module-donate v-for="coin in config.COINS" :coin="coin"></module-donate>
       <module-donations></module-donations>
     </modules> 
@@ -12,11 +11,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PageHeader from '@nylira/vue-page-header'
+import PageHeader from './PageHeader'
 import Modules from './Modules'
 import ModuleStatistics from './ModuleStatistics'
-import ModuleContributionsTotal from './ModuleContributionsTotal'
-import ModuleContributionsUser from './ModuleContributionsUser'
 import ModuleDonate from './ModuleDonate'
 import ModuleDonations from './ModuleDonations'
 export default {
@@ -25,8 +22,6 @@ export default {
     PageHeader,
     Modules,
     ModuleStatistics,
-    ModuleContributionsTotal,
-    ModuleContributionsUser,
     ModuleDonate,
     ModuleDonations
   },
@@ -36,12 +31,11 @@ export default {
   head: {
     title () {
       return {
-        inner: 'Dashboard',
+        inner: 'Cosmos Fundraiser',
         separator: '-',
-        complement: 'Cosmos Fundraise'
+        complement: 'Internet of Blockchains'
       }
     }
   }
 }
 </script>
-

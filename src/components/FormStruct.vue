@@ -79,12 +79,9 @@ export default {
   align-items center
 
 @media screen and (min-width: 360px)
-  .ni-form-header, .ni-form-footer
-    padding-left 1.25rem
-    padding-right 1.25rem
-
   .ni-form-title
     font-size 1.125rem
+
   .ni-form-header, .ni-form-footer
     padding-left 1.5rem
     padding-right 1.5rem
@@ -95,6 +92,19 @@ export default {
 @media screen and (min-width: 768px)
   .ni-forms, .ni-form
     padding 0.333rem
+
+  .ni-form-header, .ni-form-footer
+    padding-top 1.5rem
+    padding-bottom 1.5rem
+
+  .ni-form-title
+    margin-bottom 0.5rem
+    font-size 1.5rem
+    font-weight bold
+
+  .ni-form-subtitle
+    font-size 1rem
+    color txt
 
 @media screen and (min-width: 1024px)
   .ni-forms, .ni-form

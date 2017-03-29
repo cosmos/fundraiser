@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div id="app-content">
+    <div class="app-content">
       <router-view></router-view>
     </div>
     <app-footer></app-footer>
@@ -9,13 +9,7 @@
       color="hsl(208,100%,25%)"
       :notifications="notifications">
     </notifications>
-    <modal v-if="!isValidBrowser">
-      <div slot="title"><i class="fa fa-warning"></i> Unsupported Web Browser</div>
-      <div>The Cosmos Fundraiser does not support Internet Explorer 8 and below. Please update your browser to a modern version of Chrome, Firefox, or Safari.</div>
-      <div slot="footer">
-        <btn value="Download Mozilla Firefox" @click.native="gotoFirefox"></btn>
-      </div>
-    </modal>
+    <modal-unsupported></modal-unsupported>
   </div>
 </template>
 
@@ -24,12 +18,13 @@ import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import Btn from '@nylira/vue-button'
 import Modal from './components/Modal'
+import ModalUnsupported from './components/ModalUnsupported'
+import ModalLoading from './components/ModalLoading'
 import Notifications from '@nylira/vue-notifications'
 import store from './store/index.js'
 import { mapGetters } from 'vuex'
-import { Client } from 'cosmos-fundraiser'
 
-const client = Client(process.env.COSMOS_API_URI)
+store.dispatch('startFetchInterval')
 
 export default {
   components: {
@@ -37,12 +32,11 @@ export default {
     AppFooter,
     Btn,
     Modal,
+    ModalUnsupported,
+    ModalLoading,
     Notifications
   },
   computed: {
-    isValidBrowser () {
-      return Object.defineProperty
-    },
     ...mapGetters(['notifications'])
   },
   head: {
@@ -67,21 +61,6 @@ export default {
       { r: 'icon', t: 'image/png', sz: '16x16', h: require('./assets/favicon/favicon-16x16.png') },
       { r: 'manifest', h: require('./assets/favicon/manifest.json') }
     ]
-  },
-  created () {
-    let { commit } = this.$store
-    client.getUser((err, user) => {
-      if (err && err.code !== 401) {
-        console.error(err)
-        return commit('notifyError', {
-          title: 'Error',
-          body: 'An error occurred while loading user data from server'
-        })
-      }
-      commit('setSessionReady')
-      if (err && err.code === 401) return // not logged in
-      commit('signIn', user)
-    })
   },
   store
 }

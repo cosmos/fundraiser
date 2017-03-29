@@ -1,8 +1,11 @@
 <template>
   <div class="pb-container">
     <div class="pb-bar-outer">
-      <div class="pb-bar-inner" :style="innerBarStyle">
-        <div class="label label-percentage">{{ percentageDonatedFriendly }}% funded</div>
+      <div class="pb-bar-obscured" v-if="uncapped">
+        fundraise cap is currently hidden
+      </div>
+      <div class="pb-bar-inner" :style="innerBarStyle" v-else>
+        <div class="label label-percentage">{{ percentageDonated }}% funded</div>
       </div>
     </div>
   </div>
@@ -14,13 +17,11 @@ import num from '../scripts/num.js'
 export default {
   name: 'progress-bar',
   computed: {
-    amountDonated () {
-      let btcTotal = this.progress.btcRaised * this.config.COINS.BTC.USD
-      let ethTotal = this.progress.ethRaised * this.config.COINS.ETH.USD
-      return ethTotal + btcTotal
+    uncapped () {
+      return this.config.CAP_AMOUNT <= 0
     },
     percentageDonated () {
-      return this.amountDonated / 10000000
+      return this.atomsClaimed / this.config.CAP_AMOUNT
     },
     percentageDonatedFriendly () {
       return Math.round(this.percentageDonated * 100)
@@ -30,7 +31,7 @@ export default {
         width: this.percentageDonated * 100 + '%'
       }
     },
-    ...mapGetters(['progress', 'config'])
+    ...mapGetters([ 'progress', 'config', 'atomsClaimed' ])
   },
   data () {
     return {
@@ -45,6 +46,17 @@ export default {
 
 .pb-container
   padding 0.375em 0
+
+  .pb-bar-obscured
+    text-align center
+    text-transform uppercase
+    font-size 0.75rem
+    width 100%
+    display flex
+    align-items center
+    justify-content center
+    background hsl(mhue,15%,85%)
+    color dim
 
   .pb-bar-outer
     height 1.5rem

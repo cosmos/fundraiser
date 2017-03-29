@@ -49,5 +49,4 @@ export default {
   .ni-form-group
     label
       font-size 1rem
-
 </style>

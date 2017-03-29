@@ -1,34 +1,38 @@
+import cfr from 'cosmos-fundraiser'
+
+function startDatetime () {
+  let date = ''
+  if (process.env.NODE_ENV === 'development') date = '2017-03-27 03:00:00'
+  if (process.env.NODE_ENV === 'production') date = '2017-03-31 13:00:00'
+  return date
+}
+
 const state = {
   ENDS_AFTER: 14,
   SALE_URL: 'https://fundraiser.cosmos.network',
   SELF_URL: 'https://cosmos.network/',
   TIMEZONE: 'America/Los_Angeles',
   ANNOUNCE_DATETIME: '2017-03-15 07:10:00',
-  START_DATETIME: '2017-03-20 13:00:00',
+  START_DATETIME: startDatetime(),
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
+  CAP_START: 6,              // when cap starts being enforced, after START_DATETIME (in hours)
+  CAP_AMOUNT: 0e6,         // cap in ATOMs XXX XXX XXX XXX XXX
   ATOM: {
-    MIN_BUY: 20,
-    MAX_BUY: 1000000
   },
   COINS: {
     BTC: {
-      ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-      EXCHANGE_RATE: 10000,
-      MIN_DONATION: 0.006,
-      MAX_DONATION: 100,
+      EXCHANGE_RATE: cfr.bitcoin.ATOMS_PER_BTC,
+      MIN_DONATION: cfr.bitcoin.MINIMUM_AMOUNT / 100000000,
+      MAX_DONATION: 1000,
       NAME: 'Bitcoin',
-      UNIT: 'BTC',
-      USD: 1000
+      UNIT: 'BTC'
     },
     ETH: {
-      ADDRESS: '1EJyXYXPRRiPkTkU3xVPfgYxNRusGVijEi',
-      EXCHANGE_RATE: 400,
-      MIN_DONATION: 1,
-      MAX_DONATION: 2500,
+      MIN_DONATION: cfr.ethereum.MIN_DONATION,
+      MAX_DONATION: 20000,
       NAME: 'Ethereum',
-      UNIT: 'ETH',
-      USD: 40
+      UNIT: 'ETH'
     }
   }
 }

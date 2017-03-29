@@ -32,7 +32,11 @@
     </form-group>
 
     <form-group>
-      <p>When the Cosmos blockchain launches, your account will be credited with <strong>{{ atomAmount }} ATOM</strong>.</p>
+      <label>When the Cosmos blockchain launches, your account will be credited with:</label>
+      <field-group id="field-group-atom-amount">
+        <field v-model="atomAmount" disabled></field>
+        <div class="ni-field-addon">ATOM</div>
+      </field-group>
     </form-group>
 
     <btn
@@ -48,34 +52,30 @@
 <script>
 import { mapGetters } from 'vuex'
 import { bitcoin } from 'cosmos-fundraiser'
-import FormMsg from '@nylira/vue-form-msg'
-import Field from '@nylira/vue-input'
-import FormStruct from './FormStruct'
-import FormGroup from './FormGroup'
 import Btn from '@nylira/vue-button'
+import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
+import FormGroup from './FormGroup'
+import FormStruct from './FormStruct'
 export default {
-  name: 'fund-btc-05',
+  name: 'donate-btc-02',
   components: {
-    FormStruct,
-    FormGroup,
-    FormMsg,
     Btn,
+    Field,
     FieldGroup,
-    Field
+    FormGroup,
+    FormStruct
   },
   computed: {
-    ...mapGetters(['btcDonation', 'config']),
     btcAddress () {
-      return this.btcDonation.wallet.addresses.bitcoin
+      return this.donation.wallet.addresses.bitcoin
     },
     cosmosAddress () {
-      return this.btcDonation.wallet.addresses.cosmos
+      return this.donation.wallet.addresses.cosmos
     },
     finalTx () {
-      let { wallet, tx } = this.btcDonation
-      let finalTx = bitcoin.createFinalTx(wallet, tx)
-      return finalTx
+      let { tx, feeRate } = this.donation
+      return bitcoin.createFinalTx(tx.utxos, feeRate)
     },
     donationAmount () {
       return this.finalTx.paidAmount
@@ -85,13 +85,13 @@ export default {
     },
     atomAmount () {
       return this.finalTx.atomAmount
-    }
+    },
+    ...mapGetters(['donation', 'config'])
   },
   methods: {
     finalize () {
       this.$store.dispatch('finalizeBtcDonation', (err) => {
         if (err) return
-        this.$store.commit('setBtcDonationProgress', 6)
         this.$router.push('/')
       })
     }
@@ -101,3 +101,19 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../styles/variables.styl'
+
+.fund-btc-key-values
+  .key-value
+    div
+      display inline-block
+    .key
+      font-weight 600
+      width 150px
+
+#field-group-atom-amount
+  .ni-field-addon
+    width auto
+</style>
