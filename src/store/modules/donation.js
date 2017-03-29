@@ -107,7 +107,7 @@ const actions = {
     })
   },
   fetchEthDonationAtomRate ({ commit }) {
-    ethereum.fetchAtomRate(ethereum.FUNDRAISER_CONTRACT, (err, atomRate) => {
+    ethereum.fetchAtomRate(ethereum.FUNDRAISER_CONTRACT, (err, weiPerAtom) => {
       if (err) {
         console.error(err)
         commit('notifyError', {
@@ -116,7 +116,8 @@ const actions = {
         })
         return
       }
-      commit('setEthDonationAtomRate', atomRate)
+      let atomPerEth = Math.pow(10, 18) / weiPerAtom
+      commit('setEthDonationAtomRate', atomPerEth)
     })
   }
 }
