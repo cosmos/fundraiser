@@ -1,9 +1,17 @@
 <template>
   <form-struct :submit="nextStep">
-    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiserStarted"></module-overlay>
 
     <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Copy this mnemonic and store it in a secure location. You'll need it to access your atoms later.</div>
+
+    <div slot="subtitle" v-if="fundraiserEnded">
+      <br />
+      <p class="end-notice">
+        <strong>NOTICE: </strong>
+        The fundraiser has ended. If you choose to donate, <strong>you will NOT receive Atoms</strong>.
+      </p>
+    </div>
 
     <form-group>
       <label>Write this down.</label>
@@ -49,11 +57,11 @@ export default {
     ModuleOverlay
   },
   computed: {
-    ...mapGetters(['config', 'donation'])
+    ...mapGetters(['config', 'donation', 'fundraiserEnded'])
   },
   data: () => ({
     hasFundraiseStarted,
-    fundraiseStarted: false
+    fundraiserStarted: false
   }),
   methods: {
     nextStep () {
@@ -64,13 +72,19 @@ export default {
     },
     watchFundraiseStart () {
       let start = this.config.START_DATETIME
-      this.fundraiseStarted = hasFundraiseStarted(start)
+      this.fundraiserStarted = hasFundraiseStarted(start)
     }
   },
   mounted () {
+    this.$store.dispatch('fetchFundraiserStatus')
     this.watchFundraiseStart()
     setInterval(() => this.watchFundraiseStart(), 1000)
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }
 </script>
+
+<style lang="stylus">
+  .end-notice
+    color red
+</style>

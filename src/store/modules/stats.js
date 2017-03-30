@@ -1,8 +1,10 @@
-import { bitcoin, ethereum } from 'cosmos-fundraiser'
+import { bitcoin, ethereum, fetchStatus } from 'cosmos-fundraiser'
 
 const MAX_DONATIONS = 30
 
 const state = {
+  status: { fundraiserEnded: false },
+  overlayMessage: 'Fundraiser has not started yet',
   donationsMap: {},
   donations: [],
   progress: {
@@ -16,6 +18,12 @@ const state = {
 }
 
 const mutations = {
+  setFundraiserStatus (state, status) {
+    state.status = status
+  },
+  setFundraiserStatusMessage (state, message) {
+    state.overlayMessage = message
+  },
   addDonation (state, donation) {
     if (state.donationsMap[donation.id] != null) return
     state.donationsMap[donation.id] = true
@@ -50,6 +58,22 @@ const mutations = {
 }
 
 const actions = {
+  fetchFundraiserStatus ({ commit }) {
+    // 'status', not to be confused with 'stats'
+    // this tells us if the fundraiser has ended
+    fetchStatus((err, status) => {
+      if (err) {
+        console.error(err.stack)
+        commit('notifyError', {
+          title: 'Error Fetching Fundraiser Status',
+          body: 'The fundraiser may have ended, check with the Cosmos Foundation for more information before donating.'
+        })
+        return
+      }
+      commit('setFundraiserStatus', status)
+      commit('setFundraiserStatusMessage', 'The fundraiser has ended.')
+    })
+  },
   fetchStats ({ commit }) {
     bitcoin.fetchFundraiserStats((err, stats) => {
       if (err) {

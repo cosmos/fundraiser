@@ -1,6 +1,6 @@
 <template>
   <module size="sm" class="module-donation">
-    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
     <div slot="title">Donate {{ coin.NAME }}</div>
     <div class="body">
       <div class="img">
@@ -51,12 +51,16 @@ export default {
       }
       return num.int(this.coin.EXCHANGE_RATE)
     },
-    ...mapGetters(['config', 'donation'])
+    fundraiserActive () {
+      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
+      return this.fundraiserStarted && !this.fundraiserEnded
+    },
+    ...mapGetters(['config', 'donation', 'fundraiserEnded'])
   },
   data () {
     return {
       hasFundraiseStarted,
-      fundraiseStarted: false
+      fundraiserStarted: false
     }
   },
   methods: {
@@ -65,7 +69,7 @@ export default {
     },
     watchFundraiseStart () {
       let start = this.config.START_DATETIME
-      this.fundraiseStarted = hasFundraiseStarted(start)
+      this.fundraiserStarted = hasFundraiseStarted(start)
     }
   },
   mounted () {

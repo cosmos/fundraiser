@@ -1,14 +1,18 @@
 <template>
   <div class="ni-module-overlay">
     <div class="ni-module-overlay-text">
-      <slot>Fundraiser has not started yet</slot>
+      <slot>{{ overlayMessage }}</slot>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'ni-module-overlay'
+  name: 'ni-module-overlay',
+  computed: {
+    ...mapGetters(['overlayMessage'])
+  }
 }
 </script>
 

@@ -123,4 +123,3 @@ export default {
       .ni-kv
         border-right none
 </style>
-

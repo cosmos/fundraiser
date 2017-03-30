@@ -1,6 +1,6 @@
 <template>
   <module class="module-donations">
-    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
     <div slot="title">Donation History</div>
     <menu slot="menu">
       <a class="btn-filter active" @click="setFilter('', $event)">All</a>
@@ -55,12 +55,16 @@ export default {
         return this.donations
       }
     },
-    ...mapGetters(['config', 'donations'])
+    fundraiserActive () {
+      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
+      return this.fundraiserStarted && !this.fundraiserEnded
+    },
+    ...mapGetters(['config', 'donations', 'fundraiserEnded'])
   },
   data () {
     return {
       hasFundraiseStarted,
-      fundraiseStarted: false,
+      fundraiserStarted: false,
       details: true,
       filter: ''
     }
@@ -92,14 +96,14 @@ export default {
     toggleDetails () {
       this.details = !this.details
     },
-    watchFundraiseStart () {
+    watchFundraiserStart () {
       let start = this.config.START_DATETIME
-      this.fundraiseStarted = hasFundraiseStarted(start)
+      this.fundraiserStarted = hasFundraiseStarted(start)
     }
   },
   mounted () {
-    this.watchFundraiseStart()
-    setInterval(() => this.watchFundraiseStart(), 1000)
+    this.watchFundraiserStart()
+    setInterval(() => this.watchFundraiserStart(), 1000)
   }
 }
 </script>
