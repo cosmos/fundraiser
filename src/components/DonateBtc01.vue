@@ -108,7 +108,8 @@ export default {
     ...mapGetters(['donation', 'config'])
   },
   data: () => ({
-    qrCodeVisible: false
+    qrCodeVisible: false,
+    transactionInterval: null
   }),
   methods: {
     donateBitcoin () {
@@ -128,7 +129,7 @@ export default {
     })
 
     console.log('waiting for tx to ' + this.btcAddress)
-    bitcoin.waitForPayment(this.btcAddress, (err, inputs) => {
+    this.transactionInterval = bitcoin.waitForPayment(this.btcAddress, (err, inputs) => {
       if (err) {
         console.error(err)
         return this.$store.commit('notifyError', {
@@ -140,6 +141,12 @@ export default {
       this.$store.commit('setBtcDonationTx', inputs)
       this.$store.commit('setDonationProgress', 4)
     })
+  },
+  beforeDestroy () {
+    if (!this.transactionInterval) return
+    console.log('DonateBtc01 beforeDestroy, clearing poll interval')
+    clearInterval(this.transactionInterval)
+    this.transactionInterval = null
   }
 }
 </script>
