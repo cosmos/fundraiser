@@ -18,12 +18,15 @@ console.log(
 var spinner = ora('building for production...')
 spinner.start()
 
-var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
-rm('-rf', assetsPath)
-mkdir('-p', assetsPath)
-cp('-R', 'static/*', assetsPath)
+var assetsTmpPath = path.join(config.build.assetsRoot, config.build.assetsTmpDirectory)
+rm('-rf', assetsTmpPath)
+mkdir('-p', assetsTmpPath)
+cp('-R', 'static/', assetsTmpPath)
 
 webpack(webpackConfig, function (err, stats) {
+  var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
+  cp('-R', assetsTmpPath, assetsPath)
+
   spinner.stop()
   if (err) throw err
   process.stdout.write(stats.toString({
