@@ -80,7 +80,7 @@ const actions = {
         console.error(err.stack)
         commit('notifyError', {
           title: 'Error Fetching Donation Stats',
-          body: 'Could not fetch BTC donations from Blockchain.info.'
+          body: 'Could not fetch BTC donation stats.'
         })
         return
       }
@@ -103,7 +103,7 @@ const actions = {
         console.error(err.stack)
         commit('notifyError', {
           title: 'Error Fetching Donation Stats',
-          body: 'Could not fetch ETH donations from Etherscan.'
+          body: 'Could not fetch ETH donation stats.'
         })
         return
       }
@@ -134,8 +134,7 @@ const actions = {
     })
   },
   startFetchInterval ({ dispatch }) {
-    // TODO: replace with realtime websocket API
-    setInterval(() => dispatch('fetchStats'), 60e3)
+    setInterval(() => dispatch('fetchStats'), 60e3) // update once per minute
     dispatch('fetchStats')
   }
 }
