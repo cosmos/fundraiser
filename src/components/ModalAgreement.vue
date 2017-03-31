@@ -1,30 +1,39 @@
 <template>
-  <modal size="fs">
-    <div slot="title">Fundraiser Agreement</div>
-    <article-body>
-      <fundraiser-agreement></fundraiser-agreement>
-    </article-body>
+  <modal class="modal-agreement">
+    <div slot="title">Contribution Terms</div>
+    <p>You must read and agree to the Cosmos Fundraiser contribution terms before starting the fundraiser process.</p>
+    <btn
+      @click.native="openTerms"
+      size="lg"
+      icon="download"
+      value="Download Agreement">
+    </btn>
     <div slot="footer">
       <btn value="Cancel" @click.native="no"></btn>
-      <btn value="Agree" @click.native="yes"></btn>
+      <btn value="I Agree" @click.native="yes"></btn>
     </div>
   </modal>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Btn from '@nylira/vue-button'
 import Modal from './Modal'
-import FundraiserAgreement from '../../content/fundraiser-agreement.md'
 import ArticleBody from '@nylira/vue-article-body'
 export default {
   name: 'modal-agreement',
   components: {
     Btn,
     Modal,
-    FundraiserAgreement,
     ArticleBody
   },
+  computed: {
+    ...mapGetters(['docs'])
+  },
   methods: {
+    openTerms () {
+      window.location.href = this.docs.terms
+    },
     yes () {
       this.$store.commit('setDonationAgreed', true)
     },

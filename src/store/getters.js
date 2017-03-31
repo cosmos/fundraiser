@@ -15,3 +15,5 @@ export const atomsClaimed = state =>
   state.stats.progress.atomsClaimedBtc + state.stats.progress.atomsClaimedEth
 export const progress = state => state.stats.progress
 export const balance = state => state.balance
+
+export const docs = state => state.docs

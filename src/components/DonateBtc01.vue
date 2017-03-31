@@ -7,7 +7,7 @@
       <div class="donate-btc-key-values">
         <div class="key-value">
           <div class="key">Exchange Rate</div>
-          <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} Atoms</div>
+          <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} ATOM</div>
         </div>
         <div class="key-value">
           <div class="key">Min Donation</div>

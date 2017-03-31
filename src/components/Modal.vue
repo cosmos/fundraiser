@@ -65,6 +65,7 @@ export default {
   display flex
   justify-content center
   align-items center
+  backdrop-filter blur(0.5em)
 
   &.ni-modal-fullscreen
     .ni-modal-container
@@ -118,8 +119,15 @@ export default {
     color link
 
 .ni-modal-main
+  display flex
+  flex-flow column
+  justify-content center
+
   .ps-scrollbar-y-rail
     display none
+
+.ni-modal-main p
+  margin-bottom 1rem
 
 .ni-modal-main > .ni-article-body
   margin -1rem

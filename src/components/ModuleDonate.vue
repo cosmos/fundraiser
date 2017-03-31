@@ -2,6 +2,12 @@
   <module size="sm" class="module-donation">
     <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
     <div slot="title">Donate {{ coin.NAME }}</div>
+    <div slot="menu">
+      <a :href="tutorialLink">
+        <i class="fa fa-info-circle"></i>
+        {{ coin.UNIT }} Tutorial
+      </a>
+    </div>
     <div class="body">
       <div class="img">
         <img v-if="coin.NAME === 'Ethereum'"
@@ -20,12 +26,12 @@
         <div class="exchange-rate">
           <span class="key">1 {{ coin.UNIT }}</span>
           <span class="symbol">:</span>
-          <span class="value">{{ exchangeRate }} Atoms</span>
+          <span class="value">{{ exchangeRate }} ATOM</span>
         </div>
       </div>
     </div>
     <div slot="footer">
-      minimum donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}
+      <div>Minimum Donation: {{ coin.MIN_DONATION }} {{ coin.UNIT }}</div>
     </div>
   </module>
 </template>
@@ -55,7 +61,7 @@ export default {
       console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
       return this.fundraiserStarted && !this.fundraiserEnded
     },
-    ...mapGetters(['config', 'donation', 'fundraiserEnded'])
+    ...mapGetters(['config', 'donation', 'fundraiserEnded', 'docs'])
   },
   data () {
     return {
@@ -64,6 +70,10 @@ export default {
     }
   },
   methods: {
+    tutorialLink () {
+      if (this.coin.UNIT === 'BTC') window.location.href = this.docs.btc
+      if (this.coin.UNIT === 'ETH') window.location.href = this.docs.eth
+    },
     go (route) {
       this.$router.push(route)
     },
