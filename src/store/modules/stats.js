@@ -4,7 +4,7 @@ const MAX_DONATIONS = 30
 
 const state = {
   status: { fundraiserEnded: false },
-  overlayMessage: 'Fundraiser has not started yet',
+  overlayMessage: 'The fundraiser has not started yet.',
   donationsMap: {},
   donations: [],
   progress: {
@@ -71,7 +71,9 @@ const actions = {
         return
       }
       commit('setFundraiserStatus', status)
-      commit('setFundraiserStatusMessage', 'The fundraiser has ended.')
+      if (status.fundraiserEnded) {
+        commit('setFundraiserStatusMessage', 'The fundraiser has ended.')
+      }
     })
   },
   fetchStats ({ commit }) {
