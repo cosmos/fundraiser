@@ -78,12 +78,6 @@ const actions = {
       }
       let txid = signedTx.getId()
       console.log('sent final tx. txid=' + txid)
-      commit('addDonation', {
-        type: 'btc',
-        time: Date.now(),
-        donated: finalTx.paidAmount / 1e8,
-        claimed: finalTx.atomAmount
-      })
       commit('resetDonation')
       commit('notifyCustom', {
         title: 'Donation Successful',
@@ -112,7 +106,7 @@ const actions = {
         console.error(err)
         commit('notifyError', {
           title: 'Ethereum Error',
-          body: 'Could not fetch ATOM/ETH exchange rate from Etherscan.'
+          body: 'Could not fetch ATOM/ETH exchange rate.'
         })
         return
       }

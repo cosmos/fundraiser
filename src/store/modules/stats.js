@@ -1,12 +1,8 @@
 import { bitcoin, ethereum, fetchStatus } from 'cosmos-fundraiser'
 
-const MAX_DONATIONS = 30
-
 const state = {
   status: { fundraiserEnded: false },
   overlayMessage: 'The fundraiser has not started yet.',
-  donationsMap: {},
-  donations: [],
   progress: {
     btcRaised: 0,
     btcTxCount: 0,
@@ -23,19 +19,6 @@ const mutations = {
   },
   setFundraiserStatusMessage (state, message) {
     state.overlayMessage = message
-  },
-  addDonation (state, donation) {
-    if (state.donationsMap[donation.id] != null) return
-    state.donationsMap[donation.id] = true
-    state.donations.push(donation)
-    state.donations.sort((a, b) => b.time - a.time)
-
-    if (state.donations.length > MAX_DONATIONS) {
-      let toRemove = state.donations.pop()
-      delete state.donationsMap[toRemove.id]
-    }
-
-    state.donations = state.donations.slice(0) // clone to trigger update
   },
   setBtcRaised (state, btcRaised) {
     state.progress.btcRaised = btcRaised
@@ -89,15 +72,6 @@ const actions = {
       commit('setBtcRaised', stats.amountDonated / 1e8)
       commit('setAtomsClaimedBtc', stats.amountClaimed)
       commit('setBtcTxCount', stats.txCount)
-      for (let tx of stats.recentTxs) {
-        commit('addDonation', {
-          id: tx.hash,
-          type: 'btc',
-          time: tx.time * 1000,
-          donated: tx.donated / 1e8,
-          claimed: tx.claimed
-        })
-      }
     })
 
     ethereum.fetchTotals(ethereum.FUNDRAISER_CONTRACT, (err, totals) => {
@@ -112,27 +86,6 @@ const actions = {
       console.log(totals)
       commit('setEthRaised', totals.ether)
       commit('setAtomsClaimedEth', totals.atoms)
-    })
-
-    ethereum.fetchTxs(ethereum.FUNDRAISER_CONTRACT, (err, txs) => {
-      if (err) {
-        console.error(err.stack)
-        commit('notifyError', {
-          title: 'Error Fetching Donation Stats',
-          body: 'Could not fetch ETH donations from Etherscan.'
-        })
-        return
-      }
-      for (let tx of txs) {
-        console.log(tx)
-        commit('addDonation', {
-          id: tx.hash,
-          type: 'eth',
-          time: parseInt(tx.timeStamp) * 1000,
-          donated: parseInt(tx.value) / 1e18,
-          claimed: 0
-        })
-      }
     })
   },
   startFetchInterval ({ dispatch }) {
