@@ -3,5 +3,5 @@ var prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  COSMOS_API_URI: '"http://localhost:8000"'
+  COSMOS_BASE_URL: `"${process.env.COSMOS_BASE_URL}"`
 })
