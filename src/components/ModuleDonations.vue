@@ -5,19 +5,15 @@
     <div class="md-sections">
       <section>
         <p>View the history of Bitcoin donations on Blockchain (blockchain.info):</p>
-        <btn
-          icon="external-link"
-          @click.native="viewBtcDonations"
-          value="BTC Donations">
-        </btn>
+        <a href="https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B" rel="noopener noreferrer" target="_blank">
+          <btn class="link-button" icon="external-link" value="BTC Donations"></btn>
+        </a>
       </section>
       <section>
         <p>View the history of Ether donations on Etherscan (etherscan.io):</p>
-        <btn
-          icon="external-link"
-          @click.native="viewEthDonations"
-          value="ETH Donations">
-        </btn>
+        <a href="https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423" rel="noopener noreferrer" target="_blank">
+          <btn class="link-button" icon="external-link" value="ETH Donations"></btn>
+        </a>
       </section>
     </div>
     </div>
@@ -47,19 +43,11 @@ export default {
   data () {
     return {
       hasFundraiseStarted,
-      fundraiserStarted: false,
+      fundraiserStarted: true,
       details: true
     }
   },
   methods: {
-    viewBtcDonations () {
-      window.location.href =
-        'https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B'
-    },
-    viewEthDonations () {
-      window.location.href =
-        'https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423'
-    },
     watchFundraiserStart () {
       let start = this.config.START_DATETIME
       this.fundraiserStarted = hasFundraiseStarted(start)
@@ -74,6 +62,10 @@ export default {
 
 <style lang="stylus">
 @import '../styles/variables.styl'
+
+.link-button
+  margin auto
+  display block
 
 .md-sections
   display flex
