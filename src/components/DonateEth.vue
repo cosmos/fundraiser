@@ -54,7 +54,14 @@
         <field
           id="donate-eth-donation-tx"
           type="textarea"
-          v-model="ethTx">
+          v-model="ethTx"
+          v-if="validTransaction">
+        </field>
+        <field
+          v-else
+          type="textarea"
+          :value="invalidTransactionString"
+          disabled>
         </field>
       </field-group>
     </form-group>
@@ -84,6 +91,15 @@ export default {
     Modal
   },
   computed: {
+    validTransaction () {
+      let eth = this.fields.ethAmount
+      let min = this.config.COINS.ETH.MIN_DONATION
+      let max = this.config.COINS.ETH.MAX_DONATION
+      return eth >= min && eth <= max
+    },
+    invalidTransactionString () {
+      return `Invalid transaction. You may only contribute between ${this.config.COINS.ETH.MIN_DONATION} and ${this.config.COINS.ETH.MAX_DONATION} ETH per donation. (${this.fields.ethAmount})`
+    },
     atomAmount () {
       return this.fields.ethAmount * this.donation.ethRate
     },
