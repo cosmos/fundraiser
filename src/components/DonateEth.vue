@@ -100,7 +100,7 @@ export default {
     ethTx () {
       let tx = JSON.parse(this.ethTxTemplate)
       tx.gas = '0x' + tx.gas.toString(16)
-      tx.value = '0x' + this.fields.ethAmount.toString(16)
+      tx.amount = '0x' + this.fields.ethAmount.toString(16)
       return JSON.stringify(tx, null, '  ')
     },
     ...mapGetters(['donation', 'config'])
