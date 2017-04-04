@@ -91,14 +91,13 @@ export default {
     },
     ethTxTemplate () {
       let { addresses } = this.donation.wallet
-      let tx = ethereum.getTransaction(
+      return ethereum.getTransaction(
         addresses.cosmos,
         addresses.ethereum
       )
-      return JSON.stringify(tx, null, '  ')
     },
     ethTx () {
-      let tx = JSON.parse(this.ethTxTemplate)
+      let tx = this.ethTxTemplate
       tx.gas = '0x' + tx.gas.toString(16)
       tx.value = '0x' + this.fields.ethAmount.toString(16)
       return JSON.stringify(tx, null, '  ')
