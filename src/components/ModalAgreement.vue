@@ -10,7 +10,7 @@
     </btn>
     <div slot="footer">
       <btn value="Cancel" @click.native="no"></btn>
-      <btn value="I Agree" @click.native="yes"></btn>
+      <btn value="Agree" @click.native="yes"></btn>
     </div>
   </modal>
 </template>
