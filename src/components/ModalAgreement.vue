@@ -1,7 +1,7 @@
 <template>
   <modal class="modal-agreement">
     <div slot="title">Contribution Terms</div>
-    <p>You must read and agree to the Cosmos Fundraiser contribution terms before starting the fundraiser process.</p>
+    <p>You must agree to the contribution terms agreement before starting the donation.</p>
     <btn
       @click.native="openTerms"
       size="lg"
