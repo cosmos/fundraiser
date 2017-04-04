@@ -7,7 +7,7 @@
         <p>View the history of Bitcoin donations on Blockchain (blockchain.info):</p>
         <btn
           icon="external-link"
-          @click.native="viewBTCDonations"
+          @click.native="viewBtcDonations"
           value="BTC Donations">
         </btn>
       </section>

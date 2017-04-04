@@ -1,11 +1,11 @@
 <template>
   <div class="pb-container">
     <div class="pb-bar-outer">
-      <div class="pb-bar-obscured" v-if="uncapped">
-        fundraise cap is currently hidden
+      <div class="pb-bar-obscured" v-if="capped">
+        fundraiser cap is hidden for the first 6 hours
       </div>
       <div class="pb-bar-inner" :style="innerBarStyle" v-else>
-        <div class="label label-percentage">{{ percentageDonated }}% funded</div>
+        <div class="label label-percentage">{{ percentageDonatedFriendly }}%</div>
       </div>
     </div>
   </div>
@@ -17,14 +17,14 @@ import num from '../scripts/num.js'
 export default {
   name: 'progress-bar',
   computed: {
-    uncapped () {
-      return this.config.CAP_AMOUNT <= 0
+    capped () {
+      return this.config.CAP_AMOUNT === 0
     },
     percentageDonated () {
       return this.atomsClaimed / this.config.CAP_AMOUNT
     },
     percentageDonatedFriendly () {
-      return Math.round(this.percentageDonated * 100)
+      return Math.round(this.percentageDonated * 100 * 100) / 100
     },
     innerBarStyle () {
       return {
@@ -56,7 +56,8 @@ export default {
     align-items center
     justify-content center
     background hsl(mhue,15%,85%)
-    color dim
+    color txt
+    font-weight 400
 
   .pb-bar-outer
     height 1.5rem

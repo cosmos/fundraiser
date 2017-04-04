@@ -2,7 +2,7 @@
   <footer class="app-footer">
     <div class="container">
       <div class="copyright">&copy; 2017 Interchain Foundation</div>
-      <div class="about"><a href="https://cosmos.network">What is Cosmos?</a></div>
+      <div class="about"><a href="https://slack.cosmos.network">Need help?</a></div>
   </footer>
 </template>
 

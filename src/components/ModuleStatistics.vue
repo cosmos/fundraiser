@@ -1,6 +1,6 @@
 <template>
   <module class="module-statistics">
-    <div slot="title">Fundraise Stats</div>
+    <div slot="title">Fundraiser Stats</div>
     <div class="pb-label" slot="menu">{{ pbLabel }}</div>
     <progress-bar></progress-bar>
     <key-values>
@@ -46,15 +46,15 @@ export default {
     ProgressBar
   },
   computed: {
+    capped () {
+      return this.config.CAP_AMOUNT <= 0
+    },
     pbLabel () {
-      let cap = this.config.CAP_AMOUNT
-      let capLabel = ''
-      if (cap > 0) {
-        capLabel = cap
+      if (this.capped) {
+        return `${num.short(this.atoms)} ATOM / hidden cap`
       } else {
-        capLabel = '∞'
+        return `${this.percentageDonatedFriendly}% of cap reached`
       }
-      return `${num.short(this.atoms)} ATOM / ${capLabel}`
     },
     capAmount () {
       let cap = this.config.CAP_AMOUNT
@@ -63,6 +63,12 @@ export default {
       } else {
         return `of hidden cap`
       }
+    },
+    percentageDonated () {
+      return this.atomsClaimed / this.config.CAP_AMOUNT
+    },
+    percentageDonatedFriendly () {
+      return Math.round(this.percentageDonated * 100 * 100) / 100
     },
     btc () {
       return this.progress.btcRaised
