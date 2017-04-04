@@ -21,8 +21,12 @@
         </nav>
         <nav>
           <a href="https://cosmos.network" target="_blank">
-            <span class="label">About Cosmos</span>
             <i class="fa fa-external-link"></i>
+            <span class="label">Cosmos</span>
+          </a>
+          <a href="//slack.cosmos.network" target="_blank">
+            <i class="fa fa-slick"></i>
+            <span class="label">Discuss on Slack</span>
           </a>
         </nav>
       </menu>
@@ -157,7 +161,7 @@ export default {
         .label
           flex 1
         i.fa
-          margin-left 0.5rem
+          margin-right 0.5rem
           color light
           margin-top 0.2rem
         img
