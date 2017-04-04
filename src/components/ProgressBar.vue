@@ -2,8 +2,7 @@
   <div class="pb-container">
     <div class="pb-bar-outer">
       <div class="pb-bar-obscured" v-if="capped">
-        fundraiser cap is hidden
-        <span class="first-six-hours">for the first six hours</span>
+        fundraiser cap is hidden<span class="first-six-hours">for the first six hours</span>
       </div>
       <div class="pb-bar-inner" :style="innerBarStyle" v-else>
         <div class="label label-percentage">{{ percentageDonatedFriendly }}%</div>
@@ -86,6 +85,7 @@ export default {
 
 .first-six-hours
   display none
+  margin-left 0.25em
 
 @media screen and (min-width: 768px)
   .first-six-hours

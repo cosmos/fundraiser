@@ -12,7 +12,7 @@
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="seconds > 0">
-    <div slot="value">{{ seconds }} seconds<template v-if="seconds > 1">s</template></div>
+    <div slot="value">{{ seconds }} second<template v-if="seconds > 1">s</template></div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="type === 'cap'">
