@@ -20,7 +20,6 @@
       <form-msg name="Eth Amount" type="required" v-if="!$v.fields.ethAmount.required">
       </form-msg>
       <form-msg name="Eth Amount" type="between" v-if="!$v.fields.ethAmount.between">
-      <form-msg type="error" body="Eth Amount must be a number" v-if="!$v.fields.ethAmount.numeric">
       </form-msg>
     </form-group>
 
@@ -64,7 +63,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ethereum } from 'cosmos-fundraiser'
-import { required, between, numeric } from 'vuelidate/lib/validators'
+import { required, between } from 'vuelidate/lib/validators'
 import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
@@ -90,13 +89,17 @@ export default {
     exchangeRateString () {
       return `Exchange rate: 1 ETH : ${this.donation.ethRate} ATOM`
     },
-    ethTx () {
+    ethTxTemplate () {
       let { addresses } = this.donation.wallet
-      let tx = ethereum.getTransaction(
+      return ethereum.getTransaction(
         addresses.cosmos,
-        addresses.ethereum,
-        this.fields.ethAmount
+        addresses.ethereum
       )
+    },
+    ethTx () {
+      let tx = this.ethTxTemplate
+      tx.gas = '0x' + tx.gas.toString(16)
+      tx.value = '0x' + this.fields.ethAmount.toString(16)
       return JSON.stringify(tx, null, '  ')
     },
     ...mapGetters(['donation', 'config'])
@@ -121,7 +124,6 @@ export default {
   validations: {
     fields: {
       ethAmount: {
-        numeric,
         required,
         between () {
           let min = this.config.COINS.ETH.MIN_DONATION
