@@ -2,7 +2,7 @@
   <div class="pb-container">
     <div class="pb-bar-outer">
       <div class="pb-bar-obscured" v-if="capped">
-        fundraiser cap is hidden for the first 6 hours
+        fundraiser cap is hidden
       </div>
       <div class="pb-bar-inner" :style="innerBarStyle" v-else>
         <div class="label label-percentage">{{ percentageDonatedFriendly }}%</div>
