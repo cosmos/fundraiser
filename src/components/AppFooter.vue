@@ -18,6 +18,7 @@ export default {
 .app-footer
   border-top 1px solid bc
   flex 0 0 3rem
+  font-size 0.75rem
 
   .container
     max-width 1024px
@@ -33,4 +34,12 @@ export default {
       padding 0 1rem
       color light
       line-height 1.5rem
+
+@media screen and (max-width:360px)
+  .app-footer
+    font-size 0.875rem
+
+@media screen and (max-width:4141px)
+  .app-footer
+    font-size 1rem
 </style>
