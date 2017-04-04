@@ -39,7 +39,8 @@ export default {
         if (this.type === 'cap') return 'left of hidden cap'
         else return 'left'
       } else {
-        return 'til start'
+        if (this.type === 'cap') return 'til start of hidden cap'
+        else return 'til start'
       }
     },
     usableDate () {
