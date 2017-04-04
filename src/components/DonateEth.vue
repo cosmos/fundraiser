@@ -3,51 +3,35 @@
     <div slot="title">Donate ETH</div>
     <div slot="subtitle">Send ETH to claim your Atoms.</div>
 
-    <form-group :class="{ 'error': $v.fields.ethAmount.$error }">
-      <label for="donate-eth-amount">How much ETH do you want to donate?</label>
-      <field-group>
-        <field
-          id="donate-eth-amount"
-          type="number"
-          placeholder="ETH Amount"
-          v-model="fields.ethAmount"
-          :min="config.COINS.ETH.MIN_DONATION"
-          :max="config.COINS.ETH.MAX_DONATION"
-          required>
-        </field>
-      </field-group>
-      <form-msg :body="exchangeRateString"></form-msg>
-      <form-msg name="Eth Amount" type="required" v-if="!$v.fields.ethAmount.required">
-      </form-msg>
-      <form-msg name="Eth Amount" type="between" v-if="!$v.fields.ethAmount.between">
-      </form-msg>
-    </form-group>
-
     <form-group>
-      <label for="donate-eth-amount">Approximate ATOM you will receive:</label>
-      <field-group>
-        <field
-          id="donate-eth-atoms"
-          type="number"
-          v-model="atomAmount"
-          disabled>
-        </field>
-      </field-group>
-    </form-group>
-
-    <form-group>
-      <form-msg body="The actual Exchange Rate may differ from what is shown
+      <div class="donate-eth-key-values">
+        <div class="key-value">
+          <div class="key">Exchange Rate<sup>*</sup></div>
+          <div class="value">1 ETH : {{ donation.ethRate }} Atoms</div>
+        </div>
+        <div class="key-value">
+          <div class="key">Min Donation</div>
+          <div class="value">{{ config.COINS.ETH.MIN_DONATION }} ETH</div>
+        </div>
+        <div class="key-value">
+          <div class="key">Max Donation</div>
+          <div class="value">{{ config.COINS.ETH.MAX_DONATION }} ETH</div>
+        </div>
+      </div>
+      <p class="disclaimer">
+        <sup>*</sup> The actual Exchange Rate may differ from what is shown
         depending on when the exchange rate is updated on the donation smart
-        contract."></form-msg>
-      <form-msg body="Check the most recent ETH/BTC rate before submitting a
+        contract.  Check the most recent ETH/BTC rate before submitting a
         donation, and for best results, pay a suffiently large fee to get your
-        donation transaction committed quickly."></form-msg>
+        donation transaction committed quickly.
+      </p>
     </form-group>
 
     <form-group>
-      <p>Copy the <strong>Transaction Data</strong> below into a wallet
-        such as MyEtherWallet or Mist. Your Cosmos address is included in the data,
-        and the donation will be recorded for that address in the smart contract.</p>
+      <p>To make your donation, copy and paste this information into a wallet
+  such as MyEtherWallet or Mist. Be sure to include an amount of ETH to
+  donate! Your Cosmos address is included in the data, and the donation
+  will be recorded for that address in the smart contract.</p>
       <label for="donate-eth-donation-tx">Transaction Data</label>
       <field-group>
         <field
@@ -63,12 +47,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ethereum } from 'cosmos-fundraiser'
-import { required, between } from 'vuelidate/lib/validators'
 import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
 import FormGroup from './FormGroup'
-import FormMsg from '@nylira/vue-form-msg'
 import FormStruct from './FormStruct'
 import Modal from './Modal'
 export default {
@@ -78,18 +60,11 @@ export default {
     Field,
     FieldGroup,
     FormGroup,
-    FormMsg,
     FormStruct,
     Modal
   },
   computed: {
-    atomAmount () {
-      return this.fields.ethAmount * this.donation.ethRate
-    },
-    exchangeRateString () {
-      return `Exchange rate: 1 ETH : ${this.donation.ethRate} ATOM`
-    },
-    ethTxTemplate () {
+    ethTx () {
       let { addresses } = this.donation.wallet
       let tx = ethereum.getTransaction(
         addresses.cosmos,
@@ -97,22 +72,10 @@ export default {
       )
       return JSON.stringify(tx, null, '  ')
     },
-    ethTx () {
-      let tx = JSON.parse(this.ethTxTemplate)
-      tx.gas = '0x' + tx.gas.toString(16)
-      tx.amount = '0x' + this.fields.ethAmount.toString(16)
-      return JSON.stringify(tx, null, '  ')
-    },
     ...mapGetters(['donation', 'config'])
   },
-  data: () => ({
-    fields: {
-      ethAmount: 0
-    }
-  }),
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
-    document.querySelector('#donate-eth-amount').focus()
 
     let el = document.querySelector('#donate-eth-donation-tx')
     el.addEventListener('focus', function () {
@@ -121,21 +84,10 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchEthDonationAtomRate')
-  },
-  validations: {
-    fields: {
-      ethAmount: {
-        required,
-        between () {
-          let min = this.config.COINS.ETH.MIN_DONATION
-          let max = this.config.COINS.ETH.MAX_DONATION
-          return between(min, max)
-        }
-      }
-    }
   }
 }
 </script>
+
 
 <style lang="stylus">
 @import '../styles/variables.styl'
@@ -151,7 +103,6 @@ export default {
   mono()
 
 .donate-eth-key-values
-  margin-bottom 0.5rem
   .key-value
     padding 0.125rem 0
     display flex

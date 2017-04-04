@@ -59,8 +59,6 @@ export default {
 .ni-form-main
   flex 1
   border-bottom 1px solid bc
-  p
-    font-size 0.875rem
 
 .ni-form-footer
   display flex
