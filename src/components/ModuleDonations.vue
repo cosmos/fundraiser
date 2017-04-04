@@ -1,15 +1,26 @@
 <template>
   <module class="module-donations">
     <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
-    <div slot="title">View Donations</div>
-    <ul>
-      <li>
-        <a href="https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B">BTC Donations</a>
-      </li>
-      <li>
-        <a href="https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423">ETH Donations</a>
-      </li>
-    </ul>
+    <div slot="title">Donation History</div>
+    <div class="md-sections">
+      <section>
+        <p>View the history of Bitcoin donations on Blockchain (blockchain.info):</p>
+        <btn
+          icon="external-link"
+          @click.native="viewBTCDonations"
+          value="BTC Donations">
+        </btn>
+      </section>
+      <section>
+        <p>View the history of Ether donations on Etherscan (etherscan.io):</p>
+        <btn
+          icon="external-link"
+          @click.native="viewEthDonations"
+          value="ETH Donations">
+        </btn>
+      </section>
+    </div>
+    </div>
   </module>
 </template>
 
@@ -18,9 +29,11 @@ import { mapGetters } from 'vuex'
 import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
 import Module from './Module'
 import ModuleOverlay from './ModuleOverlay'
+import Btn from '@nylira/vue-button'
 export default {
   name: 'module-donations',
   components: {
+    Btn,
     Module,
     ModuleOverlay
   },
@@ -39,6 +52,14 @@ export default {
     }
   },
   methods: {
+    viewBtcDonations () {
+      window.location.href =
+        'https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B'
+    },
+    viewEthDonations () {
+      window.location.href =
+        'https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423'
+    },
     watchFundraiserStart () {
       let start = this.config.START_DATETIME
       this.fundraiserStarted = hasFundraiseStarted(start)
@@ -53,4 +74,37 @@ export default {
 
 <style lang="stylus">
 @import '../styles/variables.styl'
+
+.md-sections
+  display flex
+  flex-flow column nowrap
+  section
+    flex 1
+    border-bottom 1px solid bc
+    padding 1rem
+    display flex
+    flex-flow column nowrap
+    justify-content center
+    p
+      margin-bottom 1rem
+      font-size 0.875rem
+      color dim
+    .ni-btn-wrapper
+      max-width 20rem
+      margin 0 auto
+    &:last-of-type
+      border none
+
+@media screen and (min-width: 768px)
+  .md-sections
+    flex-flow row nowrap
+    section
+      border-bottom none
+      border-right 1px solid bc
+      padding 1.5rem 3rem
+      p
+        font-size 1rem
+        text-align center
+        max-width 20rem
+        margin 0 auto 1rem
 </style>
