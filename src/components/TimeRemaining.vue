@@ -22,7 +22,7 @@
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="seconds > 0">
     <div slot="value">
-      {{ seconds }} sec<template v-if="seconds > 1">s</template>
+      {{ seconds }} second<template v-if="seconds > 1">s</template>
     </div>
     <div slot="key">{{ label }}</div>
   </key-value>
