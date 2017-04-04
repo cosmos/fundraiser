@@ -1,27 +1,42 @@
 <template>
   <key-value class="ni-time-remaining" :title="date" v-if="days > 0">
-    <div slot="value">{{ days }} day<template v-if="days > 1">s</template></div>
+    <div slot="value">
+      {{ days }} day<template v-if="days > 1">s</template>
+      {{ hours }} hr<template v-if="hours > 1">s</template>
+    </div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="hours > 0">
-    <div slot="value">{{ hours }} hour<template v-if="hours > 1">s</template></div>
+    <div slot="value">
+      {{ hours }} hr<template v-if="hours > 1">s</template>
+      {{ minutes }} min<template v-if="minutes > 1">s</template>
+    </div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="minutes > 0">
-    <div slot="value">{{ minutes }} minute<template v-if="minutes > 1">s</template></div>
+    <div slot="value">
+      {{ minutes }} min<template v-if="minutes > 1">s</template>
+      {{ seconds }} sec<template v-if="seconds > 1">s</template>
+    </div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="seconds > 0">
-    <div slot="value">{{ seconds }} second<template v-if="seconds > 1">s</template></div>
+    <div slot="value">
+      {{ seconds }} sec<template v-if="seconds > 1">s</template>
+    </div>
     <div slot="key">{{ label }}</div>
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="type === 'cap'">
-    <div slot="value">--</div>
+    <div slot="value">
+      --
+    </div>
     <div slot="key">hidden cap ended</div>
     {{ started }}
   </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else>
-    <div slot="value"><i class="fa fa-hourglass-end"></i></div>
+    <div slot="value">
+      <i class="fa fa-hourglass-end"></i>
+    </div>
     <div slot="key">fundraise ended</div>
   </key-value>
 </template>
