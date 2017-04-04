@@ -162,9 +162,4 @@ export default {
     .value
       flex 3
       font-weight 500
-
-.disclaimer
-  font-size 0.75rem
-  color dim
-  font-style italic
 </style>
