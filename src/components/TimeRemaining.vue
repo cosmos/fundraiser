@@ -1,28 +1,10 @@
 <template>
-  <key-value class="ni-time-remaining" :title="date" v-if="days > 0">
+  <key-value class="ni-time-remaining" :title="date" v-if="countingDown">
     <div slot="value">
-      {{ days }} day<template v-if="days > 1">s</template>
-      {{ hours }} hr<template v-if="hours > 1">s</template>
-    </div>
-    <div slot="key">{{ label }}</div>
-  </key-value>
-  <key-value class="ni-time-remaining" :title="date" v-else-if="hours > 0">
-    <div slot="value">
-      {{ hours }} hr<template v-if="hours > 1">s</template>
-      {{ minutes }} min<template v-if="minutes > 1">s</template>
-    </div>
-    <div slot="key">{{ label }}</div>
-  </key-value>
-  <key-value class="ni-time-remaining" :title="date" v-else-if="minutes > 0">
-    <div slot="value">
-      {{ minutes }} min<template v-if="minutes > 1">s</template>
-      {{ seconds }} sec<template v-if="seconds > 1">s</template>
-    </div>
-    <div slot="key">{{ label }}</div>
-  </key-value>
-  <key-value class="ni-time-remaining" :title="date" v-else-if="seconds > 0">
-    <div slot="value">
-      {{ seconds }} second<template v-if="seconds > 1">s</template>
+      <template v-if="days > 0">{{ days }}d</template>
+      <template v-if="hours > 0">{{ hours }}h</template>
+      <template v-if="minutes > 0">{{ minutes }}m</template>
+      <template v-if="seconds > 0">{{ seconds }}s</template>
     </div>
     <div slot="key">{{ label }}</div>
   </key-value>
@@ -49,6 +31,9 @@ export default {
     KeyValue
   },
   computed: {
+    countingDown () {
+      return this.days > 0 || this.hours > 0 || this.minutes > 0 || this.seconds > 0
+    },
     label () {
       if (this.started) {
         if (this.type === 'cap') return 'left of hidden cap'

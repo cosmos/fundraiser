@@ -2,7 +2,7 @@ import cfr from 'cosmos-fundraiser'
 
 function startDatetime () {
   let date = ''
-  if (process.env.NODE_ENV === 'development') date = '2017-04-04 04:48:00'
+  if (process.env.NODE_ENV === 'development') date = '2017-04-05 04:05:00'
   if (process.env.NODE_ENV === 'production') date = '2017-04-06 13:00:00'
   return date
 }
