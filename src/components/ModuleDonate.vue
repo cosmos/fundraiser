@@ -138,6 +138,7 @@ export default {
 
     .ni-btn-wrapper
       width 12rem
+
 @media screen and (min-width:768px)
   .module-donation
     .body
