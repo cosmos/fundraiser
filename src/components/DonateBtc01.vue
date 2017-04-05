@@ -73,6 +73,7 @@
 <script>
 import { bitcoin } from 'cosmos-fundraiser'
 import { mapGetters } from 'vuex'
+import num from '../scripts/num.js'
 import qr from 'qr-image'
 import Btn from '@nylira/vue-button'
 import BtnCopy from './BtnCopy'
