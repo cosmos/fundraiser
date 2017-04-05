@@ -2,12 +2,6 @@
 
 > A Vue.js project
 
-## Hidden Cap -> Cap Mode
-
-To make this app switch from `hidden cap` mode to `cap` mode, you just have to set `CAP_AMOUNT` in `./src/store/modules/config.js`
-
-Users will have to refresh the app to see the new cap.
-
 ## Build Setup
 
 ``` bash

@@ -37,7 +37,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
+import cfr from 'cosmos-fundraiser'
 import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
@@ -56,14 +56,17 @@ export default {
     Mnemonic,
     ModuleOverlay
   },
-  data: () => ({
-    hasFundraiseStarted,
-    fundraiseStarted: false,
-    mnemonicValue: ''
-  }),
   computed: {
+    fundraiserActive () {
+      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
+      return this.fundraiserStarted && !this.fundraiserEnded
+    },
     ...mapGetters(['config', 'donation'])
   },
+  data: () => ({
+    fundraiserStarted: false,
+    mnemonicValue: ''
+  }),
   methods: {
     startOver () {
       this.$store.commit('setDonationProgress', 1)
@@ -72,14 +75,20 @@ export default {
       this.$store.dispatch('setDonationMnemonicAndWallet', this.mnemonicValue)
       this.$store.commit('setDonationProgress', 3)
     },
-    watchFundraiseStart () {
-      let start = this.config.START_DATETIME
-      this.fundraiseStarted = hasFundraiseStarted(start)
+    watchFundraiserStart () {
+      let self = this
+      cfr.ethereum.fetchIsActive('', function (err, res) {
+        if (err) return
+        if (res === 1) self.fundraiserStarted = true
+        else self.fundraiserStarted = false
+        // console.log('this.fundraiserStarted', self.fundraiserStarted)
+      })
     }
   },
   mounted () {
-    this.watchFundraiseStart()
-    setInterval(() => this.watchFundraiseStart(), 1000)
+    this.watchFundraiserStart()
+    setInterval(() => this.watchFundraiserStart(), 1000)
+
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }
