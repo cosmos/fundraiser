@@ -15,7 +15,7 @@
         </div>
         <div class="key-value">
           <div class="key">Exchange Rate</div>
-          <div class="value">1 BTC : {{ config.COINS.BTC.EXCHANGE_RATE }} ATOM</div>
+          <div class="value">1 BTC : {{ btcExchangeRate }} ATOM</div>
         </div>
       </div>
     </form-group>
@@ -67,6 +67,9 @@ export default {
     FormStruct
   },
   computed: {
+    btcExchangeRate () {
+      return num.pretty(this.config.COINS.BTC.EXCHANGE_RATE)
+    },
     btcAddress () {
       return this.donation.wallet.addresses.bitcoin
     },
