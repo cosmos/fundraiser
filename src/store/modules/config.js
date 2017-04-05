@@ -16,8 +16,8 @@ const state = {
   START_DATETIME: startDatetime(),
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
-  CAP_START: 6,              // when cap starts being enforced, after START_DATETIME (in hours)
-  CAP_AMOUNT: 0e6,         // cap in ATOMs XXX XXX XXX XXX XXX
+  CAP_START: 6,         // cap enforced X hours after START_DATETIME
+  CAP_AMOUNT: 10000000, // cap in $X USD
   ATOM: {
   },
   COINS: {
