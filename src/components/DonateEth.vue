@@ -119,5 +119,14 @@ export default {
 .donate-eth-key-values
   .key-value
     padding 0.125rem 0
+    display flex
+    align-items center
+    font-size 0.875rem
+    .key
+      flex 2
+      color dim
+    .value
+      flex 3
+      font-weight 500
 
 </style>
