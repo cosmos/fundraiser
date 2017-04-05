@@ -11,7 +11,7 @@
       </section>
       <section>
         <p>View the history of Ether donations on Etherscan (etherscan.io):</p>
-        <a href="https://etherscan.io/address/0xA8855BE2F7142f1485A958cA4135A7Ee2752C732" rel="noopener noreferrer" target="_blank">
+        <a href="https://etherscan.io/address/0xCF965Cfe7C30323E9C9E41D4E398e2167506f764" rel="noopener noreferrer" target="_blank">
           <btn class="link-button" icon="external-link" value="ETH Donations"></btn>
         </a>
       </section>
