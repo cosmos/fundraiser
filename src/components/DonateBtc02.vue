@@ -52,6 +52,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { bitcoin } from 'cosmos-fundraiser'
+import num from '../scripts/num.js'
 import Btn from '@nylira/vue-button'
 import Field from '@nylira/vue-input'
 import FieldGroup from './FieldGroup'
