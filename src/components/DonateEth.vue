@@ -29,13 +29,8 @@
 
     <form-group>
       <label for="cosmos-address">Your Cosmos Address</label>
-      <field-group>
-        <field
-          id="cosmos-address"
-          type="textarea"
-          v-model="cosmosAddr">
-        </field>
-      </field-group>
+      <font color="red"><b>DO NOT SEND ETHER TO THIS ADDRESS</b></font><br/>
+      <span id="cosmos-address">{{ cosmosAddr }}</span>
     </form-group>
 
     <form-group>
@@ -117,16 +112,8 @@ export default {
   height 14rem !important
   mono()
 
-.donate-eth-key-values
-  .key-value
-    padding 0.125rem 0
-    display flex
-    align-items center
-    font-size 0.875rem
-    .key
-      flex 2
-      color dim
-    .value
-      flex 3
-      font-weight 500
+#cosmos-address
+  user-select none
+  cursor not-allowed
+
 </style>
