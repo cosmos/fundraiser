@@ -3,7 +3,7 @@
     <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
     <div slot="title">Donate {{ coin.NAME }}</div>
     <div slot="menu">
-      <a :href="tutorialLink">
+      <a @click="tutorialLink">
         <i class="fa fa-info-circle"></i>
         {{ coin.UNIT }} Tutorial
       </a>
