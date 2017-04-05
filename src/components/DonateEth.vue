@@ -28,6 +28,17 @@
     </form-group>
 
     <form-group>
+      <label for="cosmos-address">Your Cosmos Address</label>
+      <field-group>
+        <field
+          id="cosmos-address"
+          type="textarea"
+          v-model="cosmosAddr">
+        </field>
+      </field-group>
+    </form-group>
+
+    <form-group>
       <p>To make your donation, copy and paste this information into a wallet
   such as MyEtherWallet or Mist. Be sure to include an amount of ETH to
   donate! Your Cosmos address is included in the data, and the donation
@@ -71,6 +82,10 @@ export default {
         addresses.ethereum
       )
       return JSON.stringify(tx, null, '  ')
+    },
+    cosmosAddr () {
+      let { addresses } = this.donation.wallet
+      return addresses.cosmos
     },
     ...mapGetters(['donation', 'config'])
   },
