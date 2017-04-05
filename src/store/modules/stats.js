@@ -61,6 +61,7 @@ const actions = {
   },
   fetchStats ({ commit }) {
     bitcoin.fetchFundraiserStats((err, stats) => {
+      console.log('ATOMS CLAIMED BTC', stats.amountClaimed)
       if (err) {
         console.error(err.stack)
         commit('notifyError', {
@@ -83,9 +84,22 @@ const actions = {
         })
         return
       }
+      console.log('ATOMS CLAIMED ETH', totals.atoms)
       console.log(totals)
       commit('setEthRaised', totals.ether)
       commit('setAtomsClaimedEth', totals.atoms)
+    })
+    ethereum.fetchNumDonations(ethereum.FUNDRAISER_CONTRACT, (err, txCount) => {
+      if (err) {
+        console.error(err.stack)
+        commit('notifyError', {
+          title: 'Error Fetching Total Number of Donations',
+          body: 'Could not fetch ETH total num donations.'
+        })
+        return
+      }
+      console.log('ETH TXCOUNT', txCount)
+      commit('setEthTxCount', txCount)
     })
   },
   startFetchInterval ({ dispatch }) {
