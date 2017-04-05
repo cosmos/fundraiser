@@ -7,7 +7,7 @@
       <div class="donate-eth-key-values">
         <div class="key-value">
           <div class="key">Exchange Rate<sup>*</sup></div>
-          <div class="value">1 ETH : {{ donation.ethRate }} Atoms</div>
+          <div class="value">1 ETH : {{ num.short(donation.ethRate) }} Atoms</div>
         </div>
         <div class="key-value">
           <div class="key">Min Donation</div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import num from '../scripts/num.js'
 import { mapGetters } from 'vuex'
 import { ethereum } from 'cosmos-fundraiser'
 import Btn from '@nylira/vue-button'
@@ -94,6 +95,11 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchEthDonationAtomRate')
+  },
+  data () {
+    return {
+      num: num
+    }
   }
 }
 </script>
