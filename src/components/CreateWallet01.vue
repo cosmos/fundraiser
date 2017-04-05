@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
+import cfr from 'cosmos-fundraiser'
 import Btn from '@nylira/vue-button'
 import FieldGroup from './FieldGroup'
 import FormStruct from './FormStruct'
@@ -60,7 +60,6 @@ export default {
     ...mapGetters(['config', 'donation', 'fundraiserEnded'])
   },
   data: () => ({
-    hasFundraiseStarted,
     fundraiserStarted: false
   }),
   methods: {
@@ -70,15 +69,21 @@ export default {
     enterMnemonic () {
       this.$store.commit('setDonationProgress', 'input')
     },
-    watchFundraiseStart () {
-      let start = this.config.START_DATETIME
-      this.fundraiserStarted = hasFundraiseStarted(start)
+    watchFundraiserStart () {
+      let self = this
+      cfr.ethereum.fetchIsActive('', function (err, res) {
+        if (err) return
+        if (res === 1) self.fundraiserStarted = true
+        else self.fundraiserStarted = false
+        // console.log('this.fundraiserStarted', self.fundraiserStarted)
+      })
     }
   },
   mounted () {
+    this.watchFundraiserStart()
+    setInterval(() => this.watchFundraiserStart(), 1000)
+
     this.$store.dispatch('fetchFundraiserStatus')
-    this.watchFundraiseStart()
-    setInterval(() => this.watchFundraiseStart(), 1000)
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }

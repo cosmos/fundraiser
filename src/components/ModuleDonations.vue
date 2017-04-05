@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import hasFundraiseStarted from '../scripts/hasFundraiseStarted'
+import cfr from 'cosmos-fundraiser'
 import Module from './Module'
 import ModuleOverlay from './ModuleOverlay'
 import Btn from '@nylira/vue-button'
@@ -44,13 +44,10 @@ export default {
     },
     ...mapGetters(['config', 'donations', 'fundraiserEnded'])
   },
-  data () {
-    return {
-      hasFundraiseStarted,
-      fundraiserStarted: false,
-      details: true
-    }
-  },
+  data: () => ({
+    fundraiserStarted: false,
+    details: true
+  }),
   methods: {
     viewBtcDonations () {
       window.location.href =
@@ -61,8 +58,13 @@ export default {
         'https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423'
     },
     watchFundraiserStart () {
-      let start = this.config.START_DATETIME
-      this.fundraiserStarted = hasFundraiseStarted(start)
+      let self = this
+      cfr.ethereum.fetchIsActive('', function (err, res) {
+        if (err) return
+        if (res === 1) self.fundraiserStarted = true
+        else self.fundraiserStarted = false
+        // console.log('this.fundraiserStarted', self.fundraiserStarted)
+      })
     }
   },
   mounted () {

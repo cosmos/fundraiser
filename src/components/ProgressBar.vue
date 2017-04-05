@@ -13,12 +13,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import moment from 'moment'
 import num from '../scripts/num.js'
 export default {
   name: 'progress-bar',
   computed: {
     capped () {
-      return this.config.CAP_AMOUNT > 0
+      let utcStart = moment.utc(this.config.START_DATETIME)
+      let localStart = moment(utcStart).local()
+      let endHiddenCap = (localStart).add(this.config.CAP_START, 'hours')._d
+      let now = Math.trunc((new Date()).getTime() / 1000)
+      return endHiddenCap < now
     },
     percentageDonated () {
       return this.atomsClaimed / this.config.CAP_AMOUNT
