@@ -11,11 +11,11 @@
         <time-remaining
           type="cap"
           :date="endHiddenDatetime"
-          :started="started">
+          :started="fundraiserStarted">
         </time-remaining>
         <time-remaining
           :date="endDatetime"
-          :started="started">
+          :started="fundraiserStarted">
         </time-remaining>
       </key-values>
       -->
@@ -25,6 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import cfr from 'cosmos-fundraiser'
 import moment from 'moment'
 import KeyValues from './KeyValues'
 import TimeRemaining from './TimeRemaining'
@@ -38,7 +39,7 @@ export default {
     endHiddenDatetime () {
       let utcStart = moment.utc(this.config.START_DATETIME)
       let localStart = moment(utcStart).local()
-      if (this.started) {
+      if (this.fundraiserStarted) {
         return moment(localStart).add(this.config.CAP_START, 'hours')._d
       } else {
         return localStart
@@ -47,13 +48,31 @@ export default {
     endDatetime () {
       let utcStart = moment.utc(this.config.START_DATETIME)
       let localStart = moment(utcStart).local()
-      if (this.started) {
+      if (this.fundraiserStarted) {
         return moment(localStart).add(this.config.ENDS_AFTER, 'days')._d
       } else {
         return localStart
       }
     },
-    ...mapGetters(['config', 'started', 'fundraiserActive'])
+    ...mapGetters(['config'])
+  },
+  data: () => ({
+    fundraiserStarted: false
+  }),
+  methods: {
+    watchFundraiserStart () {
+      let self = this
+      cfr.ethereum.fetchIsActive('', function (err, res) {
+        if (err) return
+        if (res === 1) self.fundraiserStarted = true
+        else self.fundraiserStarted = false
+        // console.log('this.fundraiserStarted', self.fundraiserStarted)
+      })
+    }
+  },
+  mounted () {
+    this.watchFundraiserStart()
+    setInterval(() => this.watchFundraiserStart(), 1000)
   }
 }
 </script>

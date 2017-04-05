@@ -33,7 +33,34 @@ export default {
     ModuleOverlay
   },
   computed: {
-    ...mapGetters(['config', 'donations', 'fundraiserActive'])
+    fundraiserActive () {
+      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
+      return this.fundraiserStarted && !this.fundraiserEnded
+    },
+    ...mapGetters(['config', 'donations', 'fundraiserEnded'])
+  },
+  data: () => ({
+    fundraiserStarted: false,
+    details: true
+  }),
+  methods: {
+    viewBtcDonations () {
+      window.location.href =
+        'https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B'
+    },
+    viewEthDonations () {
+      window.location.href =
+        'https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423'
+    },
+    watchFundraiserStart () {
+      let self = this
+      cfr.ethereum.fetchIsActive('', function (err, res) {
+        if (err) return
+        if (res === 1) self.fundraiserStarted = true
+        else self.fundraiserStarted = false
+        // console.log('this.fundraiserStarted', self.fundraiserStarted)
+      })
+    }
   },
   data: () => ({
     details: true,
