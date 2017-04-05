@@ -1,6 +1,6 @@
 <template>
   <form-struct :submit="nextStep">
-    <module-overlay slot="overlay" v-if="!fundraiseStarted"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
 
     <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Enter a pre-existing mnemonic</div>
@@ -87,7 +87,7 @@ export default {
   },
   mounted () {
     this.watchFundraiserStart()
-    setInterval(() => this.watchFundraiserStart(), 1000)
+    setInterval(() => this.watchFundraiserStart(), 10000)
 
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }

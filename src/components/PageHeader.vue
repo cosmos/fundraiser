@@ -66,7 +66,7 @@ export default {
   },
   mounted () {
     this.watchFundraiserStart()
-    setInterval(() => this.watchFundraiserStart(), 1000)
+    setInterval(() => this.watchFundraiserStart(), 10000)
   }
 }
 </script>

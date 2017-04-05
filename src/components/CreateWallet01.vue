@@ -85,7 +85,7 @@ export default {
   },
   mounted () {
     this.watchFundraiserStart()
-    setInterval(() => this.watchFundraiserStart(), 1000)
+    setInterval(() => this.watchFundraiserStart(), 10000)
 
     this.$store.dispatch('fetchFundraiserStatus')
     document.body.scrollTop = document.documentElement.scrollTop = 0
