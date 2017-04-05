@@ -72,7 +72,7 @@ export default {
   methods: {
     tutorialLink () {
       if (this.coin.UNIT === 'BTC') window.location.href = this.docs.btc
-      if (this.coin.UNIT === 'ETH') window.location.href = this.docs.eth
+      if (this.coin.UNIT === 'ETH') window.location.href = this.docs.ethWeb
     },
     go (route) {
       this.$router.push(route)
