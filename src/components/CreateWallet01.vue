@@ -1,15 +1,15 @@
 <template>
   <form-struct :submit="nextStep">
-    <module-overlay slot="overlay" v-if="!fundraiserStarted"></module-overlay>
+    <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
 
     <div slot="title">Donate {{ donation.currency }}</div>
     <div slot="subtitle">Copy this mnemonic and store it in a secure location. You'll need it to access your atoms later.</div>
 
-    <div slot="subtitle" v-if="fundraiserEnded">
+    <div slot="subtitle" v-if="!fundraiserActive">
       <br />
       <p class="end-notice">
         <strong>NOTICE: </strong>
-        The fundraiser has ended. If you choose to donate, <strong>you will NOT receive Atoms</strong>.
+        The fundraiser is not active. If you choose to donate, <strong>you will NOT receive Atoms</strong>.
       </p>
     </div>
 
@@ -57,6 +57,10 @@ export default {
     ModuleOverlay
   },
   computed: {
+    fundraiserActive () {
+      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
+      return this.fundraiserStarted && !this.fundraiserEnded
+    },
     ...mapGetters(['config', 'donation', 'fundraiserEnded'])
   },
   data: () => ({
