@@ -1,5 +1,11 @@
 import numeral from 'numeral'
 
+function usd (num) {
+  return numeral(num).format('$0,0.00')
+}
+function usdInt (num) {
+  return numeral(num).format('$0,0')
+}
 function full (num) {
   return numeral(num).format('0,0.00000000')
 }
@@ -23,7 +29,7 @@ function shortInt (num) {
     return integerize(num / 1000000000) + 'B'
   }
   if (num > 1000000) {
-    return integerize(num / 1000000) + 'M'
+    return integerize(num / 1000000) + 'MM'
   }
   if (num > 1000) {
     return integerize(num / 1000) + 'K'
@@ -38,6 +44,8 @@ function fractionize (num) {
 }
 
 export default {
+  usd,
+  usdInt,
   full: full,
   pretty: pretty,
   int: integerize,

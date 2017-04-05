@@ -1,7 +1,7 @@
 <template>
   <div class="pb-container">
     <div class="pb-bar-outer">
-      <div class="pb-bar-obscured" v-if="capped">
+      <div class="pb-bar-obscured" v-if="!capped">
         fundraiser cap is hidden<span class="first-six-hours">for the first six hours</span>
       </div>
       <div class="pb-bar-inner" :style="innerBarStyle" v-else>
@@ -18,7 +18,7 @@ export default {
   name: 'progress-bar',
   computed: {
     capped () {
-      return this.config.CAP_AMOUNT === 0
+      return this.config.CAP_AMOUNT > 0
     },
     percentageDonated () {
       return this.atomsClaimed / this.config.CAP_AMOUNT

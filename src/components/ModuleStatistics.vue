@@ -8,7 +8,7 @@
         <div slot="value">
           <span class="integer">{{ num.int(atoms) }} ATOM</span>
         </div>
-        <div slot="key">{{ capAmount }}</div>
+        <div slot="key">{{ atomLabel }}</div>
       </key-value>
       <key-value>
         <div slot="value">
@@ -46,22 +46,22 @@ export default {
     ProgressBar
   },
   computed: {
-    capped () {
-      return this.config.CAP_AMOUNT <= 0
-    },
+    capped () { return this.config.CAP_AMOUNT > 0 },
     pbLabel () {
       if (this.capped) {
-        return `${num.short(this.atoms)} ATOM / hidden cap`
+        let current = num.usdInt(this.atomsClaimed / 10)
+        let total = num.usdInt(this.config.CAP_AMOUNT / 10)
+        return `${current} / ${total} USD`
       } else {
-        return `${this.percentageDonatedFriendly}% of cap reached`
+        return 'USD Cap: Hidden'
       }
     },
-    capAmount () {
-      let cap = this.config.CAP_AMOUNT
-      if (cap > 0) {
-        return `of ${cap} ATOM goal`
+    atomLabel () {
+      if (this.capped) {
+        // return `claimed of ${num.shortInt(this.config.CAP_AMOUNT)} cap`
+        return `claimed`
       } else {
-        return `of hidden cap`
+        return 'claimed'
       }
     },
     percentageDonated () {
