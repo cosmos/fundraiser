@@ -70,7 +70,7 @@ const actions = {
         })
         return
       }
-      commit('setBtcRaised', stats.amountDonated / 1e8)
+      commit('setBtcRaised', stats.amountDonated)
       commit('setAtomsClaimedBtc', stats.amountClaimed)
       commit('setBtcTxCount', stats.txCount)
     })
