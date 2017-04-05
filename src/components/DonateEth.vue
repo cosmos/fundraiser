@@ -34,7 +34,7 @@
     </form-group>
 
     <form-group>
-      <p>To make your donation, copy and paste this information into a wallet
+      <p>To make your donation, copy and paste the below information into a wallet
   such as MyEtherWallet or Mist. Be sure to include an amount of ETH to
   donate! Your Cosmos address is included in the data, and the donation
   will be recorded for that address in the smart contract.</p>
@@ -115,5 +115,9 @@ export default {
 #cosmos-address
   user-select none
   cursor not-allowed
+
+.donate-eth-key-values
+  .key-value
+    padding 0.125rem 0
 
 </style>
