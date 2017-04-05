@@ -5,13 +5,13 @@
     <div class="md-sections">
       <section>
         <p>View the history of Bitcoin donations on Blockchain (blockchain.info):</p>
-        <a href="https://blockchain.info/address/15ZcBgrLnjXsHGCv7iiVcxhCf9xK9xQu4B" rel="noopener noreferrer" target="_blank">
+        <a href="https://blockchain.info/address/37h5frhzhL4KqsWGg8tNZyCTzbB29oD4W5" rel="noopener noreferrer" target="_blank">
           <btn class="link-button" icon="external-link" value="BTC Donations"></btn>
         </a>
       </section>
       <section>
         <p>View the history of Ether donations on Etherscan (etherscan.io):</p>
-        <a href="https://etherscan.io/address/0xa4028F2aec0ad18964e368338E5268FebB4F5423" rel="noopener noreferrer" target="_blank">
+        <a href="https://etherscan.io/address/0xA8855BE2F7142f1485A958cA4135A7Ee2752C732" rel="noopener noreferrer" target="_blank">
           <btn class="link-button" icon="external-link" value="ETH Donations"></btn>
         </a>
       </section>
