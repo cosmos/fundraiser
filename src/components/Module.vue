@@ -71,21 +71,19 @@ export default {
   white-space nowrap
   text-overflow ellipsis
   overflow hidden
-  color dim
+  color txt
 
 .ni-module-menu
   display flex
   padding 0 0.5rem
 
+  .pb-label
+    color dim
   a
-    color txt
     font-size 0.75rem
     padding 0 0.25rem
-    font-weight bold
-    color link
     cursor pointer
-    &.active
-      color txt
+    color link
 
 .ni-module-main
   flex 1
