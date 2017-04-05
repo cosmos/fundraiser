@@ -53,9 +53,9 @@ export default {
   computed: {
     exchangeRate () {
       if (this.coin.NAME === 'Ethereum') {
-        return this.donation.ethRate
+        return num.pretty(this.donation.ethRate)
       }
-      return num.int(this.coin.EXCHANGE_RATE)
+      return num.pretty(this.coin.EXCHANGE_RATE)
     },
     fundraiserActive () {
       console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
