@@ -15,7 +15,7 @@ const state = {
   PASSWORD_MIN: 8,
   PASSWORD_MAX: 512,
   CAP_START: 6,         // cap enforced X hours after START_DATETIME
-  CAP_AMOUNT: 10000000, // cap in $X USD
+  CAP_AMOUNT: 100000000, // cap in ATOM ($0.10 USD)
   ATOM: {
   },
   COINS: {
