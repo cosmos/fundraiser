@@ -2,6 +2,7 @@
   <header class="ni-ph">
     <div class="ni-ph-container">
       <div class="ni-ph-title">Cosmos Fundraiser</div>
+      <!--
       <key-values>
         <time-remaining
           type="cap"
@@ -13,6 +14,7 @@
           :started="started">
         </time-remaining>
       </key-values>
+      -->
     </div>
   </header>
 </template>

@@ -3,7 +3,7 @@ import { bitcoin, ethereum } from 'cosmos-fundraiser'
 const state = {
   started: false,
   ended: false,
-  overlayMessage: 'Fundraiser hasn\'t started yet or has ended.',
+  overlayMessage: 'The fundraiser has ended.',
   progress: {
     btcRaised: 0,
     btcTxCount: 0,
@@ -44,7 +44,7 @@ const mutations = {
   },
   setEnded (state, ended) {
     state.ended = ended
-    if (ended) state.overlayMessage = 'Fundraiser hasn\'t started yet or has ended.'
+    if (ended) state.overlayMessage = 'The fundraiser has ended.'
   }
 }
 
