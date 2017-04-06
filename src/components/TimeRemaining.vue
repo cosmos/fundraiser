@@ -1,5 +1,11 @@
 <template>
-  <key-value class="ni-time-remaining" :title="date" v-if="countingDown">
+  <key-value class="ni-time-remaining" :title="date" v-if="type !== 'cap' && (ended || (started && !countingDown))">
+    <div slot="value">
+      <i class="fa fa-hourglass-end"></i>
+    </div>
+    <div slot="key">fundraiser ended</div>
+  </key-value>
+  <key-value class="ni-time-remaining" :title="date" v-else-if="countingDown && !ended">
     <div slot="value">
       <template v-if="days > 0">{{ days }}d</template>
       <template v-if="hours > 0">{{ hours }}h</template>
@@ -8,18 +14,18 @@
     </div>
     <div slot="key">{{ label }}</div>
   </key-value>
+  <key-value class="ni-time-remaining" :title="date" v-else-if="!started && !countingDown">
+    <div slot="value">
+      Starting soon
+    </div>
+    <div slot="key">Please wait</div>
+  </key-value>
   <key-value class="ni-time-remaining" :title="date" v-else-if="type === 'cap'">
     <div slot="value">
       --
     </div>
     <div slot="key">hidden cap ended</div>
     {{ started }}
-  </key-value>
-  <key-value class="ni-time-remaining" :title="date" v-else>
-    <div slot="value">
-      <i class="fa fa-hourglass-end"></i>
-    </div>
-    <div slot="key">fundraise ended</div>
   </key-value>
 </template>
 
@@ -69,6 +75,6 @@ export default {
       this.now = Math.trunc((new Date()).getTime() / 1000)
     }, 1000)
   },
-  props: ['date', 'started', 'type']
+  props: ['date', 'started', 'ended', 'type']
 }
 </script>

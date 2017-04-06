@@ -33,7 +33,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
+        warnings: false,
+        drop_console: true
       },
       mangle: {
         except: [ 'Array', 'BigInteger', 'Boolean', 'ECPair', 'Function', 'Number', 'Point' ]

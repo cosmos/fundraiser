@@ -3,7 +3,10 @@ import { bitcoin, ethereum } from 'cosmos-fundraiser'
 const state = {
   started: false,
   ended: false,
-  overlayMessage: 'The fundraiser has not started yet.',
+  pastStart: false,
+  pastEnd: false,
+  isActive: false,
+  overlayMessage: '',
   progress: {
     btcRaised: 0,
     btcTxCount: 0,
@@ -11,6 +14,16 @@ const state = {
     ethTxCount: 0,
     atomsClaimedBtc: 0,
     atomsClaimedEth: 0
+  }
+}
+
+function setStatus () {
+  state.started = state.isActive || state.pastStart
+  state.ended = (!state.isActive && state.pastStart) || state.pastEnd
+  if (state.ended) {
+    state.overlayMessage = 'The fundraiser has ended.'
+  } else {
+    state.overlayMessage = 'The fundraiser has not started yet.'
   }
 }
 
@@ -39,17 +52,23 @@ const mutations = {
   setAtomsClaimedEth (state, atomsClaimedEth) {
     state.progress.atomsClaimedEth = atomsClaimedEth
   },
-  setStarted (state, started) {
-    state.started = started
+  setPastStart (state, pastStart) {
+    state.pastStart = pastStart
+    setStatus()
   },
-  setEnded (state, ended) {
-    state.ended = ended
-    if (ended) state.overlayMessage = 'The fundraiser has ended.'
+  setPastEnd (state, pastEnd) {
+    state.pastEnd = pastEnd
+    setStatus()
+  },
+  setIsActive (state, isActive) {
+    state.isActive = isActive
+    setStatus()
   }
 }
 
 const actions = {
   fetchStats ({ commit }) {
+    if (!state.started) return
     bitcoin.fetchFundraiserStats((err, stats) => {
       console.log('ATOMS CLAIMED BTC', stats.amountClaimed)
       if (err) {
@@ -97,6 +116,9 @@ const actions = {
     dispatch('fetchStats')
   },
   checkStatus ({ commit, rootState }) {
+    if (rootState.debug.enabled) {
+      return
+    }
     ethereum.fetchIsActive('', (err, res) => {
       if (err) {
         console.error(err.stack)
@@ -107,18 +129,23 @@ const actions = {
         return
       }
       let isActive = res === 1
-      let startTime = new Date(rootState.config.START_DATETIME).getTime()
-      let endTime = startTime + rootState.config.ENDS_AFTER * 24 * 60 * 60 * 1000
-      // can start up to 1 hour late
-      let pastStart = Date.now() > (startTime + 60 * 60 * 1000)
-      let pastEnd = Date.now() > (startTime + endTime)
-      commit('setStarted', isActive || pastStart)
-      commit('setEnded', (!isActive && pastStart) || pastEnd)
+      commit('setIsActive', isActive)
     })
   },
+  checkTime ({ commit, rootState }) {
+    let startTime = new Date(rootState.config.START_DATETIME).getTime()
+    let endTime = startTime + rootState.config.ENDS_AFTER * 24 * 60 * 60 * 1000
+    // can start up to 1 hour late
+    let pastStart = Date.now() > (startTime + 60 * 60 * 1000)
+    let pastEnd = Date.now() > (startTime + endTime)
+    commit('setPastStart', pastStart)
+    commit('setPastEnd', pastEnd)
+  },
   startStatusInterval ({ dispatch }) {
-    setInterval(() => dispatch('checkStatus'), 10e3) // poll every 10s
+    setInterval(() => dispatch('checkStatus'), 10e3) // poll eth/isActive every 10s
     dispatch('checkStatus')
+    setInterval(() => dispatch('checkTime'), 1e3) // poll clock every 10s
+    dispatch('checkTime')
   }
 }
 

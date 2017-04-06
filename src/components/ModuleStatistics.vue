@@ -50,9 +50,9 @@ export default {
     capped () {
       let utcStart = moment.utc(this.config.START_DATETIME)
       let localStart = moment(utcStart).local()
-      let endHiddenCap = (localStart).add(this.config.CAP_START, 'hours')._d
-      let now = Math.trunc((new Date()).getTime() / 1000)
-      return endHiddenCap < now
+      let endHiddenCapStr = (localStart).add(this.config.CAP_START, 'hours')._d
+      let endHiddenCap = Math.floor(new Date(endHiddenCapStr).getTime() / 1000)
+      return endHiddenCap < this.now
     },
     pbLabel () {
       if (this.capped) {
@@ -90,8 +90,14 @@ export default {
   },
   data () {
     return {
-      num: num
+      num: num,
+      now: Math.floor(Date.now() / 1000)
     }
+  },
+  mounted () {
+    setInterval(() => {
+      this.now = Math.floor(Date.now() / 1000)
+    }, 1000)
   }
 }
 </script>
