@@ -34,32 +34,15 @@ export default {
     ModuleOverlay
   },
   computed: {
-    fundraiserActive () {
-      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
-      return this.fundraiserStarted && !this.fundraiserEnded
-    },
-    ...mapGetters(['config', 'donations', 'fundraiserEnded'])
+    ...mapGetters(['config', 'donations', 'fundraiserActive'])
   },
   data: () => ({
-    fundraiserStarted: false,
     details: true,
     btcLink: `https://blockchain.info/address/${cfr.bitcoin.EXODUS_ADDRESS}`,
     ethLink: `https://etherscan.io/address/${cfr.ethereum.FUNDRAISER_CONTRACT}`
   }),
-  methods: {
-    watchFundraiserStart () {
-      let self = this
-      cfr.ethereum.fetchIsActive('', function (err, res) {
-        if (err) return
-        if (res === 1) self.fundraiserStarted = true
-        else self.fundraiserStarted = false
-        // console.log('this.fundraiserStarted', self.fundraiserStarted)
-      })
-    }
-  },
   mounted () {
-    this.watchFundraiserStart()
-    setInterval(() => this.watchFundraiserStart(), 1000)
+    document.body.scrollTop = document.documentElement.scrollTop = 0
   }
 }
 </script>
