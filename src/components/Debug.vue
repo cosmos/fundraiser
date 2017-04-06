@@ -5,9 +5,10 @@
       <header>Change Fundraiser State</header>
       <main>
         <btn-group>
-          <btn @click.native="reset" value="Reset FR"></btn>
-          <btn @click.native="start" value="Start FR"></btn>
-          <btn @click.native="end" value="End FR"></btn>
+          <btn @click.native="reset" icon="refresh" value="Reset"></btn>
+          <btn @click.native="start" icon="play" value="Start"></btn>
+          <btn @click.native="showCap" icon="eye" value="Cap"></btn>
+          <btn @click.native="end" icon="stop" value="End"></btn>
         </btn-group>
       </main>
     </section>
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Btn from '@nylira/vue-button'
 import BtnGroup from './BtnGroup'
 export default {
@@ -23,15 +25,21 @@ export default {
     Btn,
     BtnGroup
   },
+  computed: {
+    ...mapGetters(['debug'])
+  },
   methods: {
     reset () {
-      this.$store.commit('setDebugFundraiserStatus', -1)
-    },
-    start () {
       this.$store.commit('setDebugFundraiserStatus', 0)
     },
-    end () {
+    start () {
       this.$store.commit('setDebugFundraiserStatus', 1)
+    },
+    showCap () {
+      this.$store.commit('setDebugFundraiserStatus', 2)
+    },
+    end () {
+      this.$store.commit('setDebugFundraiserStatus', 3)
     }
   }
 }
@@ -56,15 +64,17 @@ bc = txt
     border-bottom 1px solid bc
     text-transform uppercase
     font-weight bold
-    padding 0 1rem
+    padding 0 0.5rem
     line-height 1.5rem
     font-size 0.75rem
   > section
-    padding 0.5rem 1rem
+    padding 0.5rem
     > header
       font-size 0.875rem
       margin-bottom 0.5rem
     > main
       display flex
       flex-flow column nowrap
+      .ni-btn-group:last-of-type
+        margin-bottom 0
 </style>
