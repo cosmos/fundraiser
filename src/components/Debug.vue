@@ -75,7 +75,7 @@ bc = txt
   left 0
   background hsla(0,0,0,0.75)
   width 100vw
-  max-width 40rem
+  max-width 30rem
   shadow()
   color #fff
 
@@ -91,8 +91,19 @@ bc = txt
       flex-flow column nowrap
       .ni-btn-group:last-of-type
         margin-bottom 0
+      .ni-btn
+        font-size 0.75rem
       .ni-btn-active .ni-btn
         background link
         border 1px solid lighten(link, 25%)
         color c-app-fg
+
+@media screen and (min-width: 360px)
+  #debug > section > main .ni-btn
+    font-size 1rem
+@media screen and (min-width: 768px)
+  #debug > header
+    padding 0 1rem
+  #debug > section
+    padding 1rem
 </style>
