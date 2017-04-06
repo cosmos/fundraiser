@@ -3,7 +3,14 @@
     <header><strong>DEBUG</strong> - Change Fundraiser State</header>
     <section>
       <main>
-        <select v-on:change="setTime">
+        <span>Debug Mode</span>
+        <input type="checkbox" v-on:change="setDebugEnabled" checked />
+      </main>
+    </section>
+    <section>
+      <header>Time</header>
+      <main>
+        <select id="debug-time-select"  v-on:change="setTime">
           <option>Before Start</option>
           <option>After Start</option>
           <option>After Hidden Cap Period</option>
@@ -14,10 +21,7 @@
     <section>
       <header>ETH contract isActive</header>
       <main>
-        <select>
-          <option>0</option>
-          <option>1</option>
-        </select>
+        <input id="debug-is-active-checkbox" type="checkbox" v-on:change="setIsActive" value="on" />
       </main>
     </section>
   </div>
@@ -38,9 +42,34 @@ export default {
   },
   methods: {
     setTime (e) {
+      let { commit, dispatch } = this.$store
       let selection = e.target.selectedIndex
-      this.$store.commit('setDebugFundraiserTime', selection)
+      if (selection === 0) {
+        commit('setDebugStartDate', Date.now() + 30e3)
+      } else if (selection === 1) {
+        commit('setDebugStartDate', Date.now())
+      } else if (selection === 2) {
+        commit('setDebugStartDate', Date.now() - 24 * 60 * 60e3)
+      } else if (selection === 3) {
+        commit('setDebugStartDate', Date.now() - 15 * 24 * 60 * 60e3)
+      }
+      dispatch('checkTime')
+    },
+    setDebugEnabled (e) {
+      let enabled = e.target.checked
+      this.$store.commit('setDebugEnabled', enabled)
+      if (enabled) {
+        this.setIsActive({ target: document.getElementById('debug-is-active-checkbox') })
+        this.setTime({ target: document.getElementById('debug-time-select') })
+      }
+    },
+    setIsActive (e) {
+      let isActive = e.target.checked
+      this.$store.commit('setIsActive', isActive)
     }
+  },
+  mounted () {
+    this.setDebugEnabled({ target: { checked: true } })
   }
 }
 </script>
@@ -62,11 +91,11 @@ bc = txt
 
   > header
     border-bottom 1px solid bc
-    padding 0 0.5rem
+    padding 0 0.25rem
     line-height 1.5rem
     font-size 0.75rem
   > section
-    padding 0.5rem
+    padding 0.25rem
     > main
       display flex
       flex-flow column nowrap
@@ -78,13 +107,4 @@ bc = txt
         background link
         border 1px solid lighten(link, 25%)
         color c-app-fg
-
-@media screen and (min-width: 360px)
-  #debug > section > main .ni-btn
-    font-size 1rem
-@media screen and (min-width: 768px)
-  #debug > header
-    padding 0 1rem
-  #debug > section
-    padding 1rem
 </style>

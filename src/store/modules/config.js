@@ -35,6 +35,13 @@ const state = {
   }
 }
 
+const mutations = {
+  setDebugStartDate (state, date) {
+    state.START_DATETIME = new Date(date).toISOString()
+  }
+}
+
 export default {
-  state
+  state,
+  mutations
 }
