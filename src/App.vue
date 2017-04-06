@@ -10,6 +10,7 @@
       :notifications="notifications">
     </notifications>
     <modal-unsupported></modal-unsupported>
+    <debug v-if="debugActive"></debug>
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import Modal from './components/Modal'
 import ModalUnsupported from './components/ModalUnsupported'
 import ModalLoading from './components/ModalLoading'
 import Notifications from '@nylira/vue-notifications'
+import Debug from './components/Debug'
 import store from './store/index.js'
 import { mapGetters } from 'vuex'
 
@@ -34,9 +36,13 @@ export default {
     Modal,
     ModalUnsupported,
     ModalLoading,
-    Notifications
+    Notifications,
+    Debug
   },
   computed: {
+    debugActive () {
+      return process.env.NODE_ENV === 'development'
+    },
     ...mapGetters(['notifications'])
   },
   head: {
