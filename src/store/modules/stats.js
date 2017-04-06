@@ -68,6 +68,7 @@ const mutations = {
 
 const actions = {
   fetchStats ({ commit }) {
+    if (!state.started) return
     bitcoin.fetchFundraiserStats((err, stats) => {
       console.log('ATOMS CLAIMED BTC', stats.amountClaimed)
       if (err) {
