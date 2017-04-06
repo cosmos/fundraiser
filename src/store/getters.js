@@ -6,8 +6,11 @@ export const config = state => state.config
 export const donation = state => state.donation
 export const notifications = state => state.notifications
 
-export const fundraiserEnded = state => state.stats.status.fundraiserEnded
+export const fundraiserActive = state => state.stats.started && !state.stats.ended
+export const started = state => state.stats.started
+export const ended = state => state.stats.ended
 export const overlayMessage = state => state.stats.overlayMessage
+
 export const txCount = state =>
   state.stats.progress.btcTxCount + state.stats.progress.ethTxCount
 export const atomsClaimed = state =>

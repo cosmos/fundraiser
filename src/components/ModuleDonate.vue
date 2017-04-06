@@ -38,7 +38,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import cfr from 'cosmos-fundraiser'
 import num from '../scripts/num.js'
 import Btn from '@nylira/vue-button'
 import Module from './Module'
@@ -57,15 +56,8 @@ export default {
       }
       return num.pretty(this.coin.EXCHANGE_RATE)
     },
-    fundraiserActive () {
-      console.log('started/ended', this.fundraiserStarted, this.fundraiserEnded)
-      return this.fundraiserStarted && !this.fundraiserEnded
-    },
-    ...mapGetters(['config', 'donation', 'fundraiserEnded', 'docs'])
+    ...mapGetters(['config', 'donation', 'fundraiserActive', 'docs'])
   },
-  data: () => ({
-    fundraiserStarted: false
-  }),
   methods: {
     tutorialLink () {
       if (this.coin.UNIT === 'BTC') window.location.href = this.docs.btc
@@ -73,20 +65,7 @@ export default {
     },
     go (route) {
       this.$router.push(route)
-    },
-    watchFundraiserStart () {
-      let self = this
-      cfr.ethereum.fetchIsActive('', function (err, res) {
-        if (err) return
-        if (res === 1) self.fundraiserStarted = true
-        else self.fundraiserStarted = false
-        // console.log('this.fundraiserStarted', self.fundraiserStarted)
-      })
     }
-  },
-  mounted () {
-    this.watchFundraiserStart()
-    setInterval(() => this.watchFundraiserStart(), 10000)
   },
   props: ['coin']
 }
