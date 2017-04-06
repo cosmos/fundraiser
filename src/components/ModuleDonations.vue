@@ -5,13 +5,13 @@
     <div class="md-sections">
       <section>
         <p>View the history of Bitcoin donations on Blockchain (blockchain.info):</p>
-        <a href="https://blockchain.info/address/37h5frhzhL4KqsWGg8tNZyCTzbB29oD4W5" rel="noopener noreferrer" target="_blank">
+        <a :href="this.btcLink" rel="noopener noreferrer" target="_blank">
           <btn class="link-button" icon="external-link" value="BTC Donations"></btn>
         </a>
       </section>
       <section>
         <p>View the history of Ether donations on Etherscan (etherscan.io):</p>
-        <a href="https://etherscan.io/address/0xCF965Cfe7C30323E9C9E41D4E398e2167506f764" rel="noopener noreferrer" target="_blank">
+        <a :href="this.ethLink" rel="noopener noreferrer" target="_blank">
           <btn class="link-button" icon="external-link" value="ETH Donations"></btn>
         </a>
       </section>
@@ -42,7 +42,9 @@ export default {
   },
   data: () => ({
     fundraiserStarted: false,
-    details: true
+    details: true,
+    btcLink: `https://blockchain.info/address/${cfr.bitcoin.EXODUS_ADDRESS}`,
+    ethLink: `https://etherscan.io/address/${cfr.ethereum.FUNDRAISER_CONTRACT}`
   }),
   methods: {
     watchFundraiserStart () {
