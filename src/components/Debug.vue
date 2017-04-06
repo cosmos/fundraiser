@@ -5,10 +5,18 @@
       <header>Change Fundraiser State</header>
       <main>
         <btn-group>
-          <btn @click.native="reset" icon="refresh" value="Reset"></btn>
-          <btn @click.native="start" icon="play" value="Start"></btn>
-          <btn @click.native="showCap" icon="eye" value="Cap"></btn>
-          <btn @click.native="end" icon="stop" value="End"></btn>
+          <btn
+            @click.native="reset" :class="resetCssClass"
+            icon="refresh" value="Reset"></btn>
+          <btn
+            @click.native="start" :class="startCssClass"
+            icon="play" value="Start"></btn>
+          <btn
+            @click.native="cap" :class="capCssClass"
+            icon="eye" value="Cap"></btn>
+          <btn
+            @click.native="end" :class="endCssClass"
+            icon="stop" value="End"></btn>
         </btn-group>
       </main>
     </section>
@@ -26,6 +34,18 @@ export default {
     BtnGroup
   },
   computed: {
+    resetCssClass () {
+      if (this.debug.status === 0) return 'ni-btn-active'
+    },
+    startCssClass () {
+      if (this.debug.status === 1) return 'ni-btn-active'
+    },
+    capCssClass () {
+      if (this.debug.status === 2) return 'ni-btn-active'
+    },
+    endCssClass () {
+      if (this.debug.status === 3) return 'ni-btn-active'
+    },
     ...mapGetters(['debug'])
   },
   methods: {
@@ -35,7 +55,7 @@ export default {
     start () {
       this.$store.commit('setDebugFundraiserStatus', 1)
     },
-    showCap () {
+    cap () {
       this.$store.commit('setDebugFundraiserStatus', 2)
     },
     end () {
@@ -77,4 +97,8 @@ bc = txt
       flex-flow column nowrap
       .ni-btn-group:last-of-type
         margin-bottom 0
+      .ni-btn-active .ni-btn
+        background link
+        border 1px solid lighten(link, 25%)
+        color c-app-fg
 </style>
