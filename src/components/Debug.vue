@@ -3,20 +3,21 @@
     <header><strong>DEBUG</strong> - Change Fundraiser State</header>
     <section>
       <main>
-        <btn-group>
-          <btn
-            @click.native="reset" :class="resetCssClass"
-            icon="refresh" value="Reset"></btn>
-          <btn
-            @click.native="start" :class="startCssClass"
-            icon="play" value="Start"></btn>
-          <btn
-            @click.native="cap" :class="capCssClass"
-            icon="eye" value="Cap"></btn>
-          <btn
-            @click.native="end" :class="endCssClass"
-            icon="stop" value="End"></btn>
-        </btn-group>
+        <select v-on:change="setTime">
+          <option>Before Start</option>
+          <option>After Start</option>
+          <option>After Hidden Cap Period</option>
+          <option>After End</option>
+        </select>
+      </main>
+    </section>
+    <section>
+      <header>ETH contract isActive</header>
+      <main>
+        <select>
+          <option>0</option>
+          <option>1</option>
+        </select>
       </main>
     </section>
   </div>
@@ -33,32 +34,12 @@ export default {
     BtnGroup
   },
   computed: {
-    resetCssClass () {
-      if (this.debug.status === 0) return 'ni-btn-active'
-    },
-    startCssClass () {
-      if (this.debug.status === 1) return 'ni-btn-active'
-    },
-    capCssClass () {
-      if (this.debug.status === 2) return 'ni-btn-active'
-    },
-    endCssClass () {
-      if (this.debug.status === 3) return 'ni-btn-active'
-    },
     ...mapGetters(['debug'])
   },
   methods: {
-    reset () {
-      this.$store.commit('setDebugFundraiserStatus', 0)
-    },
-    start () {
-      this.$store.commit('setDebugFundraiserStatus', 1)
-    },
-    cap () {
-      this.$store.commit('setDebugFundraiserStatus', 2)
-    },
-    end () {
-      this.$store.commit('setDebugFundraiserStatus', 3)
+    setTime (e) {
+      let selection = e.target.selectedIndex
+      this.$store.commit('setDebugFundraiserTime', selection)
     }
   }
 }
@@ -74,8 +55,8 @@ bc = txt
   bottom 0
   left 0
   background hsla(0,0,0,0.75)
-  width 100vw
-  max-width 30rem
+  width 70vw
+  max-width 14rem
   shadow()
   color #fff
 

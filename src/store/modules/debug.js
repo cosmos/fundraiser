@@ -1,14 +1,14 @@
 const state = {
-  status: 0
+  time: 0
 }
 
 const mutations = {
-  setDebugFundraiserStatus (state, status) {
-    state.status = status
-    if (status === 0) console.log('resetting fundraiser')
-    if (status === 1) console.log('starting fundraiser')
-    if (status === 2) console.log('showing fundraiser cap')
-    if (status === 3) console.log('ending fundraiser')
+  setDebugFundraiserTime (state, time) {
+    state.time = time
+    if (time === 0) console.log('resetting fundraiser')
+    if (time === 1) console.log('starting fundraiser')
+    if (time === 2) console.log('showing fundraiser cap')
+    if (time === 3) console.log('ending fundraiser')
   }
 }
 
