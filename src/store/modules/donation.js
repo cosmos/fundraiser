@@ -54,9 +54,13 @@ const mutations = {
 
 const actions = {
   setDonationMnemonicAndWallet ({ commit }, mnemonic) {
-    commit('setDonationMnemonic', mnemonic)
-    let wallet = cfr.deriveWallet(mnemonic)
-    commit('setDonationWallet', wallet)
+    try {
+      let wallet = cfr.deriveWallet(mnemonic)
+      commit('setDonationMnemonic', mnemonic)
+      commit('setDonationWallet', wallet)
+    } catch (err) {
+      throw err
+    }
   },
   generateDonationWallet ({ dispatch }) {
     let mnemonic = cfr.generateMnemonic()
