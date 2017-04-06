@@ -5,9 +5,10 @@ const state = {
 const mutations = {
   setDebugFundraiserStatus (state, status) {
     state.status = status
-    if (status === -1) console.log('resetting fundraiser')
-    if (status === 0) console.log('starting fundraiser')
-    if (status === 1) console.log('ending fundraiser')
+    if (status === 0) console.log('resetting fundraiser')
+    if (status === 1) console.log('starting fundraiser')
+    if (status === 2) console.log('showing fundraiser cap')
+    if (status === 3) console.log('ending fundraiser')
   }
 }
 
