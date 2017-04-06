@@ -45,9 +45,9 @@ export default {
       let { commit, dispatch } = this.$store
       let selection = e.target.selectedIndex
       if (selection === 0) {
-        commit('setDebugStartDate', Date.now() + 30e3)
+        commit('setDebugStartDate', Date.now() + 10e3)
       } else if (selection === 1) {
-        commit('setDebugStartDate', Date.now())
+        commit('setDebugStartDate', Date.now() - 60 * 60e3)
       } else if (selection === 2) {
         commit('setDebugStartDate', Date.now() - 24 * 60 * 60e3)
       } else if (selection === 3) {

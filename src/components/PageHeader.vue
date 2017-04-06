@@ -6,11 +6,13 @@
         <time-remaining
           type="cap"
           :date="endHiddenDatetime"
-          :started="started">
+          :started="started"
+          :ended="ended">
         </time-remaining>
         <time-remaining
           :date="endDatetime"
-          :started="started">
+          :started="started"
+          :ended="ended">
         </time-remaining>
       </key-values>
     </div>
@@ -47,7 +49,7 @@ export default {
         return localStart
       }
     },
-    ...mapGetters(['config', 'started', 'fundraiserActive'])
+    ...mapGetters(['config', 'started', 'ended', 'fundraiserActive'])
   }
 }
 </script>
