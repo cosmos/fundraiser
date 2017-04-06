@@ -25,13 +25,13 @@ export default {
   },
   methods: {
     reset () {
-      console.log('resetting fundraiser')
+      this.$store.commit('setDebugFundraiserStatus', -1)
     },
     start () {
-      console.log('starting fundraiser')
+      this.$store.commit('setDebugFundraiserStatus', 0)
     },
     end () {
-      console.log('ending fundraiser')
+      this.$store.commit('setDebugFundraiserStatus', 1)
     }
   }
 }
