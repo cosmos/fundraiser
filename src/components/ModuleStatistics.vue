@@ -6,7 +6,7 @@
     <key-values>
       <key-value>
         <div slot="value">
-          <span class="integer">{{ num.int(atoms) }} ATOM</span>
+          <span class="integer">{{ num.prettyInt(atoms) }} ATOM</span>
         </div>
         <div slot="key">{{ atomLabel }}</div>
       </key-value>

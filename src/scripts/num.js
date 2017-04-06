@@ -12,6 +12,9 @@ function full (num) {
 function pretty (num) {
   return numeral(num).format('0,0.00')
 }
+function prettyInt (num) {
+  return numeral(num).format('0,0')
+}
 function short (num) {
   if (num > 1000000000) {
     return pretty(num / 1000000000) + 'B'
@@ -48,6 +51,7 @@ export default {
   usdInt,
   full: full,
   pretty: pretty,
+  prettyInt: prettyInt,
   int: integerize,
   frac: fractionize,
   short: short,
