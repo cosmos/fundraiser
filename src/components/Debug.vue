@@ -1,8 +1,7 @@
 <template>
   <div id="debug">
-    <header>DEBUG</header>
+    <header><strong>DEBUG</strong> - Change Fundraiser State</header>
     <section>
-      <header>Change Fundraiser State</header>
       <main>
         <btn-group>
           <btn
@@ -82,16 +81,11 @@ bc = txt
 
   > header
     border-bottom 1px solid bc
-    text-transform uppercase
-    font-weight bold
     padding 0 0.5rem
     line-height 1.5rem
     font-size 0.75rem
   > section
     padding 0.5rem
-    > header
-      font-size 0.875rem
-      margin-bottom 0.5rem
     > main
       display flex
       flex-flow column nowrap
