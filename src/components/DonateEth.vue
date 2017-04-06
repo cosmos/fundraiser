@@ -119,7 +119,6 @@ export default {
   mono()
 
 #cosmos-address
-  user-select none
   cursor not-allowed
 
 .donate-eth-key-values
