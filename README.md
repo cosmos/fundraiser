@@ -1,4 +1,4 @@
-# cosmos-fundrainser
+# cosmos-fundraiser-web
 
 > A Vue.js project
 
