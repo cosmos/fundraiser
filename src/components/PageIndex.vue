@@ -3,7 +3,6 @@
     <page-header></page-header>
     <modules>
       <module-statistics></module-statistics>
-      <module-donate v-for="coin in config.COINS" :coin="coin"></module-donate>
       <module-donations></module-donations>
     </modules> 
   </div>
