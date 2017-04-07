@@ -3,6 +3,8 @@
     <page-header></page-header>
     <modules>
       <module-statistics></module-statistics>
+      <module-address></module-address>
+      <module-allocation></module-allocation>
       <module-donations></module-donations>
     </modules> 
   </div>
@@ -13,15 +15,17 @@ import { mapGetters } from 'vuex'
 import PageHeader from './PageHeader'
 import Modules from './Modules'
 import ModuleStatistics from './ModuleStatistics'
-import ModuleDonate from './ModuleDonate'
+import ModuleAddress from './ModuleAddress'
+import ModuleAllocation from './ModuleAllocation'
 import ModuleDonations from './ModuleDonations'
 export default {
   name: 'page-index',
   components: {
     PageHeader,
     Modules,
+    ModuleAddress,
+    ModuleAllocation,
     ModuleStatistics,
-    ModuleDonate,
     ModuleDonations
   },
   computed: {

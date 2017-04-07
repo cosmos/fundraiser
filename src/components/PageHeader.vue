@@ -2,6 +2,10 @@
   <header class="ni-ph">
     <div class="ni-ph-container">
       <div class="ni-ph-title">Cosmos Fundraiser</div>
+      <div class="ni-ph-box">
+        Issues with the fundraiser? Contact us:
+        <a href="mailto:fundraiser@cosmos.network">fundraiser@cosmos.network</a<>
+      </div>
       <!--
       <key-values>
         <time-remaining
@@ -57,56 +61,58 @@ export default {
 <style lang="stylus">
 @import '../styles/variables.styl'
 
-.ni-ph
-  .ni-ph-container
-    max-width 1024px
-    margin 0 auto
+.ni-ph-container
+  max-width 1024px
+  margin 0 auto
 
-  .ni-ph-title
-    font-size 1.5rem
-    font-weight 600
-    padding 1rem 0.25rem
-    border-bottom 1px solid bc
+.ni-ph-title
+  font-size 1.5rem
+  font-weight 600
+  padding 1rem 0.25rem
+  border-bottom 1px solid bc
 
-    display flex
-    align-items center
-    justify-content center
+  display flex
+  align-items center
+  justify-content center
 
-  .ni-kvs
-    background transparent
-    display flex
-    flex-flow row nowrap
-    padding 0
-    border-bottom 1px solid bc
-    .ni-kv
-      flex 0 0 50%
-      border-right 1px solid bc
-    .ni-kv:last-of-type
-      border-right none
+.ni-ph-box
+  display flex
+  padding 0.5rem 0.25rem 0.25rem
+  flex-flow column
+  align-items center
+  text-align center
+  font-size 0.875rem
+
+@media screen and (min-width: 360px)
+  .ni-ph-box
+    font-size 1rem
 
 @media screen and (min-width: 768px)
-  .ni-ph
-    .ni-ph-title
-      font-size 2rem
-      padding 1.5rem 0.75rem
+  .ni-ph-title
+    font-size 2rem
+    padding 1.5rem 0.75rem
 
 @media screen and (min-width: 1024px)
   .ni-ph
     margin-top 1rem
     border-top 1px solid bc
     border-bottom 1px solid bc
-    .ni-ph-container
-      display flex
-      flex-flow row nowrap
-      padding 0 0.75rem
-    .ni-ph-title, .ni-kvs
-      flex 0 0 50%
-    .ni-ph-title
-      justify-content flex-start
-      border-bottom none
 
-    .ni-kvs
-      border-bottom none
-      .ni-kv
-        border-right none
+  .ni-ph-container
+    display flex
+    flex-flow row nowrap
+    padding 0 0.75rem
+
+  .ni-ph-title, .ni-kvs
+    flex 0 0 50%
+
+  .ni-ph-title
+    justify-content flex-start
+    border-bottom none
+
+  .ni-ph-box
+    flex 1
+    align-items flex-end
+    justify-content center
+    padding 0 1rem
 </style>
