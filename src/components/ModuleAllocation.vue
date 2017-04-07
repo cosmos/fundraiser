@@ -11,7 +11,7 @@
             v-model="postsale.cosmosAddress"
             placeholder="Enter your address">
           </field>
-          <btn icon="search" value="Find" @click.native="find"></btn>
+          <btn icon="search" value="Find" type="submit"></btn>
         </field-group>
       </form-group>
       <form-group>
@@ -54,6 +54,7 @@ export default {
   methods: {
     submit () {
       console.log('finding atom allocation...')
+      this.$store.commit('setAtomAllocation', 1337)
     }
   }
 }

@@ -3,12 +3,12 @@
     <div slot="title">Find Cosmos Address</div>
     <div slot="menu"></div>
     <form class="body" v-on:submit.prevent.default="submit">
-      <form-group>
+      <form-group :class="{ 'error': $v.fields.mnemonic.$error }">
         <label for="module-address-mnemonic">12-word Mnemonic</label>
         <field-group>
           <field
             id="module-address-mnemonic"
-            v-model="postsale.mnemonic"
+            v-model="fields.mnemonic"
             placeholder="Enter your mnemonic"
             required>
           </field>
@@ -18,6 +18,7 @@
             type="submit">
           </btn>
         </field-group>
+        <form-msg name="Mnemonic" type="required" v-if="!$v.fields.mnemonic.required"></form-msg>
       </form-group>
       <form-group>
         <label for="module-address-address">Cosmos Address</label>
@@ -38,27 +39,45 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 import Btn from '@nylira/vue-button'
-import FormGroup from './FormGroup'
 import FieldGroup from './FieldGroup'
 import Field from '@nylira/vue-input'
+import FormGroup from './FormGroup'
+import FormMsg from '@nylira/vue-form-msg'
 import Module from './Module'
 export default {
   name: 'module-address',
   components: {
     Btn,
     Module,
-    FormGroup,
     FieldGroup,
-    Field
+    Field,
+    FormGroup,
+    FormMsg
   },
   computed: {
-    ...mapGetters(['config', 'postsale'])
+    ...mapGetters(['donation', 'postsale'])
   },
+  data: () => ({
+    fields: {
+      mnemonic: ''
+    }
+  }),
   methods: {
     submit () {
-      console.log('finding Cosmos address...')
-      this.$store.commit('setCosmosAddress', 'SAMPLE_COSMOS_ADDRESS')
+      this.$v.$touch()
+      if (!this.$v.$error) {
+        this.$store.dispatch('setDonationMnemonicAndWallet', this.fields.mnemonic)
+        this.$store.commit('setCosmosAddress', this.donation.wallet.addresses.cosmos)
+      }
+    }
+  },
+  validations: {
+    fields: {
+      mnemonic: {
+        required
+      }
     }
   }
 }
