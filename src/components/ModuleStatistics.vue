@@ -1,8 +1,7 @@
 <template>
   <module class="module-statistics">
-    <div slot="title">Fundraiser Stats</div>
-    <div class="pb-label" slot="menu">{{ pbLabel }}</div>
-    <progress-bar></progress-bar>
+    <div slot="title">Statistics</div>
+    <div class="pb-label" slot="menu">Ended April 6th, 2017 6:28AM PDT</div>
     <key-values>
       <key-value>
         <div slot="value">

@@ -1,6 +1,5 @@
 <template>
   <module class="module-donations">
-    <module-overlay slot="overlay" v-if="!fundraiserActive"></module-overlay>
     <div slot="title">Donation History</div>
     <div class="md-sections">
       <section>

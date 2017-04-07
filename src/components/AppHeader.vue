@@ -14,10 +14,6 @@
         <nav class="nav-app">
           <router-link to="/" @click.native="closeMenus" exact>
             Dashboard</router-link>
-          <router-link to="/donate/btc" @click.native="closeMenus">
-            Donate BTC</router-link>
-          <router-link to="/donate/eth" @click.native="closeMenus">
-            Donate ETH</router-link>
         </nav>
         <nav>
           <a href="https://cosmos.network" target="_blank">

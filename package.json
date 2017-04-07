@@ -5,7 +5,7 @@
   "author": "Peng Zhong <peng@nylira.com>",
   "private": true,
   "scripts": {
-    "dev": "COSMOS_BASE_URL=https://cosmos.interblock.io node build/dev-server.js",
+    "dev": "COSMOS_BASE_URL=https://fundraiser.cosmos.network node build/dev-server.js",
     "prod": "node build/prod-server.js",
     "build": "node build/build.js",
     "build-dev": "node build/build-dev.js",

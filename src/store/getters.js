@@ -19,3 +19,5 @@ export const progress = state => state.stats.progress
 export const balance = state => state.balance
 
 export const docs = state => state.docs
+
+export const postsale = state => state.postsale
