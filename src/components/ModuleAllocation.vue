@@ -34,6 +34,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import cfr from 'cosmos-fundraiser'
+const { allocation } = cfr
 import Btn from '@nylira/vue-button'
 import FormGroup from './FormGroup'
 import FieldGroup from './FieldGroup'
@@ -54,7 +56,15 @@ export default {
   methods: {
     submit () {
       console.log('finding atom allocation...')
-      this.$store.commit('setAtomAllocation', 1337)
+      let thisStore = this.$store
+      allocation.fetchSuggestedAtoms(this.postsale.cosmosAddress, function (err, res) {
+        if (err) {
+          console.log('err', err)
+          return
+        }
+        console.log('res', res)
+        thisStore.commit('setAtomAllocation', res)
+      })
     }
   }
 }
