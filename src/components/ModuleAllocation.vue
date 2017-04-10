@@ -13,6 +13,7 @@
           </field>
           <btn icon="search" value="Find" type="submit"></btn>
         </field-group>
+        <span v-if="error" style="color:red">{{ error }}</span>
       </form-group>
       <form-group>
         <label for="module-allocation-atoms">Suggested Atom Allocation</label>
@@ -41,6 +42,7 @@ import FormGroup from './FormGroup'
 import FieldGroup from './FieldGroup'
 import Field from '@nylira/vue-input'
 import Module from './Module'
+
 export default {
   name: 'module-allocation',
   components: {
@@ -53,12 +55,30 @@ export default {
   computed: {
     ...mapGetters(['config', 'postsale'])
   },
+  data () {
+    return {
+      error: ''
+    }
+  },
   methods: {
     submit () {
       let { commit } = this.$store
-      let atoms = allocation.fundraiserAtoms[this.postsale.cosmosAddress]
-      atoms = Math.round(atoms * 100) / 100 // round to 2 places
-      commit('setAtomAllocation', atoms)
+      let cosmosAddress = this.postsale.cosmosAddress || ''
+      if (cosmosAddress.startsWith('0x')) {
+        cosmosAddress = cosmosAddress.substring(2, cosmosAddress.length)
+      }
+      this.error = ''
+      if (cosmosAddress.length < 40) {
+        this.error = 'Address length too short'
+      } else if (cosmosAddress.length > 40) {
+        this.error = 'Address length too long'
+      } else {
+        let atoms = allocation.fundraiserAtoms[cosmosAddress]
+        commit('setAtomAllocation', atoms)
+        if (!(atoms > 0)) {
+          this.error = 'Address unrecognized'
+        }
+      }
     }
   }
 }
