@@ -55,16 +55,10 @@ export default {
   },
   methods: {
     submit () {
-      console.log('finding atom allocation...')
-      let thisStore = this.$store
-      allocation.fetchSuggestedAtoms(this.postsale.cosmosAddress, function (err, res) {
-        if (err) {
-          console.log('err', err)
-          return
-        }
-        console.log('res', res)
-        thisStore.commit('setAtomAllocation', res)
-      })
+      let { commit } = this.$store
+      let atoms = allocation.fundraiserAtoms[this.postsale.cosmosAddress]
+      atoms = Math.round(atoms * 100) / 100 // round to 2 places
+      commit('setAtomAllocation', atoms)
     }
   }
 }
