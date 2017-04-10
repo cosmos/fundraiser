@@ -1,5 +1,5 @@
-import cfr from 'cosmos-fundraiser'
-const { bitcoin, ethereum } = cfr
+import { allocation } from 'cosmos-fundraiser'
+const { status } = allocation
 
 const empty = {
   progress: 1,
@@ -8,7 +8,7 @@ const empty = {
   tx: null,
   currency: '',
   feeRate: 220,
-  ethRate: 0,
+  ethRate: status.atom_per_eth,
   agreed: false
 }
 
@@ -53,71 +53,9 @@ const mutations = {
 }
 
 const actions = {
-  setDonationMnemonicAndWallet ({ commit }, mnemonic) {
-    try {
-      let wallet = cfr.deriveWallet(mnemonic)
-      commit('setDonationMnemonic', mnemonic)
-      commit('setDonationWallet', wallet)
-    } catch (err) {
-      throw err
-    }
-  },
-  generateDonationWallet ({ dispatch }) {
-    let mnemonic = cfr.generateMnemonic()
-    dispatch('setDonationMnemonicAndWallet', mnemonic)
-  },
-  finalizeBtcDonation ({ commit, dispatch, state, rootState }, cb) {
-    let { wallet, tx, feeRate } = state
-    console.log('tx', tx)
-    let finalTx = bitcoin.createFinalTx(tx.utxos, feeRate)
-    let signedTx = bitcoin.signFinalTx(wallet, finalTx.tx)
-    bitcoin.pushTx(signedTx.toHex(), (err) => {
-      if (err) {
-        console.error(err)
-        commit('notifyError', {
-          title: 'Bitcoin Error',
-          body: 'Could not broadcast donation transaction.'
-        })
-        return cb(err)
-      }
-      let txid = signedTx.getId()
-      console.log('sent final tx. txid=' + txid)
-      commit('resetDonation')
-      commit('notifyCustom', {
-        title: 'Donation Successful',
-        body: `You have succesfully donated ${finalTx.paidAmount / 1e8} BTC and will receive ${finalTx.atomAmount} ATOM.`
-      })
-      cb()
-    })
-  },
-  fetchBtcDonationFeeRate ({ commit }) {
-    bitcoin.fetchFeeRate((err, feeRate) => {
-      if (err) {
-        console.error(err)
-        commit('notifyError', {
-          title: 'Bitcoin Error',
-          body: 'Could not fetch recommended transaction fee rate from 21.co.'
-        })
-        return
-      }
-      console.log('got fee rate:', feeRate)
-      commit('setBtcDonationFeeRate', feeRate)
-    })
-  },
-  fetchEthDonationAtomRate ({ commit }) {
-    ethereum.fetchAtomRate(ethereum.FUNDRAISER_CONTRACT, (err, weiPerAtom) => {
-      if (err) {
-        console.error(err)
-        commit('notifyError', {
-          title: 'Ethereum Error',
-          body: 'Could not fetch ATOM/ETH exchange rate.'
-        })
-        return
-      }
-      let atomPerEth = Math.pow(10, 18) / weiPerAtom
-      commit('setEthDonationAtomRate', atomPerEth)
-    })
-  }
+  setDonationMnemonicAndWallet ({ commit }, mnemonic) {},
+  generateDonationWallet ({ dispatch }) {},
+  fetchEthDonationAtomRate ({ commit }) {}
 }
 
 export default {
