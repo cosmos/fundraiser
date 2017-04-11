@@ -67,6 +67,7 @@ export default {
       if (cosmosAddress.startsWith('0x')) {
         cosmosAddress = cosmosAddress.substring(2, cosmosAddress.length)
       }
+      cosmosAddress = cosmosAddress.toLowerCase()
       this.error = ''
       if (cosmosAddress.length < 40) {
         this.error = 'Address length too short'
