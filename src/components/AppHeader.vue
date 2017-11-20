@@ -20,9 +20,9 @@
             <i class="fa fa-external-link"></i>
             <span class="label">Cosmos</span>
           </a>
-          <a href="http://slack.cosmos.network" target="_blank">
-            <i class="fa fa-slick"></i>
-            <span class="label">Discuss on Slack</span>
+          <a href="https://riot.im/app/#/room/#cosmos:matrix.org" target="_blank">
+            <i class="fa fa-comment-o"></i>
+            <span class="label">Discuss on Chat</span>
           </a>
         </nav>
       </menu>
