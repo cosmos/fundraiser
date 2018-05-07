@@ -1,5 +1,7 @@
 # cosmos-fundraiser-web
 
+NOTE: This is the fundraiser project website.  To generate your Cosmos address from your fundraiser 12-word secret follow the instructions for the [Cosmos Fundraiser Tool](https://github.com/cosmos/fundraiser-cli/releases/tag/2.11.3).  DO NOT SHARE YOUR 12-WORD SECRET OR THE PRIVATE KEY.
+
 > A Vue.js project
 
 ## Build Setup
