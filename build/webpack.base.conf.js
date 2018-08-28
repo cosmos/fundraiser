@@ -25,7 +25,12 @@ module.exports = {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      // fixes issues with some component imports using the syntax `~@/styles/variables.styl`
+      '@/styles/variables.styl': path.resolve(
+        __dirname,
+        '../src/styles/variables.styl'
+      )
     }
   },
   resolveLoader: {
