@@ -1,0 +1,130 @@
+version: 2
+
+set_build_image: &set_build_image
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:9.4.0-stretch
+
+deployment_config: &deployment_config
+  working_directory: ~/repo
+  docker:
+    - image: tendermint/website_deploy
+  environment:
+    BASH_ENV: /root/.bashrc
+    AWS_REGION: us-east-1
+
+
+check_binaries: &check_binaries
+  run:
+    name: terragrunt and terraform binary versions
+    command: |
+      terragrunt --version
+      terraform --version
+
+default_environment: &set_default_environment
+  run:
+    name: Set default environment variables
+    command: |
+      cd && touch $BASH_ENV
+
+      if [ "${CIRCLE_BRANCH}" == "master" ]; then
+        echo 'export DEPLOYMENT_ENV=${CIRCLE_PROJECT_REPONAME}' >> $BASH_ENV
+        echo 'export GIT_BRANCH=${CIRCLE_BRANCH}' >> $BASH_ENV
+        echo 'export INFRA_PATH=iac/conf/websites/prod/${CIRCLE_PROJECT_REPONAME}' >> $BASH_ENV
+      elif [ "${CIRCLE_BRANCH}" == "develop" ]; then
+        echo 'export DEPLOYMENT_ENV=${CIRCLE_PROJECT_REPONAME}-staging.interblock.io' >> $BASH_ENV
+        echo 'export GIT_BRANCH=${CIRCLE_BRANCH}' >> $BASH_ENV
+        echo 'export INFRA_PATH=iac/conf/websites/dev/${CIRCLE_PROJECT_REPONAME}-staging.interblock.io' >> $BASH_ENV
+      else
+        echo 'export DEPLOYMENT_ENV=${CIRCLE_PROJECT_REPONAME}-feature.interblock.io' >> $BASH_ENV
+        echo 'export GIT_BRANCH="develop"' >> $BASH_ENV
+      fi
+
+terragrunt_role: &set_terragrunt_iam_role
+  run:
+    name: Set the terragrunt iam role
+    command: |
+      source $BASH_ENV
+      echo "role_arn = `chamber read $DEPLOYMENT_ENV terragrunt_iam_role -q`" >> /root/.aws/config
+
+
+terraform_plan: &terraform_plan
+  run:
+    name: Run terraform plan
+    command: |
+      source $BASH_ENV
+      git clone git@github.com:tendermint/devops.git && cd devops
+      git checkout $GIT_BRANCH
+      cd $INFRA_PATH
+      cat terraform.tfvars
+      terragrunt plan
+      terragrunt output -json > ~/repo/terraform_output
+
+s3_sync: &s3_sync
+  run:
+    name: Sync dist folder to s3 bucket
+    command: |
+      export BUCKET_NAME=`cat terraform_output | jq --raw-output '.website_s3_bucket.value'` && \
+      cd workspace/dist && \
+      echo "deployment job ID = $CIRCLE_BUILD_NUM<br>" >> version.html
+      echo "deployment job URL = $CIRCLE_BUILD_URL<br>" >> version.html
+      chamber exec $DEPLOYMENT_ENV -- aws s3 sync . s3://$BUCKET_NAME --profile terraform --delete
+
+cloudfront_invalidation: &cf_invalidation
+  run:
+    name: Invalidate the cloudfront distribution
+    command: |
+      export DISTRIBUTION_ID=`cat terraform_output | jq --raw-output '.distribution_id.value'` && \
+      chamber exec $DEPLOYMENT_ENV -- aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID \
+                                                                         --path "/*" \
+                                                                         --profile terraform
+
+jobs:
+  build:
+    <<: *set_build_image
+    steps:
+      - *set_default_environment
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-packages-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "package.json" }}
+      - run: make build
+      - save_cache:
+          paths:
+            - yarn.lock
+            - node_modules
+          key: v1-yarn-packages-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ .Environment.CIRCLE_BRANCH }}-{{ checksum "package.json" }}
+      - run:
+          name: Create workspace folder
+          command: |
+            mkdir -p workspace
+            echo "build job ID = $CIRCLE_BUILD_NUM<br>" > dist/version.html
+            echo "build job URL = $CIRCLE_BUILD_URL<br>" >> dist/version.html
+            cp -r dist workspace/
+            cp -r .circleci workspace/
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - .circleci
+            - dist
+
+  deploy:
+    <<: *deployment_config
+    steps:
+      - attach_workspace:
+          at: ~/repo/workspace
+      - *set_default_environment
+      - *check_binaries
+      - *set_terragrunt_iam_role
+      - *terraform_plan
+      - *s3_sync
+      - *cf_invalidation
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
