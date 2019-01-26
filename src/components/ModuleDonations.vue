@@ -62,11 +62,6 @@ export default {
       })
     }
   },
-  data: () => ({
-    details: true,
-    btcLink: `https://blockchain.info/address/${cfr.bitcoin.EXODUS_ADDRESS}`,
-    ethLink: `https://etherscan.io/address/${cfr.ethereum.FUNDRAISER_CONTRACT}`
-  }),
   mounted () {
     document.body.scrollTop = document.documentElement.scrollTop = 0
   }
