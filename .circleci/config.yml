@@ -56,7 +56,6 @@ terraform_plan: &terraform_plan
       git clone git@github.com:tendermint/devops.git && cd devops
       git checkout $GIT_BRANCH
       cd $INFRA_PATH
-      cat terraform.tfvars
       terragrunt plan
       terragrunt output -json > ~/repo/terraform_output
 
